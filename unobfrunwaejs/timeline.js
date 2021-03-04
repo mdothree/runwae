@@ -335,7 +335,7 @@ function displayInfluencerGigs(snapVisitor, snapHost, displayDiv) {
                 marketerObj = snapMarketer.val();
                 realGigObj = snapRealGig.val();
                 proposalObj = realGigObj["proposal"];
-                if (itemObj) {
+                if (itemObj && proposalObj) {
                     itemObj["influencers"][key]["proposal"];
                     ledgerKeys = Object.keys(realGigObj["ledger"]);
                     paymentAcceptedKey = ledgerKeys[ledgerKeys.length - 1];
