@@ -212,7 +212,7 @@ function createUser(email, password) {
                     });
                     database.ref().child('users/' + user.uid + '/followers').push().update({
                         "time": dNow,
-                        "uid": "MYNCgPOZnHf8Vk4jEEtURPjgJLB2"
+                        "uid": "XU5wu0gQWrTqnqnyPMU3bBo5uoK2"
                     });
                     sendVerifyEmail(user);
                     window.location.href = "account";
