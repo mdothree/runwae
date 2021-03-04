@@ -1,0 +1,1578 @@
+<html lang="en"
+    class="wf-roboto-n4-active wf-roboto-n7-active wf-roboto-n5-active wf-roboto-n3-active wf-active fontawesome-i2svg-active fontawesome-i2svg-complete">
+
+<head>
+    <title>Profile</title>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="Fast Influencer Marketing">
+    <meta name="author" content="Runwae">
+    <meta name="keywords" content="Influencer,Marketing,Social,Media,Network">
+    <meta property="og:url" content="Runwae.com/profile" />
+    <meta property="og:title" content="Profile" />
+    <meta property="og:description" content="Fast Influencer Marketing" />
+    <meta property="og:image" content="https://runwae.com/img/runwae.png" />
+    <!-- Main Font -->
+    <script src="js/webfontloader.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <script>
+        WebFont.load({
+            google: {
+                families: ['Roboto:300,400,500,700:latin']
+            }
+        });
+    </script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/profilebootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
+    <!-- Main Styles CSS -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
+    <link rel="stylesheet" type="text/css" href="css/runwae.css">
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: 'your-app-id',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v10.0'
+            });
+        };
+    </script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+</head>
+
+<body class="page-has-left-panels page-has-right-panels">
+    <div class="fixed-sidebar">
+        <div>
+            <a href="explore" class="logo">
+                <div class="img-wrap">
+                    <img src="img/logo-colored.png" alt="Olympus">
+                </div>
+            </a>
+        </div>
+    </div>
+    <header class="header" id="site-header">
+        <div class="header-content-wrapper">
+            <form class="search-bar w-search notification-list friend-requests">
+                <div class="form-group with-button is-empty"><input class="form-control js-user-search selectized"
+                        placeholder="Search here people or pages..." type="text" tabindex="-1" style="display: none;"
+                        value="">
+                    <div class="selectize-control form-control js-user-search selectized multi">
+                        <div class="selectize-input items not-full has-options"><input type="text" autocomplete="off"
+                                tabindex="-1" placeholder="Search for brands or influencers..." style="width: 250px;"
+                                id="searchInput"></div>
+                        <div class="selectize-dropdown multi form-control js-user-search selectized"
+                            style="display: none; width: 350px; top: 70px; left: 0px;">
+                            <div class="selectize-dropdown-content" id="searchDisplay"></div>
+                        </div>
+                    </div>
+                    <button>
+                        <div class="control-icon has-items">
+                            <ion-icon class="ionicon" name="search-outline"></ion-icon>
+                        </div>
+                    </button>
+                    <span class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span>
+                </div>
+            </form>
+            <div class="control-block">
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
+                </div>
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon mail-icon" name="mail-outline"></ion-icon>
+                    <div class="label-avatar bg-purple unreadMessagesCount"></div>
+                    <div class="more-dropdown more-with-triangle triangle-top-center">
+                        <div class="ui-block-title ui-block-title-small">
+                            <h6 class="title">Messages</h6>
+                            <a href="#" class="messagesMarkAll">Mark all as read</a>
+                        </div>
+                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
+                            data-ps-id="82c5a48e-d0ee-7f82-ea59-b3f9fb526d46">
+                            <ul class="notification-list chat-message" id="navConversationsDisplay">
+                            </ul>
+                        </div>
+                        <a href="messages" class="view-all bg-purple">View All Messages</a>
+                    </div>
+                </div>
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon notifications-icon" name="notifications-outline"></ion-icon>
+                    <div class="label-avatar bg-primary unreadNotificationsCount"></div>
+                    <div class="more-dropdown more-with-triangle triangle-top-center">
+                        <div class="ui-block-title ui-block-title-small">
+                            <h6 class="title">Notifications</h6>
+                            <a href="#" class="notificationsMarkAll">Mark all as read</a>
+                        </div>
+                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
+                            data-ps-id="f394c115-21ed-552b-81c8-ace246c0d11b">
+                            <ul class="notification-list" id="navNotificationsDisplay">
+                            </ul>
+                        </div>
+                        <a href="notifications" class="view-all bg-primary">View All Notifications</a>
+                    </div>
+                </div>
+                <div class="author-page author vcard inline-items more nav-prof">
+                    <div class="author-thumb">
+                        <img alt="author" src="" class="avatar" style="height:36px" id="navProfilePicture">
+                        <div class="more-dropdown more-with-triangle">
+                            <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                                data-ps-id="35a6f9b9-b18c-d9cb-06c3-2dd2cb9a7a33">
+                                <div class="ui-block-title ui-block-title-small">
+                                    <h6 class="title">Your Account</h6>
+                                </div>
+                                <ul class="account-settings">
+                                    <li>
+                                        <a href="account">
+                                            <ion-icon class="ionicon" name="person-circle-outline"></ion-icon>
+                                            &nbsp; <span>Account</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="faqs">
+                                            <ion-icon class="ionicon" name="file-tray-full-outline"></ion-icon>
+                                            &nbsp; <span>FAQs</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="btnLogout">
+                                            <ion-icon class="ionicon" name="exit-outline"></ion-icon>
+                                            &nbsp; <span>Log Out</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                                    <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                                </div>
+                                <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                                    <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="" class="author-name fn">
+                        <div class="author-title">
+                            <text id="navName"></text>
+                        </div>
+                        <span class="author-subtitle" id="navUsername"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header class="header header-responsive" id="site-header-responsive">
+        <div class="header-content-wrapper">
+            <ul class="nav nav-tabs mobile-app-tabs" role="tablist">
+                <li class="nav-item">
+                    <div class="vcard " style="
+                    margin-top: 19.5px;">
+                        <div class="author-thumb">
+                            <img alt="" src="" class="avatar" style="height: 36px; display: inline-block;"
+                                id="navMobileProfilePicture">
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#" role="tab">
+                        <div class="control-icon has-items">
+                            <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#chat" role="tab">
+                        <div class="control-icon has-items">
+                            <div class="control-icon has-items">
+                                <ion-icon class="ionicon" name="mail-outline"></ion-icon>
+                            </div>
+                            <div class="label-avatar bg-purple unreadMessagesCount"></div>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#notification" role="tab">
+                        <div class="control-icon has-items">
+                            <div class="control-icon has-items">
+                                <ion-icon class="ionicon" name="notifications-outline"></ion-icon>
+                            </div>
+                            <div class="label-avatar bg-primary unreadNotificationsCount"></div>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#search" role="tab">
+                        <ion-icon class="ionicon search-icon" name="search-outline"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-responsive">
+            <div class="tab-pane" id="chat" role="tabpanel">
+                <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                    data-ps-id="8c34af73-b408-6fa7-c529-a0ac3a0dacfc">
+                    <div class="ui-block-title ui-block-title-small">
+                        <h6 class="title">Messages</h6>
+                        <a href="#" class="messagesMarkAll">Mark all as read</a>
+                    </div>
+                    <ul class="notification-list chat-message" id="mobileNavConversationsDisplay">
+                    </ul>
+                    <a href="messages" class="view-all bg-purple" id="messages">View All Messages</a>
+                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="notification" role="tabpanel">
+                <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                    data-ps-id="68f43a37-1d6c-18d1-e75e-b6313dfc2d36">
+                    <div class="ui-block-title ui-block-title-small">
+                        <h6 class="title">Notifications</h6>
+                        <a href="#" class="notificationsMarkAll">Mark all as read</a>
+                    </div>
+                    <ul class="notification-list" id="mobileNavNotificationsDisplay">
+                    </ul>
+                    <a href="notifications" class="view-all bg-primary">View All Notifications</a>
+                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="search" role="tabpanel">
+                <form class="search-bar w-search notification-list friend-requests">
+                    <div class="form-group with-button is-empty">
+                        <input class="form-control js-user-search selectized"
+                            placeholder="Search here people or pages..." type="text" tabindex="-1"
+                            style="display: none;" value="">
+                        <div class="selectize-control form-control js-user-search selectized multi">
+                            <div class="selectize-input items not-full has-options"><input type="text"
+                                    autocomplete="off" tabindex="-1" placeholder="Search for brands or influencers..."
+                                    style="width: 250px;" id="navSearchInput"></div>
+                            <div class="selectize-dropdown multi form-control js-user-search selectized"
+                                style="display: none; top: 70px; left: 0px;">
+                                <div class="selectize-dropdown-content" id="navSearchDisplay"></div>
+                            </div>
+                        </div>
+                        <!---Selecticize enf here -->
+                        <span class="material-input"></span><span class="material-input"></span><span
+                            class="material-input"></span><span class="material-input"></span><span
+                            class="material-input"></span><span class="material-input"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- ... end  Tab panes -->
+    </header>
+    <div class="header-spacer header-spacer-small"></div>
+    <!-- Top Header-Profile -->
+    <div class="container" style="padding: 30px 0 0px 0">
+        <div class="row">
+            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="top-header top-header-favorit hide">
+                        <div class="top-header-thumb">
+                            <div class="headerImageWrapper">
+                                <img src="" alt="" id="headerPicture">
+                                <div class="headerPictureOverlay ownerDisplay">
+                                    <ion-icon name="add-outline"></ion-icon>
+                                </div>
+                            </div>
+                            <div class="top-header-author">
+                                <div class="author-thumb">
+                                    <img id="profilePicture" src="" alt="">
+                                    <div class="profilePictureOverlay ownerDisplay">
+                                        <ion-icon name="add-outline"></ion-icon>
+                                    </div>
+                                </div>
+                                <div class="author-content">
+                                    <a href="#" class="h3 author-name" id="name"></a>
+                                    <div class="country" id="username"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="profile-section">
+                            <div class="row">
+                                <div class="col col-xl-8 m-auto col-lg-8 col-md-12">
+                                    <ul class="profile-menu">
+                                        <li class="marketer hide">
+                                            <a href="#" class="active" id="campaigns">Campaigns</a>
+                                        </li>
+                                        <li class="influencer hide">
+                                            <a href="#" class="active" id="gigs">Gigs</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" id="following">Following</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" id="followers">Followers</a>
+                                        </li>
+                                        <!--
+<li>
+    <a href="#" id="groups">Groups</a>
+</li>
+-->
+                                        <li>
+                                            <a href="#" id="current">Applications</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" id="transactions">Agreements</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="control-block-button">
+                                <div class="btn btn-control bg-primary  has-ionicon follow" id="btnFollow"
+                                    style="display:none">
+                                    <ion-icon class="ionicon md hydrated profileHeaderIcon follow" name="" role="img">
+                                    </ion-icon>
+                                    </ion-icon>
+                                </div>
+                                <div class="btn btn-control bg-primary has-ionicon message" id="btnMessage">
+                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon message"
+                                        name="mail" role="img"></ion-icon>
+                                </div>
+                                <a href="#" target="_blank" class="btn btn-control has-ionicon bg-facebook"
+                                    id="facebook" style="display:none">
+                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon facebook"
+                                        name="logo-facebook" role="img"></ion-icon>
+                                </a>
+                                <a href="#" target="_blank" class="btn btn-control has-ionicon bg-twitter" id="twitter"
+                                    style="display:none">
+                                    <ion-icon class="ionicon md hydrated profileHeaderIcon twitter" name="logo-twitter"
+                                        role="img"></ion-icon>
+                                </a>
+                                <a href="#" target="_blank" class="btn btn-control has-ionicon bg-instagram"
+                                    id="instagram" style="display:none">
+                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon instagram"
+                                        name="logo-instagram" role="img"></ion-icon>
+                                </a>
+                                <a href="#" target="_blank" class="btn btn-control has-ionicon bg-linkedin"
+                                    id="linkedin" style="display:none">
+                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon linkedin"
+                                        name="logo-linkedin" role="img"></ion-icon>
+                                </a>
+                                <div class="btn btn-control bg-primary has-ionicon add more" id="userOptions">
+                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon add" name="add"
+                                        role="img"></ion-icon>
+                                    <ul class="more-dropdown more-with-triangle triangle-bottom-right">
+                                        <li id="btnUpdatePhoto" style="display:none">
+                                            <a href="#" data-toggle="modal" data-target="#update-photo">Update
+                                                Profile
+                                                Photo</a>
+                                        </li>
+                                        <li id="btnUpdateHeaderPhoto" style="display:none">
+                                            <a href="#" data-toggle="modal" data-target="#update-header-photo">Update
+                                                Header Photo</a>
+                                        </li>
+                                        <li>
+                                            <a href="account">Edit
+                                                Profile</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ... end Top Header-Profile -->
+    <div class="container profPanel" id="timelineContainer" style="display:none">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12 timeline marketer"
+                id="campaignsBlock">
+                <div class="ui-block" id="writePostBlock" style="display:none">
+                    <div class="news-feed-form" id="startACampaignForm">
+                        <div style="display:flex; padding:30px;">
+                            <ion-icon class="ionicon md hydrated startCampaign" name="add-circle" role="img"
+                                style="width:30px;height:30px;margin-right:10px; cursor:pointer">
+                            </ion-icon>
+                            <h4 style="line-height:unset;font-weight:400">Start A Campaign</h4>
+                        </div>
+                    </div>
+                    <div class="news-feed-form" id="writePostForm" style="display:none">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" id="captionTab">
+                                <a class="nav-link inline-items active show" data-toggle="tab" href="" role="tab"
+                                    aria-expanded="true" aria-selected="true">
+                                    <ion-icon name="chatbox-outline" class="ionicon"></ion-icon>
+                                    <span>Caption</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="platformTab">
+                                <a class="nav-link inline-items" data-toggle="tab" href="" role="tab"
+                                    aria-expanded="false" aria-selected="false">
+                                    <ion-icon name="apps-outline" class="ionicon"></ion-icon>
+                                    <span>Platform</span>
+                                    <div class="ripple-container"></div>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="compensationTab">
+                                <a class="nav-link inline-items" data-toggle="tab" href="" role="tab"
+                                    aria-expanded="false" aria-selected="false">
+                                    <ion-icon name="gift-outline" class="ionicon"></ion-icon>
+                                    <span>Compensation</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
+                                <form onsubmit="return false;">
+                                    <div class="author-thumb">
+                                        <img src="" alt="author" id="writePostPhotoUrl">
+                                    </div>
+                                    <div class="form-group with-icon label-floating" id="captionForm">
+                                        <label class="control-label">Share an opportunity here...</label>
+                                        <textarea class="form-control" placeholder="" id="postCaption"></textarea>
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span></div>
+                                    <div class="form-group with-icon label-floating is-empty" style="display:none"
+                                        id="platformForm">
+                                        <label class="control-label">Select platforms of interest...</label>
+                                        <div style="padding-left: 15%; padding-top: 9%;">
+                                            <div class="checkbox clicked">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes"
+                                                        id="instagramEnabled" checked="">
+                                                    <span class="checkbox-material"><span class="check"></span></span>
+                                                    Instagram
+                                                </label>
+                                            </div>
+                                            <div class="checkbox clicked">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes" id="facebookEnabled"
+                                                        checked="">
+                                                    <span class="checkbox-material"><span class="check"></span></span>
+                                                    Facebook
+                                                </label>
+                                            </div>
+                                            <div class="checkbox clicked">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes" id="twitterEnabled"
+                                                        checked="">
+                                                    <span class="checkbox-material"><span class="check"></span></span>
+                                                    Twitter
+                                                </label>
+                                            </div>
+                                            <div class="checkbox clicked">
+                                                <label>
+                                                    <input type="checkbox" name="optionsCheckboxes" id="linkedinEnabled"
+                                                        checked="">
+                                                    <span class="checkbox-material"><span class="check"></span></span>
+                                                    Linkedin
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span>
+                                    </div>
+                                    <div class="form-group with-icon label-floating" style="display: none;"
+                                        id="compensationForm">
+                                        <label class="control-label">What are you offering?</label>
+                                        <div style="padding-left: 15%; padding-top: 7%;">
+                                            <div class="togglebutton">
+                                                <label id="compensationToggle">
+                                                    <input id="compensationCheckbox" type="checkbox" checked>
+                                                    <span class="toggle"></span>
+                                                    &nbsp; &nbsp; <strong id="compensationInput">Money</strong>
+                                                </label>
+                                            </div>
+                                            <div class="form-group input-group" id="moneyInputDiv"
+                                                style="padding-right:50%">
+                                                <span class="input-group-addon">$</span>
+                                                <input class="form-control" type="number" value="50"
+                                                    style="padding: 1.1rem 2rem; border:0px" id="priceInput">
+                                                <span class="material-input"></span></div>
+                                            <div class="form-group label-floating" id="giftDescriptionDiv"
+                                                style="display:none">  <div style="display:none">
+
+                                                <label class="">Method</label><br>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="optionsCheckboxes" checked=""
+                                                            id="checkboxGiftShipDirectly"><span
+                                                            class="checkbox-material"><span class="check"></span></span>
+                                                        Ship Directly
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="optionsCheckboxes"
+                                                            id="checkboxGiftAffiliateLink"><span
+                                                            class="checkbox-material"><span class="check"></span></span>
+                                                        Affiliate Link
+                                                    </label>
+                                                </div></div>
+                                                <br>
+                                                <label class="">Gift Description</label>
+                                                <textarea class="form-control" placeholder="What are you sending.."
+                                                    id="giftDescriptionInput">
+													</textarea>
+                                                <span class="material-input"></span>
+                                            </div>
+                                        </div>
+                                        <!--                                        <textarea class="form-control" placeholder=""></textarea>-->
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span>
+                                    </div>
+                                    <div class="add-options-message">
+                                        <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"
+                                            data-original-title="ADD PHOTOS">
+                                            <ion-icon name="image-outline" class="ionicon" data-toggle="modal"
+                                                data-target="#add-photo"> </ion-icon>
+                                        </a>
+                                        <a class="options-message" data-toggle="tooltip" data-placement="top"
+                                            id="alert">
+                                        </a>
+                                        <button class="btn btn-primary btn-md-2" id="btnWritePost">Post</button>
+                                        <button class="btn btn-md-2 btn-border-think btn-transparent c-grey"
+                                            id="btnPreview">Preview</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="newsfeed-items-grid"></div>
+            </div>
+            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12 timeline influencer"
+                id="gigsBlock">
+                <div id="newsfeed-items-grid"></div>
+            </div>
+            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12 timeline"
+                id="currentBlock" style="display:none">
+                <ul class="table-careers" id="currentDisplay">
+                    <li class="head">
+                        <span>DATE</span>
+                        <span>PARTNER</span>
+                        <span>STATUS</span>
+                        <span>PLATFORM</span>
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12 timeline"
+                id="transactionsBlock" style="display:none">
+                <ul class="table-careers" id="transactionsDisplay">
+                    <li class="head">
+                        <span>DATE</span>
+                        <span>PARTNER</span>
+                        <span>PAYMENT</span>
+                        <span>PLATFORM</span>
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+            <!-- ... end Main Content -->
+            <!-- Left Sidebar -->
+            <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Profile Intro</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <!-- W-Personal-Info -->
+                        <ul class="widget w-personal-info item-block">
+                            <li>
+                                <span class="title">Role:</span>
+                                <span class="text" id="role"></span>
+                            </li>
+                            <li>
+                                <span class="title">Industry:</span>
+                                <span class="text" id="industry"></span>
+                            </li>
+                            <li>
+                                <span class="title">About:</span>
+                                <span class="text" id="description"></span>
+                            </li>
+                            <li>
+                                <span class="title">Website:</span>
+                                <span class="text"><a id="website" target="_blank" href=""
+                                        rel="noopener noreferrer"></a> </span>
+                            </li>
+                            <li>
+                                <span class="title">Location:</span>
+                                <span class="text"><a id="city"></a><a id="region"></a></span>
+                            </li>
+                            <li>
+                                <span class="title">Completed Gigs:</span>
+                                <span class="text" id="gigsCount"></span>
+                            </li>
+                        </ul>
+                        <!-- .. end W-Personal-Info -->
+                        <!-- W-Socials -->
+                        <div class="widget w-socials">
+                        </div>
+                        <!-- ... end W-Socials -->
+                    </div>
+                </div>
+            </div>
+            <!-- ... end Left Sidebar -->
+            <!-- Right Sidebar -->
+            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">(<a id="reviewsCount"></a>) Reviews</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <!-- REVIEWS DISPLAY -->
+                        <ul class="widget w-featured-topics" id="reviewsDisplay">
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="ui-block" id="reviewSubmissionBlock">
+                    <div class="ui-block-title">
+                        <h6 class="title">Leave A Review</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <!-- REVIEWS SUBMISSION -->
+                        <div id="writeReviewDiv">
+                            <div style="display:flex; padding:5px;">
+                                <ion-icon class="ionicon md hydrated writeReview" name="add-circle" role="img"
+                                    style="width:15px;height:15px;margin-right:10px; cursor:pointer">
+                                </ion-icon>
+                                <h6 style="line-height:unset;font-weight:400">Write Review</h6>
+                            </div>
+                        </div>
+                        <div id="submitReviewDiv" style="display:none">
+                            <div class="input-group number-spinner number-spinner--secondary">
+                                <span class="input-group-btn data-dwn input-group-prepend">
+                                    <button class="btn btn-default btn-info" data-dir="dwn"><span
+                                            class="glyphicon glyphicon-minus"></span></button>
+                                </span>
+                                <div class="form-group"><input type="text" class="form-control text-center" value="5"
+                                        min="0" max="10" id="reviewRatingInput"><span class="material-input"></span>
+                                </div>
+                                <span class="input-group-btn data-up input-group-append">
+                                    <button class="btn btn-default btn-info" data-dir="up"><span
+                                            class="glyphicon glyphicon-plus"></span></button>
+                                </span>
+                            </div>
+                            <br>
+                            <div class="">
+                                <textarea class="form-control" style="height: 60px; font-size:12px;"
+                                    placeholder="Write a review..." id="reviewBodyInput"></textarea>
+                                <span class="material-input"></span></div><br>
+                            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <a href="#" class="btn btn-secondary btn-sm full-width" id="btnCancelReview">Cancel</a>
+                            </div>
+                            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <a href="#" class="btn btn-primary btn-sm full-width" id="btnSubmitReview"
+                                    onsubmit="return false">Post
+                                    Review</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- ... end Right Sidebar -->
+        </div>
+    </div>
+    <!-- Followers Container -->
+    <div class="container profPanel" id="followersSearch" style="display:none">
+        <div class="row">
+            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="ui-block responsive-flex">
+                    <div class="ui-block-title">
+                        <div class="h6 title"><a class="firstName"></a>'s Followers (<a id="followersCount"></a>)
+                        </div>
+                        <form class="w-search">
+                            <div class="form-group with-button is-empty">
+                                <input class="form-control" type="text" placeholder="Search Followers..."
+                                    id="searchFollowersInput">
+                                <button onSubmit="return false;">
+                                    <ion-icon name="search-outline" class="ionicon"></ion-icon>
+                                </button>
+                                <span class="material-input"></span><span class="material-input"></span></div>
+                        </form>
+                        <a href="#" class="more">
+                            <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container profPanel" id="followersContainer" style="display:none">
+        <div class="row" id="followersDisplay"></div>
+    </div>
+    <!-- Following Container -->
+    <div class="container profPanel" id="followingSearch" style="display:none">
+        <div class="row">
+            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="ui-block responsive-flex">
+                    <div class="ui-block-title">
+                        <div class="h6 title">Followed By <a class="firstName"></a> (<a id="followingCount"></a>)
+                        </div>
+                        <form class="w-search">
+                            <div class="form-group with-button is-empty">
+                                <input class="form-control" type="text" placeholder="Search Follows..."
+                                    id="searchFollowingInput">
+                                <button onSubmit="return false;">
+                                    <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
+                                </button>
+                                <span class="material-input"></span><span class="material-input"></span></div>
+                        </form>
+                        <a href="#" class="more">
+                            <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container profPanel" id="followingContainer" style="display:none">
+        <div class="row" id="followingDisplay"></div>
+    </div>
+    <!-- Window-popup Update Photo -->
+    <div class="modal fade" id="update-photo" tabindex="-1" role="dialog" aria-labelledby="update-photo"
+        aria-hidden="true">
+        <div class="modal-dialog window-popup update-header-photo" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <ion-icon name="close-outline" class="close-icon"></ion-icon>
+                </a>
+                <div class="modal-header">
+                    <h6 class="title">Update Profile Photo</h6>
+                </div>
+                <input type="file" id="btnProfilePhoto" style="display:none">
+                <div class="modal-body">
+                    <a href="#" class="upload-photo-item" style="width:100%">
+                        <ion-icon name="image-outline" class="ionicon"></ion-icon>
+                        <h6>Upload Photo</h6>
+                        <!-- <span>Browse your computer.</span> -->
+                        <br><br>
+                        <span style="color:red">* square photo for best results</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Window-popup Update Header Photo -->
+    <div class="modal fade" id="update-header-photo" tabindex="-1" role="dialog" aria-labelledby="update-header-photo"
+        aria-hidden="true">
+        <div class="modal-dialog window-popup update-header-photo" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <ion-icon name="close-outline" class="close-icon"></ion-icon>
+                </a>
+                <div class="modal-header">
+                    <h6 class="title">Update Header Photo</h6>
+                </div>
+                <input type="file" id="btnHeaderPhoto" style="display:none">
+                <div class="modal-body">
+                    <a href="#" class="upload-photo-item" style="width:100%">
+                        <ion-icon name="image-outline" class="ionicon"></ion-icon>
+                        <h6>Upload Photo</h6>
+                        <!-- <span>Browse your computer.</span> -->
+                        <br><br>
+                        <span style="color:red">* 1300px x 400px photo for best results</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="add-photo" tabindex="-1" role="dialog" aria-labelledby="add-photo" aria-hidden="true">
+        <div class="modal-dialog window-popup add-photo" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <ion-icon name="close-outline" class="close-icon"></ion-icon>
+                </a>
+                <div class="modal-header">
+                    <h6 class="title">Add a Photo</h6>
+                </div>
+                <input type="file" id="btnPhoto" style="display:none">
+                <div class="modal-body">
+                    <a href="#" class="upload-photo-item" style="width:100%; border:0px">
+                        <ion-icon name="image-outline" class="ionicon"></ion-icon>
+                        <h6>Upload Photo</h6>
+                        <!-- <span>Browse your computer.</span> -->
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="open-preview" tabindex="-1" role="dialog" aria-labelledby="open-preview"
+        aria-modal="true">
+        <div class="modal-dialog window-popup open-photo-popup open-photo-popup-v2" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <ion-icon name="close-outline" class="close-icon"></ion-icon>
+                </a>
+                <div class="modal-body ui-block" id="">
+                    <div class="open-photo-thumb">
+                        <div class="" data-effect="fade" data-autoplay="" id="">
+                            <!-- Additional required wrapper -->
+                            <div class="">
+                                <!-- Slides -->
+                                <div class="">
+                                    <div class="photo-item" style="">
+                                        <img id="previewPhotoUrl" src="" alt="photo">
+                                        <div class="overlay"></div>
+                                        <a href="#" class="more">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Pagination tabs-->
+                    </div>
+                    <div class="open-photo-content">
+                        <article class="hentry post">
+                            <div class="post__author author vcard inline-items">
+                                <!--profile image keeps getting distorted for some reason-->
+                                <!-- <img id="previewHostUrl" src="" alt="author"> -->
+                                <div class="author-date">
+                                    <a class="h6 post__author-name fn" href="" id="previewHostName"></a>
+                                    <div class="post__date">
+                                        <time class="published" datetime="2017-03-24T18:18">2 hours ago
+                                        </time>
+                                    </div>
+                                </div>
+                                <div class="postIcon">
+                                    <ion-icon name="" id="previewCompensationIcon"></ion-icon>
+                                </div>
+                            </div>
+                            <p id="previewCaption"></p>
+                            <div class="post-additional-info inline-items">
+                                <a href="#" class="post-add-icon inline-items interestsCount">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                    <span>0</span>
+                                </a>
+                                <div class="comments-shared">
+                                    <a href="#" class="post-add-icon inline-items">
+                                        <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                                        <span>0</span>
+                                    </a>
+                                    <a href="#" class="post-add-icon inline-items" style="display:none">
+                                        <ion-icon name="share-social-outline"></ion-icon>
+                                        <span>0</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="control-block-button post-control-button">
+                                <a href="#" class="btn btn-control has-i bg-facebook btnInterest" style="display:none"
+                                    id="previewFacebook">
+                                    <svg class="svg-inline--fa fa-facebook-f fa-w-9 share-icon" aria-hidden="true"
+                                        data-prefix="fab" data-icon="facebook-f" role="img"
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a href="#" class="btn btn-control has-i bg-instagram btnInterest" style="display:none"
+                                    id="previewInstagram">
+                                    <svg class="svg-inline--fa fa-instagram-f fa-w-9 share-icon" aria-hidden="true"
+                                        data-prefix="fab" data-icon="instagram" role="img"
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
+                                        </path>
+                                    </svg></a>
+                                <a href="#" class="btn btn-control has-i bg-twitter btnInterest" style="display:none"
+                                    id="previewTwitter">
+                                    <svg class="svg-inline--fa fa-twitter-f fa-w-9 share-icon" aria-hidden="true"
+                                        data-prefix="fab" data-icon="twitter" role="img"
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+                                        </path>
+                                    </svg></a>
+                                <a href="#" class="btn btn-control has-i bg-linkedin btnInterest" style="display:none"
+                                    id="previewLinkedin">
+                                    <svg class="svg-inline--fa fa-linkedin-f fa-w-9 share-icon" aria-hidden="true"
+                                        data-prefix="fab" data-icon="linkedin" role="img"
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="open-post" tabindex="-1" role="dialog" aria-labelledby="open-post" style="display:none"
+        aria-modal="true">
+        <div class="modal-dialog window-popup open-photo-popup open-photo-popup-v2" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <svg class="close-icon">
+                        <use xlink:href="#close-icon"></use>
+                    </svg>
+                </a>
+                <div class="modal-body ui-block" id="">
+                    <div class="open-photo-thumb">
+                        <div class="" data-effect="fade" data-autoplay="" id="">
+                            <!-- Additional required wrapper -->
+                            <div class="">
+                                <!-- Slides -->
+                                <div class="">
+                                    <div class="photo-item" style="">
+                                        <img id="postPhotoUrl" src="" alt="photo">
+                                        <div class="overlay"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Pagination tabs-->
+                    </div>
+                    <div class="open-photo-content">
+                        <article class="hentry post">
+                            <div class="post__author author vcard inline-items">
+                                <img id="postHostUrl" src="" alt="author">
+                                <div class="author-date">
+                                    <a class="h6 post__author-name fn" href="" id="postHostName"></a>
+                                    <div class="post__date">
+                                        <time class="published" datetime="2017-03-24T18:18" id="postTime">
+                                        </time>
+                                    </div>
+                                </div>
+                                <div class="more">
+                                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+
+                                    <ul class="more-dropdown">
+                                        <li>
+                                            <a href="#" class="deactivatePost">Deactivate Post</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="postIcon">
+                                    <ion-icon name="" id="postCompensationIcon"></ion-icon>
+                                </div>
+                            </div>
+                            <p id="postCaption"></p>
+                            <div class="post-additional-info inline-items">
+                                <a href="#" class="post-add-icon inline-items interestsCount">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                    <span id="postInterestsCount"></span>
+                                </a>
+                                <div class="comments-shared">
+                                    <a href="#" class="post-add-icon inline-items">
+                                        <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                                        <span id="postCommentsCount"></span>
+                                    </a>
+                                    <a href="#" class="post-add-icon inline-items" style="display:none">
+                                        <ion-icon name="share-social-outline"></ion-icon>
+                                        <span id="postSharesCount"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="control-block-button post-control-button">
+                                <a href="#" class="btn btn-control has-i bg-facebook btnInterest" style="display:none"
+                                    id="postFacebook">
+                                    <svg class="svg-inline--fa fa-facebook-f fa-w-9 share-icon" aria-hidden="true"
+                                        data-prefix="fab" data-icon="facebook-f" role="img"
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229">
+                                        </path>
+                                    </svg>
+                                </a>
+                                <a href="#" class="btn btn-control has-i bg-instagram btnInterest" style="display:none"
+                                    id="postInstagram">
+                                    <svg class="svg-inline--fa fa-instagram-f fa-w-9 share-icon" aria-hidden="true"
+                                        data-prefix="fab" data-icon="instagram" role="img"
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
+                                        </path>
+                                    </svg></a>
+                                <a href="#" class="btn btn-control has-i bg-twitter btnInterest" style="display:none"
+                                    id="postTwitter">
+                                    <svg class="svg-inline--fa fa-twitter-f fa-w-9 share-icon" aria-hidden="true"
+                                        data-prefix="fab" data-icon="twitter" role="img"
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+                                        </path>
+                                    </svg></a>
+                                <a href="#" class="btn btn-control has-i bg-linkedin btnInterest" style="display:none"
+                                    id="postLinkedin">
+                                    <svg class="svg-inline--fa fa-linkedin-f fa-w-9 share-icon" aria-hidden="true"
+                                        data-prefix="fab" data-icon="linkedin" role="img"
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                            d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </article>
+                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
+                            data-ps-id="de51dace-6706-c722-aa38-b084bdd64e54">
+                            <ul class="comments-list" id="postCommentsDisplay">
+                            </ul>
+                            <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: -194px;">
+                                <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                            </div>
+                            <div class="ps__scrollbar-y-rail" style="top: 194px; height: 180px; right: 0px;">
+                                <div class="ps__scrollbar-y" tabindex="0" style="top: 94px; height: 86px;"></div>
+                            </div>
+                        </div>
+                        <form class="comment-form inline-items" onsubmit="return false;">
+                            <div class="post__author author vcard inline-items">
+                                <img id="postVisitorUrl" src="" alt="author">
+                            </div>
+                            <div class="form-group with-icon-right is-empty">
+                                <textarea class="form-control" placeholder="Leave a comment..."
+                                    id="postCommentInput"></textarea>
+                                <span class="material-input"></span></div>
+                            <button class="btn btn-md-2 btn-primary" id="btnWriteComment">Post Comment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="open-interests" tabindex="-1" role="dialog" aria-labelledby="open-interests"
+        style="display: none;" aria-modal="true">
+        <div class="modal-dialog window-popup create-friend-group create-friend-group-add-friends" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <svg class="close-icon">
+                        <use xlink:href="#close-icon"></use>
+                    </svg>
+                </a>
+                <div class="modal-header">
+                    <h6 class="title">Interests</h6>
+                </div>
+                <div class="modal-body">
+                    <form class="form-group label-floating is-select is-empty">
+                        <div class="btn-group bootstrap-select show-tick form-control style-2"><button type="button"
+                                class="btn dropdown-toggle btn-secondary" data-toggle="dropdown" role="button"
+                                title="Nothing selected"><span class="filter-option pull-left">Nothing
+                                    selected</span>&nbsp;<span class="bs-caret"><span
+                                        class="caret"></span></span></button>
+                            <div class="dropdown-menu open" role="combobox">
+                                <div class="bs-searchbox"><input type="text" class="form-control" autocomplete="off"
+                                        role="textbox" aria-label="Search" id="filterInterestsInput"></div>
+                                <ul class="dropdown-menu inner" role="listbox" aria-expanded="false"
+                                    id="interestsDisplay">
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="material-input"></span><span class="material-input"></span>
+                    </form>
+                    <a href="#" class="btn btn-purple btn-lg full-width" id="btnEngage" style="display:none">Request
+                        Proposal</a>
+                    <a href="#" class="btn btn-purple btn-lg full-width" id="btnPay" style="display:none">Pay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="open-RegisterOrLogin" tabindex="-1" role="dialog" aria-labelledby="open-RegisterOrLogin"
+        style="display: none;" aria-modal="true">
+        <div class="modal-dialog window-popup create-friend-group create-friend-group-add-friends" role="document">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                    <img src="img/logo-colored.png" style=" width:20%; margin: 40px 0px;">
+                    <h3 class="title" style="margin:20px;">Welcome To Runwae</h3>
+                    <a href="welcome" class="btn btn-purple btn-sm" style=" margin:20px;">Continue</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="open-verifyEmail" tabindex="-1" role="dialog" aria-labelledby="open-verifyEmail"
+        style="display: none;" aria-modal="true">
+        <div class="modal-dialog window-popup create-friend-group create-friend-group-add-friends" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title">Please Verify Your Email</h4>
+                </div>
+                <div class="modal-body" align="center">
+                    <h5>You're almost there! We sent an email to <text id="messagedEmail"></text></h5>
+                    <h6>Follow the instructions in the email to complete your signup. If you don't see the email,
+                        try
+                        checking your spam folder.</h6>
+                    <h6>Still can't find the email?</h6>
+                    <a href="#" class="btn btn-purple btn-md" id="btnResendVerifyEmail" style="">Resend Email</a>
+                    <h6>Need help? Contact Us</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" data-toggle="modal" data-target="#open-post" id="triggerPostModal" style="display:none"></a>
+    <a href="#" data-toggle="modal" data-target="#open-interests" id="triggerInterestModal" style="display:none"></a>
+    <a href="#" data-toggle="modal" data-target="#open-preview" id="triggerPreviewModal" style="display:none"></a>
+    <p style="display:none" id="postDuration"></a>
+        <div class="modal-backdrop fade"></div>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+                apiKey: "AIzaSyAwhwY4vDzhelx2yViyt1hGa3UiZounJ90",
+                authDomain: "runwaedesign.firebaseapp.com",
+                databaseURL: "https://runwaedesign.firebaseio.com",
+                projectId: "runwaedesign",
+                storageBucket: "runwaedesign.appspot.com",
+                messagingSenderId: "1095107316289",
+                appId: "1:1095107316289:web:c396b5a4d1702e4e",
+                measurementId: "G-2EHSZNZ9YQ"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            var analytics = firebase.analytics();
+            var database = firebase.database();
+        </script>
+        <!-- JS Scripts -->
+        <script class="keep" src="js/jquery-3.2.1.js"></script>
+        <script src="js/jquery.appear.js"></script>
+        <script src="js/jquery.mousewheel.js"></script>
+        <script src="js/perfect-scrollbar.js"></script>
+        <script src="js/jquery.matchHeight.js"></script>
+        <script src="js/svgxuse.js"></script>
+        <script src="js/imagesloaded.pkgd.js"></script>
+        <script src="js/Headroom.js"></script>
+        <script src="js/velocity.js"></script>
+        <script src="js/ScrollMagic.js"></script>
+        <script src="js/jquery.waypoints.js"></script>
+        <script src="js/jquery.countTo.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/material.min.js"></script>
+        <script src="js/bootstrap-select.js"></script>
+        <script src="js/smooth-scroll.js"></script>
+        <script src="js/selectize.js"></script>
+        <script src="js/swiper.jquery.js"></script>
+        <script src="js/moment.js"></script>
+        <script src="js/daterangepicker.js"></script>
+        <script src="js/simplecalendar.js"></script>
+        <script src="js/fullcalendar.js"></script>
+        <script src="js/isotope.pkgd.js"></script>
+        <script src="js/ajax-pagination.js"></script>
+        <script src="js/Chart.js"></script>
+        <script src="js/chartjs-plugin-deferred.js"></script>
+        <script src="js/circle-progress.js"></script>
+        <script src="js/loader.js"></script>
+        <script src="js/run-chart.js"></script>
+        <script src="js/jquery.magnific-popup.js"></script>
+        <script src="js/jquery.gifplayer.js"></script>
+        <script src="js/mediaelement-and-player.js"></script>
+        <script src="js/mediaelement-playlist-plugin.min.js"></script>
+        <script src="js/sticky-sidebar.js"></script>
+        <script src="js/ion.rangeSlider.js"></script>
+        <script src="js/main.js"></script>
+        <script defer="" src="fonts/fontawesome-all.js"></script>
+        <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="js/svg-loader.js"></script>
+        <div>
+            <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+                xmlns="http://www.w3.org/2000/svg"></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+        </div>
+        <!-- our js -->
+        <script src="runwaejs/analytics.js"></script>
+        <script src="runwaejs/util.js"></script>
+        <script src="runwaejs/database.js"></script>
+        <script src="runwaejs/write.js"></script>
+        <script src="runwaejs/display.js"></script>
+        <script src="runwaejs/activity.js"></script>
+        <script src="runwaejs/search.js"></script>
+        <script src="runwaejs/follow.js"></script>
+        <script src="runwaejs/favorite.js"></script>
+        <script src="runwaejs/messages.js"></script>
+        <script src="runwaejs/notifications.js"></script>
+        <script src="runwaejs/transactions.js"></script>
+        <script src="runwaejs/shares.js"></script>
+        <script src="runwaejs/interests.js"></script>
+        <script src="runwaejs/comments.js"></script>
+        <script src="runwaejs/post.js"></script>
+        <script src="runwaejs/listeners.js"></script>
+        <script src="runwaejs/timeline.js"></script>
+        <script src="runwaejs/navHQ.js"></script>
+        <script src="runwaejs/postHQ.js"></script>
+        <script src="runwaejs/profileHQ.js"></script>
+        <script src="runwaejs/reviews.js"></script>
+
+        <script type="template" id="uiblockTemplate">
+            <div class="ui-block" id="{{item_key}}">{{contents}}</div>
+    </script>
+        <script type="template" id="commentsWrapperTemplate">
+            <ul class="comments-list">{{comments_HTML}}</ul>
+    </script>
+        <!--Article-->
+        <script type="template" id="articleTemplate">
+            <article class="hentry post" id="{{uid}}">
+             <div class="post__author author vcard inline-items">
+                <img src="{{src}}" alt="author">
+                 <div class="author-date">
+                    <a class="h6 post__author-name fn">{{username}}</a>
+                    <div class="post__date">
+                        <time class="published">
+										{{time}}
+									</time>
+                    </div>
+                </div>
+                 <div class="more" style="display:{{more_display}}">
+<ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    <ul class="more-dropdown">
+                        <!-- <li>
+                            <a href="#" class="editPost">Edit Post</a>
+                        </li> -->
+                        <li>
+                            <a href="#" class="deactivatePost">Deactivate Post</a>
+                        </li>
+                    </ul>
+                </div>
+                <a class="btn interestToggle btn-interest {{interest_display}} {{interested}}">Interested</a>
+                <div class="postIcon"> <ion-icon name="{{icon}}"></ion-icon>
+                </div>
+              </div>
+             <p>{{caption}}
+            </p>
+            {{media}}
+            <div class="post-additional-info inline-items">
+                 <a href="#" onSubmit="return false;" class="post-add-icon inline-items allInterests">
+<ion-icon name="eye-outline"></ion-icon>
+								<span>{{interests_count}}</span>
+							</a>
+                 <!--<ul class="friends-harmonic">{{friends_harmonic}}
+                </ul>
+                 <div class="names-people-likes">{{names_people_likes}}</div>-->
+                  <div class="comments-shared">
+                    <a href="#" onSubmit="return false;" class="post-add-icon inline-items allComments">
+<ion-icon name="chatbox-ellipses-outline"></ion-icon>
+									<span>{{comments_count}}</span>
+								</a>
+                     <a href="#" onSubmit="return false;" class="post-add-icon inline-items share" style="color: {{shares_color}}; display:none">
+<ion-icon name="share-social-outline"></ion-icon>
+									<span style="color: {{shares_color}}">{{shares_count}}</span>
+								</a>
+                </div>
+              </div>
+             <div class="control-block-button post-control-button" style="display:none">
+                <a href="#" class="btn btn-control has-i bg-facebook btnInterest {{disabled}}" style="display:{{facebook_display}}; background-color:{{facebook_color}}" id="facebook">
+						<svg class="svg-inline--fa fa-facebook-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"></path></svg></a>
+                 <a href="#" class="btn btn-control has-i bg-instagram btnInterest {{disabled}}" style="display:{{instagram_display}}; background-color:{{instagram_color}}" id="instagram">
+						<svg class="svg-inline--fa fa-instagram-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="instagram" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></a>
+                 <a href="#" class="btn btn-control has-i bg-twitter btnInterest {{disabled}}" style="display:{{twitter_display}}; background-color:{{twitter_color}}" id="twitter">
+						<svg class="svg-inline--fa fa-twitter-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a>
+                 <a href="#" class="btn btn-control has-i bg-linkedin btnInterest {{disabled}}" style="display:{{linkedin_display}}; background-color:{{linkedin_color}}" id="linkedin">
+						<svg class="svg-inline--fa fa-linkedin-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="linkedin" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a>
+            </div>
+         </article>
+    </script>
+        <!-- split by: <div class="ui-block">-->
+        <!--more_icon is three-dots for marketer-->
+        <!--more_icon is plus or check for influencer-->
+        <!--Post thumb PHOTO-->
+        <script type="template" id="imageTemplate">
+            <div class="post-thumb">
+            <img src="{{src}}" alt="photo">
+        </div>
+    </script>
+        <!--split by: </p>-->
+        <!--Comments-->
+        <script type="template" id="commentTemplate">
+            <li class="comment-item" id="{{uid}}">
+            <div class="post__author vcard inline-items">
+                <div class=" author">
+                <img src="{{src}}" alt="author">
+                </div>
+                <div class="author-date">
+                    <a class="h6 post__author-name fn commentUsername" href="#">{{username}}</a>
+                    <div class="post__date">
+                        <time class="published">
+										{{time}}
+									</time>
+                    </div>
+                </div>
+            </div>
+            <p>{{caption}}</p>
+            <!-- <a href="#" class="reply">Reply</a> -->
+            <div class="more" style="display:{{remove_display}}" id="{{key}}">
+<ion-icon name="close-circle-outline" class="little-delete"></ion-icon>            </div>
+        </li>
+    </script>
+        <!--split by:"<ul class="comments-list">"-->
+        <!--interest comments-->
+        <script type="template" id="interestTemplate">
+            <li data-original-index="0" class="interestLi {{engaged}}" id="{{uid}}">
+            <a tabindex="0" class=" dropdown-item" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false" id="{{platform}}">
+                <div class="inline-items" id={{interestid}}>
+                    <div class="author-thumb">
+                        <img src="{{src}}" alt="author">
+                    </div>
+                    <div class="h6 author-title">{{username}}</div>
+                 </div><span class="glyphicon glyphicon-ok check-mark" style="{{check_style}}"></span> <span class="interestIcon">{{icon}}</span></a>
+        </li>
+    </script>
+        <!--Harmonic friends template-->
+        <script type="template" id="harmonicFriendTemplate">
+            <li id="{{user_key}}">
+            <a class="harmonic_friend_img" href="#">
+										<img src="{{src}}" alt="friend">
+									</a>
+        </li>
+    </script>
+        <!--split by: <ul class="friends-harmonic">-->
+        <!--Names, people, likes-->
+        <script type="template" id="friendInterestCountTemplate">
+            <a href="#" class="harmonic_friend_name" id="{{user_key1}}">{{username1}}</a> and <a href="#" class="harmonic_friend_name" id="{{user_key2}}">{{username2}}</a>
+        <a href="#" class="showed_interest">showed interest</a>
+    </script>
+        <!--split by: <div class=" names-people-likes">-->
+        <!--View more comments-->
+        <script type="template" id="moreCommentsTemplate">
+            <a href="#" class="more-comments allComments">View all comments <span>+</span></a>
+    </script>
+        <!-- split by: </ul> -->
+        <!--Write a comment-->
+        <script type="template" id="postCommentTemplate">
+            <form class="comment-form inline-items">
+             <div class="post__author author vcard inline-items">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="form-group with-icon-right is-empty">
+                    <textarea class="form-control" placeholder="Post a comment" id="postCommentInput"></textarea>
+             <span class="material-input"></span></div>
+             <button class="btn btn-md-2 btn-primary btnWriteComment">Post Comment</button>
+             <!-- <button class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Cancel</button> -->
+         </form>
+    </script>
+        <script type="template" id="reviewTemplate">
+            <li id="{{key}}">
+                <div class="content">
+                    <div id="{{uid}}" style="font-weight: bold;">{{username}}</div></div>
+                    <time class = "entry-date updated" datetime = "2017-06-24T18:18">{{time}}</time> 
+                <div>{{body}}</div> 
+                <div>{{rating}} out of 10</div></div> 
+            </li>
+        </script>
+        <script type="template" id="searchTemplate">
+            <div class="inline-items {{userOrGroup}}" data-selectable="" data-value="" id="{{uid}}">
+            <div class="author-thumb"><img class="navSearchImg" src="{{src}}" alt="avatar"></div>
+            <div class="notification-event"><span class="h6 notification-friend">{{name}}</span><span class="chat-message-item">{{username}}  | {{role}}</span></div>
+
+    </script>
+        <script type="template" id="notificationTemplate">
+            <li class="notificationLi {{status}}" id="{{target_key}}">
+            <div class=" author-thumb" id="{{uid}}">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event" id="{{action}}">
+                <div><a href="#" class="h6 notification-friend">{{username}}</a> {{action}} <a href="#" class="notification-link">{{target}}</a></div>
+                <span class="notification-date"><time class="entry-date updated" >{{time}}</time></span>
+            </div>
+
+            <div class="more" id="{{key}}">
+<ion-icon name="close-circle-outline" class="little-delete"></ion-icon>            </div>
+        </li>
+    </script>
+        <script type="template" id="conversationTemplate">
+            <li class="conversationLi {{status}}" id="{{key}}">
+            <div class="author-thumb" id="{{uid}}">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event">
+                <a href="#" class="h6 notification-friend">{{username}}</a>
+                <span class="chat-message-item">{{body}}</span>
+                <span class="notification-date"><time class="entry-date updated" >{{time}}</time></span>
+            </div>
+            <span class="notification-icon">
+<ion-icon name="chatbubbles-outline"></ion-icon>									</span>
+            <!-- <div class="more">
+<ion-icon name="close-circle-outline" class="little-delete"></ion-icon>            </div> -->
+        </li>
+    </script>
+        <script type="template" id="followTemplate">
+            <div class="col col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
+            <div class="ui-block relation-ui-block" id="{{uid}}">
+                 <!-- Friend Item -->
+                 <div class="friend-item">
+                    <div class="friend-header-thumb">
+                        <img src="{{header_src}}" alt="friend">
+                    </div>
+                     <div class="friend-item-content relation-item-content">
+                         <div class="more">
+                            <svg class="three-dots-icon"><use xlink:href="#three-dots-icon"></use></svg>
+                            <ul class="more-dropdown">
+                                <li>
+                                    <a href="#">Report Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#">Block Profile</a>
+                                </li>
+                                <li>
+                                    <a href="#">Turn Off Notifications</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="friend-avatar">
+                            <div class="author-thumb">
+                                <img class="followImg" src="{{src}}" alt="author">
+                            </div>
+                            <div class="author-content">
+                                <a href="#" class="h5 author-name">{{name}}</a>
+                                <div class="country">{{username}}</div>
+                            </div>
+                        </div>
+                         <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="friend-count" data-swiper-parallax="-500">
+                                        <a href="#" class="friend-count-item">
+                                            <div class="h6">{{followers}}</div>
+                                            <div class="title">Followers</div>
+                                        </a>
+                                        <a href="#" class="friend-count-item">
+                                            <div class="h6">{{following}}</div>
+                                            <div class="title">Following</div>
+                                        </a>
+                                        <a href="#" class="friend-count-item">
+                                            <div class="h6">{{gigs}}</div>
+                                            <div class="title">Gigs</div>
+                                        </a><br>
+                                        <p class="friend-about" data-swiper-parallax="-500"><br><br> {{description}}
+                                        </p>
+                                    </div>
+                                    <!-- <div class="control-block-button" data-swiper-parallax="-100">
+										<a href="#" class="btn btn-control bg-blue">
+											<ion-icon name="add-circle-outline"></ion-icon>										</a>
+										<a href="#" class="btn btn-control bg-purple">
+											<svg class="chat---messages-icon"><use xlink:href="#chat---messages-icon"></use></svg>
+										</a>
+									</div> -->
+                                </div>
+                                 <!-- <div class="swiper-slide">
+									<p class="friend-about" data-swiper-parallax="-500">
+										{{description}}
+									</p>
+									<!-- <div class="friend-since" data-swiper-parallax="-100">
+										<span>Friends Since:</span>
+										<div class="h6">December 2014</div>
+									</div>
+								</div>  -->
+                            </div>
+                             <!-- If we need pagination -->
+                            <!-- <div class="swiper-pagination"></div> -->
+                        </div>
+                    </div>
+                </div>
+                 <!-- ... end Friend Item -->
+            </div>
+        </div>
+    </script>
+        <script type="template" id="favoritePagesTemplate">
+            <li class="inline-items" id="{{uid}}">
+            <div class="author-thumb">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event">
+                <a href="#" class="h6 notification-friend">{{name}}</a>
+                <span class="chat-message-item">{{username}}</span>
+            </div>
+            <!--     <span class="notification-icon" data-toggle="tooltip" data-placement="top" data-original-title="ADD TO YOUR FAVS">
+							<a href="#">
+<ion-icon name="star-outline"></ion-icon>							</a>
+						</span> -->
+         </li>
+     </script>
+        <script type="template" id="favoriteBubbleTemplate">
+            <li class="favoriteBubbleLi" id="{{uid}}">
+            <a href="#">
+								<img src="{{src}}" alt="author">
+							</a>
+        </li>
+    </script>
+        <script type="template" id="transactionScript">
+            <li class="transactionLi" id="{{path}}">
+            <span class="date">{{time}}</span>
+            <span class="position bold partnerName" style="cursor:pointer" id="{{uid}}">{{name}}</span>
+            <span class="type">{{payment}}</span>
+            <span class="town-place">{{platform}}</span>
+            <span><a href="#" class="btn btn-primary btn-sm full-width openGig" >Open</a></span>
+        </li>
+    </script>
+        <script type="template" id="currentScript">
+            <li class="currentLi" id="{{path}}">
+            <span class="date">{{time}}</span>
+            <span class="position bold partnerName" style="cursor:pointer" id="{{uid}}">{{name}}</span>
+            <span class="type">{{status}}</span>
+            <span class="town-place">{{platform}}</span>
+            <span><a href="#" class="btn btn-primary btn-sm full-width openGig" >Open</a></span>
+        </li>
+    </script>
+        <script type="template" id="facebookIconTemplate">
+            <svg class="svg-inline--fa fa-facebook-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"></path></svg>
+    </script>
+        <script type="template" id="instagramIconTemplate">
+            <svg class="svg-inline--fa fa-instagram-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="instagram" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>
+    </script>
+        <script type="template" id="twitterIconTemplate">
+            <svg class="svg-inline--fa fa-twitter-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+    </script>
+        <script type="template" id="linkedinIconTemplate">
+            <svg class="svg-inline--fa fa-linkedin-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="linkedin" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+    </script>
+        <script type="template" id="proposalTemplate">
+            <div class="ui-block" id="{{key}}">
+            <!-- Post -->
+            <article class="hentry blog-post" >
+                <div class="post-thumb"
+                    style="width:100%; max-height:275px">
+                    <img src="{{url}}" alt="" id="proposalImg">
+                </div>
+                <div class="post-content">
+                    <div class="proposalTopRow">
+                        <a 
+                            class="post-category bg-primary platform">{{platform}}</a>
+                        <div class="post__date proposalTime"
+                            id="proposalTime">{{time}}
+                        </div>
+                    </div>
+                    </time>
+                    <div>
+                        <a class="InfluencerName" 
+                            id="{{influencerid}}">{{influencer_name}}</a><br>
+                        <p class="proposalBrandName">with <a 
+                            id="{{brandid}}">{{brand_name}}</a></p>
+                    </div>
+                    <p class="proposalCaption" id="proposalCaption">{{caption}}</p>
+                </div>
+            </article>
+            <!-- ... end Post -->
+        </div></script>
+</body>
+
+</html>

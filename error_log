@@ -1,0 +1,8 @@
+[03-Mar-2021 16:18:44 America/Boise] PHP Fatal error:  Uncaught Stripe\Error\Card: Your card's security code is incorrect. in /home2/runwaeco/public_html/vendor/stripe/stripe-php/lib/ApiRequestor.php:171
+Stack trace:
+#0 /home2/runwaeco/public_html/vendor/stripe/stripe-php/lib/ApiRequestor.php(134): Stripe\ApiRequestor::_specificAPIError('{\n  "error": {\n...', 402, Array, Array, Array)
+#1 /home2/runwaeco/public_html/vendor/stripe/stripe-php/lib/ApiRequestor.php(393): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 402, Array, Array)
+#2 /home2/runwaeco/public_html/vendor/stripe/stripe-php/lib/ApiRequestor.php(90): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 402, Array)
+#3 /home2/runwaeco/public_html/vendor/stripe/stripe-php/lib/ApiOperations/Request.php(52): Stripe\ApiRequestor->request('post', '/v1/charges', Array, Array)
+#4 /home2/runwaeco/public_html/vendor/stripe/stripe-php/lib/ApiOperations/Create.php(20): Stripe\ApiResource::_staticRequest('post', '/v1/charges', Array, NULL)
+#5 /home2/runwaeco/public_html/transaction.php( in /home2/runwaeco/public_html/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 171

@@ -1,0 +1,743 @@
+<html lang="en"
+    class="wf-roboto-n4-active wf-roboto-n3-active wf-roboto-n7-active wf-roboto-n5-active wf-active fontawesome-i2svg-active fontawesome-i2svg-complete">
+
+<head>
+    <title>Admin</title>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="Fast Influencer Marketing">
+    <meta name="author" content="Runwae">
+    <meta name="keywords" content="Influencer,Marketing,Social,Media,Network">
+    <meta property="og:url" content="Runwae.com/account" />
+    <meta property="og:title" content="Account" />
+    <meta property="og:description" content="Fast Influencer Marketing" />
+    <meta property="og:image" content="https://runwae.com/img/runwae.png" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/accountbootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
+    <!-- Main Styles CSS -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
+    <link rel="stylesheet" type="text/css" href="css/runwae.css">
+    <link rel="stylesheet" type="text/css" href="css/admin.css">
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <!-- Main Font -->
+    <script src="js/webfontloader.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <script>
+        WebFont.load({
+            google: {
+                families: ['Roboto:300,400,500,700:latin']
+            }
+        });
+    </script>
+</head>
+
+<body class="page-has-left-panels page-has-right-panels" style="background-color: black;">
+    <!-- Preloader -->
+    <div id="hellopreloader" style="display: none;">
+        <div class="preloader">
+            <svg width="45" height="45" stroke="#fff">
+                <g fill="none" fill-rule="evenodd" stroke-width="2" transform="translate(1 1)">
+                    <circle cx="22" cy="22" r="14.1236" stroke="none">
+                        <animate attributeName="r" begin="1.5s" calcMode="linear" dur="3s" repeatCount="indefinite"
+                            values="6;22"></animate>
+                        <animate attributeName="stroke-opacity" begin="1.5s" calcMode="linear" dur="3s"
+                            repeatCount="indefinite" values="1;0"></animate>
+                        <animate attributeName="stroke-width" begin="1.5s" calcMode="linear" dur="3s"
+                            repeatCount="indefinite" values="2;0"></animate>
+                    </circle>
+                    <circle cx="22" cy="22" r="6.12363" stroke="none">
+                        <animate attributeName="r" begin="3s" calcMode="linear" dur="3s" repeatCount="indefinite"
+                            values="6;22"></animate>
+                        <animate attributeName="stroke-opacity" begin="3s" calcMode="linear" dur="3s"
+                            repeatCount="indefinite" values="1;0"></animate>
+                        <animate attributeName="stroke-width" begin="3s" calcMode="linear" dur="3s"
+                            repeatCount="indefinite" values="2;0"></animate>
+                    </circle>
+                    <circle cx="22" cy="22" r="5.53638">
+                        <animate attributeName="r" begin="0s" calcMode="linear" dur="1.5s" repeatCount="indefinite"
+                            values="6;1;2;3;4;5;6"></animate>
+                    </circle>
+                </g>
+            </svg>
+            <div class="text">Loading ...</div>
+        </div>
+    </div>
+    <div class="fixed-sidebar">
+        <div>
+            <a href="welcome" class="logo">
+                <div class="img-wrap">
+                    <img src="img/logo.png" alt="Olympus">
+                </div>
+            </a>
+        </div>
+    </div>
+    <header class="header" id="site-header">
+        <div class="page-title">
+            <h6>ADMIN</h6>
+        </div>
+        <div class="header-content-wrapper">
+        </div>
+    </header>
+    <div class="header-spacer header-spacer-small"></div>
+    <!-- Main Header Account -->
+    <div class="main-header">
+        <div class="content-bg-wrap" style="background-color:black"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-md-8 col-sm-12 col-12">
+                    <div class="main-header-content">
+                        <h1 style="color:#9389FF">RUNWAE</h1>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ... end Main Header Groups -->
+    <div class="container">
+        <!--CAT Counts A display - #TimeVsPage ### GIG STATUS FREQUENCY--- Line Graph - vs time -->
+        <div class="row"><button class="btn btn-primary btn-lg full-width" id="btnRefresh">Refresh</button></div>
+        <div class="row">
+            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-content">
+                        <ul class="statistics-list-count">
+                            <li>
+                                <div class="points">
+                                    <span>
+                                        Last Month Users
+                                    </span>
+                                </div>
+                                <div class="count-stat"><text id="usersPastMonthCount">
+                                    </text>
+                                    <span class="indicator positive"> <text id="usersPercentChange"></text>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-content">
+                        <ul class="statistics-list-count">
+                            <li>
+                                <div class="points">
+                                    <span>
+                                        Last Month Posts
+                                    </span>
+                                </div>
+                                <div class="count-stat"><text id="postsPastMonthCount">
+                                    </text>
+                                    <span class="indicator negative"> <text id="postsPercentChange">
+                                        </text></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-content">
+                        <ul class="statistics-list-count">
+                            <li>
+                                <div class="points">
+                                    <span>
+                                        Last Month Subscribers
+                                    </span>
+                                </div>
+                                <div class="count-stat"><text id="subscribersPastMonthCount">
+                                    </text>
+                                    <span class="indicator positive"> <text id="subscribersPercentChange">
+                                        </text></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="ui-block">
+                    <div class="ui-block-content">
+                        <ul class="statistics-list-count">
+                            <li>
+                                <div class="points">
+                                    <span>
+                                        Last Month Disputes
+                                    </span>
+                                </div>
+                                <div class="count-stat"><text id="disputesPastMonthCount">
+                                    </text>
+                                    <span class="indicator positive"> <text id="disputesPercentChange">
+                                        </text></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    ---
+    <div class="container">
+        <!--CAT Monthly Bar graph - #TimeVsPage ### GIG STATUS FREQUENCY--- Line Graph - vs time -->
+        <div class="row">
+            <div class="col col-lg-12 col-sm-12 col-12" id="vsTODPlotDiv">
+                <div class="ui-block responsive-flex">
+                    <div class="ui-block-title">
+                        <div class="h6 title" id="vsTODTitle"></div>
+                        <select class="selectpicker form-control without-border" id="vsTODFilterDisplay">
+                        </select>
+                    </div>
+                    <div class="ui-block-content">
+                        <div class="chart-js chart-js-one-bar">
+                            <canvas id="one-bar-chart" width="1400" height="380"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                <div class="ui-block responsive-flex" data-mh="pie-chart">
+                    <div class="ui-block-title">
+                        <div class="h6 title">Total Revenue</div>
+                        <div class="points align-right">
+                            <span>
+                                <span class="statistics-point bg-yellow"></span>
+                                THIS YEAR
+                            </span>
+                            <span>
+                                <span class="statistics-point bg-primary"></span>
+                                LAST YEAR
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ui-block-content">
+                        <div class="chart-js chart-js-line-graphic">
+                            <canvas id="line-graphic-chart" width="730" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                <div class="ui-block" data-mh="pie-chart">
+                    <div class="ui-block-title">
+                        <div class="h6 title">Gig Status</div>
+                    </div>
+                    <div class="ui-block-content" style="height: 105% !important;">
+                        <div class="chart-with-statistic">
+                            <ul class="statistics-list-count">
+                                <li>
+                                    <div class="points">
+                                        <span>
+                                            <span class="statistics-point bg-purple"></span>
+                                            One
+                                        </span>
+                                    </div>
+                                    <div class="count-stat" id="gigStatus1Count"></div>
+                                </li>
+                                <li>
+                                    <div class="points">
+                                        <span>
+                                            <span class="statistics-point bg-breez"></span>
+                                            Two
+                                        </span>
+                                    </div>
+                                    <div class="count-stat" id="gigStatus2Count"></div>
+                                </li>
+                                <li>
+                                    <div class="points">
+                                        <span>
+                                            <span class="statistics-point bg-primary"></span>
+                                            Three
+                                        </span>
+                                    </div>
+                                    <div class="count-stat" id="gigStatus3Count"></div>
+                                </li>
+                                <li>
+                                    <div class="points">
+                                        <span>
+                                            <span class="statistics-point bg-yellow"></span>
+                                            Four
+                                        </span>
+                                    </div>
+                                    <div class="count-stat" id="gigStatus4Count"></div>
+                                </li>
+                                <li>
+                                    <div class="points">
+                                        <span>
+                                            <span class="statistics-point bg-orange"></span>
+                                            Five
+                                        </span>
+                                    </div>
+                                    <div class="count-stat" id="gigStatus5Count"></div>
+                                </li>
+                                <li>
+                                    <div class="points">
+                                        <span>
+                                            <span class="statistics-point bg-green"></span>
+                                            Six
+                                        </span>
+                                    </div>
+                                    <div class="count-stat" id="gigStatus6Count"></div>
+                                </li>
+                                <li>
+                                    <div class="points">
+                                        <span>
+                                            <span class="statistics-point bg-grey"></span>
+                                            Seven
+                                        </span>
+                                    </div>
+                                    <div class="count-stat" id="gigStatus7Count"></div>
+                                </li>
+                            </ul>
+                            <div class="chart-js chart-js-pie-color">
+                                <canvas id="pie-color-chart" width="180" height="180"></canvas>
+                                <div class="general-statistics"><text id="gigStatusTotalGigsDisplay"></text>
+                                    <span>Total Gigs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                <div class="ui-block" data-mh="pie-chart">
+                    <div class="ui-block-title">
+                        <div class="h6 title">Page Activity</div>
+                    </div>
+                    <div class="ui-block-content">
+                        <div class="skills-item">
+                            <div class="skills-item-info" id="explorePageActivity">
+                                <span class="skills-item-title">Explore</span>
+                                <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                                        data-refresh-interval="50" data-to="62" data-from="0"></span><span
+                                        class="units"></span></span>
+                            </div>
+                            <div class="skills-item-meter">
+                                <span class="skills-item-meter-active bg-primary" style="width: 62%"></span>
+                            </div>
+                        </div>
+                        <div class="skills-item">
+                            <div class="skills-item-info" id="profilePageActivity">
+                                <span class="skills-item-title">Profile</span>
+                                <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                                        data-refresh-interval="50" data-to="46" data-from="0"></span><span
+                                        class="units">46%</span></span>
+                            </div>
+                            <div class="skills-item-meter">
+                                <span class="skills-item-meter-active bg-purple" style="width: 46%"></span>
+                            </div>
+                        </div>
+                        <div class="skills-item">
+                            <div class="skills-item-info" id="gigPageActivity">
+                                <span class="skills-item-title">Gig</span>
+                                <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                                        data-refresh-interval="50" data-to="79" data-from="0"></span><span
+                                        class="units">79%</span></span>
+                            </div>
+                            <div class="skills-item-meter">
+                                <span class="skills-item-meter-active bg-blue" style="width: 79%"></span>
+                            </div>
+                        </div>
+                        <div class="skills-item">
+                            <div class="skills-item-info" id="accountPageActivity">
+                                <span class="skills-item-title">Account</span>
+                                <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                                        data-refresh-interval="50" data-to="34" data-from="0"></span><span
+                                        class="units">34%</span></span>
+                            </div>
+                            <div class="skills-item-meter">
+                                <span class="skills-item-meter-active bg-breez" style="width: 34%"></span>
+                            </div>
+                        </div>
+                        <div class="skills-item">
+                            <div class="skills-item-info" id="messagesPageActivity">
+                                <span class="skills-item-title">Messages</span>
+                                <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                                        data-refresh-interval="50" data-to="95" data-from="0"></span><span
+                                        class="units">95%</span></span>
+                            </div>
+                            <div class="skills-item-meter">
+                                <span class="skills-item-meter-active bg-yellow" style="width: 95%"></span>
+                            </div>
+                        </div>
+                        <div class="skills-item">
+                            <div class="skills-item-info" id="notificationsPageActivity">
+                                <span class="skills-item-title">Notifications</span>
+                                <span class="skills-item-count"><span class="count-animate" data-speed="1000"
+                                        data-refresh-interval="50" data-to="95" data-from="0"></span><span
+                                        class="units">95%</span></span>
+                            </div>
+                            <div class="skills-item-meter">
+                                <span class="skills-item-meter-active bg-yellow" style="width: 95%"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                <div class="ui-block" data-mh="pie-chart">
+                    <div class="ui-block-title">
+                        <div class="h6 title">Metrics (Total Counts)</div>
+                    </div>
+                    <div class="ui-block-content">
+                        <div class="monthly-indicator-wrap">
+                            <div class="monthly-indicator">
+                                <div class="monthly-count">
+                                    <text id="gigsCount"></text>
+                                    <span class="period">Gigs</span>
+                                </div>
+                            </div>
+                            <div class="monthly-indicator">
+                                <div class="monthly-count">
+                                    <text id="interestsCount"></text>
+                                    <span class="period">Interests</span>
+                                </div>
+                            </div>
+                            <div class="monthly-indicator">
+                                <div class="monthly-count">
+                                    <text id="commentsCount"></text>
+                                    <span class="period">Comments</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="monthly-indicator-wrap">
+                            <div class="monthly-indicator-wrap">
+                                <div class="monthly-indicator">
+                                    <div class="monthly-count">
+                                        <text id="messagesCount"></text>
+                                        <span class="period">Messages</span>
+                                    </div>
+                                </div>
+                                <div class="monthly-indicator">
+                                    <div class="monthly-count">
+                                        <text id="followersCount"></text>
+                                        <span class="period">Followers</span>
+                                    </div>
+                                </div>
+                                <div class="monthly-indicator">
+                                    <div class="monthly-count">
+                                        <text id="favoritesCount"></text>
+                                        <span class="period">Favorites</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                <div class="ui-block" style="max-height:300px" data-mh="pie-chart">
+                    <div class="ui-block-title">
+                        <div class="h6 title">Durations</div>
+                    </div>
+                    <div class="ui-block-content">
+                        <div class="swiper-container" data-slide="fade">
+                            <div class="swiper-wrapper" id="durationDisplayDiv">
+                            </div>
+                            <!-- If we need pagination -->
+                            <div class="swiper-pagination pagination-blue"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--CAT Line graph - #vsTime  Counts with plot - #pastMonth -->
+            <div class="row" style="width:100%" id="vsTimePlotDiv">
+                <div class="col col-lg-12 col-sm-12 col-12" id="vsTimePlotDiv">
+                    <div class="ui-block responsive-flex">
+                        <div class="ui-block-title">
+                            <div class="h6 title" id="vsTimeTitle"></div>
+                            <select class="selectpicker form-control without-border" id="vsTimeFilterDisplay">
+                            </select>
+                        </div>
+                        <div class="ui-block-content">
+                            <div class="chart-js chart-js-line-chart">
+                                <canvas id="line-chart" width="1400" height="380"></canvas>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="ui-block-content display-flex content-around">
+                            <div class="chart-js chart-js-small-pie">
+                                <canvas id="pie-small-chart" width="90" height="90"></canvas>
+                            </div>
+                            <div class="points points-block">
+                                <span>
+                                    <span class="statistics-point bg-breez"></span>
+                                    Marketers
+                                </span>
+                                <span>
+                                    <span class="statistics-point bg-yellow"></span>
+                                    Influencers
+                                </span>
+                            </div>
+                            <div class="text-stat">
+                                <div class="count-stat" id="usersCount"></div>
+                                <div class="title">Users</div>
+                                <div class="sub-title">Total</div>
+                            </div>
+                            <div class="text-stat">
+                                <div class="count-stat" id="postsCount"></div>
+                                <div class="title">Posts</div>
+                                <div class="sub-title">Total</div>
+                            </div>
+                            <div class="text-stat">
+                                <div class="count-stat" id="subscribersCount"></div>
+                                <div class="title">Subscribers</div>
+                                <div class="sub-title">Total</div>
+                            </div>
+                            <div class="text-stat">
+                                <div class="count-stat" id="disputesCount"></div>
+                                <div class="title">Disputes</div>
+                                <div class="sub-title">Total</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--CAT- - progressBar - Number Bar - AVG POST DURATION - Main Display -->
+            <div class="row">
+                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom: 20px"
+                    id="mainDisplay">
+                    <h2>Main Display</h2>
+                    <div class="col col-sm-12  col-md-4 col-lg-4" style="margin:5px" id="mainTypeDropdownDiv">
+                        <h4 align="">Type</h4>
+                        <select class="selectpicker form-control without-border" id="mainTypeDisplay">
+                        </select>
+                    </div>
+                    <div class="col col-sm-12  col-md-4  col-lg-4" style="margin:5px" id="mainFilterDropdownDiv">
+                        <h4 align="">Filter</h4>
+                        <select class="selectpicker form-control without-border" id="mainFilterDisplay">
+                        </select>
+                        <br>
+                        <form class="w-search">
+                            <div class="form-group with-button is-empty">
+                                <input class="form-control" type="text" placeholder="Filter Input..."
+                                    id="mainFilterInput">
+                                <span class="material-input"></span></div>
+                        </form>
+                    </div>
+                    <div class="colcol-sm-12 col-md-4 col-lg-4" style="margin:5px" id="mainSortDropdownDiv">
+                        <h4 align="">Sort By</h4>
+                        <select class="selectpicker form-control without-border" id="mainSortDisplay">
+                        </select>
+                    </div>
+                    <ul class="table-careers">
+                        <li class="head" id="mainHeaderDisplay">
+                        </li>
+                    </ul>
+                    <div style="overflow-y: auto; height:300px; width:100%">
+                        <ul class="table-careers" id="mainDisplayDiv">
+                        </ul>
+                    </div>
+                </div>
+                <h2>Averaged Data</h2>
+                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom: 20px"
+                    id="averagedDisplay">
+                    <ul class="table-careers">
+                        <li class="head" id="averagedHeaderDisplay">
+                        </li>
+                    </ul>
+                    <div style="overflow-y: auto; height:300px; width:100%">
+                        <ul class="table-careers" id="averagedDisplayDiv">
+                        </ul>
+                    </div>
+                </div>
+                <h2>Visiting Pages</h2>
+                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom: 20px"
+                    id="visitingPagesDisplay">
+                    <ul class="table-careers">
+                        <li class="head" id="visitingPagesHeaderDisplay">
+                        </li>
+                    </ul>
+                    <div style="overflow-y: auto; height:300px; width:100%">
+                        <ul class="table-careers" id="visitingPagesDisplayDiv">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+                apiKey: "AIzaSyAwhwY4vDzhelx2yViyt1hGa3UiZounJ90",
+                authDomain: "runwaedesign.firebaseapp.com",
+                databaseURL: "https://runwaedesign.firebaseio.com",
+                projectId: "runwaedesign",
+                storageBucket: "runwaedesign.appspot.com",
+                messagingSenderId: "1095107316289",
+                appId: "1:1095107316289:web:c396b5a4d1702e4e",
+                measurementId: "G-2EHSZNZ9YQ"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            var analytics = firebase.analytics();
+            var database = firebase.database();
+        </script>
+        <script type="template" id="visitingPagesTemplate">
+            <li class="usersLi" id="{{key}}">
+            <span class="type">{{host}}</span>
+            <span class="type">{{visits}}</span>
+        </li>
+    </script>
+        <script type="template" id="usersTemplate">
+            <li class="usersLi" id="{{key}}">
+            <span class="type">{{name}}</span>
+            <span class="type">{{email}}</span>
+            <span class="town-place">{{role}}</span>
+            <span class="town-place">{{time}}</span>
+        </li>
+    </script>
+        <script type="template" id="postsTemplate">
+            <li class="usersLi" id="{{key}}">
+            <span class="key">{{key}}</span>
+            <span class="type position bold">{{compensation}}</span>
+            <span class="type">{{price}}</span>
+            <span class="town-place">{{status}}</span>
+            <span class="town-place">{{time}}</span>
+                </li>
+    </script>
+        <script type="template" id="subscribersTemplate">
+            <li class="usersLi" id="{{key}}">
+            <span class="key">{{key}}</span>
+            <span class="type position bold">{{email}}</span>
+            <span class="type">{{time}}</span>
+                </li>
+    </script>
+        <script type="template" id="transactionsTemplate">
+            <li class="usersLi" id="{{key}}">
+            <span class="key">{{key}}</span>
+            <span class="type position bold">{{compensation}}</span>
+            <span class="type">{{platform}}</span>
+            <span class="type">{{price}}</span>
+            <span class="type">{{time}}</span>
+        </li>
+    </script>
+        <script type="template" id="disputesTemplate">
+            <li class="usersLi" id="{{key}}">
+            <span class="key">{{key}}</span>
+            <span class="type position bold">{{description}}</span>
+            <span class="type">{{status}}</span>
+            <span class="type">{{time}}</span>
+        </li>
+    </script>
+        <!--------------Display C (Averages)-------------->
+        <script type="template" id="averagedTemplate">
+            <li class="li">
+        <span class="key">{{var1}} per {{var2}}</span>
+        <span class="type">{{value}}</span>
+    </li>
+</script>
+        <!--------------Filters for plots-------------->
+        <script type="template" id="filterTemplate">
+            <option value="{{filteroption}}">{{filteroption}}</option>
+    </script>
+        <script type="template" id="headerOptionTemplate">
+            <span>{{option}}</span>
+    </script>
+        <!--------------Slides for Duration display-------------->
+        <script type="template" id="durationTemplate">
+            <div class="swiper-slide">
+                    <div class="statistics-slide">
+                        <div class="count-stat" data-swiper-parallax="-500">{{timestring}}</div>
+                        <div class="title" data-swiper-parallax="-100"><span
+                                class="c-primary">{{title1}}</span> {{title2}}</div>
+                        <div class="sub-title" data-swiper-parallax="-100">{{description}}</div>
+                    </div>
+                </div>
+    </script>
+        <!-- JS Scripts -->
+        <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/jquery.appear.js"></script>
+        <script src="runwaejs/util.js"></script>
+        <script src="runwaejs/params.js"></script>
+        <script src="runwaejs/admininit.js"></script>
+        <script src="runwaejs/admin.js"></script>
+        <script src="runwaejs/adminActions.js"></script>
+        <script>
+            var dbRef = firebase.database().ref();
+
+            dbRef.once('value', function (snapdb) {
+                dbRef.off();
+                actionsObj = actions(snapdb);
+                actionsObj.run();
+                mainObj = main(snapdb);
+                mainObj.run();
+            });
+        </script>
+        <!-- <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/jquery.appear.js"></script> -->
+        <script src="js/jquery.mousewheel.js"></script>
+        <script src="js/perfect-scrollbar.js"></script>
+        <script src="js/jquery.matchHeight.js"></script>
+        <script src="js/svgxuse.js"></script>
+        <script src="js/imagesloaded.pkgd.js"></script>
+        <script src="js/Headroom.js"></script>
+        <script src="js/velocity.js"></script>
+        <script src="js/ScrollMagic.js"></script>
+        <script src="js/jquery.waypoints.js"></script>
+        <script src="js/jquery.countTo.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/material.min.js"></script>
+        <script src="js/bootstrap-select.js"></script>
+        <script src="js/smooth-scroll.js"></script>
+        <script src="js/selectize.js"></script>
+        <script src="js/swiper.jquery.js"></script>
+        <script src="js/moment.js"></script>
+        <script src="js/daterangepicker.js"></script>
+        <script src="js/simplecalendar.js"></script>
+        <script src="js/fullcalendar.js"></script>
+        <script src="js/isotope.pkgd.js"></script>
+        <script src="js/ajax-pagination.js"></script>
+        <script src="js/Chart.js"></script>
+        <script src="js/chartjs-plugin-deferred.js"></script>
+        <script src="js/circle-progress.js"></script>
+        <script src="js/loader.js"></script>
+        <!-- <script src="js/run-chart.js"></script> -->
+        <script src="js/jquery.magnific-popup.js"></script>
+        <script src="js/jquery.gifplayer.js"></script>
+        <script src="js/mediaelement-and-player.js"></script>
+        <script src="js/mediaelement-playlist-plugin.min.js"></script>
+        <script src="js/ion.rangeSlider.js"></script>
+        <script src="js/base-init.js"></script>
+        <script defer src="fonts/fontawesome-all.js"></script>
+        <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="js/svg-loader.js"></script>
+        <div>
+            <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+                xmlns="http://www.w3.org/2000/svg"></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+        </div>
+</body>
+
+</html>

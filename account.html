@@ -1,0 +1,854 @@
+<html lang="en"
+    class="wf-roboto-n4-active wf-roboto-n3-active wf-roboto-n7-active wf-roboto-n5-active wf-active fontawesome-i2svg-active fontawesome-i2svg-complete">
+
+<head>
+    <title>Account</title>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="Fast Influencer Marketing">
+    <meta name="author" content="Runwae">
+    <meta name="keywords" content="Influencer,Marketing,Social,Media,Network">
+    <meta property="og:url" content="Runwae.com/account" />
+    <meta property="og:title" content="Account" />
+    <meta property="og:description" content="Fast Influencer Marketing" />
+    <meta property="og:image" content="https://runwae.com/img/runwae.png" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/accountbootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
+    <!-- Main Styles CSS -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
+    <link rel="stylesheet" type="text/css" href="css/runwae.css">
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <!-- Main Font -->
+    <script src="js/webfontloader.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <script>
+        WebFont.load({
+            google: {
+                families: ['Roboto:300,400,500,700:latin']
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+</head>
+
+<body class="page-has-left-panels page-has-right-panels">
+    <div class="fixed-sidebar">
+        <div>
+            <a href="explore" class="logo">
+                <div class="img-wrap">
+                    <img src="img/logo-colored.png" alt="Olympus">
+                </div>
+            </a>
+        </div>
+    </div>
+    <header class="header" id="site-header">
+        <div class="header-content-wrapper">
+            <form class="search-bar w-search notification-list friend-requests">
+                <div class="form-group with-button is-empty"><input class="form-control js-user-search selectized"
+                        placeholder="Search here people or pages..." type="text" tabindex="-1" style="display: none;"
+                        value="">
+                    <div class="selectize-control form-control js-user-search selectized multi">
+                        <div class="selectize-input items not-full has-options"><input type="text" autocomplete="off"
+                                tabindex="-1" placeholder="Search for brands or influencers..." style="width: 250px;"
+                                id="searchInput"></div>
+                        <div class="selectize-dropdown multi form-control js-user-search selectized"
+                            style="display: none; width: 350px; top: 70px; left: 0px;">
+                            <div class="selectize-dropdown-content" id="searchDisplay"></div>
+                        </div>
+                    </div>
+                    <button>
+                        <div class="control-icon has-items">
+                            <ion-icon class="ionicon" name="search-outline"></ion-icon>
+                        </div>
+                    </button>
+                    <span class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span>
+                </div>
+            </form>
+            <div class="control-block">
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
+                </div>
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon mail-icon" name="mail-outline"></ion-icon>
+                    <div class="label-avatar bg-purple unreadMessagesCount"></div>
+                    <div class="more-dropdown more-with-triangle triangle-top-center">
+                        <div class="ui-block-title ui-block-title-small">
+                            <h6 class="title">Messages</h6>
+                            <a href="#" class="messagesMarkAll">Mark all as read</a>
+                        </div>
+                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
+                            data-ps-id="82c5a48e-d0ee-7f82-ea59-b3f9fb526d46">
+                            <ul class="notification-list chat-message" id="navConversationsDisplay">
+                            </ul>
+                        </div>
+                        <a href="messages" class="view-all bg-purple">View All Messages</a>
+                    </div>
+                </div>
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon notifications-icon" name="notifications-outline"></ion-icon>
+                    <div class="label-avatar bg-primary unreadNotificationsCount"></div>
+                    <div class="more-dropdown more-with-triangle triangle-top-center">
+                        <div class="ui-block-title ui-block-title-small">
+                            <h6 class="title">Notifications</h6>
+                            <a href="#" class="notificationsMarkAll">Mark all as read</a>
+                        </div>
+                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
+                            data-ps-id="f394c115-21ed-552b-81c8-ace246c0d11b">
+                            <ul class="notification-list" id="navNotificationsDisplay">
+                            </ul>
+                        </div>
+                        <a href="notifications" class="view-all bg-primary">View All Notifications</a>
+                    </div>
+                </div>
+                <div class="author-page author vcard inline-items more nav-prof">
+                    <div class="author-thumb">
+                        <img alt="author" src="" class="avatar" style="height:36px" id="navProfilePicture">
+                        <div class="more-dropdown more-with-triangle">
+                            <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                                data-ps-id="35a6f9b9-b18c-d9cb-06c3-2dd2cb9a7a33">
+                                <div class="ui-block-title ui-block-title-small">
+                                    <h6 class="title">Your Account</h6>
+                                </div>
+                                <ul class="account-settings">
+                                    <li>
+                                        <a href="account">
+                                            <ion-icon class="ionicon" name="person-circle-outline"></ion-icon>
+                                            &nbsp; <span>Account</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="faqs">
+                                            <ion-icon class="ionicon" name="file-tray-full-outline"></ion-icon>
+                                            &nbsp; <span>FAQs</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="btnLogout">
+                                            <ion-icon class="ionicon" name="exit-outline"></ion-icon>
+                                            &nbsp; <span>Log Out</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                                    <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                                </div>
+                                <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                                    <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="" class="author-name fn">
+                        <div class="author-title">
+                            <text id="navName"></text>
+                        </div>
+                        <span class="author-subtitle" id="navUsername"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header class="header header-responsive" id="site-header-responsive">
+        <div class="header-content-wrapper">
+            <ul class="nav nav-tabs mobile-app-tabs" role="tablist">
+                <li class="nav-item">
+                    <div class="vcard " style="
+                    margin-top: 19.5px;">
+                        <div class="author-thumb">
+                            <img alt="" src="" class="avatar" style="height: 36px; display: inline-block;"
+                                id="navMobileProfilePicture">
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#" role="tab">
+                        <div class="control-icon has-items">
+                            <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#chat" role="tab">
+                        <div class="control-icon has-items">
+                            <div class="control-icon has-items">
+                                <ion-icon class="ionicon" name="mail-outline"></ion-icon>
+                            </div>
+                            <div class="label-avatar bg-purple unreadMessagesCount"></div>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#notification" role="tab">
+                        <div class="control-icon has-items">
+                            <div class="control-icon has-items">
+                                <ion-icon class="ionicon" name="notifications-outline"></ion-icon>
+                            </div>
+                            <div class="label-avatar bg-primary unreadNotificationsCount"></div>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#search" role="tab">
+                        <ion-icon class="ionicon search-icon" name="search-outline"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-responsive">
+            <div class="tab-pane" id="chat" role="tabpanel">
+                <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                    data-ps-id="8c34af73-b408-6fa7-c529-a0ac3a0dacfc">
+                    <div class="ui-block-title ui-block-title-small">
+                        <h6 class="title">Messages</h6>
+                        <a href="#" class="messagesMarkAll">Mark all as read</a>
+                    </div>
+                    <ul class="notification-list chat-message" id="mobileNavConversationsDisplay">
+                    </ul>
+                    <a href="messages" class="view-all bg-purple" id="messages">View All Messages</a>
+                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="notification" role="tabpanel">
+                <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                    data-ps-id="68f43a37-1d6c-18d1-e75e-b6313dfc2d36">
+                    <div class="ui-block-title ui-block-title-small">
+                        <h6 class="title">Notifications</h6>
+                        <a href="#" class="notificationsMarkAll">Mark all as read</a>
+                    </div>
+                    <ul class="notification-list" id="mobileNavNotificationsDisplay">
+                    </ul>
+                    <a href="notifications" class="view-all bg-primary">View All Notifications</a>
+                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="search" role="tabpanel">
+                <form class="search-bar w-search notification-list friend-requests">
+                    <div class="form-group with-button is-empty">
+                        <input class="form-control js-user-search selectized"
+                            placeholder="Search here people or pages..." type="text" tabindex="-1"
+                            style="display: none;" value="">
+                        <div class="selectize-control form-control js-user-search selectized multi">
+                            <div class="selectize-input items not-full has-options"><input type="text"
+                                    autocomplete="off" tabindex="-1" placeholder="Search for brands or influencers..."
+                                    style="width: 250px;" id="navSearchInput"></div>
+                            <div class="selectize-dropdown multi form-control js-user-search selectized"
+                                style="display: none; top: 70px; left: 0px;">
+                                <div class="selectize-dropdown-content" id="navSearchDisplay"></div>
+                            </div>
+                        </div>
+                        <!---Selecticize enf here -->
+                        <span class="material-input"></span><span class="material-input"></span><span
+                            class="material-input"></span><span class="material-input"></span><span
+                            class="material-input"></span><span class="material-input"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- ... end  Tab panes -->
+    </header>
+    <div class="header-spacer header-spacer-small"></div>
+    <div class="new-main-header">
+    </div>
+    <!-- Your Account Personal Information -->
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-1 col-md-12 order-md-1 col-sm-12 col-12 order-sm-1">
+                <div class="ui-block" id="personalInformation">
+                    <div class="ui-block-title">
+                        <h6 class="title">Personal Information</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <!-- Personal Information Form  -->
+                        <form onsubmit="return false;">
+                            <div class="row">
+                                <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
+                                    <label class="control-label">Name</label>
+                                    <div class="form-group"><input class="form-control" placeholder="" type="text"
+                                            value="" id="name"><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                    <span class="material-input"></span><span class="material-input"></span><span
+                                        class="material-input"></span>
+                                </div>
+                                <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
+                                    <label class="control-label">Role</label>
+                                    <div class="form-group"><input class="form-control" placeholder="" type="text"
+                                            value="" id="role" disabled><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                    <span class="material-input"></span><span class="material-input"></span><span
+                                        class="material-input"></span>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Your Email</label>
+                                        <input class="form-control" placeholder="" type="email" value="" id="email"
+                                            disabled>
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Your Username</label>
+                                        <input class="form-control" placeholder="" type="email" value="" id="username"
+                                            disabled>
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Write a little description about you</label>
+                                        <textarea class="form-control" placeholder="" id="description"></textarea>
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12"></div>
+                                <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <label class="control-label">Country</label>
+                                    <fieldset class="form-group">
+                                        <div class="btn-group bootstrap-select form-control"><button type="button"
+                                                class="btn dropdown-toggle btn-secondary" data-toggle="dropdown"
+                                                role="button" title="Alabama" aria-expanded="false"><span
+                                                    class="filter-option pull-left"><input
+                                                        style="padding:0px;  border:0px; border-radius:0rem;"
+                                                        id="country" value="" disabled></span>&nbsp;<span
+                                                    class="bs-caret"><span class="caret"></span></span>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                            <div class="dropdown-menu open" role="combobox" x-placement="bottom-start"
+                                                style="max-height: 300px !important; overflow: hidden; min-height: 0px; position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 58px, 0px);">
+                                                <ul class="dropdown-menu inner" role="listbox" aria-expanded="false"
+                                                    style="max-height: 300px !important; overflow-y: auto; min-height: 0px;"
+                                                    id="countryDisplay">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span class="material-input"></span>
+                                    </fieldset>
+                                </div>
+                                <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <label class="control-label">Region</label>
+                                    <fieldset class="form-group">
+                                        <div class="btn-group bootstrap-select form-control"><button type="button"
+                                                class="btn dropdown-toggle btn-secondary" data-toggle="dropdown"
+                                                role="button" title="Alabama" aria-expanded="false"><span
+                                                    class="filter-option pull-left"><input
+                                                        style="padding:0px; border:0px; border-radius:0rem;" id="region"
+                                                        value="" disabled></span>&nbsp;<span class="bs-caret"><span
+                                                        class="caret"></span></span>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                            <div class="dropdown-menu open" role="combobox" x-placement="bottom-start"
+                                                style="max-height: 300px !important; overflow: hidden; min-height: 0px; position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 58px, 0px);">
+                                                <ul class="dropdown-menu inner" role="listbox" aria-expanded="false"
+                                                    style="max-height: 300px !important; overflow-y: auto; min-height: 0px;"
+                                                    id="regionDisplay">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span class="material-input"></span>
+                                    </fieldset>
+                                </div>
+                                <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <label class="control-label">City</label>
+                                    <fieldset class="form-group">
+                                        <div class="btn-group bootstrap-select form-control"><button type="button"
+                                                class="btn dropdown-toggle btn-secondary" data-toggle="dropdown"
+                                                role="button" title="Alabama" aria-expanded="false"><span
+                                                    class="filter-option pull-left"><input
+                                                        style="padding:0px;  border:0px; border-radius:0rem;" id="city"
+                                                        value="" disabled></span>&nbsp;<span class="bs-caret"><span
+                                                        class="caret"></span></span>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                            <div class="dropdown-menu open" role="combobox" x-placement="bottom-start"
+                                                style="max-height: 300px !important; overflow: hidden; min-height: 0px; position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 58px, 0px);">
+                                                <ul class="dropdown-menu inner" role="listbox" aria-expanded="false"
+                                                    style="max-height: 300px !important; overflow-y: auto; min-height: 0px;"
+                                                    id="cityDisplay">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span class="material-input"></span>
+                                    </fieldset>
+                                </div>
+                                <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <label class="control-label">Industry</label>
+                                    <fieldset class="form-group">
+                                        <div class="btn-group bootstrap-select form-control"><button type="button"
+                                                class="btn dropdown-toggle btn-secondary" data-toggle="dropdown"
+                                                role="button" title="Fitness" aria-expanded="false"><span
+                                                    class="filter-option pull-left"><input
+                                                        style="padding:0px;  border:0px; border-radius:0rem;"
+                                                        id="industry" value="Fitness" disabled></span>&nbsp;<span
+                                                    class="bs-caret"><span class="caret"></span></span>
+                                                <div class="ripple-container"></div>
+                                            </button>
+                                            <div class="dropdown-menu open" role="combobox" x-placement="bottom-start"
+                                                style="max-height: 300px !important; overflow: hidden; min-height: 0px; position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 58px, 0px);">
+                                                <ul class="dropdown-menu inner" role="listbox" aria-expanded="false"
+                                                    style="max-height: 300px !important; overflow-y: auto; min-height: 0px;"
+                                                    id="industryDisplay">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <span class="material-input"></span>
+                                    </fieldset>
+                                </div>
+                                <input style="display:none !important" id="location">
+                            </div>
+                        </form>
+                        <!-- ... end Personal Information Form  -->
+                    </div>
+                </div>
+                <div class="ui-block" id="portfolio">
+                    <div class="ui-block-title">
+                        <h6 class="title">Preferences</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <!-- Personal Information Form  -->
+                        <form onsubmit="return false;">
+                            <div class="row">
+                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="checkbox">
+                                        <h6>Allow Messages From:</h6><br><br>
+                                        <label>
+                                            <input type="checkbox" name="optionsCheckboxes"
+                                                id="checkboxMessagesFromEveryone"><span class="checkbox-material"><span
+                                                    class="check"></span></span>
+                                            Everyone
+                                        </label><br><br>
+                                        <label>
+                                            <input type="checkbox" name="optionsCheckboxes"
+                                                id="checkboxMessagesFromFollowing"><span class="checkbox-material"><span
+                                                    class="check"></span></span>
+                                            People I follow
+                                        </label><br><br>
+                                        <label>
+                                            <input type="checkbox" name="optionsCheckboxes" disabled="" checked=""><span
+                                                class="checkbox-material"><span class="check"></span></span>
+                                            Collaborators
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- ... end Personal Information Form  -->
+                    </div>
+                </div>
+                <div class="ui-block" id="portfolio">
+                    <div class="ui-block-title">
+                        <h6 class="title">Portfolio</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <!-- Personal Information Form  -->
+                        <form onsubmit="return false;">
+                            <div class="row">
+                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group label-floating">
+                                        <label class="control-label">Your Website</label>
+                                        <input class="form-control" placeholder="" type="url" id="website">
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                    <div class="form-group with-icon label-floating">
+                                        <label class="control-label">Your Facebook Username</label>
+                                        <!-- <input class="form-control" type="url" id="facebook"> -->
+                                        <input class="form-control" id="facebook">
+                                        <svg class="svg-inline--fa fa-facebook-f fa-w-9 c-facebook" aria-hidden="true"
+                                            data-prefix="fab" data-icon="facebook-f" role="img"
+                                            xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                            <path fill="currentColor"
+                                                d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229">
+                                            </path>
+                                        </svg>
+                                        <!-- <i class="fab fa-facebook-f c-facebook" aria-hidden="true"></i> -->
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                    <div class="form-group with-icon label-floating">
+                                        <label class="control-label">Your Twitter Username</label>
+                                        <input class="form-control" id="twitter">
+                                        <svg class="svg-inline--fa fa-twitter fa-w-16 c-twitter" aria-hidden="true"
+                                            data-prefix="fab" data-icon="twitter" role="img"
+                                            xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                            <path fill="currentColor"
+                                                d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
+                                            </path>
+                                        </svg>
+                                        <!-- <i class="fab fa-twitter c-twitter" aria-hidden="true"></i> -->
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                    <div class="form-group with-icon label-floating ">
+                                        <label class="control-label">Your Linkedin Username</label>
+                                        <input class="form-control" id="linkedin">
+                                        <svg class="svg-inline--fa fa-linkedin fa-w-14 c-linkedin" aria-hidden="true"
+                                            data-prefix="fa" data-icon="rss" role="img"
+                                            xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+                                            <path fill="currentColor"
+                                                d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z">
+                                            </path>
+                                        </svg>
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                    <div class="form-group with-icon label-floating">
+                                        <label class="control-label">Your Instagram Username</label>
+                                        <input class="form-control" id="instagram">
+                                        <svg class="svg-inline--fa fa-instagram fa-w-16 c-instagram" aria-hidden="true"
+                                            data-prefix="fab" data-icon="dribbble" role="img"
+                                            xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                            <path fill="currentColor"
+                                                d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
+                                            </path>
+                                        </svg>
+                                        <span class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span><span class="material-input"></span><span
+                                            class="material-input"></span></div>
+                                </div>
+                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                    <button class="btn btn-primary btn-lg full-width" id="btnSave">Save all
+                                        Changes</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- ... end Personal Information Form  -->
+                    </div>
+                </div>
+                <div class="ui-block" id="account">
+                    <div class="ui-block-title">
+                        <h6 class="title">Account</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <!-- Personal Information Form  -->
+                        <form onsubmit="return false;">
+                            <div class="row">
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <a href="#" class="btn btn-primary btn-md" id="acctLogout">Logout</a>
+                                </div>
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <a href="#" class="btn btn-primary btn-md" id="btnVerifyEmail"
+                                        style="display:none">Verify Email</a>
+                                </div>
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <a href="#" class="btn btn-primary btn-md" id="btnResetPassword">Reset Password</a>
+                                </div>
+                                <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
+                                    <button class="btn btn-primary btn-lg full-width" id="btnRemoveAccount">Remove
+                                        Account</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- ... end Personal Information Form  -->
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col col-xl-3 order-xl-1 col-lg-6 order-md-2 order-lg-2 col-md-6 col-sm-6 col-12 order-sm-2 responsive-display-none">
+                <div class="ui-block">
+                    <!-- Your Profile  -->
+                    <div class="your-profile">
+                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="card">
+                                <div class="card-header" role="tab" id="headingOne">
+                                    <h6 class="mb-0">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                            Settings
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div id="collapseOne" class="collapse show" role="tabpanel"
+                                    aria-labelledby="headingOne">
+                                    <ul class="your-profile-menu">
+                                        <li>
+                                            <a href="#personalInformation">Personal Information</a>
+                                        </li>
+                                        <li>
+                                            <a href="#portfolio">Portfolio</a>
+                                        </li>
+                                        <li>
+                                            <a href="#account">Account</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <!-- ... end Your Profile  -->
+                </div>
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Brands To Follow</h6>
+                        <!--                        <a href="#" class="more"><svg class="three-dots-icon"><use xlink:href="#three-dots-icon"></use></svg></a>-->
+                    </div>
+                    <!-- W-Action -->
+                    <ul class="widget w-friend-pages-added notification-list friend-requests whoToFollowDisplay"
+                        id="brandsToFollowDisplay">
+                    </ul>
+                    <!-- ... end W-Action -->
+                </div>
+                <div class="ui-block">
+                    <!-- W-Birthsday-Alert -->
+                    <!-- ... end W-Birthsday-Alert -->
+                </div>
+                <div class="ui-block">
+                    <div class="ui-block-title">
+                        <h6 class="title">Influencers To Follow</h6>
+                        <a href="#" class="more"><svg class="three-dots-icon">
+                                <use xlink:href="#three-dots-icon"></use>
+                            </svg></a>
+                    </div>
+                    <!-- W-Activity-Feed -->
+                    <ul class="widget w-friend-pages-added notification-list friend-requests whoToFollowDisplay"
+                        id="influencersToFollowDisplay">
+                    </ul>
+                    <!-- .. end W-Activity-Feed -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deactiveAccountModal" tabindex="-1" role="dialog" aria-labelledby="update-photo"
+        aria-hidden="true">
+        <div class="modal-dialog window-popup update-header-photo" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <ion-icon name="close-outline" class="close-icon"></ion-icon>
+                </a>
+                <div class="modal-header">
+                    <h6 class="title">Deactivate Account</h6>
+                </div>
+                <div class="modal-body">
+                    <a href="#" class="upload-photo-item" style="width:100%">
+                        <svg class="computer-icon">
+                            <use xlink:href="#computer-icon"></use>
+                        </svg>
+                        <h6>Are You Sure?</h6>
+                        <a href="#" class="btn btn-primary btn-md" id="btnDeactivateConfirmation">Deactive Account</a>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="restore-password" tabindex="-1" role="dialog" aria-labelledby="restore-password"
+        aria-hidden="true">
+        <div class="modal-dialog window-popup restore-password-popup" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <svg class="close-icon">
+                        <use xlink:href="#close-icon"></use>
+                    </svg>
+                </a>
+                <div class="modal-header">
+                    <h6 class="title">Reset your Password</h6>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="open-verifyEmail" tabindex="-1" role="dialog" aria-labelledby="open-verifyEmail"
+        style="display: none;" aria-modal="true">
+        <div class="modal-dialog window-popup create-friend-group create-friend-group-add-friends" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title">Please Verify Your Email</h4>
+                </div>
+                <div class="modal-body" align="center">
+                    <h5>You're almost there! We sent an email to <text id="messagedEmail"></text></h5>
+                    <h6>Follow the instructions in the email to complete your signup. If you don't see the email, try
+                        checking your spam folder.</h6>
+                    <h6>Still can't find the email?</h6>
+                    <a href="#" class="btn btn-blue btn-md" id="btnResendVerifyEmail" style="">Resend Email</a>
+                    <h6>Need help? Contact Us</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop fade"></div>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyAwhwY4vDzhelx2yViyt1hGa3UiZounJ90",
+            authDomain: "runwaedesign.firebaseapp.com",
+            databaseURL: "https://runwaedesign.firebaseio.com",
+            projectId: "runwaedesign",
+            storageBucket: "runwaedesign.appspot.com",
+            messagingSenderId: "1095107316289",
+            appId: "1:1095107316289:web:c396b5a4d1702e4e",
+            measurementId: "G-2EHSZNZ9YQ"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var analytics = firebase.analytics();
+        var database = firebase.database();
+    </script>
+    <!-- JS Scripts -->
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/jquery.appear.js"></script>
+    <script src="js/jquery.mousewheel.js"></script>
+    <script src="js/perfect-scrollbar.js"></script>
+    <script src="js/jquery.matchHeight.js"></script>
+    <script src="js/svgxuse.js"></script>
+    <script src="js/imagesloaded.pkgd.js"></script>
+    <script src="js/Headroom.js"></script>
+    <script src="js/velocity.js"></script>
+    <script src="js/ScrollMagic.js"></script>
+    <script src="js/jquery.waypoints.js"></script>
+    <script src="js/jquery.countTo.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/material.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/smooth-scroll.js"></script>
+    <script src="js/selectize.js"></script>
+    <script src="js/swiper.jquery.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/daterangepicker.js"></script>
+    <script src="js/simplecalendar.js"></script>
+    <script src="js/fullcalendar.js"></script>
+    <script src="js/isotope.pkgd.js"></script>
+    <script src="js/ajax-pagination.js"></script>
+    <script src="js/Chart.js"></script>
+    <script src="js/chartjs-plugin-deferred.js"></script>
+    <script src="js/circle-progress.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/run-chart.js"></script>
+    <script src="js/jquery.magnific-popup.js"></script>
+    <script src="js/jquery.gifplayer.js"></script>
+    <script src="js/mediaelement-and-player.js"></script>
+    <script src="js/mediaelement-playlist-plugin.min.js"></script>
+    <script src="js/ion.rangeSlider.js"></script>
+    <script src="js/base-init.js"></script>
+    <script defer="" src="fonts/fontawesome-all.js"></script>
+    <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="js/svg-loader.js"></script>
+    <div>
+        <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+            xmlns="http://www.w3.org/2000/svg"></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+    </div>
+    <!-- our js -->
+    <script src="runwaejs/analytics.js"></script>
+    <script src="runwaejs/util.js"></script>
+    <script src="runwaejs/database.js"></script>
+    <script src="runwaejs/write.js"></script>
+    <script src="runwaejs/display.js"></script>
+    <script src="runwaejs/activity.js"></script>
+    <script src="runwaejs/search.js"></script>
+    <script src="runwaejs/follow.js"></script>
+    <script src="runwaejs/favorite.js"></script>
+    <script src="runwaejs/messages.js"></script>
+    <script src="runwaejs/notifications.js"></script>
+    <script src="runwaejs/navHQ.js"></script>
+    <script src="runwaejs/location.js"></script>
+    <script src="runwaejs/accountHQ.js"></script>
+    <script type="Template" id="dropdownTemplate">
+        <li data-original-index="{{index}}" class="dropdown-li"><a tabindex="{{index}}" class=" dropdown-item" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text" title="{{code}}">{{name}}</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
+    </script>
+    <script type="template" id="searchTemplate">
+        <div class="inline-items {{userOrGroup}}" data-selectable="" data-value="" id="{{uid}}">
+            <div class="author-thumb"><img class="navSearchImg" src="{{src}}" alt="avatar"></div>
+            <div class="notification-event"><span class="h6 notification-friend">{{name}}</span><span class="chat-message-item">{{username}}  | {{role}}</span></div>
+
+    </script>
+    <script type="template" id="notificationTemplate">
+        <li class="notificationLi {{status}}" id="{{target_key}}">
+            <div class=" author-thumb" id="{{uid}}">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event" id="{{action}}">
+                <div><a href="#" class="h6 notification-friend">{{username}}</a> {{action}} <a href="#" class="notification-link">{{target}}</a></div>
+                <span class="notification-date"><time class="entry-date updated" >{{time}}</time></span>
+            </div>
+
+            <div class="more" id="{{key}}">
+<ion-icon name="close-circle-outline" class="little-delete"></ion-icon>            </div>
+        </li>
+    </script>
+    <script type="template" id="conversationTemplate">
+        <li class="conversationLi {{status}}" id="{{key}}">
+            <div class="author-thumb" id="{{uid}}">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event">
+                <a href="#" class="h6 notification-friend">{{username}}</a>
+                <span class="chat-message-item">{{body}}</span>
+                <span class="notification-date"><time class="entry-date updated" >{{time}}</time></span>
+            </div>
+            <span class="notification-icon">
+<ion-icon name="chatbubbles-outline"></ion-icon>									</span>
+
+        </li>
+    </script>
+        <script type="template" id="activityTemplate" src="templates/activityTemplate.js">
+            <li id="{{key}}" class="actionLi">
+            <div class="author-thumb">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event" id="{{action}}">
+                <a href="#" class="h6 notification-friend" id="{{actorID}}">{{actor}}</a> {{action}} <a class="recipient-friend" id="{{recipientID}}"> {{recipient}} </a><a href="#" class="notification-link"> {{target}}</a>
+                <span class="notification-date"><time class="entry-date updated" datetime="2004-07-24T18:18">{{time}}</time></span>
+            </div>
+        </li>
+    </script>
+        <script type="template" id="whoToFollowTemplate" src="templates/whoToFollowTemplate.js">
+            <li class="inline-items" id="{{uid}}">
+            <div class="author-thumb">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event">
+                <a href="#" class="h6 notification-friend">{{name}}</a>
+                <small>{{username}}</small><br>
+                <span class="chat-message-item">{{connections}} Connections in Common</span>
+            </div>
+            <span class="notification-icon">
+							<a href="#" class="accept-request" >
+								<span class="without-text">
+									<ion-icon name="add-circle-outline"></ion-icon>								</span>
+            </a>
+            </span>
+        </li>
+    </script>
+    </script>
+</body>
+
+</html>

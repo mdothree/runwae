@@ -1,0 +1,29 @@
+{
+  "name": "Runwae",
+  "short_name": "Runwae",
+  "icons": [{
+    "src": "/images/icons/icon-70x70.png",
+      "sizes": "70x70",
+      "type": "image/png"
+    }, {
+      "src": "/images/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }, {
+      "src": "/images/icons/icon-150x150.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    }, {
+      "src": "/images/icons/icon-310x310.png",
+      "sizes": "310x310",
+      "type": "image/png"
+    }, {
+      "src": "/images/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }],
+  "start_url": "/welcome.html",
+  "display": "standalone",
+  "background_color": "#928bff",
+  "theme_color": "#7c75da"
+}

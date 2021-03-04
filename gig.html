@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Gig</title>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="Fast Influencer Marketing">
+    <meta name="author" content="Runwae">
+    <meta name="keywords" content="Influencer,Marketing,Social,Media,Network">
+    <meta property="og:url" content="Runwae.com/gig" />
+    <meta property="og:title" content="Gig" />
+    <meta property="og:description" content="Fast Influencer Marketing" />
+    <meta property="og:image" content="https://runwae.com/img/runwae.png" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
+    <!-- Main Styles CSS -->
+    <link rel="stylesheet" type="text/css" href="css/progressbar.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
+    <link rel="stylesheet" type="text/css" href="css/runwae.css">
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <!-- Main Font -->
+    <script src="js/webfontloader.min.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ['Roboto:300,400,500,700:latin']
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+</head>
+
+<body class="page-has-left-panels page-has-right-panels">
+    <div class="fixed-sidebar">
+        <div>
+            <a href="explore" class="logo">
+                <div class="img-wrap">
+                    <img src="img/logo-colored.png" alt="Olympus">
+                </div>
+            </a>
+        </div>
+    </div>
+    <header class="header" id="site-header">
+        <div class="header-content-wrapper">
+            <form class="search-bar w-search notification-list friend-requests">
+                <div class="form-group with-button is-empty"><input class="form-control js-user-search selectized"
+                        placeholder="Search here people or pages..." type="text" tabindex="-1" style="display: none;"
+                        value="">
+                    <div class="selectize-control form-control js-user-search selectized multi">
+                        <div class="selectize-input items not-full has-options"><input type="text" autocomplete="off"
+                                tabindex="-1" placeholder="Search for brands or influencers..." style="width: 250px;"
+                                id="searchInput"></div>
+                        <div class="selectize-dropdown multi form-control js-user-search selectized"
+                            style="display: none; width: 350px; top: 70px; left: 0px;">
+                            <div class="selectize-dropdown-content" id="searchDisplay"></div>
+                        </div>
+                    </div>
+                    <button>
+                        <div class="control-icon has-items">
+                            <ion-icon class="ionicon" name="search-outline"></ion-icon>
+                        </div>
+                    </button>
+                    <span class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span><span class="material-input"></span><span
+                        class="material-input"></span>
+                </div>
+            </form>
+            <div class="control-block">
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
+                </div>
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon mail-icon" name="mail-outline"></ion-icon>
+                    <div class="label-avatar bg-purple unreadMessagesCount"></div>
+                    <div class="more-dropdown more-with-triangle triangle-top-center">
+                        <div class="ui-block-title ui-block-title-small">
+                            <h6 class="title">Messages</h6>
+                            <a href="#" class="messagesMarkAll">Mark all as read</a>
+                        </div>
+                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
+                            data-ps-id="82c5a48e-d0ee-7f82-ea59-b3f9fb526d46">
+                            <ul class="notification-list chat-message" id="navConversationsDisplay">
+                            </ul>
+                        </div>
+                        <a href="messages" class="view-all bg-purple">View All Messages</a>
+                    </div>
+                </div>
+                <div class="control-icon more has-items">
+                    <ion-icon class="ionicon notifications-icon" name="notifications-outline"></ion-icon>
+                    <div class="label-avatar bg-primary unreadNotificationsCount"></div>
+                    <div class="more-dropdown more-with-triangle triangle-top-center">
+                        <div class="ui-block-title ui-block-title-small">
+                            <h6 class="title">Notifications</h6>
+                            <a href="#" class="notificationsMarkAll">Mark all as read</a>
+                        </div>
+                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
+                            data-ps-id="f394c115-21ed-552b-81c8-ace246c0d11b">
+                            <ul class="notification-list" id="navNotificationsDisplay">
+                            </ul>
+                        </div>
+                        <a href="notifications" class="view-all bg-primary">View All Notifications</a>
+                    </div>
+                </div>
+                <div class="author-page author vcard inline-items more nav-prof">
+                    <div class="author-thumb">
+                        <img alt="author" src="" class="avatar" style="height:36px" id="navProfilePicture">
+                        <div class="more-dropdown more-with-triangle">
+                            <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                                data-ps-id="35a6f9b9-b18c-d9cb-06c3-2dd2cb9a7a33">
+                                <div class="ui-block-title ui-block-title-small">
+                                    <h6 class="title">Your Account</h6>
+                                </div>
+                                <ul class="account-settings">
+                                    <li>
+                                        <a href="account">
+                                            <ion-icon class="ionicon" name="person-circle-outline"></ion-icon>
+                                            &nbsp; <span>Account</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="faqs">
+                                            <ion-icon class="ionicon" name="file-tray-full-outline"></ion-icon>
+                                            &nbsp; <span>FAQs</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="btnLogout">
+                                            <ion-icon class="ionicon" name="exit-outline"></ion-icon>
+                                            &nbsp; <span>Log Out</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                                    <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                                </div>
+                                <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                                    <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="" class="author-name fn">
+                        <div class="author-title">
+                            <text id="navName"></text>
+                        </div>
+                        <span class="author-subtitle" id="navUsername"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header class="header header-responsive" id="site-header-responsive">
+        <div class="header-content-wrapper">
+            <ul class="nav nav-tabs mobile-app-tabs" role="tablist">
+                <li class="nav-item">
+                    <div class="vcard " style="
+                    margin-top: 19.5px;">
+                        <div class="author-thumb">
+                            <img alt="" src="" class="avatar" style="height: 36px; display: inline-block;"
+                                id="navMobileProfilePicture">
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#" role="tab">
+                        <div class="control-icon has-items">
+                            <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#chat" role="tab">
+                        <div class="control-icon has-items">
+                            <div class="control-icon has-items">
+                                <ion-icon class="ionicon" name="mail-outline"></ion-icon>
+                            </div>
+                            <div class="label-avatar bg-purple unreadMessagesCount"></div>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#notification" role="tab">
+                        <div class="control-icon has-items">
+                            <div class="control-icon has-items">
+                                <ion-icon class="ionicon" name="notifications-outline"></ion-icon>
+                            </div>
+                            <div class="label-avatar bg-primary unreadNotificationsCount"></div>
+                        </div>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#search" role="tab">
+                        <ion-icon class="ionicon search-icon" name="search-outline"></ion-icon>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content tab-content-responsive">
+            <div class="tab-pane" id="chat" role="tabpanel">
+                <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                    data-ps-id="8c34af73-b408-6fa7-c529-a0ac3a0dacfc">
+                    <div class="ui-block-title ui-block-title-small">
+                        <h6 class="title">Messages</h6>
+                        <a href="#" class="messagesMarkAll">Mark all as read</a>
+                    </div>
+                    <ul class="notification-list chat-message" id="mobileNavConversationsDisplay">
+                    </ul>
+                    <a href="messages" class="view-all bg-purple" id="messages">View All Messages</a>
+                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="notification" role="tabpanel">
+                <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
+                    data-ps-id="68f43a37-1d6c-18d1-e75e-b6313dfc2d36">
+                    <div class="ui-block-title ui-block-title-small">
+                        <h6 class="title">Notifications</h6>
+                        <a href="#" class="notificationsMarkAll">Mark all as read</a>
+                    </div>
+                    <ul class="notification-list" id="mobileNavNotificationsDisplay">
+                    </ul>
+                    <a href="notifications" class="view-all bg-primary">View All Notifications</a>
+                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                    </div>
+                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
+                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="search" role="tabpanel">
+                <form class="search-bar w-search notification-list friend-requests">
+                    <div class="form-group with-button is-empty">
+                        <input class="form-control js-user-search selectized"
+                            placeholder="Search here people or pages..." type="text" tabindex="-1"
+                            style="display: none;" value="">
+                        <div class="selectize-control form-control js-user-search selectized multi">
+                            <div class="selectize-input items not-full has-options"><input type="text"
+                                    autocomplete="off" tabindex="-1" placeholder="Search for brands or influencers..."
+                                    style="width: 250px;" id="navSearchInput"></div>
+                            <div class="selectize-dropdown multi form-control js-user-search selectized"
+                                style="display: none; top: 70px; left: 0px;">
+                                <div class="selectize-dropdown-content" id="navSearchDisplay"></div>
+                            </div>
+                        </div>
+                        <!---Selecticize enf here -->
+                        <span class="material-input"></span><span class="material-input"></span><span
+                            class="material-input"></span><span class="material-input"></span><span
+                            class="material-input"></span><span class="material-input"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- ... end  Tab panes -->
+    </header>
+    <div class="header-spacer header-spacer-small"></div>
+    <div class="main-header" style="padding: 30px 0 0px 0">
+        <div class="content-bg-wrap bg-account"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-sm-10 col-xs-10">
+                    <div class="gig-header">
+                        <div style="width:50%" align="left">
+                            <h3 id="partnerName"></h3>
+                            <h4 class="platform"></h4>
+                        </div>
+                        <div class="gigNavigationContainer" style="width:50%" align="right">
+                            <row id="gigNavigationIcons">
+                                <a id="btnDetailsContainer" class="gig-icon" href="#">
+                                    <ion-icon name="reader-outline"></ion-icon>
+                                </a>
+                                <a id="btnMessage" class="gig-icon" href="#">
+                                    <ion-icon name="mail-outline"></ion-icon>
+                                </a>
+                                <a id="btnHistoryContainer" class="gig-icon" href="#">
+                                    <ion-icon name="list-outline"></ion-icon>
+                                </a>
+                                <a id="btnDisputesContainer" class="gig-icon" href="#">
+                                    <ion-icon name="warning-outline"></ion-icon>
+                                </a>
+                            </row>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-8 m-auto col-sm-10 col-xs-10">
+                    <div class='progress'>
+                        <div class='progress_inner'>
+                            <div class='progress_inner__step'>
+                                <label for='step-1'>Proposal</label>
+                            </div>
+                            <div class='progress_inner__step'>
+                                <label for='step-2'>Payment</label>
+                            </div>
+                            <div class='progress_inner__step'>
+                                <label for='step-3'>Post</label>
+                            </div>
+                            <div class='progress_inner__step'>
+                                <label for='step-4'>Verification</label>
+                            </div>
+                            <div class='progress_inner__step'>
+                                <label for='step-5'>Payout</label>
+                            </div>
+                            <input id='step-1' name='step' type='radio'>
+                            <input id='step-2' name='step' type='radio'>
+                            <input id='step-3' name='step' type='radio'>
+                            <input id='step-4' name='step' type='radio'>
+                            <input id='step-5' name='step' type='radio'>
+                            <div class='progress_inner__bar'></div>
+                            <div class='progress_inner__bar--set'></div>
+                            <div class='progress_inner__tabs'>
+                                <div class="tab tab-0 col" id="proposalContainer" align="center">
+                                    <div class="ui-block">
+                                        <div class="ui-block-title" align="left">
+                                            <h6 class="title">Influencer Proposal</h6>
+                                        </div>
+                                        <div class="ui-block-content subContainer hide 1 3"
+                                            id="proposalRequestContainer" align="center">
+                                            <!--- Proposal Status for Marketer -->
+                                            <div class="row marketer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <h2>Proposal Requested </h2>
+                                                    <h3>Awaiting submission by influencer</h3>
+                                                    <br>
+                                                    <h4>The influencer will create a sample post so that you have<br>an
+                                                        idea of what to expect from their social media post later.</h5>
+                                                        <h5>The influencer still hasn't submitted a proposal.
+                                                            <br>Message them to send a reminder.</h5><br>
+                                                        <a href="#" class="btn btn-primary btn-md"
+                                                            id="skipProposalSubmission">Skip Proposal Submission</a>
+                                                </div>
+                                            </div>
+                                            <!--- Proposal Status & Submission for Influencer -->
+                                            <div class="row influencer" id="proposalWrite">
+                                                <!--- Influencer Write Proposal-->
+                                                <div class="col col-lg-8 m-auto col-md-12 col-sm-12 col-12"><br>
+                                                    <h3>Marketer requested a proposal</h3>
+                                                    <h5>Create a sample post that is representative of<br>what your
+                                                        social media post will be.</h5>
+                                                    <br><br>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Proposal Caption</label>
+                                                        <textarea class="form-control" placeholder=""
+                                                            id="proposalCaptionInput"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col col-lg-8 m-auto col-md-12 col-sm-12 col-12">
+                                                    <label class="btn btn-primary btn-sm" for="btnPhoto">Upload
+                                                        Photo</label><input type="file" name="imgfile" id="btnPhoto"
+                                                        style="display:none" />
+                                                </div>
+                                                <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
+                                                <div class="col col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12 m-auto"
+                                                    align="left">
+                                                    <br><br><br><br>
+                                                    <h5>Proposal Preview</h5>
+                                                    <div class="ui-block">
+                                                        <!-- Post -->
+                                                        <article class="hentry blog-post">
+                                                            <div class="post-thumb"
+                                                                style="width:100%; max-height:275px">
+                                                                <img src="img/newheader.png"
+                                                                    alt="photo" id="proposalPreviewImg">
+                                                                <img style="display:none" src="" crossorigin="anonymous"
+                                                                    id="proposalCanvasImg" />
+                                                                <canvas id="proposalCanvas"></canvas>
+                                                            </div>
+                                                            <div class=" post-content">
+                                                                <div class="proposalTopRow">
+                                                                    <a href="#"
+                                                                        class="post-category bg-primary platform"></a>
+                                                                    <div class="post__date proposalTime"
+                                                                        id="proposalPreviewTime">
+                                                                        less than a minute ago
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    <a class="proposalInfluencerName" href="#"
+                                                                        id="proposalPreviewInfluencerName"></a><br>
+                                                                    <p class="proposalBrandName"></p>
+                                                                    <a href="#" id="proposalPreviewBrandName">with </a>
+                                                                    <p class="proposalCaption"
+                                                                        id="proposalPreviewCaption"></p>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        <!-- ... end Post -->
+                                                    </div>
+                                                </div>
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <h6 id="writeProposalAlert"></h6>
+                                                    <br><br>
+                                                    <a href="#" class="btn btn-primary btn-md" id="btnWriteProposal"
+                                                        style="display:none">Submit Proposal</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ui-block-content subContainer hide 2 4 5 6 7"
+                                            id="proposalSubmissionContainer" align="center">
+                                            <!--- Proposal Display for marketer and influencer -->
+                                            <div class="row hide 2 4 5 6 7" id="proposalComplete">
+                                                <div class="col col-xl-4 col-lg-3 col-md-2 col-sm-1 col-12"></div>
+                                                <div class="col col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12"
+                                                    align="left">
+                                                    <div class="ui-block">
+                                                        <!-- Post -->
+                                                        <article class="hentry blog-post">
+                                                            <div class="post-thumb"
+                                                                style="width:100%; max-height:275px">
+                                                                <img src="" alt="" id="proposalImg">
+                                                            </div>
+                                                            <div class="post-content">
+                                                                <div class="proposalTopRow">
+                                                                    <a href="#"
+                                                                        class="post-category bg-primary platform"></a>
+                                                                    <div class="post__date proposalTime"
+                                                                        id="proposalTime">
+                                                                    </div>
+                                                                </div>
+                                                                </time>
+                                                                <div>
+                                                                    <a class="InfluencerName" href="#"
+                                                                        id="proposalInfluencerName"></a><br>
+                                                                    <p class="proposalBrandName">with <a href="#"
+                                                                            id="proposalBrandName"></a></p>
+                                                                </div>
+                                                                <p class="proposalCaption" id="proposalCaption"></p>
+                                                            </div>
+                                                        </article>
+                                                        <!-- ... end Post -->
+                                                    </div>
+                                                </div>
+                                                <div class="col col-xl-4 col-lg-3 col-md-2 col-sm-1 col-12"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ui-block-content subContainer hide 2 3 4 5 6 7"
+                                            id="proposalResponseContainer">
+                                            <!-- Personal Information Form  -->
+                                            <div class="row marketer">
+                                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12 hide 2"
+                                                    align="center">
+                                                    <a href="#" class="btn btn-primary btn-lg"
+                                                        id="btnAcceptProposal">Accept Proposal</a>
+                                                </div>
+                                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12 hide 2">
+                                                    <a href="#" class="btn btn-primary btn-lg"
+                                                        id="btnDeclineProposal">Decline Proposal</a>
+                                                </div>
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12 hide 3 4 5 6 7">
+                                                    <h3 class="hide 3">Proposal Declined</h3>
+                                                    <h5 class="hide 3"><br>Waiting for the influencer to submit another
+                                                        proposal.</h5>
+                                                    <h3 class="hide 4 5 6 7">Proposal Accepted</h3><br><br>
+                                                    <a href="#"
+                                                        class="hide 4 5 6 7 btn btn-primary btn-md download-content"
+                                                        id="btnMarketerDownloadProposal" download>Download
+                                                        Content</a>
+                                                </div>
+                                            </div>
+                                            <div class="row influencer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <div class="hide 2">
+                                                        <h3>Awaiting response from marketer</h3><br>
+                                                        <h5>The Marketer hasn't accepted or declined your proposal
+                                                            yet.<br>Message them to send a reminder</h5>
+                                                    </div>
+                                                    <h3 class="hide 3">Marketer declined the proposal<br>
+                                                        <h5>Submit another proposal to be considered for the
+                                                            opportunity.</h5>
+                                                    </h3>
+                                                    <h3 class="hide 4 5 6 7">Marketer accepted the proposal</h3>
+                                                    <br><br>
+                                                    <a href="#"
+                                                        class="hide 4 5 6 7 btn btn-primary btn-md download-content"
+                                                        id="btnInfluncerDownloadProposal" download>Download
+                                                        Content</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab tab-1 col" id="paymentContainer" align="center">
+                                    <div class="ui-block">
+                                        <div class="ui-block-title" align="left">
+                                            <h6 class="title">Marketer Payment</h6>
+                                        </div>
+                                        <div class="ui-block-content  2 4 5 6 7" id="marketerPaymentContainer">
+                                            <!-- Personal Information Form  -->
+                                            <div class="row marketer">
+                                                <div class="col col-lg-8 col-md-10 col-sm-12 col-12 m-auto">
+                                                    <div class="hide 2" id="marketerSubmitPayment">
+                                                        <div class="money">
+                                                            <h5>Influencer Payment</h5><br>
+                                                            <h6>You will verify that the influencer has upheld<br>their
+                                                                end of the agreement before they receive their payment.
+                                                            </h6><br><br>
+                                                            <script src="https://js.stripe.com/v3/"></script>
+                                                            <form action="/charge" method="post" id="payment-form">
+                                                                <div class="form-row">
+                                                                    <label for="card-element">
+                                                                        Credit or debit card
+                                                                    </label>
+                                                                    <div id="card-element" style="    width: 100%;">
+                                                                    </div>
+                                                                    <div id="card-errors" role="alert"></div>
+                                                                </div>
+                                                                <button style="display:none" id="btnSubmitStripePayment"
+                                                                    class="stripe-button-el">Submit Payment</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="gift">
+                                                            <form onsubmit="return false;">
+                                                                <h5>Gift transactions</h5><br>
+                                                                <h6>We can not gaurantee that the influencer will
+                                                                    uphold<br>their end of the agreement upon receiving
+                                                                    your gift. </h6>
+                                                                <label class="control-label">Tracking Number</label>
+                                                                <div class="form-group"><input class="form-control"
+                                                                        placeholder="" type="text" value=""
+                                                                        id="trackingNumberInput"><span
+                                                                        class="material-input"></span><span
+                                                                        class="material-input"></span></div>
+                                                                <a href="#" class="btn btn-primary btn-md"
+                                                                    id="btnSubmitGiftPayment">Submit Payment</a>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="hide 4 5 6 7">
+                                                        <h3>Payment Submitted</h3><br>
+                                                        <h5 class="gift">Tracking Number</h5>
+                                                        <h6 class="gift trackingNumber" id="trackingNumber"></h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row influencer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <h3 class="hide 2">Waiting for marketer to accept proposal</h3>
+                                                    <h3 class="hide 3">Marketer declined proposal</h3>
+                                                    <h3 class="hide 4 5 6 7">Marketer Submitted Payment</h3>
+                                                </div>
+                                            </div>
+                                            <!-- ... end Personal Information Form  -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab tab-2 col" id="postContainer" align="center">
+                                    <div class="ui-block">
+                                        <div class="ui-block-title" align="left">
+                                            <h6 class="title">Influencer Post</h6>
+                                        </div>
+                                        <div class="ui-block-content hide 4 5 6 7" id="influencerPostContainer">
+                                            <!-- Personal Information Form  -->
+                                            <div class="row marketer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <br>
+                                                    <h5 class="hide 4">Waiting for the influencer to post to <span
+                                                            class="platform"></span>.</h5><br>
+                                                    <a href="#" class="btn btn-primary btn-md hide 4"
+                                                        id="skipPostVerification">Skip Post Verification</a>
+                                                    <h3 class="hide 5 6 7">Influencer Posted the item</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row influencer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <div class="hide 4">
+                                                        <h5>Verify that you have posted the proposal to <span
+                                                                class="platform"></span></h5><br><a href="#"
+                                                            class="btn btn-primary btn-md"
+                                                            id="influencerPostCompleted">Post Completed</a>
+                                                    </div>
+                                                    <h3 class="hide 5 6 7">Post Completed</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab tab-3 col" id="verificationContainer" align="center">
+                                    <div class="ui-block">
+                                        <div class="ui-block-title" align="left">
+                                            <h6 class="title">Post Verification</h6>
+                                        </div>
+                                        <div class="ui-block-content hide 5 6 7" id="marketerConfirmationContainer">
+                                            <!-- Personal Information Form  -->
+                                            <div class="row marketer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <div class="hide 5">
+                                                        <h5>Verify that the proposal has been posted to <span
+                                                                class="platform"></span></h5><br><a href="#"
+                                                            class="btn btn-primary btn-md"
+                                                            id="marketerPostCompleted">Post Completed</a>
+                                                    </div>
+                                                    <h3 class="hide 6 7">Post Verified</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row influencer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <h3 class="hide 5">Waiting for the marketer to verify the post</h3>
+                                                    <h3 class="hide 6 7">Marketer verified the post</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab tab-4 col" id="payoutContainer" align="center">
+                                    <div class="ui-block">
+                                        <div class="ui-block-title" align="left">
+                                            <h6 class="title">Influencer Payout</h6>
+                                        </div>
+                                        <div class="ui-block-content hide 6 7" id="influencerPaymentContainer">
+                                            <!-- Personal Information Form  -->
+                                            <div class="row marketer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <h3 class="hide 6">Waiting for the influencer to accept the payment
+                                                    </h3>
+                                                    <h3 class="hide 7">The influencer accepted the payment</h3>
+                                                </div>
+                                            </div>
+                                            <div class="row influencer">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <div class="hide 6 money">
+                                                        <!--live-->
+                                                        <a class="btn btn-primary btn-md" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_ErI4AkdbhU0utLvqC2EBqGowHmBFgQqQ&scope=read_write"
+                                                            class="stripe-connect"><span>Accept Payment With
+                                                                Stripe</span></a>
+                                                        <!--test-->
+                                                        <!-- <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_ErI4AFguHnjIkK5xLX72Q8vIFRHMqPs0&scope=read_write" class="stripe-connect btn btn-primary btn-md"><span>Accept Payment With Stripe</span></a> -->
+                                                        <h5 id="acceptError"></h5>
+                                                    </div>
+                                                    <div class="hide 6 gift">
+                                                        <a href="#" class="btn btn-primary btn-lg"
+                                                            id="btnAcceptGiftPayment">Accept Payment</a>
+                                                    </div>
+                                                    <h3 class="hide 7">Payment Accepted</h3>
+                                                    <h5 class="hide 7 gift">Tracking Number</h5>
+                                                    <br>
+                                                    <h6 class="hide 7 gift trackingNumber"
+                                                        id="paymentAcceptedTrackingNumber"></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col moreContainer hide" id="detailsContainer" align="center">
+                                    <div class="ui-block">
+                                        <div class="ui-block-title" align="left">
+                                            <h6 class="title">Details</h6>
+                                        </div>
+                                        <div class="ui-block-content">
+                                            <!-- Personal Information Form  -->
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Marketer</label>
+                                                            <h5 id="marketer"></h5>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Compensation</label>
+                                                            <h5 id="compensation"></h5>
+                                                        </div>
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Gift Description</label>
+                                                            <textarea class="form-control" placeholder=""
+                                                                id="giftDescription" disabled></textarea>
+                                                        </div>
+                                                        <form>
+                                                            <div class="form-group input-group" id="moneyInputDiv"
+                                                                style="padding-right:50%">
+                                                                <span class="input-group-addon">$</span>
+                                                                <input class="form-control" type="number"
+                                                                    placeholder="500"
+                                                                    style="padding: 1.1rem 2rem; border:0px; background-color: transparent"
+                                                                    id="price" disabled>
+                                                                <span class="material-input"></span></div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label">Influencer</label>
+                                                            <h5 id="influencer"></h5>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label">Platform</label>
+                                                            <h5 class="platform"></h5>
+                                                        </div>
+                                                        <div class="form-group label-floating">
+                                                            <label class="control-label">Post Caption</label>
+                                                            <textarea class="form-control" placeholder="" id="caption"
+                                                                disabled></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- ... end Personal Information Form  -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col moreContainer hide" id="historyContainer">
+                                    <div class="ui-block">
+                                        <div class="ui-block-title" align="left">
+                                            <h6 class="title">History</h6>
+                                        </div>
+                                        <div class="ui-block-content">
+                                            <!-- Personal Information Form  -->
+                                            <div class="row">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12"
+                                                    id="historyDisplay">
+                                                </div>
+                                            </div>
+                                            <!-- ... end Personal Information Form  -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col moreContainer hide" id="disputesContainer" align="center">
+                                    <div class="ui-block">
+                                        <div class="ui-block-title" align="left">
+                                            <h6 class="title">Disputes</h6>
+                                        </div>
+                                        <div class="ui-block-content">
+                                            <!-- Personal Information Form  -->
+                                            <div class="row" id="disputeBlock">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <h4>Let us know if you're having trouble. Shoot us an email at
+                                                        team@runwae.com for a faster response.</h4>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Description</label>
+                                                        <textarea class="form-control" placeholder=""
+                                                            id="disputeInput"></textarea>
+                                                    </div>
+                                                    <a href="#" class="btn btn-primary btn-lg"
+                                                        id="btnFileDispute">Notify Us</a>
+                                                </div>
+                                            </div>
+                                            <div class="row hide" id="disputeRecorded">
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
+                                                    <h4>Your concern has been recorded. We'll get back to you shortly!
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <div class="row" id="declineBlock">
+                                                <br>
+                                                <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+                                                    <a href="#" class="btn btn-primary btn-lg"
+                                                        id="btnDeclineGig">Decline Gig</a>
+                                                </div>
+                                            </div>
+                                            <!-- ... end Personal Information Form  -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-backdrop fade"></div>
+        <div class="modal fade" id="open-verifyEmail" tabindex="-1" role="dialog" aria-labelledby="open-verifyEmail"
+            style="display: none;" aria-modal="true">
+            <div class="modal-dialog window-popup create-friend-group create-friend-group-add-friends" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="title">Please Verify Your Email</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+                        <h5>You're almost there! We sent an email to <text id="messagedEmail"></text></h5>
+                        <h6>Follow the instructions in the email to complete your signup. If you don't see the email,
+                            try
+                            checking your spam folder.</h6>
+                        <h6>Still can't find the email?</h6>
+                        <a href="#" class="btn btn-blue btn-md" id="btnResendVerifyEmail" style="">Resend Email</a>
+                        <h6>Need help? Contact Us</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            var firebaseConfig = {
+                apiKey: "AIzaSyAwhwY4vDzhelx2yViyt1hGa3UiZounJ90",
+                authDomain: "runwaedesign.firebaseapp.com",
+                databaseURL: "https://runwaedesign.firebaseio.com",
+                projectId: "runwaedesign",
+                storageBucket: "runwaedesign.appspot.com",
+                messagingSenderId: "1095107316289",
+                appId: "1:1095107316289:web:c396b5a4d1702e4e",
+                measurementId: "G-2EHSZNZ9YQ"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            var analytics = firebase.analytics();
+            var storage = firebase.storage();
+            var database = firebase.database();
+        </script>
+        <!-- JS Scripts -->
+        <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/jquery.appear.js"></script>
+        <script src="js/jquery.mousewheel.js"></script>
+        <script src="js/perfect-scrollbar.js"></script>
+        <script src="js/jquery.matchHeight.js"></script>
+        <script src="js/svgxuse.js"></script>
+        <script src="js/imagesloaded.pkgd.js"></script>
+        <script src="js/Headroom.js"></script>
+        <script src="js/velocity.js"></script>
+        <script src="js/ScrollMagic.js"></script>
+        <script src="js/jquery.waypoints.js"></script>
+        <script src="js/jquery.countTo.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/material.min.js"></script>
+        <script src="js/bootstrap-select.js"></script>
+        <script src="js/smooth-scroll.js"></script>
+        <script src="js/selectize.js"></script>
+        <script src="js/swiper.jquery.js"></script>
+        <script src="js/moment.js"></script>
+        <script src="js/daterangepicker.js"></script>
+        <script src="js/simplecalendar.js"></script>
+        <script src="js/fullcalendar.js"></script>
+        <script src="js/isotope.pkgd.js"></script>
+        <script src="js/ajax-pagination.js"></script>
+        <script src="js/Chart.js"></script>
+        <script src="js/chartjs-plugin-deferred.js"></script>
+        <script src="js/circle-progress.js"></script>
+        <script src="js/loader.js"></script>
+        <script src="js/run-chart.js"></script>
+        <script src="js/jquery.magnific-popup.js"></script>
+        <script src="js/jquery.gifplayer.js"></script>
+        <script src="js/mediaelement-and-player.js"></script>
+        <script src="js/mediaelement-playlist-plugin.min.js"></script>
+        <script src="js/ion.rangeSlider.js"></script>
+        <script src="js/base-init.js"></script>
+        <script defer src="fonts/fontawesome-all.js"></script>
+        <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="js/svg-loader.js"></script>
+        <div>
+            <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+                xmlns="http://www.w3.org/2000/svg"></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+        </div>
+        <!-- our js -->
+        <script src="runwaejs/analytics.js"></script>
+        <script src="runwaejs/util.js"></script>
+        <script src="runwaejs/database.js"></script>
+        <script src="runwaejs/write.js"></script>
+        <script src="runwaejs/display.js"></script>
+        <script src="runwaejs/activity.js"></script>
+        <script src="runwaejs/search.js"></script>
+        <script src="runwaejs/follow.js"></script>
+        <script src="runwaejs/favorite.js"></script>
+        <script src="runwaejs/messages.js"></script>
+        <script src="runwaejs/notifications.js"></script>
+        <script src="runwaejs/shares.js"></script>
+        <script src="runwaejs/interests.js"></script>
+        <script src="runwaejs/comments.js"></script>
+        <script src="runwaejs/post.js"></script>
+        <script src="runwaejs/listeners.js"></script>
+        <script src="runwaejs/feed.js"></script>
+        <script src="runwaejs/navHQ.js"></script>
+        <script src="runwaejs/transactions.js"></script>
+        <script src="runwaejs/gigHQ.js"></script>
+        <script type="template" id="searchTemplate">
+            <div class="inline-items {{userOrGroup}}" data-selectable="" data-value="" id="{{uid}}">
+            <div class="author-thumb"><img class="navSearchImg" src="{{src}}" alt="avatar"></div>
+            <div class="notification-event"><span class="h6 notification-friend">{{name}}</span><span class="chat-message-item">{{username}}  | {{role}}</span></div>
+
+    </script>
+        <script type="template" id="notificationTemplate">
+            <li class="notificationLi {{status}}" id="{{target_key}}">
+            <div class=" author-thumb" id="{{uid}}">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event" id="{{action}}">
+                <div><a href="#" class="h6 notification-friend">{{username}}</a> {{action}} <a href="#" class="notification-link">{{target}}</a>.</div>
+                <span class="notification-date"><time class="entry-date updated" >{{time}}</time></span>
+            </div>
+
+            <div class="more" id="{{key}}">
+<ion-icon name="close-circle-outline" class="little-delete"></ion-icon>            </div>
+        </li>
+    </script>
+        <script type="template" id="conversationTemplate">
+            <li class="conversationLi {{status}}" id="{{key}}">
+            <div class="author-thumb" id="{{uid}}">
+                <img src="{{src}}" alt="author">
+            </div>
+            <div class="notification-event">
+                <a href="#" class="h6 notification-friend">{{username}}</a>
+                <span class="chat-message-item">{{body}}</span>
+                <span class="notification-date"><time class="entry-date updated" >{{time}}</time></span>
+            </div>
+            <span class="notification-icon">
+<ion-icon name="chatbubbles-outline"></ion-icon>									</span>
+            <!-- <div class="more">
+<ion-icon name="close-circle-outline" class="little-delete"></ion-icon>            </div> -->
+        </li>
+    </script>
+</body>
+
+</html>

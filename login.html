@@ -1,0 +1,346 @@
+<html lang="en"
+    class="wf-roboto-n4-active wf-roboto-n7-active wf-roboto-n5-active wf-roboto-n3-active wf-active fontawesome-i2svg-active fontawesome-i2svg-complete">
+
+<head>
+    <title>Login</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="Runwae">
+    <link rel="apple-touch-icon" href="/images/icons/icon-150x150.png">
+    <meta name="theme-color" content="#928bff" />
+    <link href="/images/icons/icon-70x70.png" sizes="70x70" rel="apple-touch-startup-image" />
+    <link href="/images/icons/icon-144x144.png" sizes="144x144" rel="apple-touch-startup-image" />
+    <link href="/images/icons/icon-150x150.png" sizes="150x150" rel="apple-touch-startup-image" />
+    <link href="/images/icons/icon-310x310.png" sizes="310x310" rel="apple-touch-startup-image" />
+    <link href="/images/icons/icon-512x512.png" sizes="512x512" rel="apple-touch-startup-image" />
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="Fast Influencer Marketing">
+    <meta name="author" content="Runwae">
+    <meta name="keywords" content="Influencer,Marketing,Social,Media,Network">
+    <meta property="og:url" content="Runwae.com/welcome" />
+    <meta property="og:title" content="Welcome" />
+    <meta property="og:description" content="Fast Influencer Marketing" />
+    <meta property="og:image" content="https://runwae.com/img/runwae.png" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/welcomebootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
+    <!-- Main Styles CSS -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
+    <link rel="stylesheet" type="text/css" href="css/runwae.css">
+    <link rel="stylesheet" type="text/css" href="css/ext.css">
+    <link rel="stylesheet" type="text/css" href="css/welcome.css">
+    <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <!-- Main Font -->
+    <script src="js/webfontloader.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
+        media="all">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+    <script>
+        // init controller
+        var controller = new ScrollMagic.Controller();
+    </script>
+    <script>
+        WebFont.load({
+            google: {
+                families: ['Roboto:300,400,500,700:latin']
+            }
+        });
+    </script>
+    <script src="//widget.manychat.com/104609561367359.js" async="async"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('serviceworker.js')
+                    .then((reg) => {
+                        console.log('Service worker registered.', reg);
+                    });
+            });
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+</head>
+
+<body class="body-bg-white">
+    <div class="main-header main-header-fullwidth main-header-has-header-standard">
+        <!-- Header Standard Landing  -->
+        <div class="header--standard header--standard-landing animated headroom--not-bottom slideDown headroom--top"
+            id="header--standard">
+            <div class="container">
+                <div class="header--standard-wrap">
+                    <a href="#" class="logo">
+                        <div class="img-wrap">
+                            <img src="img/logo-colored.png" alt="Runwae">
+                            <img src="img/logo.png" alt="Runwae" class="logo-colored">
+                        </div>
+                        <div class="title-block">
+                            <h6 class="logo-title">Runwae</h6>
+                        </div>
+                    </a>
+                    <a href="#" class="open-responsive-menu js-open-responsive-menu">
+                        <ion-icon class="ionicon menu-icon" name="menu-outline"></ion-icon>
+                    </a>
+                    <div class="nav nav-pills nav1 header-menu">
+                        <div class="mCustomScrollbar ps ps--theme_default ps--active-x ps--active-y"
+                            data-ps-id="13106c38-7c0f-a50d-0595-443c869e00e3">
+                            <ul>
+                                <li class="nav-item">
+                                    <a href="blog.html" class="nav-link">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="login?login" class="nav-link">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="login?signup" class="nav-link">Sign Up</a>
+                                </li>
+                                <li class="close-responsive-menu js-close-responsive-menu">
+                                    <ion-icon class="ionicon close-icon" name="close-outline"></ion-icon>
+                                </li>
+                                <li class="nav-item js-expanded-menu">
+                                    <a href="#" class="nav-link">
+                                        <ion-icon class="ionicon menu-icon" name="menu-outline"></ion-icon>
+                                        <ion-icon class="ionicon close-icon" name="close-outline"></ion-icon>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ... end Header Standard Landing  -->
+        <div class="header-spacer--standard"></div>
+        <div class="content-bg-wrap bg-fixed bg-landing"></div>
+        <div class="container">
+            <div class="row display-flex">
+                <div class="col  m-auto col-lg-4 col-md-6 col-sm-8 col-xs-8">
+                    <div class="registration-login-form" style="padding:0px">
+                        <!-- Nav tabs -->
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane" id="signUpPanel" role="tabpanel" data-mh="log-tab">
+                                <div class="title h6">Create Account</div>
+                                <form class="content" onSubmit="return false;">
+                                    <div class="row">
+                                        <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                            <div class="checkbox roleToggle">
+                                                <label>
+                                                    <input name="influencerCheckbox" type="checkbox"
+                                                        id="influencerCheckbox"><span class="checkbox-material"><span
+                                                            class="check"></span></span> Influencer
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                            <div class="checkbox roleToggle">
+                                                <label>
+                                                    <input name="marketerCheckbox" type="checkbox"
+                                                        id="marketerCheckbox"><span class="checkbox-material"><span
+                                                            class="check"></span></span> Marketer
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 brandName">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label nameLabel">Name</label>
+                                                <input class="form-control" placeholder="" id="nameInput">
+                                                <span class="material-input"></span><span class="material-input"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 brandName">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label">Username</label>
+                                                <input class="form-control" placeholder="" id="usernameInput">
+                                                <span class="material-input"></span><span class="material-input"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label">Your Email</label>
+                                                <input class="form-control" placeholder="" type="email"
+                                                    id="txtEmailSignUp">
+                                                <span class="material-input"></span><span class="material-input"></span>
+                                            </div>
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label">Your Password</label>
+                                                <input class="form-control" placeholder="" type="password"
+                                                    id="txtPasswordSignUp">
+                                                <span class="material-input"></span><span class="material-input"></span>
+                                            </div>
+                                            <div class="remember">
+                                                <div class="checkbox clicked">
+                                                    <label>
+                                                        <input name="optionsCheckboxes" type="checkbox"
+                                                            id="termsCheckbox"><span class="checkbox-material"><span
+                                                                class="check"></span></span>
+                                                        I accept the <a href="terms">Terms and Conditions</a> of the
+                                                        website
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <p style="color: salmon" id="error"></p>
+                                            <br>
+                                            <a href="#" id="btnSignUp" class="btn btn-purple btn-lg full-width">Sign
+                                                Up</a>
+                                            <p>Already have an account? <a href="#" id="loginNow">Login</a></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="loginPanel" role="tabpanel" data-mh="log-tab">
+                                <div class="title h6">Login</div>
+                                <form class="content" onSubmit="return false;">
+                                    <div class="row">
+                                        <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label">Your Email</label>
+                                                <input class="form-control" placeholder="" type="email"
+                                                    id="txtEmailLogin">
+                                                <span class="material-input"></span><span class="material-input"></span>
+                                            </div>
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label">Your Password</label>
+                                                <input class="form-control" placeholder="" type="password"
+                                                    id="txtPasswordLogin">
+                                                <span class="material-input"></span><span class="material-input"></span>
+                                            </div>
+                                            <div class="remember">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="optionsCheckboxes" type="checkbox"><span
+                                                            class="checkbox-material"><span class="check"></span></span>
+                                                        Remember Me
+                                                    </label>
+                                                </div>
+                                                <a href="#" class="forgot" data-toggle="modal"
+                                                    data-target="#restore-password">Forgot my Password</a>
+                                            </div>
+                                            <p style="color: salmon" id="loginError"></p><br>
+                                            <a href="#" class="btn btn-lg btn-purple full-width" id="btnLogin">Login</a>
+                                            <p>Don’t have an account? <a href="#" id="registerNow">Sign Up</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Window-popup Restore Password -->
+    <div class="modal fade" id="restore-password" tabindex="-1" role="dialog" aria-labelledby="restore-password"
+        aria-hidden="true">
+        <div class="modal-dialog window-popup restore-password-popup" role="document">
+            <div class="modal-content">
+                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                    <ion-icon name="close-outline" class="close-icon"></ion-icon>
+                </a>
+                <div class="modal-header">
+                    <h6 class="title">Reset your Password</h6>
+                </div>
+                <div class="modal-body">
+                    <form onSubmit="return false;">
+                        <p>Enter your email and click the button below. You’ll receive simple instructions on how to
+                            proceed.
+                        </p>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Your Email</label>
+                            <input class="form-control" placeholder="" type="email" value="" id="forgotPasswordEmail">
+                            <span class="material-input"></span><span class="material-input"></span></div>
+                        <p style="color: salmon" id="forgotPasswordError"></p><br>
+                        <button class="btn btn-purple btn-lg full-width" id="btnSendEmail">Send me the Email</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ... end Window-popup Restore Password -->
+    <!-- Footer Full Width -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyAwhwY4vDzhelx2yViyt1hGa3UiZounJ90",
+            authDomain: "runwaedesign.firebaseapp.com",
+            databaseURL: "https://runwaedesign.firebaseio.com",
+            projectId: "runwaedesign",
+            storageBucket: "runwaedesign.appspot.com",
+            messagingSenderId: "1095107316289",
+            appId: "1:1095107316289:web:c396b5a4d1702e4e",
+            measurementId: "G-2EHSZNZ9YQ"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var analytics =  firebase.analytics();
+        var database = firebase.database();
+    </script>
+    <!-- JS Scripts -->
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/jquery.appear.js"></script>
+    <script src="js/jquery.mousewheel.js"></script>
+    <script src="js/perfect-scrollbar.js"></script>
+    <script src="js/jquery.matchHeight.js"></script>
+    <script src="js/svgxuse.js"></script>
+    <script src="js/imagesloaded.pkgd.js"></script>
+    <script src="js/Headroom.js"></script>
+    <script src="js/velocity.js"></script>
+    <script src="js/ScrollMagic.js"></script>
+    <script src="js/jquery.waypoints.js"></script>
+    <script src="js/jquery.countTo.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/material.min.js"></script>
+    <script src="js/bootstrap-select.js"></script>
+    <script src="js/smooth-scroll.js"></script>
+    <script src="js/selectize.js"></script>
+    <script src="js/swiper.jquery.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/daterangepicker.js"></script>
+    <script src="js/simplecalendar.js"></script>
+    <script src="js/fullcalendar.js"></script>
+    <script src="js/isotope.pkgd.js"></script>
+    <script src="js/ajax-pagination.js"></script>
+    <script src="js/Chart.js"></script>
+    <script src="js/chartjs-plugin-deferred.js"></script>
+    <script src="js/circle-progress.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/run-chart.js"></script>
+    <script src="js/jquery.magnific-popup.js"></script>
+    <script src="js/jquery.gifplayer.js"></script>
+    <script src="js/mediaelement-and-player.js"></script>
+    <script src="js/mediaelement-playlist-plugin.min.js"></script>
+    <script src="js/ion.rangeSlider.js"></script>
+    <script src="js/base-init.js"></script>
+    <script defer="" src="fonts/fontawesome-all.js"></script>
+    <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="js/svg-loader.js"></script>
+    <div>
+        <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+            xmlns="http://www.w3.org/2000/svg"></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
+    </div>
+    <script src="runwaejs/analytics.js"></script>
+    <script src="runwaejs/database.js"></script>
+    <script src="runwaejs/util.js"></script>
+    <script src="runwaejs/auth.js"></script>
+    <script src="runwaejs/login.js"></script>
+    <script src="runwaejs/navHQ.js"></script>
+</body>
+
+</html>
