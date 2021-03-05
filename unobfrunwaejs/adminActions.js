@@ -16,7 +16,7 @@ function actions(snapdb) {
             var email = usersObj[u]["email"];
             //profile completion email time
             //if 2 weeks since last email
-            title = "Hello " + usersObj[u]["name"] + ",";
+            title = "Hello " + usersObj[u]["name"] + "!";
             body = "Get started on Runwae by completing your profile. Providing accurate information increases your credibility among users and leads to more connections. This also helps keep the runwae community active and engaged!";
             bodyNote = "Please don't hesitate to email us if there's anything you think we can do better!";
             moreLink = "https://runwae.com/account";
@@ -30,12 +30,16 @@ function actions(snapdb) {
                     photoURL = usersObj[u]["photo_url"];
                     headerURL = usersObj[u]["header_url"];
                     if (!location || (location == "") || !industry || (industry == "") || !description || (description == "") || (photoURL == "https://runwae.com/img/newuser.png") || (headerURL == "https://runwae.com/img/newheader.png")) {
-                        // database.ref().child('users/' + u).update({
-                        //     "profile_completion_email_time": dNow
-                        // });
-                        // sendEmail(email, "You're almost there!", [title, body, bodyNote, moreLink, actionText]);
+                        if(email == "latarencebutts@yahoo.com" || email == "Runwaeapparel@gmail.com"){
+                        database.ref().child('users/' + u).update({
+                            "profile_completion_email_time": dNow
+                        });
+                        sendEmail(email, "You're almost there!", [title, body, bodyNote, moreLink, actionText]);
                         console.log("profile Email", email);
+                        }
                     }
+                }else{
+                    console.log(email, "recently emailed");
                 }
             }
         }
@@ -63,7 +67,7 @@ function actions(snapdb) {
                     latestTime = itemsObj[itemKey]["influencers"][gigKey]["ledger"][lastLedgerKey]["time"]
                     var registerTime = userObj["time"];
                     var email = userObj["email"];
-                    title = "Hello " + userObj[u]["name"] + ",";
+                    title = "Hello " + userObj[u]["name"] + "!";
                     body = statusToBody(body, partnerName);
                     bodyNote = "Please don't hesitate to email us if there's anything you think we can do better!";
                     moreLink = "https://runwae.com/account";
