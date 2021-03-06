@@ -1092,6 +1092,37 @@ FOLLOWERS/ FOLLOWINNG
     max-height: 350px;
 }
 
+
+/*
+ACCOUNT PAGE
+*/
+
+#personalInformation .author-thumb {
+    border-radius: 100%;
+    overflow: hidden;
+    width: 85px;
+    height: 85px;
+}
+
+#personalInformation .author-thumb img {
+    height: unset !important;
+    width: 85px;
+    border-radius: unset;
+}
+
+#personalInformation .inline-items .notification-event {
+    margin-left: 10px;
+}
+
+#btnProfilePhoto, #btnHeaderPhoto  {
+   padding: .5rem 0rem;
+   border: 0px;
+}
+
+#personalInformation .header-thumb{
+    border-radius: 0%;
+}
+
 /*
 VERIFIED
 */

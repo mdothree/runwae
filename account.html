@@ -292,6 +292,27 @@
                         <form onsubmit="return false;">
                             <div class="row">
                                 <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
+                                    <div class="inline-items">
+                                    <div class="author-thumb" style="display:none" id="infoProfilePicture">
+                                        <img src="" alt="author">
+                                    </div>
+                                    <div class="notification-event">
+                                        <a href="#" class="h6 notification-friend">Profile Picture</a>
+                                        <br>
+                                        <input type="file" id="btnProfilePhoto">
+                                    </div>
+                                </div>
+                                    <br>
+                                    <div class="inline-items">
+
+                                    <div class="author-thumb header-thumb" style="display:none" id="infoHeaderPicture">
+                                        <img src="" alt="author" >
+                                    </div>
+                                    <div class="notification-event">
+                                        <a href="#" class="h6 notification-friend">Header Picture</a><br>
+                                        <input type="file" id="btnHeaderPhoto">
+                                    </div></div>
+                                    <br>
                                     <label class="control-label">Name</label>
                                     <div class="form-group"><input class="form-control" placeholder="" type="text"
                                             value="" id="name"><span class="material-input"></span><span
@@ -780,7 +801,7 @@
     <script src="runwaejs/notifications.js"></script>
     <script src="runwaejs/navHQ.js"></script>
     <script src="runwaejs/location.js"></script>
-    <script src="runwaejs/accountHQ.js"></script>
+    <script src="unobfrunwaejs/accountHQ.js"></script>
     <script type="Template" id="dropdownTemplate">
         <li data-original-index="{{index}}" class="dropdown-li"><a tabindex="{{index}}" class=" dropdown-item" style="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text" title="{{code}}">{{name}}</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>
     </script>

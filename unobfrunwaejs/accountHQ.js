@@ -6,6 +6,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         database.ref().child('users/' + useri).once('value', function (snap) {
             handleMessagePreference();
             displayAccountInfo();
+            profilePhotos(snap);
             whoToFollow(snap, 6, "#influencersToFollowDisplay", "influencer");
             whoToFollow(snap, 6, "#brandsToFollowDisplay", "marketer");
             displayActivity(snap, 20);
@@ -159,4 +160,62 @@ function getMessagePreference() {
     } else {
         return "collaborators";
     }
+}
+
+function showField(useri) {
+    firebase.storage().ref().child('users/' + useri + '/photo').getDownloadURL().then(function (url) {
+        $("#infoProfilePicture img").attr("src", url);
+        $("#profilePicture, #navProfilePicture").attr("src", url);
+        database.ref().child('users/' + useri).update({
+            "photo_url": url
+        });
+    }).catch(function (error) {});
+}
+
+function showHeaderField(useri) {
+    firebase.storage().ref().child('users/' + useri + '/header').getDownloadURL().then(function (url) {
+        $("#infoHeaderPicture img").attr("src", url);
+        database.ref().child('users/' + useri).update({
+            "header_url": url
+        });
+    }).catch(function (error) {});
+}
+
+function profilePhotos(snap) {
+    useri = snap.key;
+    $("#infoProfilePicture img").attr("src", snap.val().photo_url);
+    $("#infoHeaderPicture img").attr("src", snap.val().header_url);
+    $("#infoProfilePicture").show();
+    $("#infoHeaderPicture").show();
+
+
+
+    document.getElementById('btnProfilePhoto').addEventListener('change', e => {
+        var file = e.target.files[0];
+        if (file.size < 2000000) {
+            $("#infoProfilePicture img").attr("src", "https://i.gifer.com/7JXX.gif");
+            var oldStorageRef = firebase.storage().ref('users/' + useri + '/photo');
+            if (oldStorageRef != null) {
+                oldStorageRef.delete();
+            }
+            var storageRef = firebase.storage().ref('users/' + useri + '/photo');
+            var task = storageRef.put(file).then(function (snapshot) {
+                showField(useri);
+            });
+        }
+    });
+    document.getElementById('btnHeaderPhoto').addEventListener('change', e => {
+        var file = e.target.files[0];
+        if (file.size < 2000000) {
+            $("#infoHeaderPicture img").attr("src", "img/loadingheader.gif");
+            var oldStorageRef = firebase.storage().ref('users/' + useri + '/header');
+            if (oldStorageRef != null) {
+                oldStorageRef.delete();
+            }
+            var storageRef = firebase.storage().ref('users/' + useri + '/header');
+            var task = storageRef.put(file).then(function (snapshot) {
+                showHeaderField(useri);
+            });
+        }
+    });
 }
