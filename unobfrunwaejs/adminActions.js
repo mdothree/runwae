@@ -31,10 +31,10 @@ function actions(snapdb) {
                     headerURL = usersObj[u]["header_url"];
                     if (!location || (location == "") || !industry || (industry == "") || !description || (description == "") || (photoURL == "https://runwae.com/img/newuser.png") || (headerURL == "https://runwae.com/img/newheader.png")) {
                         if(email == "latarencebutts@yahoo.com" || email == "Runwaeapparel@gmail.com"){
-                        database.ref().child('users/' + u).update({
-                            "profile_completion_email_time": dNow
-                        });
-                        sendEmail(email, "You're almost there!", [title, body, bodyNote, moreLink, actionText]);
+                        // database.ref().child('users/' + u).update({
+                        //     "profile_completion_email_time": dNow
+                        // });
+                        // sendEmail(email, "You're almost there!", [title, body, bodyNote, moreLink, actionText]);
                         console.log("profile Email", email);
                         }
                     }
