@@ -6,18 +6,30 @@ function writeComment(snapVisitor, el) {
     var key = $(el).closest(".ui-block").attr("id");
     var uid = $(el).closest(".ui-block").find("article").attr("id");
     comment = $(el).closest("form").find("textarea#postCommentInput").val();
-    commentKey = database.ref().child('items/' + key + '/comments').push().key;
-    database.ref().child('items/' + key + '/comments/' + commentKey).update({
-        "time": dNow,
-        "uid": useri,
-        "comment": comment
+    //get see if there is a comment from the UID with an existing, identical comment
+    firebase.database().ref().child('items/' + key + '/comments').once('value', function (snap) {
+        var commentsObj = snap.val();
+        alreadyCommented = false;
+        for (commentKey of Object.keys(commentsObj)) {
+            if (commentsObj[commentKey]["uid"] == useri && commentsObj[commentKey]["comment"] == comment) {
+                alreadyCommented = true;
+            }
+        }
+        if (alreadyCommented == false) {
+            commentKey = database.ref().child('items/' + key + '/comments').push().key;
+            database.ref().child('items/' + key + '/comments/' + commentKey).update({
+                "time": dNow,
+                "uid": useri,
+                "comment": comment
+            });
+            if (useri != uid) {
+                writeNotification(useri, uid, snapVisitor.val().username, "commented on", "your post", key);
+                writeActivity(useri, uid, "commented on", "post", key);
+            }
+            updateCommentsCount(key);
+            appendComment(snapVisitor, key, dNow, comment);
+        }
     });
-    if (useri != uid) {
-        writeNotification(useri, uid, snapVisitor.val().username, "commented on", "your post", key);
-        writeActivity(useri, uid, "commented on", "post", key);
-    }
-    updateCommentsCount(key);
-    appendComment(snapVisitor, key, dNow, comment)
 }
 
 
@@ -47,7 +59,7 @@ function updateCommentsCount(key) {
         database.ref().child('items/' + key).update({
             "comments_count": Number(commentsCount)
         });
-        refreshCommentsCount(key, commentsCount)
+        refreshCommentsCount(key, commentsCount);
     });
 }
 
