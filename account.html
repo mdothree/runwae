@@ -45,6 +45,8 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script data-ad-client="ca-pub-7287110011977791" async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 <body class="page-has-left-panels page-has-right-panels">
@@ -293,25 +295,27 @@
                             <div class="row">
                                 <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
                                     <div class="inline-items">
-                                    <div class="author-thumb" style="display:none" id="infoProfilePicture">
-                                        <img src="" alt="author">
+                                        <div class="author-thumb" style="display:none" id="infoProfilePicture">
+                                            <img src="" alt="author">
+                                        </div>
+                                        <div class="notification-event">
+                                            <a href="#" class="h6 notification-friend">Profile Picture</a>
+                                            <br>
+                                            <input type="file" id="btnProfilePhoto">
+                                        </div>
                                     </div>
-                                    <div class="notification-event">
-                                        <a href="#" class="h6 notification-friend">Profile Picture</a>
-                                        <br>
-                                        <input type="file" id="btnProfilePhoto">
-                                    </div>
-                                </div>
                                     <br>
                                     <div class="inline-items">
 
-                                    <div class="author-thumb header-thumb" style="display:none" id="infoHeaderPicture">
-                                        <img src="" alt="author" >
+                                        <div class="author-thumb header-thumb" style="display:none"
+                                            id="infoHeaderPicture">
+                                            <img src="" alt="author">
+                                        </div>
+                                        <div class="notification-event">
+                                            <a href="#" class="h6 notification-friend">Header Picture</a><br>
+                                            <input type="file" id="btnHeaderPhoto">
+                                        </div>
                                     </div>
-                                    <div class="notification-event">
-                                        <a href="#" class="h6 notification-friend">Header Picture</a><br>
-                                        <input type="file" id="btnHeaderPhoto">
-                                    </div></div>
                                     <br>
                                     <label class="control-label">Name</label>
                                     <div class="form-group"><input class="form-control" placeholder="" type="text"
@@ -627,7 +631,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <!-- ... end Your Profile  -->
                 </div>
                 <div class="ui-block">
@@ -840,8 +844,8 @@
 
         </li>
     </script>
-        <script type="template" id="activityTemplate" src="templates/activityTemplate.js">
-            <li id="{{key}}" class="actionLi">
+    <script type="template" id="activityTemplate" src="templates/activityTemplate.js">
+        <li id="{{key}}" class="actionLi">
             <div class="author-thumb">
                 <img src="{{src}}" alt="author">
             </div>
@@ -851,8 +855,8 @@
             </div>
         </li>
     </script>
-        <script type="template" id="whoToFollowTemplate" src="templates/whoToFollowTemplate.js">
-            <li class="inline-items" id="{{uid}}">
+    <script type="template" id="whoToFollowTemplate" src="templates/whoToFollowTemplate.js">
+        <li class="inline-items" id="{{uid}}">
             <div class="author-thumb">
                 <img src="{{src}}" alt="author">
             </div>

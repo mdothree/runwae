@@ -402,12 +402,7 @@ $headers = "MIME-Version: 1.0" . "\r\n";
 $headers.= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers.= 'From: <team@runwae.com>' . "\r\n";
 
-$send = true;
-if ($subject == "You have a notification on Runwae!"){ 
-    if(rand(1,3) > 1){
-            $send = false;
-    }
-}
+$send = true; if ($subject == "You have a notification on Runwae!"){ if(rand(1,3) > 1){ $send = false; } }
 $send = true;
 if ($send == true){
     mail($to, $subject, $message, $headers);
