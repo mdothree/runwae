@@ -228,8 +228,13 @@ function profilePhotos() {
 
     // });
     document.getElementById('btnProfilePhoto').addEventListener('change', e => {
-        var file = e.target.files[0];
+    var file = e.target.files[0];
+    //var fr = new FileReader;
+    //fr.onload = function() { // file is loaded
+        //var img = new Image;
+        //img.onload = function() {
         if (file.size < 2000000) {
+        //if (img.width == img.height){
             $("#profilePicture, #navProfilePicture").attr("src", "https://i.gifer.com/7JXX.gif");
             var oldStorageRef = firebase.storage().ref('users/' + useri + '/photo');
             if (oldStorageRef != null) {
@@ -251,6 +256,13 @@ function profilePhotos() {
             //
             //    });
         }
+        //}
+                //};
+
+        //img.src = fr.result; // is the data URL because called with readAsDataURL
+    //};
+
+    //fr.readAsDataURL(file);
     });
     document.getElementById('btnHeaderPhoto').addEventListener('change', e => {
         var file = e.target.files[0];

@@ -6,6 +6,7 @@ function writeComment(snapVisitor, el) {
     var key = $(el).closest(".ui-block").attr("id");
     var uid = $(el).closest(".ui-block").find("article").attr("id");
     comment = $(el).closest("form").find("textarea#postCommentInput").val();
+    $(el).closest("form").find("textarea#postCommentInput").val("");
     //get see if there is a comment from the UID with an existing, identical comment
     firebase.database().ref().child('items/' + key + '/comments').once('value', function (snap) {
         var commentsObj = snap.val();
