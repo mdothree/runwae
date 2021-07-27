@@ -1,3 +1,14 @@
+function notifyAll(userKey, username, action, target, targetKey) {
+    database.ref().child('users').once('value', function (snap) {
+        usersObj = snap.val();
+        for (uKey of Object.keys(usersObj)) {
+            if (uKey != userKey){
+                writeNotification(userKey, ukey, username, action, target, targetKey); 
+            }
+        }
+    });
+}
+
 function writeNotification(useri, uid, username, action, target, targetKey) {
 
     var notification = {

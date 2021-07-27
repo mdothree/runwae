@@ -317,6 +317,7 @@ function writePost(snapUser, file, compensation) {
             linkedin: $("#linkedinEnabled").is(':checked')
         });
         writeActivity(useri, "", "posted an item", "", itemKey);
+        notifyAll(snapUser.key, snapUser.val().username, "posted an", "opportunity", 'items/' + itemKey);
         profileRelocate(useri, useri);
 }
 }

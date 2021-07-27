@@ -57,10 +57,10 @@ firebase.auth().onAuthStateChanged(function (user) {
         $('.nav-prof').remove();
         if (window.location.href.includes("explore") || window.location.href.includes("account") || window.location.href.includes("gig") || window.location.href.includes("messages") || window.location.href.includes("notifications")) {
             //window.location.href = "runwae.com/welcome";
-            window.location.href = "runwae.com/login";
+            window.location.href = "https://runwae.com/login";
         }
         $(".logo").click(function () {
-            window.location.href = "runwae.com/welcome";
+            window.location.href = "https://runwae.com/welcome";
         });
     }
 });

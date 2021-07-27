@@ -38,7 +38,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             }
         });
     } else {
-        window.location.href = "runwae.com/login";
+        window.location.href = "https://runwae.com/login";
         $(document).click(function (e) {
             e.preventDefault();
             openModal('#open-RegisterOrLogin');

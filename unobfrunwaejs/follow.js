@@ -354,6 +354,7 @@ function whoToFollow(userSnap, limit, displayDiv, role) {
             }
 
             function displayUser(userObj, n) {
+                if(userObj["photo_url"] != "https://runwae.com/img/newuser.png"){
                 key = userKeys[n];
                 connections = getConnections(userSnap.val(), userObj);
                 var after = [key, userObj["photo_url"], userObj["name"], userObj["username"], connections];
@@ -375,6 +376,7 @@ function whoToFollow(userSnap, limit, displayDiv, role) {
                         writeFollow(userSnap, snapHost);
                     });
                 });
+            }
                 getUser(n + 1);
             }
         } else {}
