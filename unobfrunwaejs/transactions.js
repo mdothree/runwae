@@ -31,6 +31,7 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     actionText = "Review Campaign";
 
     $("#btnSubmitStripePayment").show();
+    $("#btnAboutStripe").show();
     var stripe = Stripe('pk_live_c7ZMfvUAwnPROKI545UOYYGg');
     // var stripe = Stripe('pk_test_tF7iq07rv4Sz7VcnzG2L5X4Z');
 
