@@ -95,6 +95,7 @@ function writePostAssist(snapUser) {
             $("#alert").html("*Caption required");
             return false;
         } else {
+            if($("#compensationCheckbox").is(':checked') == true){
             if (!($("#priceInput").val() >= 10) || !($("#priceInput").val() <= 40)) {
                 $("#priceInput").val(10);
                 $("#alert").html("Price must be between $10 and $40");
@@ -102,6 +103,9 @@ function writePostAssist(snapUser) {
             } else {
                 return true;
             }
+        }else {
+            return true;
+        }
         }
     }
 
