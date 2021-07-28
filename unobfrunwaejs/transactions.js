@@ -183,6 +183,12 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
 
 function recordTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, transactionID) {
     key = database.ref().child('transactions').push().key;
+    if(snapItem.val().compensation == "gift"){
+        tracking_number = snapGig.val().tracking_number;
+    }
+    else{
+        tracking_number = "";
+    }
     //write to main transaction
     database.ref().child('transactions/' + key).update({
         "path": path,
@@ -190,7 +196,7 @@ function recordTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path
         "marketer_transactionID": transactionID,
         "influencer_TransactionID": "",
         "price": price = Number(snapItem.val().price).toFixed(0),
-        "tracking_number": "",
+        "tracking_number": tracking_number,
         "marketerID": snapMarketer.key,
         "influencerID": snapInfluencer.key,
         "marketer_time": dNow,
