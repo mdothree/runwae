@@ -32,8 +32,8 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
 
     $("#btnSubmitStripePayment").show();
     $("#btnAboutStripe").show();
-    var stripe = Stripe('pk_live_c7ZMfvUAwnPROKI545UOYYGg');
-    // var stripe = Stripe('pk_test_tF7iq07rv4Sz7VcnzG2L5X4Z');
+    var stripe = Stripe('pk_live_XXXX');
+    // var stripe = Stripe('pk_test_XXXX');
 
     // Create an instance of Elements.
     var elements = stripe.elements();
