@@ -192,6 +192,14 @@ New untracked files:
 - [x] Fixed `.append()` XSS vulnerability in display.js (line 18) - changed to `.text()`
 - [x] Fixed `.html()` to `.text()` for badge points in display.js (line 46)
 
+### Critical JavaScript Bug Fixes (2026-05-11)
+- [x] **display.js:28** - Fixed off-by-one error (`i <= ids.length` → `i < ids.length`) - was breaking social links display
+- [x] **display.js:43** - Fixed undeclared `badgeCount` variable (global pollution)
+- [x] **profileHQ.js:170** - Fixed off-by-one error in group form validation
+- [x] **accountHQ.js:41** - Fixed off-by-one error - was breaking account info display
+- [x] **accountHQ.js:47** - Fixed undeclared `str` variable
+- [x] **feed.js:138** - Fixed off-by-one error and variable collision - was breaking search/feed display
+
 ### Missing Includes Added
 - [x] Added `css/theme.css` to welcome.html
 - [x] Added `js/theme-toggle.js` to welcome.html

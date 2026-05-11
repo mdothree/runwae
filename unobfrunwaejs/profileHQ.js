@@ -166,8 +166,8 @@ function visitor(visitorSnap, hostSnap) {
 }
 $("#btnSubmitGroup").click(function () {
     var ids = ["groupName", "username"];
-    var defined = true
-    for (i = 0; i <= ids.length; i++) {
+    var defined = true;
+    for (var i = 0; i < ids.length; i++) {
         if (!$("#" + ids[i] + "Input").val()) {
             defined = false
         }

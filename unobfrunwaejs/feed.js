@@ -135,8 +135,8 @@ function displayFeed(snapVisitor, displayDiv) {
                     if (search != "") {
                         var go = false;
                         var propertiesArray = [username, brand, caption];
-                        for (i = 0; i <= propertiesArray.length; i++) {
-                            var property = itemObj[propertiesArray[i]];
+                        for (var j = 0; j < propertiesArray.length; j++) {
+                            var property = itemObj[propertiesArray[j]];
                             if (search.toLowerCase().includes(property.toLowerCase()) || property.toLowerCase().includes(search.toLowerCase())) {
                                 go = true;
                             }

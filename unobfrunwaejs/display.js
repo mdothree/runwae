@@ -25,7 +25,7 @@ function displayProfile(snap) {
         $("#city, #region").remove();
     }
     var ids = ["instagram", "twitter", "facebook", "linkedin"];
-    for (i = 0; i <= ids.length; i++) {
+    for (var i = 0; i < ids.length; i++) {
         if (snap.val()[ids[i]] == "" || !snap.val()[ids[i]]) {
             $("#" + ids[i]).closest('.label-floating').addClass("is-empty");
         } else {
@@ -40,7 +40,7 @@ function displayBadges(snap) {
     var dbRefUser = firebase.database().ref().child('users/' + snap.key);
     dbRefUser.once('value', function (snap) {
         //get conversation object
-        badgeCount = 0;
+        var badgeCount = 0;
         var obj = snap.val().badges;
         for (var key in obj) {
             if (obj[key] >= 5) {

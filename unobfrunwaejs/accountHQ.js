@@ -37,14 +37,14 @@ firebase.auth().onAuthStateChanged(function (user) {
             function displayAccountInfo() {
                 displayMessagePreference(snap.val().messaging_preference);
                 var ids = ["email", "role", "name", "username", "description", "website", "instagram", "twitter", "facebook", "linkedin", "country", "region", "city", "location", "industry"];
-                var platforms = ["instagram", "twitter", "facebook", "linkedin"]
-                for (i = 0; i <= ids.length; i++) {
+                var platforms = ["instagram", "twitter", "facebook", "linkedin"];
+                for (var i = 0; i < ids.length; i++) {
                     if (snap.val()[ids[i]] == "" || !snap.val()[ids[i]]) {
                         $("#" + ids[i]).closest('.label-floating').addClass("is-empty");
                     } else {
                         $("#" + ids[i]).closest('.label-floating').removeClass("is-empty");
                         if (platforms.includes(ids[i])) {
-                            str = snap.val()[ids[i]];
+                            var str = snap.val()[ids[i]];
                             var n = str.lastIndexOf("/");
                             $("#" + ids[i]).val(str.substring(n + 1, str.length));
                         } else {
