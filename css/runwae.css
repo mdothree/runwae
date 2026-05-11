@@ -283,7 +283,7 @@ POST ASSIST
     display: inline-block;
     width: 66px;
     height: 30px;
-    background-color: #9389FF;
+    background-color: var(--color-primary);
     border-radius: 15px;
     margin-right: 0;
     transition: background 0.3s ease;
@@ -390,8 +390,8 @@ POST  ICON
 }
 
 .interested {
-    background-color: #9389FF !important;
-    border-color: #9389FF !important;
+    background-color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
 }
 
 
@@ -871,7 +871,7 @@ UNAUTHENTICATED VISITOR
 }
 
 .modal-header {
-    background-color: #9389FF;
+    background-color: var(--color-primary);
 }
 
 .modal-header .title {

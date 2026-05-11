@@ -108,7 +108,7 @@ lottie-player.paymentPlayer5{
     width: 50%;
 }
 #btnHowItWorks{
-    background-color: #9389FF;
+    background-color: var(--color-primary);
     border: none;
 }
 #btnSubscribe {
@@ -140,7 +140,7 @@ h3 {
     color:black;
 }
 .features h5 {
-color: #9389FF;
+color: var(--color-primary);
 }
 .features2 p {
     color: black;

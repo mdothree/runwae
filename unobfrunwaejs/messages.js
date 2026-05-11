@@ -134,7 +134,7 @@ function displayConversations(snapUser, limit) {
     } else {
         $("#conversationsDisplay").html("");
     }
-    $('.unreadMessagesCount').html(snapUser.val().unread_messages_count);
+    $('.unreadMessagesCount').text(snapUser.val().unread_messages_count);
     var before = ["{{status}}", "{{key}}", "{{uid}}", "{{src}}", "{{username}}", "{{time}}", "{{body}}"];
     var i = 0;
     var total = 0;

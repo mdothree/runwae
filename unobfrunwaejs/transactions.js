@@ -86,30 +86,35 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
                 errorElement.textContent = result.error.message;
             } else {
                 // Send the token to your server.
-                var xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        var transactionID = this.responseText.split("JSON:")[1];
-                        transactionID = JSON.parse(transactionID).id;
-                        if (transactionID) {
-                            sendEmail(snapMarketer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
-                            recordMarketerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, transactionID);
-                            writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "paid you for", "a post", path);
-                            writeToLedger(path, "payment submitted", "Marketer paid $" + price);
-                            recordTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, transactionID);
-                            updateGigStatus(path, 4);
-                        } else {
-                            errorElement.textContent = "Error sending payment";
-                            alert('Error sending payment.');
-                        }
+                fetch('/api/payment/charge-marketer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        stripeToken: result.token.id,
+                        amount: price * 100,
+                        gigPath: path
+                    })
+                })
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (data.success && data.chargeId) {
+                        sendEmail(snapMarketer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
+                        recordMarketerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.chargeId);
+                        writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "paid you for", "a post", path);
+                        writeToLedger(path, "payment submitted", "Marketer paid $" + price);
+                        recordTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.chargeId);
+                        updateGigStatus(path, 4);
+                    } else {
+                        var errorElement = document.getElementById('card-errors');
+                        errorElement.textContent = data.message || "Error sending payment";
+                        alert('Error sending payment.');
                     }
-                };
-
-                var params = "stripeToken=" + result.token.id + "&price=" + price * 100 + "&type=chargeMarketer";
-
-                xmlhttp.open("GET", "transaction.php?" + params, true);
-
-                xmlhttp.send();
+                })
+                .catch(function(error) {
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = "Error sending payment";
+                    alert('Error sending payment.');
+                });
             }
         });
     });
@@ -131,53 +136,61 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
             var url = window.location.href;
             var code = url.split("code")[1];
             code = code.split("=")[1];
-            var xmlhttp = new XMLHttpRequest();
-            var address = "transaction.php?";
-            xmlhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    var parse = JSON.parse(this.responseText);
-                    if (parse.error) {
-                        $('#acceptError').html(parse.error_description);
-                        alert('Error accepting payment.');
-                    } else {
-                        var stripe_user_id = parse.stripe_user_id;
-                        var refresh_token = parse.refresh_token;
-                        var access_token = parse.access_token;
-                        payment(stripe_user_id);
-                    }
+
+            fetch('/api/payment/connect-oauth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code })
+            })
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+                if (data.error) {
+                    $('#acceptError').html(data.error_description);
+                    alert('Error accepting payment.');
+                } else {
+                    payment(data.stripe_user_id);
                 }
-            };
-            var params = "code=" + code + "&type=stripeId";
-            xmlhttp.open("POST", address + params, true);
-            xmlhttp.send();
+            })
+            .catch(function(error) {
+                $('#acceptError').html('Error connecting to Stripe');
+                alert('Error accepting payment.');
+            });
 
         } else if (window.location.href.includes("error")) {
             alert('Error accepting payment');
         }
     }
 
-    //+ "&price=" + price * 100 + "&type=stripeId" + "&title=" + title;
-
     function payment(stripeId) {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+        fetch('/api/payment/pay-influencer', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                stripeAccountId: stripeId,
+                amount: snapItem.val().price * 100,
+                gigPath: path
+            })
+        })
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            if (data.success && data.transferId) {
                 sendEmail(snapInfluencer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
-                recordInfluencerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, this.responseText);
+                recordInfluencerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.transferId);
                 writeNotification(snapInfluencer.key, snapMarketer.key, snapInfluencer.val().username, "accepted", "your payment", path);
                 writeToLedger(path, "payment accepted", "Influencer accepted payment");
-                finalizeTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, this.responseText);
+                finalizeTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.transferId);
                 incrementGigs(snapMarketer, snapInfluencer, snapItem, path);
                 writeCloseGig(snapMarketer, snapInfluencer, snapItem, snapGig, path);
                 updateGigStatus(path, 7);
-            } else if (this.status == 500) {
-                $('#acceptError').html('Error sending payment.');
+            } else {
+                $('#acceptError').html(data.message || 'Error sending payment.');
                 alert('Error sending payment.');
             }
-        };
-        var params = "stripeId=" + stripeId + "&price=" + snapItem.val().price * 100 + "&type=payInfluencer";
-        xmlhttp.open("GET", "transaction.php?" + params, true);
-        xmlhttp.send();
+        })
+        .catch(function(error) {
+            $('#acceptError').html('Error sending payment.');
+            alert('Error sending payment.');
+        });
     }
 }
 

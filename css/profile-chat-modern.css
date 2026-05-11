@@ -1,0 +1,410 @@
+/* ==========================================================================
+   Profile & Chat Modern Improvements
+   Additional styling for profile pages and messaging interfaces
+   ========================================================================== */
+
+/* ==========================================================================
+   Profile Header Improvements
+   ========================================================================== */
+
+.top-header {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.top-header-thumb {
+  position: relative;
+}
+
+.top-header-thumb > img,
+.top-header-thumb .headerImageWrapper img {
+  object-fit: cover;
+}
+
+/* Profile picture overlay improvements */
+.profilePictureOverlay,
+.headerPictureOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+  border-radius: inherit;
+}
+
+.profilePictureOverlay ion-icon,
+.headerPictureOverlay ion-icon {
+  color: white;
+  font-size: 24px;
+}
+
+.author-thumb:hover .profilePictureOverlay,
+.headerImageWrapper:hover .headerPictureOverlay {
+  opacity: 1;
+}
+
+/* Author content in profile header */
+.top-header-author .author-content {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.top-header-author .author-name {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.top-header-author .country {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+}
+
+/* Profile menu tabs */
+.profile-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  justify-content: center;
+}
+
+.profile-menu li a {
+  display: inline-block;
+  padding: 8px 16px;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+
+.profile-menu li a:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.profile-menu li a.active {
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  font-weight: 600;
+}
+
+/* Profile header action buttons */
+.top-header .control-block-button {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.top-header .control-block-button .btn-control {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.top-header .control-block-button .btn-control:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   Messages/Chat Interface Improvements
+   ========================================================================== */
+
+/* Chat container layout */
+.chat-field {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 500px;
+  background: var(--color-bg-card);
+}
+
+/* Chat header */
+.chat-field .ui-block-title {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.chat-field .ui-block-title .title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Chat messages area */
+.chat-field .mCustomScrollbar {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  background: var(--color-bg-body);
+}
+
+/* Individual chat messages */
+.chat-message-field li {
+  display: flex;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.chat-message-field .author-thumb {
+  flex-shrink: 0;
+  margin-right: 12px;
+}
+
+.chat-message-field .author-thumb img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Message bubble styling */
+.chat-message-field .notification-event {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  max-width: 70%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.chat-message-field .notification-event .notification-friend {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+/* Sent messages (own messages) */
+.chat-message-field li.sent {
+  flex-direction: row-reverse;
+}
+
+.chat-message-field li.sent .author-thumb {
+  margin-right: 0;
+  margin-left: 12px;
+}
+
+.chat-message-field li.sent .notification-event {
+  background: var(--color-primary);
+  color: white;
+}
+
+.chat-message-field li.sent .notification-event .notification-friend {
+  color: white;
+}
+
+/* Message timestamp */
+.chat-message-field .notification-event .time {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+  display: block;
+}
+
+.chat-message-field li.sent .notification-event .time {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Chat input area */
+.chat-field form {
+  padding: 16px 20px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+}
+
+.chat-field .form-group {
+  margin-bottom: 12px;
+}
+
+.chat-field .form-group textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  background: var(--color-bg-input);
+  color: var(--color-text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-field .form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.chat-field .form-group textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+.chat-field .add-options-message {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.chat-field .add-options-message .btn {
+  padding: 10px 24px;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Conversations List (Messages sidebar)
+   ========================================================================== */
+
+.conversationsContainer {
+  border-right: 1px solid var(--color-border);
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.conversationsContainer .notification-list {
+  padding: 0;
+  margin: 0;
+}
+
+.conversationsContainer .notification-list li {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+
+.conversationsContainer .notification-list li:hover {
+  background: var(--color-bg-hover);
+}
+
+.conversationsContainer .notification-list li.active {
+  background: var(--color-primary-light);
+  border-left: 3px solid var(--color-primary);
+}
+
+.conversationsContainer .notification-list .author-thumb img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.conversationsContainer .notification-event .notification-friend {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+}
+
+.conversationsContainer .notification-event .chat-message-item {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* Unread indicator */
+.conversationsContainer .notification-list li.unread .notification-friend {
+  color: var(--color-primary);
+}
+
+.conversationsContainer .notification-list li.unread::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ==========================================================================
+   Responsive adjustments
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .conversationsContainer {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    max-height: 300px;
+  }
+
+  .chatContainer {
+    padding-left: 0 !important;
+  }
+
+  .chat-field {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-menu {
+    gap: 4px;
+  }
+
+  .profile-menu li a {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .top-header .control-block-button {
+    gap: 6px;
+  }
+
+  .top-header .control-block-button .btn-control {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* ==========================================================================
+   Dark mode adjustments for profile/chat
+   ========================================================================== */
+
+[data-theme="dark"] .chat-field .mCustomScrollbar {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .chat-message-field .notification-event {
+  background: var(--color-bg-elevated);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .conversationsContainer .notification-list li:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .chat-field .form-group textarea {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .top-header-author .author-content {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}

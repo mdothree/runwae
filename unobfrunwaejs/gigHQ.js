@@ -181,12 +181,12 @@ function displayDetails(snapMarketer, snapInfluencer, snapItem, snapGig, role) {
     } else {
         var partnerName = snapInfluencer.val().name;
     }
-    $("#partnerName").html(partnerName);
-    $("#marketer").html(snapMarketer.val().name);
-    $("#influencer").html(snapInfluencer.val().name);
+    $("#partnerName").text(partnerName);
+    $("#marketer").text(snapMarketer.val().name);
+    $("#influencer").text(snapInfluencer.val().name);
     $("#caption").val(snapItem.val().caption);
-    $("#compensation").html(snapItem.val().compensation);
-    $(".platform").html(snapGig.val().platform);
+    $("#compensation").text(snapItem.val().compensation);
+    $(".platform").text(snapGig.val().platform);
     if (compensation == "gift") {
         $("#price").closest('.form-group').remove();
         $("textarea#giftDescription").val(snapItem.val().gift_description);
@@ -199,10 +199,80 @@ function displayDetails(snapMarketer, snapInfluencer, snapItem, snapGig, role) {
 /////////////////////////////////WRITE PROPOSAL/////////////////////////////////////
 function writeProposalAssist(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     $("textarea#proposalCaptionInput").on('input', function () {
-        $("#proposalPreviewCaption").html($("textarea#proposalCaptionInput").val());
+        $("#proposalPreviewCaption").text($("textarea#proposalCaptionInput").val());
     });
-    $("#proposalPreviewInfluencerName").html(snapInfluencer.val().username);
-    $("#proposalPreviewBrandName").html(snapMarketer.val().username);
+    $("#proposalPreviewInfluencerName").text(snapInfluencer.val().username);
+    $("#proposalPreviewBrandName").text(snapMarketer.val().username);
+
+    // Check AI availability and initialize button state
+    LLMService.checkAvailability().then(function(availability) {
+        if (!availability.available) {
+            $("#btnGenerateWithAI").prop('disabled', true).attr('title', availability.reason);
+        }
+    });
+
+    // AI Generation handler
+    $("#btnGenerateWithAI").click(async function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+
+        var $btn = $(this);
+        var itemKey = snapItem.key;
+        var platform = snapGig.val().platform;
+        // Get style from dropdown if exists, otherwise default to professional
+        var style = $("#aiStyleSelect").val() || 'professional';
+
+        // Prevent double-clicks
+        if ($btn.prop('disabled')) return;
+
+        // Show loading state
+        $btn.prop('disabled', true).html('<span class="ai-spinner"></span> Generating...');
+        $("#writeProposalAlert").html("AI is writing your proposal...");
+        $("#writeProposalAlert").removeClass('text-danger text-success').addClass('text-info');
+
+        try {
+            var result = await LLMService.generateProposal(itemKey, platform, style);
+
+            if (result.success) {
+                // Insert generated text into textarea
+                $("textarea#proposalCaptionInput").val(result.proposal);
+                // Update preview
+                $("#proposalPreviewCaption").text(result.proposal);
+                // Show success message with remaining count
+                var remainingText = result.remaining !== undefined ?
+                    " (" + result.remaining + " remaining this hour)" : "";
+                $("#writeProposalAlert")
+                    .removeClass('text-info text-danger')
+                    .addClass('text-success')
+                    .html("AI generated!" + remainingText);
+
+                // Show submit button now that we have content
+                $("#btnWriteProposal").show();
+
+                // Log warnings for debugging (only in console)
+                if (result.warnings && result.warnings.length > 0) {
+                    console.warn('AI generation warnings:', result.warnings);
+                }
+            } else {
+                // Show error with appropriate styling
+                $("#writeProposalAlert")
+                    .removeClass('text-info text-success')
+                    .addClass('text-danger')
+                    .html("Error: " + result.error);
+            }
+        } catch (error) {
+            console.error('AI generation error:', error);
+            $("#writeProposalAlert")
+                .removeClass('text-info text-success')
+                .addClass('text-danger')
+                .html("Error: Something went wrong. Please try again.");
+        }
+
+        // Reset button state
+        $btn.prop('disabled', false).html('<ion-icon name="sparkles-outline"></ion-icon> Generate with AI');
+    });
+
     $("#btnWriteProposal").click(function (event) {
         event.preventDefault();
         event.stopPropagation();
@@ -387,10 +457,10 @@ function displayProposal(snapMarketer, snapInfluencer, snapItem, snapGig, path, 
                 } else {
                     $("#proposalImg").attr("src", snapProposal.val().photo_url);
                 }
-                $("#proposalInfluencerName").html(snapInfluencer.val().username);
-                $("#proposalBrandName").html(snapMarketer.val().username);
-                $("#proposalTime").html(timeDisplay(snapProposal.val().time));
-                $("#proposalCaption").html(snapProposal.val().caption);
+                $("#proposalInfluencerName").text(snapInfluencer.val().username);
+                $("#proposalBrandName").text(snapMarketer.val().username);
+                $("#proposalTime").text(timeDisplay(snapProposal.val().time));
+                $("#proposalCaption").text(snapProposal.val().caption);
             } else {
                 $("#proposalSubmissionContainer").remove();
             }
@@ -464,7 +534,7 @@ function marketerPaymentHandler(snapMarketer, snapInfluencer, snapItem, snapGig,
 
 function displayMarketerPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     if (snapItem.val().compensation == "gift") {
-        $(".trackingNumber").html(snapGig.val().tracking_number);
+        $(".trackingNumber").text(snapGig.val().tracking_number);
     }
     database.ref().child(path + '/proposal').once('value', function (snapProposal) {
         if (snapProposal.val()) {
@@ -619,7 +689,7 @@ function influencerAcceptHandler(snapMarketer, snapInfluencer, snapItem, snapGig
 
 function displayInfluencerPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     if (snapItem.val().compensation == "gift") {
-        $(".trackingNumber").html(snapGig.val().tracking_number);
+        $(".trackingNumber").text(snapGig.val().tracking_number);
     }
 }
 /////////////////////////////////HISTORY & DISPUTES & MANAGE /////////////////////////////////////

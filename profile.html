@@ -31,7 +31,6 @@
         });
     </script>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="css/profilebootstrap.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
@@ -39,6 +38,16 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
     <link rel="stylesheet" type="text/css" href="css/runwae.css">
+    <!-- Modern UI Improvements -->
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
+    <link rel="stylesheet" type="text/css" href="css/modern-overrides.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar-modern.css">
+    <link rel="stylesheet" type="text/css" href="css/modal-modern.css">
+    <link rel="stylesheet" type="text/css" href="css/chat-drawer.css">
+    <link rel="stylesheet" type="text/css" href="css/feed-cards.css">
+    <link rel="stylesheet" type="text/css" href="css/refinements.css">
+    <link rel="stylesheet" type="text/css" href="css/profile-chat-modern.css">
+    <link rel="stylesheet" type="text/css" href="css/profile-marketplace.css">
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
     <script data-ad-client="ca-pub-7287110011977791" async
@@ -86,10 +95,7 @@
                             <ion-icon class="ionicon" name="search-outline"></ion-icon>
                         </div>
                     </button>
-                    <span class="material-input"></span><span class="material-input"></span><span
-                        class="material-input"></span><span class="material-input"></span><span
-                        class="material-input"></span><span class="material-input"></span><span
-                        class="material-input"></span>
+                    
                 </div>
             </form>
             <div class="control-block">
@@ -127,6 +133,14 @@
                         </div>
                         <a href="notifications" class="view-all bg-primary">View All Notifications</a>
                     </div>
+                </div>
+                <!-- Theme Toggle -->
+                <div class="control-icon theme-toggle" title="Toggle dark mode" tabindex="0" role="button" aria-label="Toggle dark mode">
+                    <ion-icon name="moon-outline"></ion-icon>
+                </div>
+                <!-- LLM Chat Toggle -->
+                <div class="control-icon llm-chat-toggle" title="Open AI Assistant" tabindex="0" role="button" aria-label="Open AI Assistant">
+                    <ion-icon name="chatbubbles-outline"></ion-icon>
                 </div>
                 <div class="author-page author vcard inline-items more nav-prof">
                     <div class="author-thumb">
@@ -276,9 +290,7 @@
                             </div>
                         </div>
                         <!---Selecticize enf here -->
-                        <span class="material-input"></span><span class="material-input"></span><span
-                            class="material-input"></span><span class="material-input"></span><span
-                            class="material-input"></span><span class="material-input"></span>
+                        
                     </div>
                 </form>
             </div>
@@ -286,125 +298,168 @@
         <!-- ... end  Tab panes -->
     </header>
     <div class="header-spacer header-spacer-small"></div>
-    <!-- Top Header-Profile -->
-    <div class="container" style="padding: 30px 0 0px 0">
-        <div class="row">
-            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="ui-block">
-                    <div class="top-header top-header-favorit hide">
-                        <div class="top-header-thumb">
-                            <div class="headerImageWrapper">
-                                <img src="" alt="" id="headerPicture">
-                                <div class="headerPictureOverlay ownerDisplay">
-                                    <ion-icon name="add-outline"></ion-icon>
-                                </div>
-                            </div>
-                            <div class="top-header-author">
-                                <div class="author-thumb">
-                                    <img id="profilePicture" src="" alt="">
-                                    <div class="profilePictureOverlay ownerDisplay">
-                                        <ion-icon name="add-outline"></ion-icon>
-                                    </div>
-                                </div>
-                                <div class="author-content">
-                                    <a href="#" class="h3 author-name" id="name"></a>
-                                    <div class="country" id="username"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="profile-section">
-                            <div class="row">
-                                <div class="col col-xl-8 m-auto col-lg-8 col-md-12">
-                                    <ul class="profile-menu">
-                                        <li class="marketer hide">
-                                            <a href="#" class="active" id="campaigns">Campaigns</a>
-                                        </li>
-                                        <li class="influencer hide">
-                                            <a href="#" class="active" id="gigs">Gigs</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" id="following">Following</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" id="followers">Followers</a>
-                                        </li>
-                                        <!--
-<li>
-    <a href="#" id="groups">Groups</a>
-</li>
--->
-                                        <li>
-                                            <a href="#" id="current">Applications</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" id="transactions">Agreements</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="control-block-button">
-                                <div class="btn btn-control bg-primary  has-ionicon follow" id="btnFollow"
-                                    style="display:none">
-                                    <ion-icon class="ionicon md hydrated profileHeaderIcon follow" name="" role="img">
-                                    </ion-icon>
-                                    </ion-icon>
-                                </div>
-                                <div class="btn btn-control bg-primary has-ionicon message" id="btnMessage">
-                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon message"
-                                        name="mail" role="img"></ion-icon>
-                                </div>
-                                <a href="#" target="_blank" class="btn btn-control has-ionicon bg-facebook"
-                                    id="facebook" style="display:none">
-                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon facebook"
-                                        name="logo-facebook" role="img"></ion-icon>
-                                </a>
-                                <a href="#" target="_blank" class="btn btn-control has-ionicon bg-twitter" id="twitter"
-                                    style="display:none">
-                                    <ion-icon class="ionicon md hydrated profileHeaderIcon twitter" name="logo-twitter"
-                                        role="img"></ion-icon>
-                                </a>
-                                <a href="#" target="_blank" class="btn btn-control has-ionicon bg-instagram"
-                                    id="instagram" style="display:none">
-                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon instagram"
-                                        name="logo-instagram" role="img"></ion-icon>
-                                </a>
-                                <a href="#" target="_blank" class="btn btn-control has-ionicon bg-linkedin"
-                                    id="linkedin" style="display:none">
-                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon linkedin"
-                                        name="logo-linkedin" role="img"></ion-icon>
-                                </a>
-                                <div class="btn btn-control bg-primary has-ionicon add more" id="userOptions">
-                                    <ion-icon class="ionicon mail-icon md hydrated profileHeaderIcon add" name="add"
-                                        role="img"></ion-icon>
-                                    <ul class="more-dropdown more-with-triangle triangle-bottom-right">
-                                        <li id="btnUpdatePhoto" style="display:none">
-                                            <a href="#" data-toggle="modal" data-target="#update-photo">Update
-                                                Profile
-                                                Photo</a>
-                                        </li>
-                                        <li id="btnUpdateHeaderPhoto" style="display:none">
-                                            <a href="#" data-toggle="modal" data-target="#update-header-photo">Update
-                                                Header Photo</a>
-                                        </li>
-                                        <li>
-                                            <a href="account">Edit
-                                                Profile</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+
+    <!-- ========================================================================
+         NEW: Marketplace-Style Profile Layout
+         ======================================================================== -->
+    <div class="profile-marketplace">
+
+        <!-- LEFT SIDEBAR: Seller Identity -->
+        <aside class="profile-sidebar">
+            <div class="profile-card">
+                <!-- Profile picture with online status -->
+                <div class="profile-avatar-container">
+                    <img id="profilePicture" src="" alt="" class="profile-avatar-lg">
+                    <div class="profilePictureOverlay ownerDisplay">
+                        <ion-icon name="add-outline"></ion-icon>
+                    </div>
+                    <span class="online-status" id="onlineStatus">Online</span>
+                </div>
+
+                <!-- Name and username -->
+                <h1 class="profile-name" id="name"></h1>
+                <p class="profile-handle">@<span id="username"></span></p>
+
+                <!-- Role/Title -->
+                <p class="profile-title" id="role"></p>
+
+                <!-- Stats Row -->
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="followersCountStat">0</span>
+                        <span class="stat-label">Followers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="followingCountStat">0</span>
+                        <span class="stat-label">Following</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="gigsCountStat">0</span>
+                        <span class="stat-label">Gigs</span>
+                    </div>
+                </div>
+
+                <!-- Trust signals -->
+                <div class="trust-signals">
+                    <div class="trust-badge">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <span id="locationBadge">Location</span>
+                    </div>
+                    <div class="trust-badge">
+                        <ion-icon name="time-outline"></ion-icon>
+                        <span class="response-time">Responds quickly</span>
+                    </div>
+                    <div class="trust-badge">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span class="member-since">Member since 2024</span>
+                    </div>
+                </div>
+
+                <!-- Rating summary -->
+                <div class="rating-summary">
+                    <div class="rating-stars">
+                        <ion-icon name="star"></ion-icon>
+                        <strong class="rating-value">0.0</strong>
+                        <span class="rating-count">(0 reviews)</span>
+                    </div>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="profile-actions">
+                    <button class="btn btn-primary btn-block" id="btnMessage">
+                        <ion-icon name="chatbubble-outline"></ion-icon>
+                        Contact Me
+                    </button>
+                    <button class="btn btn-outline btn-block" id="btnFollow" style="display:none">
+                        <ion-icon name="person-add-outline" class="followIcon"></ion-icon>
+                        <span class="followText">Follow</span>
+                    </button>
+                </div>
+
+                <!-- Owner Options Dropdown -->
+                <div class="profile-actions ownerDisplay" id="userOptions">
+                    <div class="btn btn-outline btn-block" data-toggle="dropdown" style="cursor: pointer;">
+                        <ion-icon name="settings-outline"></ion-icon>
+                        Profile Options
+                    </div>
+                    <ul class="more-dropdown" style="position: absolute; width: 100%; margin-top: 5px;">
+                        <li id="btnUpdatePhoto" style="display:none">
+                            <a href="#" data-toggle="modal" data-target="#update-photo">Update Profile Photo</a>
+                        </li>
+                        <li id="btnUpdateHeaderPhoto" style="display:none">
+                            <a href="#" data-toggle="modal" data-target="#update-header-photo">Update Header Photo</a>
+                        </li>
+                        <li>
+                            <a href="account">Edit Profile</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Bio/Description -->
+                <div class="profile-bio">
+                    <h3>About</h3>
+                    <p id="description"></p>
+                </div>
+
+                <!-- Skills/Categories -->
+                <div class="profile-skills">
+                    <h3>Expertise</h3>
+                    <div class="skill-tags" id="industry"></div>
+                </div>
+
+                <!-- Website -->
+                <div class="profile-socials" id="websiteSection" style="display:none;">
+                    <h3>Website</h3>
+                    <a id="website" target="_blank" href="" rel="noopener noreferrer" style="color: var(--color-primary);"></a>
+                </div>
+
+                <!-- Social links -->
+                <div class="profile-socials">
+                    <h3>Social Media</h3>
+                    <div class="social-links" id="socialAccounts">
+                        <a href="#" target="_blank" class="social-link facebook" id="facebook" style="display:none">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                        </a>
+                        <a href="#" target="_blank" class="social-link instagram" id="instagram" style="display:none">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                        </a>
+                        <a href="#" target="_blank" class="social-link twitter" id="twitter" style="display:none">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                        </a>
+                        <a href="#" target="_blank" class="social-link linkedin" id="linkedin" style="display:none">
+                            <ion-icon name="logo-linkedin"></ion-icon>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- ... end Top Header-Profile -->
-    <div class="container profPanel" id="timelineContainer" style="display:none">
-        <div class="row">
-            <!-- Main Content -->
-            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12 timeline marketer"
-                id="campaignsBlock">
+        </aside>
+
+        <!-- RIGHT: Main Content -->
+        <main class="profile-main">
+
+            <!-- Navigation Tabs -->
+            <div class="profile-section" style="padding: var(--spacing-md);">
+                <div class="profile-tabs">
+                    <button class="profile-tab active marketer" id="campaigns">Campaigns</button>
+                    <button class="profile-tab active influencer" id="gigs">Services</button>
+                    <button class="profile-tab" id="following">Following</button>
+                    <button class="profile-tab" id="followers">Followers</button>
+                    <button class="profile-tab ownerDisplay" id="current">Applications</button>
+                    <button class="profile-tab ownerDisplay" id="transactions">Agreements</button>
+                </div>
+            </div>
+
+            <!-- Services/Gigs Section -->
+            <section class="profile-section" id="gigsBlock">
+                <div class="section-header">
+                    <h2 class="influencer">Services</h2>
+                    <h2 class="marketer">Campaigns</h2>
+                    <span class="section-count" id="gigCount">0 items</span>
+                </div>
+                <div class="services-grid" id="newsfeed-items-grid">
+                    <!-- Service cards rendered here by existing JS -->
+                </div>
+                <!-- Write Post Block for Marketers -->
                 <div class="ui-block" id="writePostBlock" style="display:none">
                     <div class="news-feed-form" id="startACampaignForm">
                         <div style="display:flex; padding:30px;">
@@ -414,32 +469,135 @@
                             <h4 style="line-height:unset;font-weight:400">Start A Campaign</h4>
                         </div>
                     </div>
-                    <div class="news-feed-form" id="writePostForm" style="display:none">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item" id="captionTab">
-                                <a class="nav-link inline-items active show" data-toggle="tab" href="" role="tab"
-                                    aria-expanded="true" aria-selected="true">
-                                    <ion-icon name="chatbox-outline" class="ionicon"></ion-icon>
-                                    <span>Caption</span>
-                                </a>
-                            </li>
-                            <li class="nav-item" id="platformTab">
-                                <a class="nav-link inline-items" data-toggle="tab" href="" role="tab"
-                                    aria-expanded="false" aria-selected="false">
-                                    <ion-icon name="apps-outline" class="ionicon"></ion-icon>
-                                    <span>Platform</span>
-                                    <div class="ripple-container"></div>
-                                </a>
-                            </li>
-                            <li class="nav-item" id="compensationTab">
-                                <a class="nav-link inline-items" data-toggle="tab" href="" role="tab"
-                                    aria-expanded="false" aria-selected="false">
-                                    <ion-icon name="gift-outline" class="ionicon"></ion-icon>
-                                    <span>Compensation</span>
-                                </a>
-                            </li>
-                        </ul>
+                </div>
+            </section>
+
+            <!-- Applications Section (Owner Only) -->
+            <section class="profile-section ownerDisplay" id="currentBlock" style="display:none">
+                <div class="section-header">
+                    <h2>Applications</h2>
+                </div>
+                <ul class="table-careers" id="currentDisplay">
+                    <li class="head">
+                        <span>DATE</span>
+                        <span>PARTNER</span>
+                        <span>STATUS</span>
+                        <span>PLATFORM</span>
+                        <span></span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Agreements Section (Owner Only) -->
+            <section class="profile-section ownerDisplay" id="transactionsBlock" style="display:none">
+                <div class="section-header">
+                    <h2>Agreements</h2>
+                </div>
+                <ul class="table-careers" id="transactionsDisplay">
+                    <li class="head">
+                        <span>DATE</span>
+                        <span>PARTNER</span>
+                        <span>PAYMENT</span>
+                        <span>PLATFORM</span>
+                        <span></span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Reviews Section -->
+            <section class="profile-section" id="reviewsSection">
+                <div class="section-header">
+                    <h2>Reviews</h2>
+                    <div class="rating-summary-inline">
+                        <ion-icon name="star"></ion-icon>
+                        <strong class="rating-value">0.0</strong>
+                        <span class="rating-count">(<span id="reviewsCount">0</span> reviews)</span>
+                    </div>
+                </div>
+                <div class="reviews-list" id="reviewsDisplay">
+                    <!-- Review cards rendered here -->
+                </div>
+
+                <!-- Review Submission (for visitors) -->
+                <div id="reviewSubmissionBlock" style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border);">
+                    <h3 style="font-size: var(--font-size-base); margin-bottom: var(--spacing-md);">Leave A Review</h3>
+                    <div id="writeReviewDiv">
+                        <div style="display:flex; padding:5px; cursor: pointer;">
+                            <ion-icon class="ionicon md hydrated writeReview" name="add-circle" role="img"
+                                style="width:15px;height:15px;margin-right:10px;">
+                            </ion-icon>
+                            <span style="font-weight:400">Write Review</span>
+                        </div>
+                    </div>
+                    <div id="submitReviewDiv" style="display:none">
+                        <div class="input-group number-spinner number-spinner--secondary">
+                            <span class="input-group-btn data-dwn input-group-prepend">
+                                <button class="btn btn-default btn-info" data-dir="dwn"><span
+                                        class="glyphicon glyphicon-minus"></span></button>
+                            </span>
+                            <div class="form-group"><input type="text" class="form-control text-center" value="5"
+                                    min="0" max="10" id="reviewRatingInput">
+                            </div>
+                            <span class="input-group-btn data-up input-group-append">
+                                <button class="btn btn-default btn-info" data-dir="up"><span
+                                        class="glyphicon glyphicon-plus"></span></button>
+                            </span>
+                        </div>
+                        <br>
+                        <div class="">
+                            <textarea class="form-control" style="height: 60px; font-size:12px;"
+                                placeholder="Write a review..." id="reviewBodyInput"></textarea>
+                            </div><br>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="#" class="btn btn-secondary btn-sm" id="btnCancelReview">Cancel</a>
+                            <a href="#" class="btn btn-primary btn-sm" id="btnSubmitReview"
+                                onsubmit="return false">Post Review</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <!-- ... end Marketplace Profile Layout -->
+
+    <!-- Hidden legacy header for photo updates (preserving functionality) -->
+    <div style="display: none;">
+        <img src="" alt="" id="headerPicture">
+    </div>
+    <!-- Legacy Timeline Container (hidden, preserved for JS compatibility) -->
+    <div class="container profPanel" id="timelineContainer" style="display:none">
+        <div class="row">
+            <!-- Main Content - Legacy structure kept for JS compatibility -->
+            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12 timeline marketer"
+                id="campaignsBlock" style="display:none;">
+                <!-- Write Post Form Modal Content -->
+                <div class="news-feed-form" id="writePostForm" style="display:none">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" id="captionTab">
+                            <a class="nav-link inline-items active show" data-toggle="tab" href="" role="tab"
+                                aria-expanded="true" aria-selected="true">
+                                <ion-icon name="chatbox-outline" class="ionicon"></ion-icon>
+                                <span>Caption</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="platformTab">
+                            <a class="nav-link inline-items" data-toggle="tab" href="" role="tab"
+                                aria-expanded="false" aria-selected="false">
+                                <ion-icon name="apps-outline" class="ionicon"></ion-icon>
+                                <span>Platform</span>
+                                <div class="ripple-container"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="compensationTab">
+                            <a class="nav-link inline-items" data-toggle="tab" href="" role="tab"
+                                aria-expanded="false" aria-selected="false">
+                                <ion-icon name="gift-outline" class="ionicon"></ion-icon>
+                                <span>Compensation</span>
+                            </a>
+                        </li>
+                    </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane active" id="home-1" role="tabpanel" aria-expanded="true">
@@ -450,9 +608,7 @@
                                     <div class="form-group with-icon label-floating" id="captionForm">
                                         <label class="control-label">Share an opportunity here...</label>
                                         <textarea class="form-control" placeholder="" id="postCaption"></textarea>
-                                        <span class="material-input"></span><span class="material-input"></span><span
-                                            class="material-input"></span><span class="material-input"></span><span
-                                            class="material-input"></span><span class="material-input"></span></div>
+                                        </div>
                                     <div class="form-group with-icon label-floating is-empty" style="display:none"
                                         id="platformForm">
                                         <label class="control-label">Select platforms of interest...</label>
@@ -490,9 +646,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <span class="material-input"></span><span class="material-input"></span><span
-                                            class="material-input"></span><span class="material-input"></span><span
-                                            class="material-input"></span><span class="material-input"></span>
+                                        
                                     </div>
                                     <div class="form-group with-icon label-floating" style="display: none;"
                                         id="compensationForm">
@@ -510,7 +664,7 @@
                                                 <span class="input-group-addon">$</span>
                                                 <input class="form-control" type="number" value="50"
                                                     style="padding: 1.1rem 2rem; border:0px" id="priceInput">
-                                                <span class="material-input"></span></div>
+                                                </div>
                                             <div class="form-group label-floating" id="giftDescriptionDiv"
                                                 style="display:none">
                                                 <div style="display:none">
@@ -540,13 +694,11 @@
                                                 <textarea class="form-control" placeholder="What are you sending.."
                                                     id="giftDescriptionInput">
 													</textarea>
-                                                <span class="material-input"></span>
+                                                
                                             </div>
                                         </div>
                                         <!--                                        <textarea class="form-control" placeholder=""></textarea>-->
-                                        <span class="material-input"></span><span class="material-input"></span><span
-                                            class="material-input"></span><span class="material-input"></span><span
-                                            class="material-input"></span><span class="material-input"></span>
+                                        
                                     </div>
                                     <div class="add-options-message">
                                         <a href="#" class="options-message" data-toggle="tooltip" data-placement="top"
@@ -596,112 +748,7 @@
                     </li>
                 </ul>
             </div>
-            <!-- ... end Main Content -->
-            <!-- Left Sidebar -->
-            <div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
-                <div class="ui-block">
-                    <div class="ui-block-title">
-                        <h6 class="title">Profile Intro</h6>
-                    </div>
-                    <div class="ui-block-content">
-                        <!-- W-Personal-Info -->
-                        <ul class="widget w-personal-info item-block">
-                            <li>
-                                <span class="title">Role:</span>
-                                <span class="text" id="role"></span>
-                            </li>
-                            <li>
-                                <span class="title">Industry:</span>
-                                <span class="text" id="industry"></span>
-                            </li>
-                            <li>
-                                <span class="title">About:</span>
-                                <span class="text" id="description"></span>
-                            </li>
-                            <li>
-                                <span class="title">Website:</span>
-                                <span class="text"><a id="website" target="_blank" href=""
-                                        rel="noopener noreferrer"></a> </span>
-                            </li>
-                            <li>
-                                <span class="title">Location:</span>
-                                <span class="text"><a id="city"></a><a id="region"></a></span>
-                            </li>
-                            <li>
-                                <span class="title">Completed Gigs:</span>
-                                <span class="text" id="gigsCount"></span>
-                            </li>
-                        </ul>
-                        <!-- .. end W-Personal-Info -->
-                        <!-- W-Socials -->
-                        <div class="widget w-socials">
-                        </div>
-                        <!-- ... end W-Socials -->
-                    </div>
-                </div>
-            </div>
-            <!-- ... end Left Sidebar -->
-            <!-- Right Sidebar -->
-            <div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="ui-block">
-                    <div class="ui-block-title">
-                        <h6 class="title">(<a id="reviewsCount"></a>) Reviews</h6>
-                    </div>
-                    <div class="ui-block-content">
-                        <!-- REVIEWS DISPLAY -->
-                        <ul class="widget w-featured-topics" id="reviewsDisplay">
-                        </ul>
-
-                    </div>
-                </div>
-                <div class="ui-block" id="reviewSubmissionBlock">
-                    <div class="ui-block-title">
-                        <h6 class="title">Leave A Review</h6>
-                    </div>
-                    <div class="ui-block-content">
-                        <!-- REVIEWS SUBMISSION -->
-                        <div id="writeReviewDiv">
-                            <div style="display:flex; padding:5px;">
-                                <ion-icon class="ionicon md hydrated writeReview" name="add-circle" role="img"
-                                    style="width:15px;height:15px;margin-right:10px; cursor:pointer">
-                                </ion-icon>
-                                <h6 style="line-height:unset;font-weight:400">Write Review</h6>
-                            </div>
-                        </div>
-                        <div id="submitReviewDiv" style="display:none">
-                            <div class="input-group number-spinner number-spinner--secondary">
-                                <span class="input-group-btn data-dwn input-group-prepend">
-                                    <button class="btn btn-default btn-info" data-dir="dwn"><span
-                                            class="glyphicon glyphicon-minus"></span></button>
-                                </span>
-                                <div class="form-group"><input type="text" class="form-control text-center" value="5"
-                                        min="0" max="10" id="reviewRatingInput"><span class="material-input"></span>
-                                </div>
-                                <span class="input-group-btn data-up input-group-append">
-                                    <button class="btn btn-default btn-info" data-dir="up"><span
-                                            class="glyphicon glyphicon-plus"></span></button>
-                                </span>
-                            </div>
-                            <br>
-                            <div class="">
-                                <textarea class="form-control" style="height: 60px; font-size:12px;"
-                                    placeholder="Write a review..." id="reviewBodyInput"></textarea>
-                                <span class="material-input"></span></div><br>
-                            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <a href="#" class="btn btn-secondary btn-sm full-width" id="btnCancelReview">Cancel</a>
-                            </div>
-                            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <a href="#" class="btn btn-primary btn-sm full-width" id="btnSubmitReview"
-                                    onsubmit="return false">Post
-                                    Review</a>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <!-- ... end Right Sidebar -->
+            <!-- Old sidebars removed - content moved to new marketplace layout -->
         </div>
     </div>
     <!-- Followers Container -->
@@ -719,7 +766,7 @@
                                 <button onSubmit="return false;">
                                     <ion-icon name="search-outline" class="ionicon"></ion-icon>
                                 </button>
-                                <span class="material-input"></span><span class="material-input"></span></div>
+                                </div>
                         </form>
                         <a href="#" class="more">
                             <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
@@ -747,7 +794,7 @@
                                 <button onSubmit="return false;">
                                     <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
                                 </button>
-                                <span class="material-input"></span><span class="material-input"></span></div>
+                                </div>
                         </form>
                         <a href="#" class="more">
                             <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
@@ -1056,7 +1103,7 @@
                             <div class="form-group with-icon-right is-empty">
                                 <textarea class="form-control" placeholder="Leave a comment..."
                                     id="postCommentInput"></textarea>
-                                <span class="material-input"></span></div>
+                                </div>
                             <button class="btn btn-md-2 btn-primary" id="btnWriteComment">Post Comment</button>
                         </form>
                     </div>
@@ -1091,7 +1138,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <span class="material-input"></span><span class="material-input"></span>
+                        
                     </form>
                     <a href="#" class="btn btn-purple btn-lg full-width" id="btnEngage" style="display:none">Request
                         Proposal</a>
@@ -1229,6 +1276,10 @@
         <script src="runwaejs/postHQ.js"></script>
         <script src="runwaejs/profileHQ.js"></script>
         <script src="runwaejs/reviews.js"></script>
+        <!-- Modern UI Scripts -->
+        <script src="js/theme-toggle.js"></script>
+        <script src="js/llm-chat.js"></script>
+        <script src="js/profile-marketplace.js"></script>
 
         <script type="template" id="uiblockTemplate">
             <div class="ui-block" id="{{item_key}}">{{contents}}</div>
@@ -1371,7 +1422,7 @@
             </div>
             <div class="form-group with-icon-right is-empty">
                     <textarea class="form-control" placeholder="Post a comment" id="postCommentInput"></textarea>
-             <span class="material-input"></span></div>
+             </div>
              <button class="btn btn-md-2 btn-primary btnWriteComment">Post Comment</button>
              <!-- <button class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Cancel</button> -->
          </form>
@@ -1579,6 +1630,139 @@
             </article>
             <!-- ... end Post -->
         </div></script>
+
+        <!-- Marketplace Service Card Template -->
+        <script type="template" id="serviceCardTemplate">
+            <div class="service-card" id="{{key}}">
+                <img src="{{image}}" alt="{{title}}" class="service-card-image">
+                <div class="service-card-body">
+                    <h4 class="service-title">{{title}}</h4>
+                    <p class="service-description">{{description}}</p>
+                    <div class="service-footer">
+                        <div class="rating-stars">
+                            <ion-icon name="star"></ion-icon>
+                            <span>{{rating}}</span>
+                            <span class="review-count">({{reviewCount}})</span>
+                        </div>
+                        <div class="service-price">
+                            Starting at <strong>{{price}}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <!-- Marketplace Review Card Template -->
+        <script type="template" id="reviewCardTemplate">
+            <div class="review-card" id="{{key}}">
+                <div class="review-header">
+                    <img src="{{reviewerAvatar}}" alt="" class="reviewer-avatar">
+                    <div class="reviewer-info">
+                        <strong>{{reviewerName}}</strong>
+                        <span class="review-date">{{date}}</span>
+                    </div>
+                    <div class="rating-stars">
+                        {{stars}}
+                    </div>
+                </div>
+                <p class="review-text">{{text}}</p>
+            </div>
+        </script>
+
+        <!-- Marketplace Profile Initialization Script -->
+        <script>
+            // Initialize marketplace profile enhancements after DOM is ready
+            document.addEventListener('DOMContentLoaded', function() {
+                // Tab navigation for marketplace layout
+                var tabs = document.querySelectorAll('.profile-tab');
+                tabs.forEach(function(tab) {
+                    tab.addEventListener('click', function() {
+                        // Remove active class from all tabs
+                        tabs.forEach(function(t) { t.classList.remove('active'); });
+                        // Add active to clicked tab
+                        this.classList.add('active');
+
+                        // Get tab id
+                        var tabId = this.id;
+
+                        // Hide all sections
+                        document.querySelectorAll('.profile-section').forEach(function(section) {
+                            if (section.id !== 'reviewsSection') {
+                                section.style.display = 'none';
+                            }
+                        });
+
+                        // Show appropriate section based on tab
+                        if (tabId === 'campaigns' || tabId === 'gigs') {
+                            var gigsBlock = document.getElementById('gigsBlock');
+                            if (gigsBlock) gigsBlock.style.display = 'block';
+                        } else if (tabId === 'current') {
+                            var currentBlock = document.getElementById('currentBlock');
+                            if (currentBlock) currentBlock.style.display = 'block';
+                        } else if (tabId === 'transactions') {
+                            var transactionsBlock = document.getElementById('transactionsBlock');
+                            if (transactionsBlock) transactionsBlock.style.display = 'block';
+                        } else if (tabId === 'following' || tabId === 'followers') {
+                            // These are handled by existing profile JS
+                        }
+                    });
+                });
+
+                // Update location badge from city/region
+                var cityEl = document.getElementById('city');
+                var regionEl = document.getElementById('region');
+                var locationBadge = document.getElementById('locationBadge');
+
+                // Create a mutation observer to watch for city/region updates
+                if (locationBadge) {
+                    var observer = new MutationObserver(function() {
+                        var city = cityEl ? cityEl.textContent : '';
+                        var region = regionEl ? regionEl.textContent : '';
+                        if (city || region) {
+                            locationBadge.textContent = (city + (region || '')).trim() || 'Location';
+                        }
+                    });
+
+                    if (cityEl) {
+                        observer.observe(cityEl, { childList: true, characterData: true, subtree: true });
+                    }
+                }
+
+                // Update website section visibility
+                var websiteEl = document.getElementById('website');
+                var websiteSection = document.getElementById('websiteSection');
+                if (websiteEl && websiteSection) {
+                    var websiteObserver = new MutationObserver(function() {
+                        if (websiteEl.href && websiteEl.href !== '' && websiteEl.href !== window.location.href) {
+                            websiteSection.style.display = 'block';
+                        }
+                    });
+                    websiteObserver.observe(websiteEl, { attributes: true });
+                }
+
+                // Initialize stat counters from existing elements
+                function updateStatCounters() {
+                    // Get counts from existing elements or containers
+                    var followersCount = document.getElementById('followersCount');
+                    var followingCount = document.getElementById('followingCount');
+                    var gigsCount = document.getElementById('gigsCount');
+
+                    if (followersCount && document.getElementById('followersCountStat')) {
+                        document.getElementById('followersCountStat').textContent = followersCount.textContent || '0';
+                    }
+                    if (followingCount && document.getElementById('followingCountStat')) {
+                        document.getElementById('followingCountStat').textContent = followingCount.textContent || '0';
+                    }
+                    if (gigsCount && document.getElementById('gigsCountStat')) {
+                        document.getElementById('gigsCountStat').textContent = gigsCount.textContent || '0';
+                    }
+                }
+
+                // Run stat update after a short delay to allow existing JS to populate values
+                setTimeout(updateStatCounters, 1000);
+                setTimeout(updateStatCounters, 3000);
+            });
+        </script>
 </body>
 
 </html>

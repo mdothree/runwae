@@ -14,8 +14,8 @@ firebase.auth().onAuthStateChanged(function (user) {
             hyperlinkIcons(snap, useri);
             $("#navProfilePicture, #navMobileProfilePicture").attr("src", snap.val().photo_url);
             $("#navProfilePicture, #navMobileProfilePicture").show();
-            $("#navName").html(snap.val().name);
-            $("#navUsername").html("@" + snap.val().username);
+            $("#navName").text(snap.val().name);
+            $("#navUsername").text("@" + snap.val().username);
             $('#navName, #navUsername, #navProfilePicture').click(function (event) {
                 event.preventDefault();
                 profileRelocate(snap, useri);
@@ -97,7 +97,7 @@ function hyperlinkIcons(snap, useri) {
 
 function handleVerify(user) {
     if (!user.emailVerified) {
-        $('#messagedEmail').html(user.email);
+        $('#messagedEmail').text(user.email);
         openModal('#open-verifyEmail');
         $('#btnResendVerifyEmail').click(function () {
             sendVerifyEmail(user);

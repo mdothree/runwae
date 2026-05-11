@@ -1,0 +1,456 @@
+/* ==========================================================================
+   Runwae Modal/Popup Modernization
+   Improved Bootstrap modals with modern styling
+   ========================================================================== */
+
+/* ==========================================================================
+   Modal Backdrop
+   ========================================================================== */
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Modal Container
+   ========================================================================== */
+
+.modal.fade .modal-dialog {
+  transform: scale(0.95) translateY(-20px);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s ease;
+}
+
+.modal.show .modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   Modal Content
+   ========================================================================== */
+
+.modal-content {
+  background-color: var(--color-bg-card);
+  border: none;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-modal);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Modal Header
+   ========================================================================== */
+
+.modal-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
+  padding: 20px 25px;
+  border-bottom: none;
+  position: relative;
+}
+
+.modal-header .modal-title,
+.modal-header .title {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.modal-header .close,
+.modal-header [data-dismiss="modal"] {
+  color: rgba(255, 255, 255, 0.8);
+  opacity: 1;
+  text-shadow: none;
+  font-size: 24px;
+  transition: all var(--transition-fast);
+}
+
+.modal-header .close:hover,
+.modal-header [data-dismiss="modal"]:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+/* ==========================================================================
+   Modal Body
+   ========================================================================== */
+
+.modal-body {
+  padding: var(--spacing-xl);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-card);
+}
+
+/* ==========================================================================
+   Modal Footer
+   ========================================================================== */
+
+.modal-footer {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-bg-card);
+  gap: var(--spacing-sm);
+}
+
+.modal-footer .btn {
+  border-radius: var(--radius-lg);
+  padding: 10px 24px;
+  font-weight: var(--font-weight-medium);
+}
+
+/* ==========================================================================
+   Window Popup (Custom Modal)
+   ========================================================================== */
+
+.window-popup .modal-content {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Close Icon (Custom)
+   ========================================================================== */
+
+.window-popup .icon-close,
+.modal .icon-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 10;
+  border: none;
+}
+
+.window-popup .icon-close:hover,
+.modal .icon-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+}
+
+.window-popup .icon-close .close-icon,
+.modal .icon-close ion-icon {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+/* Dark background close button */
+.open-photo-thumb .icon-close,
+.dark-close .icon-close {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.open-photo-thumb .icon-close:hover,
+.dark-close .icon-close:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* ==========================================================================
+   Photo/Post Popup (Two Column)
+   ========================================================================== */
+
+.open-photo-popup,
+.open-photo-popup-v2 {
+  max-width: 1000px;
+}
+
+.open-photo-popup .modal-body,
+.open-photo-popup-v2 .modal-body {
+  display: flex;
+  padding: 0;
+  min-height: 500px;
+}
+
+/* Photo section (left) */
+.open-photo-thumb {
+  flex: 1;
+  background: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  position: relative;
+}
+
+.open-photo-thumb img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+/* Content section (right) */
+.open-photo-content {
+  width: 380px;
+  background: var(--color-bg-card);
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--color-border);
+}
+
+/* Post article in modal */
+.open-photo-content article.post {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.open-photo-content .post__author {
+  margin-bottom: var(--spacing-md);
+}
+
+.open-photo-content .post__author .author-thumb img {
+  width: 45px;
+  height: 45px;
+}
+
+/* Comments section in modal */
+.open-photo-content .comments-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md) var(--spacing-lg);
+  max-height: 300px;
+}
+
+.open-photo-content .comments-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.open-photo-content .comments-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+/* Comment form */
+.open-photo-content .comment-form,
+.open-photo-content .add-comment {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-input);
+  flex-shrink: 0;
+}
+
+.open-photo-content .comment-form textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  resize: none;
+  min-height: 60px;
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+}
+
+.open-photo-content .comment-form textarea:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+/* ==========================================================================
+   Tutorial/Onboarding Modals
+   ========================================================================== */
+
+.tutorial-modal .modal-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.tutorial-modal .modal-body {
+  text-align: center;
+  padding: var(--spacing-2xl);
+}
+
+.tutorial-modal .tutorial-image {
+  max-width: 200px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.tutorial-modal h4 {
+  color: var(--color-text-heading);
+  margin-bottom: var(--spacing-md);
+}
+
+.tutorial-modal p {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+}
+
+/* ==========================================================================
+   Interests/Selection Modal
+   ========================================================================== */
+
+.interests-modal .interests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+}
+
+.interests-modal .interest-item {
+  padding: var(--spacing-md);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.interests-modal .interest-item:hover {
+  border-color: var(--color-primary-light);
+  background: var(--color-primary-light);
+}
+
+.interests-modal .interest-item.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.interests-modal .interest-item ion-icon {
+  font-size: 32px;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* ==========================================================================
+   Verification/Email Modal
+   ========================================================================== */
+
+.verification-modal .modal-body {
+  text-align: center;
+}
+
+.verification-modal .verification-icon {
+  font-size: 64px;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ==========================================================================
+   Upload/Add Photo Modal
+   ========================================================================== */
+
+.upload-modal .upload-zone {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.upload-modal .upload-zone:hover,
+.upload-modal .upload-zone.dragover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.upload-modal .upload-zone ion-icon {
+  font-size: 48px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+.upload-modal .upload-zone p {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Responsive Modal
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  .open-photo-popup,
+  .open-photo-popup-v2 {
+    max-width: 95%;
+    margin: var(--spacing-md);
+  }
+
+  .open-photo-popup .modal-body,
+  .open-photo-popup-v2 .modal-body {
+    flex-direction: column;
+  }
+
+  .open-photo-content {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .open-photo-thumb {
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 767px) {
+  .modal-dialog {
+    margin: var(--spacing-sm);
+  }
+
+  .modal-content {
+    border-radius: var(--radius-lg);
+  }
+
+  .modal-header {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .modal-body {
+    padding: var(--spacing-lg);
+  }
+
+  .modal-footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+
+  .modal-footer .btn {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .window-popup .icon-close {
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ==========================================================================
+   Modal Loading State
+   ========================================================================== */
+
+.modal-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.modal-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

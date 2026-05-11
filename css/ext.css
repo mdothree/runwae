@@ -133,7 +133,7 @@
 }
 
 .btnAction {
-    background-color: #9389FF;
+    background-color: var(--color-primary);
     padding: 1rem 1rem;
     border: none;
     margin-bottom: 15px !important;
@@ -187,7 +187,7 @@ h3 {
 }
 
 .features h5 {
-    color: #9389FF;
+    color: var(--color-primary);
 }
 
 .features2 p {

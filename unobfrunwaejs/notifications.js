@@ -40,7 +40,7 @@ function writeNotification(useri, uid, username, action, target, targetKey) {
 
 
 function displayNotifications(snapUser, limit) {
-    $('.unreadNotificationsCount').html(snapUser.val().unread_notifications_count);
+    $('.unreadNotificationsCount').text(snapUser.val().unread_notifications_count);
     if (limit < 7) {
         $("#navNotificationsDisplay").html("");
         $("#mobileNavNotificationsDisplay").html("");

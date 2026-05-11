@@ -27,7 +27,6 @@
     <meta property="og:description" content="Fast Influencer Marketing" />
     <meta property="og:image" content="https://runwae.com/img/runwae.png" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="css/welcomebootstrap.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
@@ -36,6 +35,8 @@
     <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
     <link rel="stylesheet" type="text/css" href="css/runwae.css">
     <link rel="stylesheet" type="text/css" href="css/ext.css">
+    <!-- Theme Support -->
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
     <style>
         body {
             overflow-x: hidden;
@@ -223,7 +224,7 @@
             </div>
             <div class="spacer s2"></div>
             <div class="row">
-                <a href="login?signup" class="btn btn-md  c-white" style="margin:auto; background-color: #9389FF;">JOIN
+                <a href="login?signup" class="btn btn-md btn-primary c-white" style="margin:auto;">JOIN
                     RUNWAE NOW</a>
             </div>
         </section>
@@ -274,7 +275,7 @@
                                 <label class="control-label">Enter your email</label>
                                 <input class="form-control bg-white" placeholder="" type="email"
                                     id="marketerGuideEmailInput">
-                                <span class="material-input"></span></div>
+                                </div>
                             <button class="btn btn-md" id="btnMarketerGuide">Send me the guide</button>
                         </form>
                         <!-- ... end Subscribe Form  -->
@@ -446,7 +447,7 @@
                                 <label class="control-label">Enter your email</label>
                                 <input class="form-control bg-white" placeholder="" type="email"
                                     id="influencerGuideEmailInput">
-                                <span class="material-input"></span></div>
+                                </div>
                             <button class="btn btn-md" id="btnInfluencerGuide">Send me the guide</button>
                         </form>
                         <!-- ... end Subscribe Form  -->
@@ -530,7 +531,7 @@
                         <div class="form-group label-floating is-empty">
                             <label class="control-label">Enter your email</label>
                             <input class="form-control bg-white" placeholder="" type="email" id="subscribeEmailInput">
-                            <span class="material-input"></span></div>
+                            </div>
                         <button class="btn btn-lg" id="btnSubscribe">Send</button>
                     </form>
                     <!-- ... end Subscribe Form  -->
@@ -569,7 +570,7 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Your Email</label>
                             <input class="form-control" placeholder="" type="email" value="" id="forgotPasswordEmail">
-                            <span class="material-input"></span><span class="material-input"></span></div>
+                            </div>
                         <p style="color: salmon" id="forgotPasswordError"></p><br>
                         <button class="btn btn-purple btn-lg full-width" id="btnSendEmail">Send me the Email</button>
                     </form>
@@ -790,6 +791,8 @@
     <script src="runwaejs/util.js"></script>
     <script src="runwaejs/subscribe.js"></script>
     <script src="runwaejs/navHQ.js"></script>
+    <!-- Theme Toggle -->
+    <script src="js/theme-toggle.js"></script>
 </body>
 
 </html>

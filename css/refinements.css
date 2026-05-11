@@ -1,0 +1,365 @@
+/* ==========================================================================
+   Runwae UI Refinements
+   Sophisticated styling - tighter radii, subtle shadows, cleaner look
+   ========================================================================== */
+
+/* ==========================================================================
+   Border Radius Overrides - More Sophisticated
+   Reducing large/playful radii to cleaner, tighter values
+   ========================================================================== */
+
+/* Cards and containers */
+.ui-block {
+  border-radius: var(--radius-card);
+}
+
+.modal-content {
+  border-radius: var(--radius-xl);
+}
+
+/* Buttons - tighter radius */
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-md,
+.btn-md-2,
+.btn-lg,
+.btn-sm {
+  border-radius: var(--radius-button);
+}
+
+/* Only pill buttons get full rounded ends */
+.btn-pill,
+.btn.rounded-pill {
+  border-radius: var(--radius-pill);
+}
+
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select,
+.form-control {
+  border-radius: var(--radius-input);
+}
+
+/* Search bar */
+.search-bar .form-control,
+.search-bar input,
+.selectize-input {
+  border-radius: var(--radius-input);
+}
+
+/* Dropdowns */
+.dropdown-menu,
+.more-dropdown {
+  border-radius: var(--radius-md);
+}
+
+/* Post images */
+.post-thumb img {
+  border-radius: 0;
+}
+
+.post-thumb {
+  border-radius: 0;
+}
+
+/* Avatar images - keep circular */
+.author-thumb img,
+.avatar,
+.user-avatar {
+  border-radius: var(--radius-full);
+}
+
+/* Tags and badges */
+.badge,
+.label-avatar,
+.tag {
+  border-radius: var(--radius-sm);
+}
+
+/* Pills (tags, categories) */
+.badge-pill,
+.tag-pill,
+.chip {
+  border-radius: var(--radius-pill);
+}
+
+/* Notifications */
+.notification-list li {
+  border-radius: 0;
+}
+
+/* Tooltips */
+.tooltip-inner {
+  border-radius: var(--radius-sm);
+}
+
+/* Progress bars */
+.progress,
+.progress-bar {
+  border-radius: var(--radius-sm);
+}
+
+/* ==========================================================================
+   Shadow Refinements - Subtler, More Professional
+   ========================================================================== */
+
+/* Softer card shadows */
+.ui-block {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04),
+              0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.ui-block:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05),
+              0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .ui-block {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2),
+              0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .ui-block:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25),
+              0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Dropdown shadows - cleaner */
+.dropdown-menu,
+.more-dropdown {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08),
+              0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .dropdown-menu,
+[data-theme="dark"] .more-dropdown {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3),
+              0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Button shadows - minimal */
+.btn:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 4px 12px rgba(147, 137, 255, 0.25);
+}
+
+/* ==========================================================================
+   Typography Refinements
+   ========================================================================== */
+
+/* Tighter letter-spacing for headings */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  letter-spacing: -0.01em;
+}
+
+/* Body text - optimal reading */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Links - no underline by default, subtle on hover */
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   Border Refinements
+   ========================================================================== */
+
+/* Lighter, more subtle borders */
+.ui-block {
+  border: 1px solid var(--color-border-light);
+}
+
+.ui-block:hover {
+  border-color: var(--color-border);
+}
+
+/* Remove double borders */
+.post + .post {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.post:first-child {
+  border-top: none;
+}
+
+/* ==========================================================================
+   Spacing Refinements
+   ========================================================================== */
+
+/* Consistent card padding */
+article.post {
+  padding: 20px 24px;
+}
+
+/* Tighter widget padding */
+.ui-block-title {
+  padding: 14px 18px;
+}
+
+.ui-block-content {
+  padding: 0;
+}
+
+/* ==========================================================================
+   Interactive Element Refinements
+   ========================================================================== */
+
+/* Buttons - refined hover states */
+.btn {
+  transition: all 0.15s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Links with subtle transition */
+a {
+  transition: color 0.15s ease;
+}
+
+/* Form focus states - thinner ring */
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus {
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Header Refinements
+   ========================================================================== */
+
+.header {
+  border-bottom: 1px solid var(--color-border-light);
+  box-shadow: none;
+}
+
+.header .control-icon {
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   Modal Refinements
+   ========================================================================== */
+
+.modal-content {
+  border: none;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] .modal-content {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.modal-header {
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+/* ==========================================================================
+   Scrollbar Refinements
+   ========================================================================== */
+
+/* Thinner, more subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Animation Refinements - Subtle, Not Bouncy
+   ========================================================================== */
+
+/* Remove overly playful animations */
+* {
+  animation-timing-function: ease;
+}
+
+/* Hover transitions - quick and subtle */
+.ui-block,
+.btn,
+.post,
+a,
+input,
+textarea {
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+
+/* No scale transforms on hover - too playful */
+.author-thumb img:hover,
+.post-thumb:hover img {
+  transform: none;
+}
+
+/* ==========================================================================
+   Dark Mode Refinements
+   ========================================================================== */
+
+[data-theme="dark"] {
+  /* Slightly warmer dark background */
+  --color-bg-body: #121218;
+  --color-bg-card: #1c1c24;
+  --color-bg-header: #16161c;
+
+  /* Subtler borders in dark mode */
+  --color-border: #2a2a36;
+  --color-border-light: #222230;
+}
+
+/* ==========================================================================
+   Mobile Refinements
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  article.post {
+    padding: 16px 18px;
+  }
+
+  .ui-block-title {
+    padding: 12px 16px;
+  }
+
+  /* Slightly smaller radii on mobile */
+  .ui-block {
+    border-radius: var(--radius-md);
+  }
+
+  .btn {
+    border-radius: var(--radius-sm);
+  }
+}

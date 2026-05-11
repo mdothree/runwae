@@ -27,7 +27,6 @@
     <meta property="og:description" content="Fast Influencer Marketing" />
     <meta property="og:image" content="https://runwae.com/img/runwae.png" />
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="css/welcomebootstrap.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
@@ -37,6 +36,8 @@
     <link rel="stylesheet" type="text/css" href="css/runwae.css">
     <link rel="stylesheet" type="text/css" href="css/ext.css">
     <link rel="stylesheet" type="text/css" href="css/welcome.css">
+    <!-- Theme Support -->
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
     <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
@@ -153,29 +154,25 @@
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label nameLabel">Name</label>
                                                 <input class="form-control" placeholder="" id="nameInput">
-                                                <span class="material-input"></span><span class="material-input"></span>
-                                            </div>
+                                                                                            </div>
                                         </div>
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 brandName">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label">Username</label>
                                                 <input class="form-control" placeholder="" id="usernameInput">
-                                                <span class="material-input"></span><span class="material-input"></span>
-                                            </div>
+                                                                                            </div>
                                         </div>
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label">Your Email</label>
                                                 <input class="form-control" placeholder="" type="email"
                                                     id="txtEmailSignUp">
-                                                <span class="material-input"></span><span class="material-input"></span>
-                                            </div>
+                                                                                            </div>
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label">Your Password</label>
                                                 <input class="form-control" placeholder="" type="password"
                                                     id="txtPasswordSignUp">
-                                                <span class="material-input"></span><span class="material-input"></span>
-                                            </div>
+                                                                                            </div>
                                             <div class="remember">
                                                 <div class="checkbox clicked">
                                                     <label>
@@ -205,14 +202,12 @@
                                                 <label class="control-label">Your Email</label>
                                                 <input class="form-control" placeholder="" type="email"
                                                     id="txtEmailLogin">
-                                                <span class="material-input"></span><span class="material-input"></span>
-                                            </div>
+                                                                                            </div>
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label">Your Password</label>
                                                 <input class="form-control" placeholder="" type="password"
                                                     id="txtPasswordLogin">
-                                                <span class="material-input"></span><span class="material-input"></span>
-                                            </div>
+                                                                                            </div>
                                             <div class="remember">
                                                 <div class="checkbox">
                                                     <label>
@@ -256,7 +251,7 @@
                         <div class="form-group label-floating">
                             <label class="control-label">Your Email</label>
                             <input class="form-control" placeholder="" type="email" value="" id="forgotPasswordEmail">
-                            <span class="material-input"></span><span class="material-input"></span></div>
+                            </div>
                         <p style="color: salmon" id="forgotPasswordError"></p><br>
                         <button class="btn btn-purple btn-lg full-width" id="btnSendEmail">Send me the Email</button>
                     </form>
@@ -341,6 +336,8 @@
     <script src="runwaejs/auth.js"></script>
     <script src="runwaejs/login.js"></script>
     <script src="runwaejs/navHQ.js"></script>
+    <!-- Theme Toggle -->
+    <script src="js/theme-toggle.js"></script>
 </body>
 
 </html>

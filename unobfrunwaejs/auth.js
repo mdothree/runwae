@@ -21,7 +21,7 @@ function login(info) {
         if (email && pass) {
             signIn(email, pass);
         } else {
-            $("#loginError").html("*Invalid email or password");
+            $("#loginError").text("*Invalid email or password");
         }
     });
 }
@@ -54,20 +54,20 @@ function signUp(info) {
                             //     }
                             // });
                         } else {
-                            $("#error").html("*All fields required");
+                            $("#error").text("*All fields required");
                         }
                     } else {
-                        $("#error").html("*Invalid email or password");
+                        $("#error").text("*Invalid email or password");
                         // display password weak
                     }
                 } else {
-                    $("#error").html("*Password is too weak");
+                    $("#error").text("*Password is too weak");
                 }
             } else {
-                $("#error").html("*Please select marketer or influencer");
+                $("#error").text("*Please select marketer or influencer");
             }
         } else {
-            $("#error").html("*Must accept terms and conditions to register");
+            $("#error").text("*Must accept terms and conditions to register");
         }
     });
 
@@ -101,12 +101,12 @@ function signIn(email, password) {
                 var myVar = setTimeout(myTimer, 2000);
 
                 function myTimer() {
-                    $("#loginError").html("*Failed login attempt");
+                    $("#loginError").text("*Failed login attempt");
                 }
             }
         });
     }).catch(function (error) {
-        $("#loginError").html("*Failed login attempt");
+        $("#loginError").text("*Failed login attempt");
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -134,7 +134,7 @@ function createUser(email, password) {
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
-            $("#error").html("*" + errorMessage);
+            $("#error").text("*" + errorMessage);
         });
 
 

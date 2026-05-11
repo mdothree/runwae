@@ -11,15 +11,15 @@
 }
 
 #open-influencerTutorial li h4 {
-  color: #9389ff
+  color: var(--color-primary)
 }
 
 #open-marketerTutorial li h4 {
-  color: #9389ff
+  color: var(--color-primary)
 }
 
 .modal-header {
-  background-color: #9389ff;
+  background-color: var(--color-primary);
 }
 
 .modal-header .title {

@@ -1,0 +1,339 @@
+/* ==========================================================================
+   Runwae Sidebar Improvements
+   Better widget styling, hover states, and visual hierarchy
+   ========================================================================== */
+
+/* ==========================================================================
+   Sidebar Container
+   ========================================================================== */
+
+aside.col {
+  transition: opacity var(--transition-slow);
+}
+
+/* Sticky sidebar on desktop */
+@media (min-width: 1200px) {
+  aside .ui-block {
+    position: sticky;
+    top: 90px;
+  }
+}
+
+/* ==========================================================================
+   Widget Block Styling
+   ========================================================================== */
+
+aside .ui-block {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--spacing-lg);
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+aside .ui-block:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Widget Title
+   ========================================================================== */
+
+aside .ui-block-title {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, transparent 100%);
+  position: relative;
+}
+
+aside .ui-block-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-primary);
+}
+
+aside .ui-block-title h6.title,
+aside .ui-block-title .title {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-heading);
+  margin: 0;
+}
+
+aside .ui-block-title .title-icon {
+  color: var(--color-primary);
+  margin-right: var(--spacing-sm);
+}
+
+/* See All link */
+aside .ui-block-title .more-settings,
+aside .ui-block-title .see-all {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  transition: color var(--transition-fast);
+}
+
+aside .ui-block-title .more-settings:hover,
+aside .ui-block-title .see-all:hover {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Follow Suggestions Widget
+   ========================================================================== */
+
+.w-friend-pages-added {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.w-friend-pages-added li {
+  padding: 14px 18px;
+  transition: all var(--transition-base);
+  border-bottom: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.w-friend-pages-added li:last-child {
+  border-bottom: none;
+}
+
+.w-friend-pages-added li:hover {
+  background-color: var(--color-primary-light);
+  padding-left: 22px;
+}
+
+.w-friend-pages-added li .author-thumb {
+  flex-shrink: 0;
+}
+
+.w-friend-pages-added li .author-thumb img {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+  transition: border-color var(--transition-fast);
+}
+
+.w-friend-pages-added li:hover .author-thumb img {
+  border-color: var(--color-primary);
+}
+
+.w-friend-pages-added li .notification-event {
+  flex: 1;
+  min-width: 0;
+}
+
+.w-friend-pages-added li .notification-event .h6 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-heading);
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.w-friend-pages-added li .notification-event span {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.w-friend-pages-added li .btn {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  font-size: var(--font-size-xs);
+  border-radius: var(--radius-lg);
+}
+
+/* ==========================================================================
+   Activity Feed Widget
+   ========================================================================== */
+
+.w-activity-feed {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.w-activity-feed li {
+  padding: 14px 18px;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid var(--color-border-light);
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.w-activity-feed li:last-child {
+  border-bottom: none;
+}
+
+.w-activity-feed li:hover {
+  border-left-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.w-activity-feed li .author-thumb {
+  flex-shrink: 0;
+}
+
+.w-activity-feed li .author-thumb img {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.w-activity-feed li .notification-event {
+  flex: 1;
+  min-width: 0;
+}
+
+.w-activity-feed li .notification-event .h6 {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-heading);
+  margin: 0 0 4px;
+  line-height: var(--line-height-tight);
+}
+
+.w-activity-feed li .notification-event .h6 a {
+  color: var(--color-primary);
+}
+
+.w-activity-feed li .notification-event span {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.w-activity-feed li .notification-icon {
+  color: var(--color-primary);
+  font-size: 16px;
+}
+
+/* Activity type indicators */
+.w-activity-feed li[data-type="like"] .notification-icon {
+  color: var(--color-danger);
+}
+
+.w-activity-feed li[data-type="comment"] .notification-icon {
+  color: var(--color-secondary);
+}
+
+.w-activity-feed li[data-type="follow"] .notification-icon {
+  color: var(--color-success);
+}
+
+.w-activity-feed li[data-type="share"] .notification-icon {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Widget Scrollbar
+   ========================================================================== */
+
+.w-activity-feed::-webkit-scrollbar {
+  width: 4px;
+}
+
+.w-activity-feed::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.w-activity-feed::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+.w-activity-feed::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+aside .widget-empty-state {
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+aside .widget-empty-state ion-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.5;
+}
+
+aside .widget-empty-state p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+/* ==========================================================================
+   Right Sidebar Specific
+   ========================================================================== */
+
+.right-sidebar .ui-block {
+  margin-bottom: var(--spacing-lg);
+}
+
+.right-sidebar .w-activity-feed {
+  max-height: 350px;
+}
+
+/* ==========================================================================
+   Left Sidebar Specific
+   ========================================================================== */
+
+.left-sidebar .ui-block {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ==========================================================================
+   Mobile Responsive
+   ========================================================================== */
+
+@media (max-width: 991px) {
+  aside .ui-block {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .w-activity-feed {
+    max-height: 250px;
+  }
+
+  aside .ui-block:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 767px) {
+  aside .ui-block-title {
+    padding: 14px 16px;
+  }
+
+  .w-friend-pages-added li,
+  .w-activity-feed li {
+    padding: 12px 14px;
+  }
+}

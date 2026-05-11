@@ -1,0 +1,963 @@
+/* ==========================================================================
+   Profile Marketplace Layout - Fiverr/Upwork Style
+   Two-column marketplace layout for influencer/brand profiles
+   ========================================================================== */
+
+/* ==========================================================================
+   Main Layout Grid
+   ========================================================================== */
+
+.profile-marketplace {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+/* ==========================================================================
+   Left Sidebar - Seller Identity
+   ========================================================================== */
+
+.profile-sidebar {
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+}
+
+.profile-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Profile Avatar Container */
+.profile-avatar-container {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  position: relative;
+}
+
+.profile-avatar-lg {
+  width: var(--avatar-lg, 120px);
+  height: var(--avatar-lg, 120px);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 4px solid var(--color-bg-body);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  display: block;
+}
+
+/* Online Status Indicator */
+.online-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--color-success);
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: var(--spacing-sm);
+}
+
+.online-status::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: var(--color-success);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.online-status.offline {
+  color: var(--color-text-muted);
+}
+
+.online-status.offline::before {
+  background: var(--color-text-muted);
+  animation: none;
+}
+
+/* Profile Name & Handle */
+.profile-name {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  margin: var(--spacing-md) 0 var(--spacing-xs);
+  text-align: center;
+}
+
+.profile-handle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-sm);
+  text-align: center;
+}
+
+.profile-title {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-md);
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+}
+
+/* ==========================================================================
+   Trust Signals
+   ========================================================================== */
+
+.trust-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-md) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--color-bg-body);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.trust-badge ion-icon {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Rating Display
+   ========================================================================== */
+
+.rating-summary {
+  text-align: center;
+  margin: var(--spacing-md) 0;
+}
+
+.rating-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-base);
+}
+
+.rating-stars ion-icon {
+  color: var(--color-warning);
+  font-size: 16px;
+}
+
+.rating-stars strong {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  margin-left: 2px;
+}
+
+.rating-stars span {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.rating-summary-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rating-summary-inline ion-icon {
+  color: var(--color-warning);
+}
+
+.rating-summary-inline strong {
+  color: var(--color-text-heading);
+}
+
+.rating-summary-inline span {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* ==========================================================================
+   Profile Actions
+   ========================================================================== */
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-lg) 0;
+}
+
+.profile-actions .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-button);
+  transition: all var(--transition-base);
+}
+
+.profile-actions .btn-primary {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+}
+
+.profile-actions .btn-primary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+.profile-actions .btn-outline {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.profile-actions .btn-outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Profile Bio & Details
+   ========================================================================== */
+
+.profile-bio,
+.profile-skills,
+.profile-socials {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.profile-bio h3,
+.profile-skills h3,
+.profile-socials h3 {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 var(--spacing-sm);
+}
+
+.profile-bio p {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Skill Tags */
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-body);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-base);
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+}
+
+.social-link.instagram:hover {
+  background: var(--color-instagram);
+  color: white;
+}
+
+.social-link.twitter:hover {
+  background: var(--color-twitter);
+  color: white;
+}
+
+.social-link.facebook:hover {
+  background: var(--color-facebook);
+  color: white;
+}
+
+.social-link.linkedin:hover {
+  background: var(--color-linkedin);
+  color: white;
+}
+
+/* ==========================================================================
+   Right Main Content Area
+   ========================================================================== */
+
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Section Styling */
+.profile-section {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-card);
+  box-shadow: var(--shadow-card);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-header h2 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  margin: 0;
+}
+
+.section-count {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Services/Gigs Grid
+   ========================================================================== */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.service-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-primary);
+}
+
+.service-card-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+}
+
+.service-card-body {
+  padding: var(--spacing-md);
+}
+
+.service-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--spacing-xs);
+  line-height: var(--line-height-tight);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.service-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-sm);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.service-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--spacing-sm);
+}
+
+.service-price {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.service-price strong {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+}
+
+.service-footer .rating-stars {
+  font-size: var(--font-size-sm);
+}
+
+.service-footer .rating-stars ion-icon {
+  font-size: 14px;
+}
+
+.service-footer .review-count {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* Empty State for Services */
+.services-empty {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-muted);
+}
+
+.services-empty ion-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.5;
+}
+
+.services-empty p {
+  margin: 0;
+}
+
+/* ==========================================================================
+   Portfolio Grid
+   ========================================================================== */
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.portfolio-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.portfolio-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.portfolio-item:hover img {
+  transform: scale(1.05);
+}
+
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.portfolio-item:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.portfolio-overlay ion-icon {
+  color: white;
+  font-size: 32px;
+}
+
+/* ==========================================================================
+   Reviews Section
+   ========================================================================== */
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.review-card {
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-body);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.reviewer-avatar {
+  width: var(--avatar-sm, 40px);
+  height: var(--avatar-sm, 40px);
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+
+.reviewer-info {
+  flex: 1;
+}
+
+.reviewer-info strong {
+  display: block;
+  font-size: var(--font-size-base);
+  color: var(--color-text-heading);
+}
+
+.review-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.review-header .rating-stars {
+  margin-left: auto;
+}
+
+.review-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-base);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Stats Row (for profile card)
+   ========================================================================== */
+
+.profile-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+  margin: var(--spacing-md) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-heading);
+  display: block;
+}
+
+.stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   Tabs Navigation (for profile main)
+   ========================================================================== */
+
+.profile-tabs {
+  display: flex;
+  gap: var(--spacing-xs);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--spacing-lg);
+  overflow-x: auto;
+}
+
+.profile-tab {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-base);
+}
+
+.profile-tab:hover {
+  color: var(--color-text-primary);
+}
+
+.profile-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Mobile Responsive
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .profile-marketplace {
+    grid-template-columns: 1fr;
+    padding: var(--spacing-md);
+  }
+
+  .profile-sidebar {
+    position: static;
+  }
+
+  .profile-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-marketplace {
+    padding: var(--spacing-sm);
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trust-signals {
+    gap: var(--spacing-xs);
+  }
+
+  .trust-badge {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .profile-stats {
+    gap: var(--spacing-md);
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-avatar-lg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-name {
+    font-size: var(--font-size-xl);
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Dark Mode Adjustments
+   ========================================================================== */
+
+[data-theme="dark"] .service-card {
+  background: var(--color-bg-card);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .service-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-card-hover);
+}
+
+[data-theme="dark"] .review-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .trust-badge {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .social-link {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="dark"] .profile-avatar-lg {
+  border-color: var(--color-bg-card);
+}
+
+/* ==========================================================================
+   Integration with Existing Profile Functionality
+   ========================================================================== */
+
+/* Hide legacy elements that are replaced by marketplace layout */
+.profile-marketplace ~ .container.profPanel#timelineContainer {
+  display: none !important;
+}
+
+/* Hidden location elements for data tracking */
+#city, #region {
+  display: none;
+}
+
+/* Ensure proper display of gigs count */
+#gigsCount {
+  display: none;
+}
+
+/* Profile tabs styles */
+.profile-tabs {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.profile-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* Table careers styling for Applications/Agreements */
+.profile-section .table-careers {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-section .table-careers li {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr 1fr auto;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  align-items: center;
+}
+
+.profile-section .table-careers li.head {
+  background: var(--color-bg-body);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+}
+
+.profile-section .table-careers li:last-child {
+  border-bottom: none;
+}
+
+.profile-section .table-careers .btn {
+  padding: 6px 16px;
+  font-size: var(--font-size-sm);
+}
+
+/* Owner display elements */
+.ownerDisplay {
+  /* Will be shown/hidden by JS based on profile ownership */
+}
+
+/* Services empty state */
+.services-grid:empty::after {
+  content: 'No services to display yet';
+  display: block;
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  grid-column: 1 / -1;
+}
+
+/* Reviews list empty state */
+.reviews-list:empty::before {
+  content: 'No reviews yet';
+  display: block;
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: var(--color-text-muted);
+}
+
+/* Profile picture overlay in sidebar */
+.profile-avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-avatar-container .profilePictureOverlay {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--avatar-lg, 120px);
+  height: var(--avatar-lg, 120px);
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  cursor: pointer;
+}
+
+.profile-avatar-container:hover .profilePictureOverlay {
+  opacity: 1;
+}
+
+.profile-avatar-container .profilePictureOverlay ion-icon {
+  color: white;
+  font-size: 24px;
+}
+
+/* User options dropdown styling */
+#userOptions .more-dropdown {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  z-index: var(--z-dropdown);
+  display: none;
+}
+
+#userOptions:hover .more-dropdown,
+#userOptions:focus-within .more-dropdown {
+  display: block;
+}
+
+#userOptions .more-dropdown li {
+  list-style: none;
+}
+
+#userOptions .more-dropdown li a {
+  display: block;
+  padding: 10px 16px;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: background var(--transition-fast);
+}
+
+#userOptions .more-dropdown li a:hover {
+  background: var(--color-bg-hover);
+}
+
+/* Skill tags rendering from industry field */
+.skill-tags:empty::before {
+  content: 'No expertise listed';
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* Follow button states */
+#btnFollow .followIcon[name="checkmark-outline"] + .followText::before {
+  content: 'Following';
+}
+
+#btnFollow.following {
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 768px) {
+  .profile-section .table-careers li {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
+  }
+
+  .profile-section .table-careers li.head {
+    display: none;
+  }
+
+  .profile-section .table-careers li span:nth-child(3),
+  .profile-section .table-careers li span:nth-child(4) {
+    display: none;
+  }
+}
+
+/* Animation for profile load */
+.profile-marketplace {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

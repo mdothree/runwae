@@ -24,6 +24,15 @@
     <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
     <link rel="stylesheet" type="text/css" href="css/runwae.css">
     <link rel="stylesheet" type="text/css" href="css/mesnot.css">
+    <!-- Modern UI Improvements -->
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
+    <link rel="stylesheet" type="text/css" href="css/modern-overrides.css">
+    <link rel="stylesheet" type="text/css" href="css/sidebar-modern.css">
+    <link rel="stylesheet" type="text/css" href="css/modal-modern.css">
+    <link rel="stylesheet" type="text/css" href="css/chat-drawer.css">
+    <link rel="stylesheet" type="text/css" href="css/feed-cards.css">
+    <link rel="stylesheet" type="text/css" href="css/refinements.css">
+    <link rel="stylesheet" type="text/css" href="css/profile-chat-modern.css">
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <!-- Main Font -->
     <script src="js/webfontloader.min.js"></script>
@@ -67,10 +76,7 @@
                             <ion-icon class="ionicon" name="search-outline"></ion-icon>
                         </div>
                     </button>
-                    <span class="material-input"></span><span class="material-input"></span><span
-                        class="material-input"></span><span class="material-input"></span><span
-                        class="material-input"></span><span class="material-input"></span><span
-                        class="material-input"></span>
+                    
                 </div>
             </form>
             <div class="control-block">
@@ -108,6 +114,14 @@
                         </div>
                         <a href="notifications" class="view-all bg-primary">View All Notifications</a>
                     </div>
+                </div>
+                <!-- Theme Toggle -->
+                <div class="control-icon theme-toggle" title="Toggle dark mode" tabindex="0" role="button" aria-label="Toggle dark mode">
+                    <ion-icon name="moon-outline"></ion-icon>
+                </div>
+                <!-- LLM Chat Toggle -->
+                <div class="control-icon llm-chat-toggle" title="Open AI Assistant" tabindex="0" role="button" aria-label="Open AI Assistant">
+                    <ion-icon name="chatbubbles-outline"></ion-icon>
                 </div>
                 <div class="author-page author vcard inline-items more nav-prof">
                     <div class="author-thumb">
@@ -257,9 +271,7 @@
                             </div>
                         </div>
                         <!---Selecticize enf here -->
-                        <span class="material-input"></span><span class="material-input"></span><span
-                            class="material-input"></span><span class="material-input"></span><span
-                            class="material-input"></span><span class="material-input"></span>
+                        
                     </div>
                 </form>
             </div>
@@ -454,6 +466,9 @@
     <script src="runwaejs/navHQ.js"></script>
     <script src="runwaejs/postHQ.js"></script>
     <script src="unobfrunwaejs/messagesHQ.js"></script>
+    <!-- Modern UI Scripts -->
+    <script src="js/theme-toggle.js"></script>
+    <script src="js/llm-chat.js"></script>
     <script type="template" id="searchTemplate">
         <div class="inline-items {{userOrGroup}}" data-selectable="" data-value="" id="{{uid}}">
             <div class="author-thumb"><img class="navSearchImg" src="{{src}}" alt="avatar"></div>

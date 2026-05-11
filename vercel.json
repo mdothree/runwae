@@ -2,5 +2,15 @@
   "cleanUrls": true,
   "redirects": [
     { "source": "/", "destination": "/welcome.html", "permanent": false }
-  ]
+  ],
+  "functions": {
+    "api/llm/*.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/payment/*.js": {
+      "memory": 256,
+      "maxDuration": 10
+    }
+  }
 }

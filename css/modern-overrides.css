@@ -1,0 +1,503 @@
+/* ==========================================================================
+   Runwae Modern Overrides
+   Applies CSS variables to existing Bootstrap/Olympus components
+   ========================================================================== */
+
+/* ==========================================================================
+   Base Elements
+   ========================================================================== */
+
+body {
+  background-color: var(--color-bg-body);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  transition: background-color var(--transition-slow), color var(--transition-slow);
+}
+
+a {
+  color: var(--color-text-link);
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ==========================================================================
+   Cards / UI Blocks
+   ========================================================================== */
+
+.ui-block {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: background-color var(--transition-slow),
+              border-color var(--transition-slow),
+              box-shadow var(--transition-slow);
+}
+
+.ui-block:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.ui-block-title {
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(to right, var(--color-primary-light), transparent);
+}
+
+.ui-block-title h6.title,
+.ui-block-title .title {
+  color: var(--color-text-heading);
+  font-weight: var(--font-weight-medium);
+}
+
+.ui-block-content {
+  background-color: var(--color-bg-card);
+}
+
+/* ==========================================================================
+   Header / Navigation
+   ========================================================================== */
+
+.header,
+.fixed-sidebar {
+  background-color: var(--color-bg-header);
+  border-color: var(--color-border);
+  transition: background-color var(--transition-slow), border-color var(--transition-slow);
+}
+
+.header .logo {
+  color: var(--color-text-heading);
+}
+
+.header .control-icon {
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.header .control-icon:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+/* ==========================================================================
+   Posts / Feed
+   ========================================================================== */
+
+.post {
+  background-color: var(--color-bg-card);
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-slow);
+}
+
+.post p,
+.post .post-content {
+  color: var(--color-text-primary);
+}
+
+.post__author .author-name {
+  color: var(--color-text-heading);
+}
+
+.post__author .author-name:hover {
+  color: var(--color-primary);
+}
+
+.post__author .post__date {
+  color: var(--color-text-muted);
+}
+
+.post-additional-info {
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.post-additional-info a {
+  color: var(--color-text-secondary);
+}
+
+.post-additional-info a:hover {
+  color: var(--color-primary);
+}
+
+/* More menu */
+.more {
+  color: var(--color-text-muted);
+}
+
+.more:hover {
+  color: var(--color-primary);
+}
+
+.more-dropdown {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-dropdown);
+}
+
+.more-dropdown li a {
+  color: var(--color-text-primary);
+}
+
+.more-dropdown li a:hover {
+  background-color: var(--color-bg-hover);
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Form Elements
+   ========================================================================== */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select,
+.form-control {
+  background-color: var(--color-bg-input);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+.form-control:focus {
+  background-color: var(--color-bg-card);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn-primary,
+.btn--primary {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary:hover,
+.btn--primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-bg-input);
+  border-color: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-border-dark);
+}
+
+/* ==========================================================================
+   Dropdowns
+   ========================================================================== */
+
+.dropdown-menu {
+  background-color: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-dropdown);
+}
+
+.dropdown-item {
+  color: var(--color-text-primary);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--color-bg-hover);
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Notifications / Alerts
+   ========================================================================== */
+
+.notification-list li {
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color var(--transition-fast);
+}
+
+.notification-list li:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.notification-list .notification-icon {
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   Comments
+   ========================================================================== */
+
+.comments-list .comment-item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.comments-list .comment-content {
+  color: var(--color-text-primary);
+}
+
+.comments-list .comment-author {
+  color: var(--color-text-heading);
+}
+
+.comments-list .comment-date {
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Profile Elements
+   ========================================================================== */
+
+.profile-header {
+  background-color: var(--color-bg-card);
+}
+
+.profile-header .profile-name {
+  color: var(--color-text-heading);
+}
+
+.profile-header .profile-info {
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   Messages
+   ========================================================================== */
+
+.chat-message {
+  background-color: var(--color-bg-input);
+  color: var(--color-text-primary);
+}
+
+.chat-message.sent {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ==========================================================================
+   Scrollbar Styling (Dark Mode)
+   ========================================================================== */
+
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--color-bg-body);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--color-border-dark);
+  border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   Image handling in dark mode
+   ========================================================================== */
+
+[data-theme="dark"] .author-thumb img,
+[data-theme="dark"] .post-thumb img,
+[data-theme="dark"] .friend-item img {
+  border: 1px solid var(--color-border);
+}
+
+/* ==========================================================================
+   Theme Toggle Button
+   ========================================================================== */
+
+.theme-toggle {
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-full);
+  transition: background-color var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-primary-light);
+}
+
+.theme-toggle ion-icon {
+  font-size: 22px;
+  color: var(--color-text-primary);
+  transition: color var(--transition-fast);
+}
+
+.theme-toggle:hover ion-icon {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   Post Control Buttons (Social Media Icons)
+   ========================================================================== */
+
+/* Hide the floating side buttons - move actions to bottom of post */
+.post .control-block-button.post-control-button {
+  position: relative;
+  top: auto;
+  right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+/* Social platform buttons */
+.post-control-button .btn-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-fast);
+  border: none;
+  box-shadow: none;
+}
+
+.post-control-button .btn-control svg,
+.post-control-button .btn-control .share-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* Platform-specific colors with better styling */
+.post-control-button .btn-control.bg-facebook {
+  background-color: rgba(47, 91, 157, 0.1);
+  color: var(--color-facebook);
+}
+
+.post-control-button .btn-control.bg-facebook:hover {
+  background-color: var(--color-facebook);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(47, 91, 157, 0.3);
+}
+
+.post-control-button .btn-control.bg-instagram {
+  background-color: rgba(247, 72, 129, 0.1);
+  color: var(--color-instagram);
+}
+
+.post-control-button .btn-control.bg-instagram:hover {
+  background-color: var(--color-instagram);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(247, 72, 129, 0.3);
+}
+
+.post-control-button .btn-control.bg-twitter {
+  background-color: rgba(56, 191, 241, 0.1);
+  color: var(--color-twitter);
+}
+
+.post-control-button .btn-control.bg-twitter:hover {
+  background-color: var(--color-twitter);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(56, 191, 241, 0.3);
+}
+
+.post-control-button .btn-control.bg-linkedin {
+  background-color: rgba(0, 119, 181, 0.1);
+  color: var(--color-linkedin);
+}
+
+.post-control-button .btn-control.bg-linkedin:hover {
+  background-color: var(--color-linkedin);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+}
+
+/* Interests button */
+.post-control-button .btn-control.bg-breeze {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.post-control-button .btn-control.bg-breeze:hover {
+  background-color: var(--color-primary);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .post-control-button .btn-control.bg-facebook {
+  background-color: rgba(47, 91, 157, 0.2);
+}
+
+[data-theme="dark"] .post-control-button .btn-control.bg-instagram {
+  background-color: rgba(247, 72, 129, 0.2);
+}
+
+[data-theme="dark"] .post-control-button .btn-control.bg-twitter {
+  background-color: rgba(56, 191, 241, 0.2);
+}
+
+[data-theme="dark"] .post-control-button .btn-control.bg-linkedin {
+  background-color: rgba(0, 119, 181, 0.2);
+}
+
+/* Mobile responsive */
+@media (max-width: 767px) {
+  .post .control-block-button.post-control-button {
+    justify-content: center;
+  }
+
+  .post-control-button .btn-control {
+    padding: 6px 12px;
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ==========================================================================
+   Selection styling
+   ========================================================================== */
+
+::selection {
+  background-color: var(--color-primary);
+  color: #fff;
+}
+
+::-moz-selection {
+  background-color: var(--color-primary);
+  color: #fff;
+}

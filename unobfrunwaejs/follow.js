@@ -1,8 +1,8 @@
 function initFollow(visitorSnap, hostSnap) {
     $("#btnFollow").off("click");
     if (window.location.href.includes("profile")) {
-        $("#followersCount").html(hostSnap.val().followers_count);
-        $("#followingCount").html(hostSnap.val().following_count);
+        $("#followersCount").text(hostSnap.val().followers_count);
+        $("#followingCount").text(hostSnap.val().following_count);
         followersReturn = displayFollowers(visitorSnap, hostSnap, 100);
         followingReturn = displayFollowing(visitorSnap, hostSnap, 100);
         if (followersReturn && followingReturn) {
@@ -143,7 +143,7 @@ function displayFollowers(visitorSnap, hostSnap, limit) {
     var before = ["{{uid}}", "{{header_src}}", "{{username}}", "{{src}}", "{{name}}", "{{description}}", "{{followers}}", "{{following}}", "{{gigs}}", "{{index}}"];
     var userObj = hostSnap.val();
     var obj = hostSnap.val().followers;
-    $("#followingCount").html(hostSnap.val().followers_count);
+    $("#followingCount").text(hostSnap.val().followers_count);
     render();
     $("#followersSearch button").click(function () {
         render();
@@ -232,7 +232,7 @@ function displayFollowing(visitorSnap, hostSnap, limit) {
     var before = ["{{uid}}", "{{header_src}}", "{{username}}", "{{src}}", "{{name}}", "{{description}}", "{{followers}}", "{{following}}", "{{gigs}}", "{{index}}"];
     var userObj = hostSnap.val();
     var obj = hostSnap.val().following;
-    $("#followingCount").html(hostSnap.val().following_count);
+    $("#followingCount").text(hostSnap.val().following_count);
     render();
     $("#followingSearch button").click(function () {
         render();

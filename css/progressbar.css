@@ -132,7 +132,7 @@ body .progress_inner__step:hover {
 }
 body .progress_inner__step:hover:before {
   color: white;
-  background: #9389FF;
+  background: var(--color-primary);
 }
 body .progress {
   /* font-family: "Nunito", sans-serif; */

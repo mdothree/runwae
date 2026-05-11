@@ -114,7 +114,7 @@ function sendResetPassword(email) {
             var errorCode = error.code;
             var errorMessage = error.message;
             if (errorCode = "auth/invalid-email" || "auth/missing-continue-uri" || "auth/invalid-continue-uri" || "auth/unauthorized-continue-uri") {
-                $("#forgotPasswordError").html(errorCode);
+                $("#forgotPasswordError").text(errorCode);
                 //NOTIFY USERS WITH THE ERROR
             }
         });
@@ -126,6 +126,25 @@ function displayHTML(scriptDiv, displayDiv, before, after) {
     $(displayDiv).append(html);
 }
 
+// HTML escape function to prevent XSS attacks
+function escapeHtml(text) {
+    if (text === null || text === undefined) return '';
+    var str = String(text);
+    var map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+    return str.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
+// Placeholders that should NOT be escaped (URLs, IDs, numeric values)
+var safePatterns = ['{{uid}}', '{{key}}', '{{src}}', '{{header_src}}', '{{target_key}}',
+                    '{{index}}', '{{followers}}', '{{following}}', '{{gigs}}', '{{connections}}',
+                    '{{rating}}', '{{status}}', '{{icon}}', '{{remove_display}}'];
+
 function replaceText(original, before, after) {
     if (before.constructor !== Array) {
         before = [before];
@@ -133,8 +152,14 @@ function replaceText(original, before, after) {
     }
     var result = original;
     for (var i = 0; i < before.length; i++) {
-        if (result)
-            result = result.split(before[i]).join(after[i]);
+        if (result) {
+            var value = after[i];
+            // Escape user content to prevent XSS, but not URLs/IDs/numeric values
+            if (!safePatterns.includes(before[i])) {
+                value = escapeHtml(value);
+            }
+            result = result.split(before[i]).join(value);
+        }
     }
     return result;
 }

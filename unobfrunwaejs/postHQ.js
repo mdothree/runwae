@@ -65,7 +65,7 @@ function writePostAssist(snapUser) {
                         var compensation = checkCompensation();
                         var file = document.getElementById('btnPhoto').files[0];
                         if (fileOk(file)) {
-                            $("#alert").html("Posting item...");
+                            $("#alert").text("Posting item...");
                             //send type of media and media url to write post !!!
                             writePost(snapUser, file, compensation);
                         }
@@ -92,13 +92,13 @@ function writePostAssist(snapUser) {
     function checkFields() {
         //var allFields = allFields();
         if (!$("textarea#postCaption").val()) {
-            $("#alert").html("*Caption required");
+            $("#alert").text("*Caption required");
             return false;
         } else {
             if($("#compensationCheckbox").is(':checked') == true){
             if (!($("#priceInput").val() >= 10) || !($("#priceInput").val() <= 40)) {
                 $("#priceInput").val(10);
-                $("#alert").html("Price must be between $10 and $40");
+                $("#alert").text("Price must be between $10 and $40");
                 return false;
             } else {
                 return true;
@@ -111,7 +111,7 @@ function writePostAssist(snapUser) {
 
     function checkCompensation() {
         if (!$("#instagramEnabled").is(':checked') && !$("#twitterEnabled").is(':checked') && !$("#facebookEnabled").is(':checked') && !$("#linkedinEnabled").is(':checked')) {
-            $("#alert").html("*Please select a platfrom");
+            $("#alert").text("*Please select a platform");
             return false;
         }
         if ($("#compensationCheckbox").is(':checked') == true) {
@@ -119,7 +119,7 @@ function writePostAssist(snapUser) {
         } else {
             var compensation = "gift";
             if (!$("#giftDescriptionInput")) {
-                $("#alert").html("*Gift description required");
+                $("#alert").text("*Gift description required");
                 return false;
             }
         }
@@ -130,7 +130,7 @@ function writePostAssist(snapUser) {
         $("#add-photo .close").click();
         var file = e.target.files[0];
         if (fileOk(file)) {
-            $("#alert").html("Uploading image...");
+            $("#alert").text("Uploading image...");
             database.ref().child("users/" + useri).once('value', snap => {
                 var oldStorageRef = firebase.storage().ref('users/' + useri + '/temp/photo');
                 if (oldStorageRef != null && oldStorageRef) {
@@ -153,7 +153,7 @@ function writePostAssist(snapUser) {
                     // Observe state change events such as progress, pause, and resume
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                     var progress = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-                    $("#alert").html("Uploading image: " + progress + "%");
+                    $("#alert").text("Uploading image: " + progress + "%");
                     switch (snapshot.state) {
                         case firebase.storage.TaskState.PAUSED: // or 'paused'
                             break;
@@ -161,7 +161,7 @@ function writePostAssist(snapUser) {
                             break;
                     }
                 }, function (error) {
-                    $("#alert").html("Error uploading image!");
+                    $("#alert").text("Error uploading image!");
                     // Handle unsuccessful uploads
                 }, function () {
                     showPhotoField(useri);
@@ -182,7 +182,7 @@ function writePostAssist(snapUser) {
             if (file.size < 100 * Math.pow(10, 6)) {
                 sizeok = true;
             } else {
-                $("#alert").html("File size larger than 100 KB...");
+                $("#alert").text("File size larger than 100 KB...");
             }
             var ext = file.name.split('.').pop().toLowerCase();
             image = ["jpg", "png", "jpeg", "gif"];
@@ -190,7 +190,7 @@ function writePostAssist(snapUser) {
             if (image.includes(ext) || video.includes(ext)) {
                 typeok = true;
             } else {
-                $("#alert").html("File type not supported...");
+                $("#alert").text("File type not supported...");
             }
             return sizeok && typeok;
         } else {
@@ -200,7 +200,7 @@ function writePostAssist(snapUser) {
 
     function showPhotoField(useri) {
         firebase.storage().ref().child('users/' + useri + '/temp/photo').getDownloadURL().then(function (url) {
-            $("#alert").html("Image uploaded!");
+            $("#alert").text("Image uploaded!");
             //            $("#postImg").css("background-image", 'url("' + url + '")');
         }).catch(function (error) {});
     }
@@ -210,13 +210,13 @@ function displayPreview(snapUser, compensation) {
     $("#open-preview .ui-block").hide();
     $("#triggerPreviewModal").click();
     $("#previewHostUrl, #previewCommentHostUrl").attr("src", snapUser.val().photo_url);
-    $("#previewCaption").html($("textarea#postCaption").val());
+    $("#previewCaption").text($("textarea#postCaption").val());
     if (compensation == "money") {
         $("#previewCompensationIcon").attr("name", "card-outline");
     } else {
         $("#previewCompensationIcon").attr("class", "fa fa-gift");
     }
-    $("#previewHostName").html(snapUser.val().name);
+    $("#previewHostName").text(snapUser.val().name);
     if ($("#instagramEnabled").is(':checked')) {
         $("#previewInstagram").show();
     } else {
@@ -247,7 +247,7 @@ function displayPreview(snapUser, compensation) {
             $("#open-post .open-photo-content").css("width", "");
             $("#open-preview .ui-block").show();
         }).catch(function (error) {
-            $("#alert").html("Error generating preview");
+            $("#alert").text("Error generating preview");
         });
     } else {
         $("#open-preview .open-photo-thumb").hide();

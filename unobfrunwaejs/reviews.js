@@ -109,7 +109,7 @@ function updateReviewsCount(visitorSnap, hostSnap) {
 }
 
 function refreshReviewsCount(reviewsCount) {
-    $("#reviewsCount").html(reviewsCount);
+    $("#reviewsCount").text(reviewsCount);
 }
 
 
@@ -119,9 +119,9 @@ function displayReviews(snap) {
     var obj = snap.val().reviews_received;
     reviewCount = 0;
     if (snap.val().reviews_received_count) {
-        $("#reviewsCount").html(snap.val().reviews_received_count);
+        $("#reviewsCount").text(snap.val().reviews_received_count);
     } else {
-        $("#reviewsCount").html(reviewCount);
+        $("#reviewsCount").text(reviewCount);
     }
     if (obj) {
         total = Object.keys(obj).length;

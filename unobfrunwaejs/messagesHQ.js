@@ -30,7 +30,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 
 function initContact(snapUser, currentContact) {
     database.ref().child('users/' + currentContact).once('value', function (snapRecipient) {
-        $("#conversationRecipient").html(snapRecipient.val().name);
+        $("#conversationRecipient").text(snapRecipient.val().name);
         $("#conversationRecipient").attr("class", currentContact);
     });
 }

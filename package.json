@@ -1,0 +1,14 @@
+{
+  "name": "runwae",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Runwae Influencer Marketing Platform",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.0",
+    "firebase-admin": "^12.0.0",
+    "stripe": "^14.0.0"
+  }
+}
