@@ -6,7 +6,12 @@ function displayProfile(snap) {
     }
     $("#name").text(snap.val().name);
     $("#username").text("@" + snap.val().username);
-    $("#description").text(snap.val().description);
+    // Use SafeRender for descriptions to support line breaks safely
+    if (typeof SafeRender !== 'undefined') {
+        SafeRender.setTextWithBreaks("#description", snap.val().description);
+    } else {
+        $("#description").text(snap.val().description);
+    }
     $("#website").text(snap.val().website);
     $("#website").attr("href", snap.val().website);
     $("#website").attr("target", "_blank");

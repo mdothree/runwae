@@ -5,8 +5,7 @@
     <title>Account</title>
     <!-- Required meta tags always come first -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="Fast Influencer Marketing">
     <meta name="author" content="Runwae">
@@ -15,6 +14,10 @@
     <meta property="og:title" content="Account" />
     <meta property="og:description" content="Fast Influencer Marketing" />
     <meta property="og:image" content="https://runwae.com/img/runwae.png" />
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
     <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
@@ -32,19 +35,11 @@
     <link rel="stylesheet" type="text/css" href="css/feed-cards.css">
     <link rel="stylesheet" type="text/css" href="css/refinements.css">
     <link rel="stylesheet" type="text/css" href="css/profile-chat-modern.css">
+    <link rel="stylesheet" type="text/css" href="css/accessibility.css">
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
-    <!-- Main Font -->
+    <!-- Main Font (deduplicated) -->
     <script src="js/webfontloader.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin&display=swap" media="all">
     <script>
         WebFont.load({
             google: {
@@ -58,6 +53,8 @@
 </head>
 
 <body class="page-has-left-panels page-has-right-panels">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="fixed-sidebar">
         <div>
             <a href="explore" class="logo">
@@ -292,6 +289,7 @@
     <div class="new-main-header">
     </div>
     <!-- Your Account Personal Information -->
+    <main id="main-content">
     <div class="container">
         <div class="row">
             <div class="col col-xl-9 order-xl-2 col-lg-9 order-lg-1 col-md-12 order-md-1 col-sm-12 col-12 order-sm-1">
@@ -708,6 +706,7 @@
             </div>
         </div>
     </div>
+    </main>
     <div class="modal-backdrop fade"></div>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
@@ -793,6 +792,7 @@
     <script src="runwaejs/location.js"></script>
     <script src="runwaejs/accountHQ.js"></script>
     <!-- Modern UI Scripts -->
+    <script src="js/safe-render.js"></script>
     <script src="js/theme-toggle.js"></script>
     <script src="js/llm-chat.js"></script>
     <script type="Template" id="dropdownTemplate">

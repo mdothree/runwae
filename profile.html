@@ -5,8 +5,7 @@
     <title>Profile</title>
     <!-- Required meta tags always come first -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="Fast Influencer Marketing">
     <meta name="author" content="Runwae">
@@ -15,14 +14,13 @@
     <meta property="og:title" content="Profile" />
     <meta property="og:description" content="Fast Influencer Marketing" />
     <meta property="og:image" content="https://runwae.com/img/runwae.png" />
-    <!-- Main Font -->
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com">
+    <!-- Main Font (deduplicated) -->
     <script src="js/webfontloader.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin&display=swap" media="all">
     <script>
         WebFont.load({
             google: {
@@ -48,6 +46,7 @@
     <link rel="stylesheet" type="text/css" href="css/refinements.css">
     <link rel="stylesheet" type="text/css" href="css/profile-chat-modern.css">
     <link rel="stylesheet" type="text/css" href="css/profile-marketplace.css">
+    <link rel="stylesheet" type="text/css" href="css/accessibility.css">
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
     <script data-ad-client="ca-pub-7287110011977791" async
@@ -66,11 +65,13 @@
 </head>
 
 <body class="page-has-left-panels page-has-right-panels">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="fixed-sidebar">
         <div>
             <a href="explore" class="logo">
                 <div class="img-wrap">
-                    <img src="img/logo-colored.png" alt="Olympus">
+                    <img src="img/logo-colored.png" alt="Runwae">
                 </div>
             </a>
         </div>
@@ -302,7 +303,7 @@
     <!-- ========================================================================
          NEW: Marketplace-Style Profile Layout
          ======================================================================== -->
-    <div class="profile-marketplace">
+    <main id="main-content" class="profile-marketplace">
 
         <!-- LEFT SIDEBAR: Seller Identity -->
         <aside class="profile-sidebar">
@@ -803,7 +804,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
     <div class="container profPanel" id="followingContainer" style="display:none">
         <div class="row" id="followingDisplay"></div>
     </div>
@@ -1277,6 +1278,7 @@
         <script src="runwaejs/profileHQ.js"></script>
         <script src="runwaejs/reviews.js"></script>
         <!-- Modern UI Scripts -->
+        <script src="js/safe-render.js"></script>
         <script src="js/theme-toggle.js"></script>
         <script src="js/llm-chat.js"></script>
         <script src="js/profile-marketplace.js"></script>

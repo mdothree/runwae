@@ -29,6 +29,7 @@ Modernization of the Runwae influencer marketing platform with:
 | `css/refinements.css` | General UI refinements | Ready |
 | `css/profile-chat-modern.css` | Profile page chat styling | Ready |
 | `css/profile-marketplace.css` | Marketplace features styling | Ready |
+| `css/accessibility.css` | WCAG 2.1 AA compliance, focus states, reduced motion | Ready |
 
 ### JS Files
 | File | Purpose | Status |
@@ -36,6 +37,7 @@ Modernization of the Runwae influencer marketing platform with:
 | `js/theme-toggle.js` | Theme manager with localStorage persistence | Ready |
 | `js/llm-chat.js` | LLM chat drawer with fallback responses | Ready |
 | `js/profile-marketplace.js` | Marketplace functionality | Ready |
+| `js/safe-render.js` | XSS-safe text rendering with newline-to-br support | Ready |
 | `runwaejs/llm.js` | LLM API integration (obfuscated) | Ready |
 
 ### API Files
@@ -198,10 +200,39 @@ New untracked files:
 
 ---
 
+## Improvements Applied (2026-05-10)
+
+### Accessibility (WCAG 2.1 AA)
+- [x] Added `css/accessibility.css` with comprehensive a11y styles
+- [x] Skip-to-main-content links on account, explore, profile pages
+- [x] Enhanced focus-visible styles for keyboard navigation
+- [x] `prefers-reduced-motion` support for animations
+- [x] High contrast mode support
+- [x] Minimum 44x44px touch targets for interactive elements
+- [x] Screen reader only `.sr-only` utility class
+
+### Performance
+- [x] Added `preconnect` for Google Fonts and Firebase
+- [x] Removed duplicate Google Font link tags (5-6 duplicates per page)
+- [x] Added `display=swap` to font loading
+
+### Safe Text Rendering
+- [x] Created `js/safe-render.js` utility for XSS-safe text with formatting
+- [x] `SafeRender.textWithBreaks()` - converts newlines to `<br>` safely
+- [x] `SafeRender.richText()` - linkifies URLs + line breaks safely
+- [x] Updated `display.js` to use SafeRender for descriptions
+- [x] jQuery plugins: `.textWithBreaks()`, `.richText()`, `.safeHtml()`
+
+### HTML Structure
+- [x] Added semantic `<main>` elements with `id="main-content"`
+- [x] Fixed alt text ("Olympus" → "Runwae")
+- [x] Removed duplicate viewport meta tags
+
+---
+
 ## Remaining Next Steps
 
-1. [x] Add theme includes to admin.html
-2. [ ] Test all pages in both light and dark modes
-3. [ ] Verify deleted CSS files aren't breaking layouts
-4. [ ] Add newline-to-br conversion for descriptions if needed
-5. [ ] Commit and deploy to staging for testing
+1. [ ] Test all pages in both light and dark modes
+2. [ ] Verify deleted CSS files aren't breaking layouts
+3. [ ] Test accessibility with screen reader
+4. [ ] Commit and deploy to staging for testing
