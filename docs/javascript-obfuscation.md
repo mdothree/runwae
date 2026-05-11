@@ -8,11 +8,10 @@ The Runwae frontend loads JavaScript from `runwaejs/` (obfuscated), not `unobfru
 
 ## Quick Start
 
+From the runwae project root:
+
 ```bash
-cd ~/mdo3d
-python3 scripts/obfuscate-js.py \
-    projects/runwae/runwae/unobfrunwaejs \
-    projects/runwae/runwae/runwaejs
+python3 deployment/obfuscate-js.py unobfrunwaejs runwaejs
 ```
 
 ---
@@ -22,11 +21,7 @@ python3 scripts/obfuscate-js.py \
 Auto-rebuilds when you save changes:
 
 ```bash
-cd ~/mdo3d
-python3 scripts/obfuscate-js.py \
-    projects/runwae/runwae/unobfrunwaejs \
-    projects/runwae/runwae/runwaejs \
-    --watch
+python3 deployment/obfuscate-js.py unobfrunwaejs runwaejs --watch
 ```
 
 Press `Ctrl+C` to stop.
@@ -37,12 +32,15 @@ Press `Ctrl+C` to stop.
 
 ```
 runwae/
-├── unobfrunwaejs/    ← Edit these (source, readable)
+├── deployment/
+│   └── obfuscate-js.py   ← Obfuscation script
+│
+├── unobfrunwaejs/        ← Edit these (source, readable)
 │   ├── accountHQ.js
 │   ├── display.js
 │   └── ...
 │
-├── runwaejs/         ← Production (obfuscated, auto-generated)
+├── runwaejs/             ← Production (obfuscated, auto-generated)
 │   ├── accountHQ.js
 │   ├── display.js
 │   └── ...
@@ -59,12 +57,13 @@ The script uses `npx javascript-obfuscator` if Node.js is available, otherwise f
 
 ---
 
-## Script Location
+## Options
 
-The obfuscation script is shared across projects:
-
-```
-~/mdo3d/scripts/obfuscate-js.py
+```bash
+python3 deployment/obfuscate-js.py --help
 ```
 
-Run `python3 ~/mdo3d/scripts/obfuscate-js.py --help` for all options.
+| Flag | Description |
+|------|-------------|
+| `--watch`, `-w` | Watch for changes and auto-rebuild |
+| `--no-npx` | Use Python minifier only (no Node.js) |

@@ -263,17 +263,13 @@ New untracked files:
 
 The frontend loads JavaScript from `runwaejs/` (obfuscated), not `unobfrunwaejs/` (source).
 
-**After making changes to JS files in `unobfrunwaejs/`**, run the obfuscation script:
+**After making changes to JS files in `unobfrunwaejs/`**, run:
 
 ```bash
-# From mdo3d root directory
-python3 scripts/obfuscate-js.py projects/runwae/runwae/unobfrunwaejs projects/runwae/runwae/runwaejs
-
-# Or with watch mode for development
-python3 scripts/obfuscate-js.py projects/runwae/runwae/unobfrunwaejs projects/runwae/runwae/runwaejs --watch
+python3 deployment/obfuscate-js.py unobfrunwaejs runwaejs
 ```
 
-The script uses `npx javascript-obfuscator` if Node.js is available, otherwise falls back to Python minification.
+See `docs/javascript-obfuscation.md` for full documentation.
 
 ---
 
