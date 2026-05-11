@@ -1,6 +1,6 @@
 # Runwae Frontend Modernization - Status
 
-**Last Updated:** 2026-05-10
+**Last Updated:** 2026-05-11
 
 ---
 
@@ -208,6 +208,11 @@ New untracked files:
 - [x] Added `css/theme.css` to admin.html
 - [x] Added `js/theme-toggle.js` to admin.html
 
+### JavaScript Obfuscation (2026-05-11)
+- [x] Created standalone Python obfuscation script at `mdo3d/scripts/obfuscate-js.py`
+- [x] Re-obfuscated all 40 JS files from `unobfrunwaejs/` → `runwaejs/`
+- [x] Bug fixes now applied to production obfuscated code
+
 ---
 
 ## Improvements Applied (2026-05-10)
@@ -251,6 +256,24 @@ New untracked files:
 - [x] messages.html - preconnect, accessibility, toast, skip link, main-content
 - [x] notifications.html - preconnect, accessibility, toast, skip link, main-content
 - [x] gig.html - preconnect, accessibility, toast, skip link, main-content
+
+---
+
+## JavaScript Obfuscation Workflow
+
+The frontend loads JavaScript from `runwaejs/` (obfuscated), not `unobfrunwaejs/` (source).
+
+**After making changes to JS files in `unobfrunwaejs/`**, run the obfuscation script:
+
+```bash
+# From mdo3d root directory
+python3 scripts/obfuscate-js.py projects/runwae/runwae/unobfrunwaejs projects/runwae/runwae/runwaejs
+
+# Or with watch mode for development
+python3 scripts/obfuscate-js.py projects/runwae/runwae/unobfrunwaejs projects/runwae/runwae/runwaejs --watch
+```
+
+The script uses `npx javascript-obfuscator` if Node.js is available, otherwise falls back to Python minification.
 
 ---
 
