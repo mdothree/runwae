@@ -1,5 +1,6 @@
 {
   "buildCommand": "node deployment/inject-config.js",
+  "outputDirectory": ".",
   "cleanUrls": true,
   "redirects": [
     { "source": "/", "destination": "/welcome.html", "permanent": false }
