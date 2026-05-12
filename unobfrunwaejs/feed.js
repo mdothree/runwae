@@ -71,12 +71,14 @@ function displayFeed(snapVisitor, displayDiv) {
                 displayClip(mainItemsObj);
             });
             var postsDisplayed = $(displayDiv).children().length;
-            mainItemsCount = Object.keys(mainItemsObj).length;
-            index1 = mainItemsCount - postsDisplayed - clipCapacity - 1;
+            var mainItemsCount = Object.keys(mainItemsObj).length;
+            var index1 = mainItemsCount - postsDisplayed - clipCapacity - 1;
             if (index1 < 0) {
                 index1 = 0;
             }
-            index2 = mainItemsCount - postsDisplayed - 1;
+            var index2 = mainItemsCount - postsDisplayed - 1;
+            var itemsObj;
+            var itemKeys;
             if (index2 <= 0) {
                 $(btnShowMoreMainFeed).hide();
                 index2 = 0;

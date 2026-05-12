@@ -77,6 +77,7 @@ function signUp(info) {
 function passwordStrength(password) {
     //find a password module
     var acceptable = true;
+    var bool = false;
     if (acceptable) {
         bool = true;
     }

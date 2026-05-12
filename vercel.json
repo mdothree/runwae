@@ -1,4 +1,5 @@
 {
+  "buildCommand": "node deployment/inject-config.js",
   "cleanUrls": true,
   "redirects": [
     { "source": "/", "destination": "/welcome.html", "permanent": false }

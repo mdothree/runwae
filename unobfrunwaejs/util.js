@@ -58,11 +58,11 @@ function anchors() {
         }
         if (!$(this).attr("id")) {
                 event.preventDefault();
-                href = $(this).attr("href");
+                var href = $(this).attr("href");
                 if (href.includes("#") && href.length > 1) {
                     window.location.href = window.location.href.split("#")[0] + $(this).attr("href");
                 } else if (!href.includes("#") && href.length > 2) {
-                    idArray = ["twitter", "facebook", "linkedin", "instagram"];
+                    var idArray = ["twitter", "facebook", "linkedin", "instagram"];
                     if (idArray.includes($(this).attr("id"))) {
                         window.open(href);
                     } else {
@@ -92,7 +92,7 @@ function sendVerifyEmail(user) {
         // Some error occurred, you can inspect the code: error.code
         var errorCode = error.code;
         $("#emailError").show();
-        if (errorCode = "auth/invalid-email" || "auth/missing-continue-uri" || "auth/invalid-continue-uri" || "auth/unauthorized-continue-uri") {
+        if (errorCode === "auth/invalid-email" || errorCode === "auth/missing-continue-uri" || errorCode === "auth/invalid-continue-uri" || errorCode === "auth/unauthorized-continue-uri") {
             //NOTIFY USERS WITH THE ERROR
         }
     });
@@ -113,7 +113,7 @@ function sendResetPassword(email) {
             $("#forgotPasswordError").show();
             var errorCode = error.code;
             var errorMessage = error.message;
-            if (errorCode = "auth/invalid-email" || "auth/missing-continue-uri" || "auth/invalid-continue-uri" || "auth/unauthorized-continue-uri") {
+            if (errorCode === "auth/invalid-email" || errorCode === "auth/missing-continue-uri" || errorCode === "auth/invalid-continue-uri" || errorCode === "auth/unauthorized-continue-uri") {
                 $("#forgotPasswordError").text(errorCode);
                 //NOTIFY USERS WITH THE ERROR
             }
@@ -178,10 +178,10 @@ function sliceObj(ob, a, b) {
 }
 
 function filterObj(ob, filters, vals) {
-    newobj = {};
+    var newobj = {};
     if (ob) {
-        for (p of Object.keys(ob)) {
-            proc = true;
+        for (var p of Object.keys(ob)) {
+            var proc = true;
             for (var j = 0; j < filters.length; j++) {
                 if (filters[j] == "key") {
                     if (p != vals[j]) {
@@ -251,10 +251,10 @@ function writeToLedger(path, type, event) {
 }
 
 function getUnreadCount(obj) {
-    count = 0;
+    var count = 0;
     if (obj) {
-        keys = Object.keys(obj);
-        for (key of keys) {
+        var keys = Object.keys(obj);
+        for (var key of keys) {
             if (obj[key]["read_or_unread"] == "unread") {
                 count += 1;
             }

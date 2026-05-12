@@ -1,134 +1,157 @@
 /*
- * @license
- * Your First PWA Codelab (https://g.co/codelabs/pwa)
- * Copyright 2019 Google Inc. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License
+ * Runwae Service Worker
+ * Enhanced PWA with caching strategies
  */
 'use strict';
-// CODELAB: Update cache names any time any of the cached files change.
-const CACHE_NAME = 'static-cache-v1';
-// CODELAB: Add list of files to cache here.
-const FILES_TO_CACHE = [
-    'offline.html', 'img/500.png',
+
+const CACHE_NAME = 'runwae-cache-v3';
+const RUNTIME_CACHE = 'runwae-runtime-v1';
+
+// Core assets to precache on install
+const PRECACHE_ASSETS = [
+    '/',
+    'offline.html',
+    // CSS
+    'css/main.css',
+    'css/runwae.css',
+    'css/fonts.min.css',
+    'css/ext.css',
+    'css/theme.css',
+    'Bootstrap/dist/css/bootstrap.css',
+    'Bootstrap/dist/css/bootstrap-reboot.css',
+    'Bootstrap/dist/css/bootstrap-grid.css',
+    // Core JS
+    'js/console-toggle.js',
+    'js/main.js',
+    'js/base-init.js',
+    'js/webfontloader.min.js',
+    // Images
+    'img/500.png',
+    'img/logo.png',
+    'img/logo-colored.png',
+    'img/background.png',
+    // Manifest
+    'manifest.json'
 ];
+
+// Install: precache core assets
 self.addEventListener('install', (evt) => {
-    // console.log('[ServiceWorker] Install');
-    // CODELAB: Precache static resources here.
     evt.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            // console.log('[ServiceWorker] Pre-caching offline page');
-            return cache.addAll(FILES_TO_CACHE);
-        })
+        caches.open(CACHE_NAME)
+            .then((cache) => {
+                // Cache what we can, don't fail if some assets are missing
+                return Promise.allSettled(
+                    PRECACHE_ASSETS.map(url =>
+                        cache.add(url).catch(err => {
+                            console.warn('[SW] Failed to cache:', url);
+                        })
+                    )
+                );
+            })
+            .then(() => self.skipWaiting())
     );
-    self.skipWaiting();
 });
+
+// Activate: clean old caches
 self.addEventListener('activate', (evt) => {
-    // console.log('[ServiceWorker] Activate');
-    // CODELAB: Remove previous cached data from disk.
     evt.waitUntil(
         caches.keys().then((keyList) => {
             return Promise.all(keyList.map((key) => {
-                if (key !== CACHE_NAME) {
-                    // console.log('[ServiceWorker] Removing old cache', key);
+                if (key !== CACHE_NAME && key !== RUNTIME_CACHE) {
                     return caches.delete(key);
                 }
             }));
-        })
-    )
-    self.clients.claim();
-});
-//if offline
-//if navigation
-//send to offline
-//or check if in cache
-self.addEventListener('fetch', (evt) => {
-    // console.log('[ServiceWorker] Fetch', evt.request.url);
-    // CODELAB: Add fetch event handler here.
-///we can't enter respond with unless we plan to pass an actual response
-    evt.respondWith(
-        fetch(evt.request).then(
-            function (response) {
-                // console.log( evt.request.url);
-                return response;
-            }).catch(() => {
-                // console.log( evt.request.url);
-                                //if not relocation
-                if (evt.request.mode !== 'navigate') {
-                    // console.log( evt.request.url);
-                    cache.match(evt.request.url.split(".com")[1])
-                    // caches.match(evt.request)
-                        .then(function (response) {
-                            // Cache hit - return response
-                            if (response) {
-                                return response;
-                            }
-                        });
-                }
-            return caches.open(CACHE_NAME)
-                .then((cache) => {
-                    // console.log( cache.match('offline.html'));
-                    return cache.match('offline.html');
-                });
-        })
+        }).then(() => self.clients.claim())
     );
 });
-// self.addEventListener('fetch', (evt) => {
-//     console.log("fetch");
-//     console.log('[ServiceWorker] Fetch', evt.request.url);
-//     // CODELAB: Add fetch event handler here.
-//     // CODELAB: Add fetch event handler here.
-//     if (evt.request.mode !== 'navigate') {
-//         // Not a page navigation, bail.
-//         return;
-//     }
-//     evt.respondWith(
-//         fetch(evt.request)
-//         .catch(() => {
-//             return caches.open(CACHE_NAME)
-//                 .then((cache) => {
-//                     return cache.match('offline.html');
-//                 });
-//         })
-//     );
-// });
-// self.addEventListener('fetch', function(event) {
-//   event.respondWith(
-//     caches.match(event.request)
-//       .then(function(response) {
-//           console.log('[ServiceWorker] Fetch', event.request.url);
-//         // Cache hit - return response
-//         if (response) {
-//           return response;
-//         }
-//         return fetch(event.request).then(
-//           function(response) {
-//             // Check if we received a valid response
-//             if(!response || response.status !== 200 || response.type !== 'basic') {
-//               return response;
-//             }
-//             // IMPORTANT: Clone the response. A response is a stream
-//             // and because we want the browser to consume the response
-//             // as well as the cache consuming the response, we need
-//             // to clone it so we have two streams.
-//             var responseToCache = response.clone();
-//             caches.open(CACHE_NAME)
-//               .then(function(cache) {
-//                 cache.put(event.request, responseToCache);
-//               });
-//             return response;
-//           }
-//         );
-//       })
-//     );
-// });
+
+// Fetch: stale-while-revalidate for most, network-first for API
+self.addEventListener('fetch', (evt) => {
+    const url = new URL(evt.request.url);
+
+    // Skip non-GET requests
+    if (evt.request.method !== 'GET') return;
+
+    // Skip cross-origin requests (let them go to network)
+    if (url.origin !== location.origin) {
+        // For external resources, try network with cache fallback
+        if (url.hostname.includes('unpkg.com') ||
+            url.hostname.includes('cdnjs.') ||
+            url.hostname.includes('googleapis.com')) {
+            evt.respondWith(
+                fetch(evt.request)
+                    .then(response => {
+                        // Cache external resources for offline use
+                        const clone = response.clone();
+                        caches.open(RUNTIME_CACHE).then(cache => {
+                            cache.put(evt.request, clone);
+                        });
+                        return response;
+                    })
+                    .catch(() => caches.match(evt.request))
+            );
+        }
+        return;
+    }
+
+    // API calls: network-first
+    if (url.pathname.startsWith('/api/')) {
+        evt.respondWith(
+            fetch(evt.request)
+                .catch(() => caches.match(evt.request))
+        );
+        return;
+    }
+
+    // Static assets: cache-first
+    if (url.pathname.match(/\.(css|js|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/)) {
+        evt.respondWith(
+            caches.match(evt.request).then((cached) => {
+                if (cached) {
+                    // Return cached, but update in background
+                    fetch(evt.request).then(response => {
+                        caches.open(CACHE_NAME).then(cache => {
+                            cache.put(evt.request, response);
+                        });
+                    }).catch(() => {});
+                    return cached;
+                }
+                // Not cached, fetch and cache
+                return fetch(evt.request).then(response => {
+                    const clone = response.clone();
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(evt.request, clone);
+                    });
+                    return response;
+                });
+            })
+        );
+        return;
+    }
+
+    // HTML pages: network-first with offline fallback
+    if (evt.request.mode === 'navigate') {
+        evt.respondWith(
+            fetch(evt.request)
+                .then(response => {
+                    // Cache successful page loads
+                    const clone = response.clone();
+                    caches.open(RUNTIME_CACHE).then(cache => {
+                        cache.put(evt.request, clone);
+                    });
+                    return response;
+                })
+                .catch(() => {
+                    return caches.match(evt.request)
+                        .then(cached => cached || caches.match('offline.html'));
+                })
+        );
+        return;
+    }
+
+    // Default: network with cache fallback
+    evt.respondWith(
+        fetch(evt.request)
+            .catch(() => caches.match(evt.request))
+    );
+});

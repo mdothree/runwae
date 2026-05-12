@@ -3,3 +3,6 @@ node_modules/
 *.log
 *.swp
 .env
+
+# Runtime config (generated from env vars at build time)
+js/config.js

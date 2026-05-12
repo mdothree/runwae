@@ -91,7 +91,7 @@ function displayPost(snapVisitor, snapHost, el) {
                 $("#postFacebook").css("background-color", interestColor);
             }
             if (!platforms.includes("instagram")) {
-                $("#postInstagam").css("background-color", interestColor);
+                $("#postInstagram").css("background-color", interestColor);
             }
             if (!platforms.includes("twitter")) {
                 $("#postTwitter").css("background-color", interestColor);
