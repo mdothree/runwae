@@ -1,6 +1,18 @@
 {
   "rules": {
     ".read": "auth != null",
-    ".write": "auth != null"
+
+    "users":         { ".write": "auth != null" },
+    "items":         { ".write": "auth != null" },
+    "transactions":  { ".write": "auth != null" },
+    "conversations": { ".write": "auth != null" },
+    "analytics":     { ".write": "auth != null" },
+
+    "subscriptions": { "$id": { ".write": "auth != null && !data.exists()" } },
+    "guides":        { "$id": { ".write": "auth != null && !data.exists()" } },
+    "activity":      { "$id": { ".write": "auth != null && !data.exists()" } },
+    "disputes":      { "$id": { ".write": "auth != null && !data.exists()" } },
+
+    "rate_limits":   { ".write": false }
   }
 }
