@@ -1,0 +1,6 @@
+error_log
+*.log
+docs
+deployment/*.md
+.DS_Store
+node_modules
