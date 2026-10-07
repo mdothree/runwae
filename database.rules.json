@@ -1,18 +1,236 @@
 {
   "rules": {
-    ".read": "auth != null",
+    ".read": false,
+    ".write": false,
 
-    "users":         { ".write": "auth != null" },
-    "items":         { ".write": "auth != null" },
-    "transactions":  { ".write": "auth != null" },
-    "conversations": { ".write": "auth != null" },
-    "analytics":     { ".write": "auth != null" },
+    "admins": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": false
+      }
+    },
 
-    "subscriptions": { "$id": { ".write": "auth != null && !data.exists()" } },
-    "guides":        { "$id": { ".write": "auth != null && !data.exists()" } },
-    "activity":      { "$id": { ".write": "auth != null && !data.exists()" } },
-    "disputes":      { "$id": { ".write": "auth != null && !data.exists()" } },
+    "users": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
 
-    "rate_limits":   { ".write": false }
+        "role": {
+          ".validate": "(newData.val() === 'marketer' || newData.val() === 'influencer') && (!data.exists() || newData.val() === data.val())"
+        },
+        "verified": {
+          ".validate": "newData.isBoolean() && (newData.val() === false || data.val() === true)"
+        },
+        "email_verified": {
+          ".validate": "newData.isBoolean() && (newData.val() === false || auth.token.email_verified === true)"
+        },
+        "username": { ".validate": "newData.isString() && newData.val().length <= 64" },
+        "name": { ".validate": "newData.isString() && newData.val().length <= 100" },
+        "description": { ".validate": "newData.isString() && newData.val().length <= 5000" },
+
+        "notifications": {
+          "$k": {
+            ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && !data.exists() && newData.child('uid').val() === auth.uid && (!newData.exists() || (newData.hasChildren(['uid', 'action', 'read_or_unread', 'time']) && newData.child('action').isString() && newData.child('action').val().length <= 100 && (newData.child('read_or_unread').val() === 'read' || newData.child('read_or_unread').val() === 'unread') && newData.child('time').isNumber()))"
+          }
+        },
+        "followers": {
+          "$k": {
+            ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && data.child('uid').val() === auth.uid)) && (!newData.exists() || (newData.hasChildren(['uid', 'time']) && newData.child('uid').isString() && newData.child('time').isNumber()))"
+          }
+        },
+        "favorites": {
+          "$k": {
+            ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && data.child('uid').val() === auth.uid)) && (!newData.exists() || (newData.hasChildren(['uid', 'time']) && newData.child('uid').isString() && newData.child('time').isNumber()))"
+          }
+        },
+        "following": { ".indexOn": ["uid"] },
+        "favorited": { ".indexOn": ["uid"] },
+        "reviews_received": {
+          "$k": {
+            ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && !data.exists() && newData.child('uid').val() === auth.uid && (!newData.exists() || (newData.hasChildren(['uid', 'time', 'rating']) && newData.child('time').isNumber() && (newData.child('rating').isString() || newData.child('rating').isNumber()) && (!newData.child('body').exists() || (newData.child('body').isString() && newData.child('body').val().length <= 5000))))"
+          }
+        },
+        "conversations": {
+          "$c": {
+            ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && newData.child('uid').val() === auth.uid && (!data.exists() || data.child('uid').val() === auth.uid) && (!newData.exists() || (newData.hasChildren(['uid', 'read_or_unread']) && newData.child('uid').isString() && (newData.child('read_or_unread').val() === 'read' || newData.child('read_or_unread').val() === 'unread')))"
+          }
+        },
+        "gigs": {
+          "$g": {
+            ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && ((data.exists() && data.child('uid').val() === auth.uid && (!newData.exists() || newData.child('uid').val() === auth.uid)) || (!data.exists() && newData.child('uid').val() === auth.uid && newData.child('path').isString() && newData.child('path').val().beginsWith('items/') && root.child(newData.child('path').val()).parent().parent().child('uid').val() === auth.uid && root.child(newData.child('path').val()).child('uid').val() === $uid)) && (!newData.exists() || (newData.hasChildren(['path', 'uid']) && newData.child('path').isString() && newData.child('path').val().beginsWith('items/')))"
+          }
+        },
+        "transactions": {
+          "$k": { ".validate": false }
+        },
+
+        "unread_notifications_count": {
+          ".write": "auth != null && root.child('users').child($uid).exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000"
+        },
+        "unread_messages_count": {
+          ".write": "auth != null && root.child('users').child($uid).exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1000000"
+        },
+        "followers_count": {
+          ".write": "auth != null && root.child('users').child($uid).exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+        },
+        "favorites_count": {
+          ".write": "auth != null && root.child('users').child($uid).exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+        },
+        "reviews_received_count": {
+          ".write": "auth != null && root.child('users').child($uid).exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+        },
+        "gigs_count": {
+          ".write": "auth != null && root.child('users').child($uid).exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+        }
+      }
+    },
+
+    "items": {
+      ".read": "auth != null",
+      ".indexOn": ["time", "uid"],
+      "$item": {
+        ".write": "auth != null && (data.exists() ? data.child('uid').val() === auth.uid : newData.child('uid').val() === auth.uid)",
+        ".validate": "newData.hasChild('uid')",
+
+        "uid": { ".validate": "newData.isString() && (!data.exists() || newData.val() === data.val())" },
+        "caption": { ".validate": "newData.isString() && newData.val().length <= 5000" },
+
+        "interests": {
+          "$k": {
+            ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && data.child('uid').val() === auth.uid))",
+            ".validate": "newData.hasChildren(['uid', 'time']) && newData.child('time').isNumber()"
+          }
+        },
+        "comments": {
+          "$k": {
+            ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && data.child('uid').val() === auth.uid))",
+            ".validate": "newData.hasChildren(['uid', 'time', 'comment']) && newData.child('time').isNumber() && newData.child('comment').isString() && newData.child('comment').val().length <= 2000"
+          }
+        },
+        "shares": {
+          ".indexOn": ["uid"],
+          "$k": {
+            ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && data.child('uid').val() === auth.uid))",
+            ".validate": "newData.hasChildren(['uid', 'time']) && newData.child('time').isNumber()"
+          }
+        },
+        "influencers": {
+          "$gig": {
+            ".write": "auth != null && data.exists() && data.child('uid').val() === auth.uid",
+            ".validate": "newData.hasChild('uid')",
+            "uid": { ".validate": "newData.isString() && (!data.exists() || newData.val() === data.val())" },
+            "transaction_key": { ".validate": false }
+          }
+        },
+
+        "interests_count": {
+          ".write": "auth != null && data.parent().exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+        },
+        "comments_count": {
+          ".write": "auth != null && data.parent().exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+        },
+        "shares_count": {
+          ".write": "auth != null && data.parent().exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+        },
+        "gigs_count": {
+          ".write": "auth != null && data.parent().exists()",
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
+        }
+      }
+    },
+
+    "conversations": {
+      ".read": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
+      "$c": {
+        ".read": "auth != null && root.child('users').child(auth.uid).child('conversations').child($c).child('uid').isString() && root.child('users').child(root.child('users').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid",
+        "$m": {
+          ".write": "auth != null && !data.exists() && newData.child('uid').val() === auth.uid && root.child('users').child(auth.uid).child('conversations').child($c).child('uid').isString() && root.child('users').child(root.child('users').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid",
+          ".validate": "newData.hasChildren(['uid', 'body', 'time']) && newData.child('body').isString() && newData.child('body').val().length <= 5000 && newData.child('time').isNumber()"
+        }
+      }
+    },
+
+    "activity": {
+      ".read": "auth != null",
+      "$k": {
+        ".write": "auth != null && !data.exists() && newData.child('actorID').val() === auth.uid",
+        ".validate": "newData.hasChildren(['action', 'actorID', 'time']) && newData.child('action').isString() && newData.child('action').val().length <= 100 && newData.child('time').isNumber()"
+      }
+    },
+
+    "disputes": {
+      ".read": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
+      "$k": {
+        ".write": "auth != null && !data.exists() && (newData.child('marketerID').val() === auth.uid || newData.child('influencerID').val() === auth.uid)",
+        ".validate": "newData.hasChildren(['marketerID', 'influencerID', 'path', 'time']) && newData.child('path').isString() && newData.child('path').val().beginsWith('items/') && root.child(newData.child('path').val()).child('uid').val() === newData.child('influencerID').val() && root.child(newData.child('path').val()).parent().parent().child('uid').val() === newData.child('marketerID').val()"
+      }
+    },
+
+    "transactions": {
+      ".read": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
+      "$k": {
+        ".read": "auth != null && (data.child('marketerID').val() === auth.uid || data.child('influencerID').val() === auth.uid)",
+        ".write": false
+      }
+    },
+
+    "subscriptions": {
+      ".read": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
+      "$k": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['email', 'time']) && newData.child('email').isString() && newData.child('email').val().length <= 254 && newData.child('email').val().matches(/^[^@ ]+@[^@ ]+\\.[^@ ]+$/) && newData.child('time').isNumber()",
+        "email": { ".validate": true },
+        "time": { ".validate": true },
+        "$other": { ".validate": false }
+      }
+    },
+
+    "guides": {
+      ".read": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
+      "$k": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['email', 'time', 'type']) && newData.child('email').isString() && newData.child('email').val().length <= 254 && newData.child('email').val().matches(/^[^@ ]+@[^@ ]+\\.[^@ ]+$/) && newData.child('time').isNumber() && (newData.child('type').val() === 'marketer' || newData.child('type').val() === 'influencer')",
+        "email": { ".validate": true },
+        "time": { ".validate": true },
+        "type": { ".validate": true },
+        "$other": { ".validate": false }
+      }
+    },
+
+    "analytics": {
+      ".read": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
+      ".write": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
+      "pages": {
+        "$page": {
+          "hits": {
+            ".write": "$page === 'account' || $page === 'explore' || $page === 'gig' || $page === 'messages' || $page === 'notification' || $page === 'profile'",
+            ".validate": "newData.isNumber() && newData.val() === (data.exists() ? data.val() : 0) + 1"
+          }
+        }
+      },
+      "visitingPages": {
+        "$hostKey": {
+          ".write": "newData.exists() && $hostKey.length <= 200",
+          ".validate": "newData.hasChildren(['host', 'visits'])",
+          "host": { ".validate": "newData.isString() && newData.val().length <= 253 && (!data.exists() || newData.val() === data.val())" },
+          "visits": { ".validate": "newData.isNumber() && newData.val() === (data.exists() ? data.val() : 0) + 1" },
+          "$other": { ".validate": false }
+        }
+      }
+    },
+
+    "rate_limits": {
+      ".read": false,
+      ".write": false
+    }
   }
 }
