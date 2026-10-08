@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node deployment/inject-config.js",
+  "buildCommand": "node deployment/inject-config.js && node deployment/prune-public.js",
   "outputDirectory": ".",
   "cleanUrls": true,
   "redirects": [

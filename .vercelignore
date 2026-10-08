@@ -4,3 +4,9 @@ docs
 deployment/*.md
 .DS_Store
 node_modules
+# RUNWAE-PUBLIC-CONFIG-FILES: not needed by the build, never serve
+firebase.json
+database.rules.json
+README.md
+STATUS.md
+marketerLedger.txt
