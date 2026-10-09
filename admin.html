@@ -32,7 +32,6 @@
     <script src="js/console-toggle.js"></script>
     <!-- Required meta tags always come first -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="author" content="Runwae">
     <!-- Bootstrap CSS -->
@@ -66,6 +65,14 @@
 </head>
 
 <body class="page-has-left-panels page-has-right-panels" style="background-color: black;">
+    <!-- Admin gate: covers the dashboard until auth + admins/{uid} === true is confirmed -->
+    <div id="adminGate" role="alert" aria-live="polite"
+        style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;font:16px/1.5 Roboto,Arial,sans-serif;text-align:center;padding:16px;">
+        <div>
+            <p id="adminGateMsg" style="margin:0 0 12px;">Checking access&hellip;</p>
+            <a id="adminGateLogin" href="login" style="display:none;color:#ff5e3a;">Sign in</a>
+        </div>
+    </div>
     <!-- Preloader -->
     <div id="hellopreloader" style="display: none;">
         <div class="preloader">
@@ -681,15 +688,65 @@
         <script src="unobfrunwaejs/admin.js"></script>
         <script src="unobfrunwaejs/adminActions.js"></script>
         <script>
-            var dbRef = firebase.database().ref();
+            // Admin data loading. Nothing is read until the signed-in user is
+            // confirmed as an admin via admins/{uid} === true (server-written only).
+            // No read at the DB root: each top-level path the dashboard needs is
+            // read separately and assembled into a snapshot-like object, so
+            // admin.js (which calls snapdb.val()[path]) works unchanged.
+            var ADMIN_PATHS = ['analytics', 'users', 'items', 'subscriptions', 'transactions',
+                'disputes', 'conversations', 'activity', 'guides'];
 
-            dbRef.once('value', function(snapdb) {
-                dbRef.off();
-                // actionsObj = actions(snapdb); // actionsObj.run();
-                mainObj = main(snapdb);
-                mainObj.run();
+            function adminGate(msg, showLogin) {
+                document.getElementById('adminGateMsg').textContent = msg;
+                document.getElementById('adminGateLogin').style.display = showLogin ? 'inline' : 'none';
+                document.getElementById('adminGate').style.display = 'flex';
+            }
+
+            function loadAdminSnapshot() {
+                return Promise.all(ADMIN_PATHS.map(function (p) {
+                    return database.ref(p).once('value').then(function (s) {
+                        return [p, s.val()];
+                    }, function (err) {
+                        console.warn('admin: cannot read ' + p + ': ' + (err && err.code));
+                        return [p, null];
+                    });
+                })).then(function (pairs) {
+                    var data = {};
+                    pairs.forEach(function (kv) { data[kv[0]] = kv[1] || {}; });
+                    return { key: null, val: function () { return data; } };
+                });
+            }
+
+            // Minimal stand-in for the old root ref; admin.js refresh() calls dbRef.once('value', cb).
+            var dbRef = {
+                once: function (ev, cb) { return loadAdminSnapshot().then(function (s) { if (cb) cb(s); return s; }); },
+                off: function () {}
+            };
+
+            var adminStarted = false;
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (!user) {
+                    adminGate('Not authorized. Please sign in with an admin account.', true);
+                    return;
+                }
+                database.ref('admins/' + user.uid).once('value').then(function (snap) {
+                    if (snap.val() !== true) {
+                        adminGate('Not authorized.', false);
+                        return;
+                    }
+                    if (adminStarted) return;
+                    adminStarted = true;
+                    adminGate('Loading dashboard\u2026', false);
+                    return dbRef.once('value').then(function (snapdb) {
+                        document.getElementById('adminGate').style.display = 'none';
+                        mainObj = main(snapdb);
+                        mainObj.run();
+                    });
+                }).catch(function (err) {
+                    console.warn('admin: access check failed: ' + (err && err.code));
+                    adminGate('Not authorized.', false);
+                });
             });
-
         </script>
         <!-- <script src="js/jquery-3.2.1.js"></script>
         <script src="js/jquery.appear.js"></script> -->

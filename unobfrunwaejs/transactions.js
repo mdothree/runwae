@@ -1,6 +1,58 @@
 var dNow = new Date();
 var dNow = dNow.getTime();
 
+// Payment records (transactions/*, users/{uid}/transactions/*) are written ONLY
+// by the api/payment/* serverless functions (firebase-admin). The browser never
+// writes them. Calls carry the user's Firebase ID token.
+function paymentApi(endpoint, body) {
+    var user = firebase.auth().currentUser;
+    if (!user) return Promise.reject(new Error('Not signed in'));
+    return user.getIdToken().then(function (token) {
+        return fetch('/api/payment/' + endpoint, {
+            method: 'POST',
+            keepalive: true,
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+            body: JSON.stringify(body)
+        });
+    }).then(function (response) {
+        return response.json().then(function (data) {
+            data = data || {};
+            data.httpStatus = response.status;
+            return data;
+        });
+    });
+}
+
+// Gift transactions are recorded via api/payment/record-gift. gigHQ.js navigates
+// away right after calling recordTransaction(), so the request is queued in
+// sessionStorage and retried on the next page load until the server confirms.
+var PENDING_GIFT_KEY = 'runwae_pending_gift_records';
+function readPendingGifts() {
+    try { return JSON.parse(sessionStorage.getItem(PENDING_GIFT_KEY) || '[]') || []; } catch (e) { return []; }
+}
+function writePendingGifts(list) {
+    try {
+        if (list.length) sessionStorage.setItem(PENDING_GIFT_KEY, JSON.stringify(list));
+        else sessionStorage.removeItem(PENDING_GIFT_KEY);
+    } catch (e) { /* storage unavailable */ }
+}
+function flushPendingGifts() {
+    readPendingGifts().forEach(function (gigPath) {
+        paymentApi('record-gift', { gigPath: gigPath }).then(function (data) {
+            // Done (or permanently rejected): stop retrying. 5xx/network: keep.
+            if (data.success || (data.httpStatus >= 400 && data.httpStatus < 500 && data.httpStatus !== 401)) {
+                writePendingGifts(readPendingGifts().filter(function (p) { return p !== gigPath; }));
+                if (!data.success && window.console) console.warn('record-gift: ' + (data.message || data.error));
+            }
+        }).catch(function () { /* retry on next load */ });
+    });
+}
+if (typeof firebase !== 'undefined' && firebase.auth) {
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) flushPendingGifts();
+    });
+}
+
 function submitGiftPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     database.ref().child(path).update({
         "tracking_number": $("#trackingNumberInput").val()
@@ -86,23 +138,18 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
                 errorElement.textContent = result.error.message;
             } else {
                 // Send the token to your server.
-                fetch('/api/payment/charge-marketer', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        stripeToken: result.token.id,
-                        amount: price * 100,
-                        gigPath: path
-                    })
+                // Amount is taken from items/{id}/price on the server; the server
+                // also writes transactions/{key} and users/*/transactions/{key}.
+                paymentApi('charge-marketer', {
+                    stripeToken: result.token.id,
+                    gigPath: path
                 })
-                .then(function(response) { return response.json(); })
                 .then(function(data) {
                     if (data.success && data.chargeId) {
                         sendEmail(snapMarketer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
                         recordMarketerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.chargeId);
                         writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "paid you for", "a post", path);
                         writeToLedger(path, "payment submitted", "Marketer paid $" + price);
-                        recordTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.chargeId);
                         updateGigStatus(path, 4);
                     } else {
                         var errorElement = document.getElementById('card-errors');
@@ -137,18 +184,15 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
             var code = url.split("code")[1];
             code = code.split("=")[1];
 
-            fetch('/api/payment/connect-oauth', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ code: code })
-            })
-            .then(function(response) { return response.json(); })
+            // The server stores the connected account at stripe_accounts/{uid};
+            // no Stripe tokens come back to the browser.
+            paymentApi('connect-oauth', { code: code })
             .then(function(data) {
-                if (data.error) {
-                    $('#acceptError').html(data.error_description);
+                if (!data.success) {
+                    $('#acceptError').text(data.error_description || data.message || 'Error connecting to Stripe');
                     alert('Error accepting payment.');
                 } else {
-                    payment(data.stripe_user_id);
+                    payment();
                 }
             })
             .catch(function(error) {
@@ -161,29 +205,21 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
         }
     }
 
-    function payment(stripeId) {
-        fetch('/api/payment/pay-influencer', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                stripeAccountId: stripeId,
-                amount: snapItem.val().price * 100,
-                gigPath: path
-            })
-        })
-        .then(function(response) { return response.json(); })
+    function payment() {
+        // Server checks the gig, uses the recorded charge amount and the
+        // connected account, and finalizes transactions/{key}.
+        paymentApi('pay-influencer', { gigPath: path })
         .then(function(data) {
             if (data.success && data.transferId) {
                 sendEmail(snapInfluencer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
                 recordInfluencerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.transferId);
                 writeNotification(snapInfluencer.key, snapMarketer.key, snapInfluencer.val().username, "accepted", "your payment", path);
                 writeToLedger(path, "payment accepted", "Influencer accepted payment");
-                finalizeTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.transferId);
                 incrementGigs(snapMarketer, snapInfluencer, snapItem, path);
                 writeCloseGig(snapMarketer, snapInfluencer, snapItem, snapGig, path);
                 updateGigStatus(path, 7);
             } else {
-                $('#acceptError').html(data.message || 'Error sending payment.');
+                $('#acceptError').text(data.message || 'Error sending payment.');
                 alert('Error sending payment.');
             }
         })
@@ -194,79 +230,25 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     }
 }
 
+// Called by gigHQ.js when an influencer accepts a GIFT agreement. Money
+// agreements are recorded by api/payment/charge-marketer itself.
+// No client writes to transactions/*: queue + call api/payment/record-gift.
 function recordTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, transactionID) {
-    key = database.ref().child('transactions').push().key;
-    if(snapItem.val().compensation == "gift"){
-        tracking_number = snapGig.val().tracking_number;
-    }
-    else{
-        tracking_number = "";
-    }
-    //write to main transaction
-    database.ref().child('transactions/' + key).update({
-        "path": path,
-        "status": "incomplete",
-        "marketer_transactionID": transactionID,
-        "influencer_TransactionID": "",
-        "price": price = Number(snapItem.val().price).toFixed(0),
-        "tracking_number": tracking_number,
-        "marketerID": snapMarketer.key,
-        "influencerID": snapInfluencer.key,
-        "marketer_time": dNow,
-        "platform": snapGig.val().platform,
-        "compensation": snapItem.val().compensation
-    });
-    //write transaction key to marketer
-    database.ref().child('users/' + snapMarketer.key + '/transactions/' + key).set({
-        "path": path,
-        "time": dNow,
-    });
-    database.ref().child('users/' + snapInfluencer.key + '/transactions/' + key).set({
-        "path": path,
-        "time": dNow,
-    });
-    //write transaction key to gig
-    database.ref().child(path).update({
-        "transaction_key": key
-    });
-
+    if (snapItem.val().compensation != "gift") return;
+    var pending = readPendingGifts();
+    if (pending.indexOf(path) === -1) pending.push(path);
+    writePendingGifts(pending);
+    flushPendingGifts();
 }
 
-function finalizeTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, transactionID) {
-    key = snapGig.val().transaction_key;
-    //update main transaction
-    database.ref().child('transactions/' + key).update({
-        "status": "complete",
-        "influencer_transactionID": transactionID,
-        "influencer_time": dNow
-    });
-    //write transaction key to influencer
-    database.ref().child('users/' + snapInfluencer.key + '/transactions/' + key).set({
-        "path": path,
-        "time": dNow,
-    });
-
-}
+// Kept for compatibility; api/payment/pay-influencer finalizes the record.
+function finalizeTransaction() {}
 
 function incrementGigs(snapMarketer, snapInfluencer, snapItem, path) {
-    firebase.database().ref().child('items/' + snapItem.key).once('value', function (snap) {
-        gigs = snap.val().gigs_count;
-        database.ref().child('items/' + snapItem.key).update({
-            "gigs_count": Number(gigs + 1)
-        });
-    });
-    firebase.database().ref().child('users/' + snapMarketer.key).once('value', function (snap) {
-        gigs = snap.val().gigs_count;
-        database.ref().child('users/' + snapMarketer.key).update({
-            "gigs_count": Number(gigs + 1)
-        });
-    });
-    firebase.database().ref().child('users/' + snapInfluencer.key).once('value', function (snap) {
-        gigs = snap.val().gigs_count;
-        database.ref().child('users/' + snapInfluencer.key).update({
-            "gigs_count": Number(gigs + 1)
-        });
-    });
+    var inc = firebase.database.ServerValue.increment(1);
+    database.ref('items/' + snapItem.key + '/gigs_count').set(inc);
+    database.ref('users/' + snapMarketer.key + '/gigs_count').set(inc);
+    database.ref('users/' + snapInfluencer.key + '/gigs_count').set(inc);
 }
 
 function displayTransactions(userSnap, limit) {
