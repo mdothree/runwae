@@ -622,3 +622,26 @@ body .progress_inner input[type=radio] {
     -o-transform: none;
     transform: none;
 }
+/* Mobile tap targets (HQ cycle-5 mobile WARN: 32px < 40px). Header/menu/close
+   controls get a 44x44 hit area without changing their visible icon size. */
+.header--standard .logo,
+.header--standard .open-responsive-menu,
+.header--standard .js-expanded-menu .nav-link,
+.header--standard .close-responsive-menu,
+.modal .close.icon-close {
+    min-width: 44px;
+    min-height: 44px;
+}
+.header--standard .open-responsive-menu,
+.header--standard .js-expanded-menu .nav-link,
+.modal .close.icon-close {
+    align-items: center;
+    justify-content: center;
+}
+
+/* RUNWAE-STATS-NOT-VISIBLE: landing stats strip (welcome.html) */
+.runwae-stats { padding: 48px 16px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-top: 40px; }
+.runwae-stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+.runwae-stat-number { font-size: 2.5rem; font-weight: 800; color: #000; line-height: 1.1; }
+.runwae-stat-label { color: #555; font-size: 0.95rem; margin-top: 8px; }
+@media (max-width: 768px) { .runwae-stats-grid { grid-template-columns: repeat(2, 1fr); } .runwae-stat-number { font-size: 2rem; } }

@@ -105,7 +105,7 @@
             id="header--standard">
             <div class="container">
                 <div class="header--standard-wrap">
-                    <a href="#" class="logo">
+                    <a href="/welcome" class="logo">
                         <div class="img-wrap">
                             <img loading="lazy" src="img/logo-colored.png" alt="Runwae">
                             <img loading="lazy" src="img/logo.png" alt="Runwae" class="logo-colored">
@@ -114,9 +114,9 @@
                             <h6 class="logo-title">Runwae</h6>
                         </div>
                     </a>
-                    <a href="#" class="open-responsive-menu js-open-responsive-menu">
+                    <button type="button" class="open-responsive-menu js-open-responsive-menu" aria-label="Open menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
                         <ion-icon class="ionicon menu-icon" name="menu-outline"></ion-icon>
-                    </a>
+                    </button>
                     <div class="nav nav-pills nav1 header-menu">
                         <div class="mCustomScrollbar ps ps--theme_default ps--active-x ps--active-y"
                             data-ps-id="13106c38-7c0f-a50d-0595-443c869e00e3">
@@ -134,10 +134,10 @@
                                     <ion-icon class="ionicon close-icon" name="close-outline"></ion-icon>
                                 </li>
                                 <li class="nav-item js-expanded-menu">
-                                    <a href="#" class="nav-link">
+                                    <button type="button" class="nav-link" aria-label="Toggle menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
                                         <ion-icon class="ionicon menu-icon" name="menu-outline"></ion-icon>
                                         <ion-icon class="ionicon close-icon" name="close-outline"></ion-icon>
-                                    </a>
+                                    </button>
                                 </li>
                             </ul>
                         </div>
@@ -213,9 +213,9 @@
                                             </div>
                                             <p style="color: salmon" id="error"></p>
                                             <br>
-                                            <a href="#" id="btnSignUp" class="btn btn-purple btn-lg full-width">Sign
-                                                Up</a>
-                                            <p>Already have an account? <a href="#" id="loginNow">Login</a></p>
+                                            <button type="button" id="btnSignUp" class="btn btn-purple btn-lg full-width">Sign
+                                                Up</button>
+                                            <p>Already have an account? <a href="login?login" id="loginNow">Login</a></p>
                                         </div>
                                     </div>
                                 </form>
@@ -243,12 +243,12 @@
                                                         Remember Me
                                                     </label>
                                                 </div>
-                                                <a href="#" class="forgot" data-toggle="modal"
-                                                    data-target="#restore-password">Forgot my Password</a>
+                                                <a href="#restore-password" class="forgot" data-toggle="modal"
+                                                    data-target="#restore-password" role="button">Forgot my Password</a>
                                             </div>
                                             <p style="color: salmon" id="loginError"></p><br>
-                                            <a href="#" class="btn btn-lg btn-purple full-width" id="btnLogin">Login</a>
-                                            <p>Don’t have an account? <a href="#" id="registerNow">Sign Up</a>
+                                            <button type="button" class="btn btn-lg btn-purple full-width" id="btnLogin">Login</button>
+                                            <p>Don’t have an account? <a href="login?signup" id="registerNow">Sign Up</a>
                                         </div>
                                     </div>
                                 </form>
@@ -264,9 +264,9 @@
         aria-hidden="true">
         <div class="modal-dialog window-popup restore-password-popup" role="document">
             <div class="modal-content">
-                <a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close icon-close" data-dismiss="modal" aria-label="Close">
                     <ion-icon name="close-outline" class="close-icon"></ion-icon>
-                </a>
+                </button>
                 <div class="modal-header">
                     <h6 class="title">Reset your Password</h6>
                 </div>

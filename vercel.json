@@ -3,7 +3,16 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "redirects": [
-    { "source": "/", "destination": "/welcome.html", "permanent": false }
+    {
+      "source": "/",
+      "destination": "/welcome.html",
+      "permanent": false
+    },
+    {
+      "source": "/blog/HowToMarketSkincareProdcutsUsingInfluencers",
+      "destination": "/blog/HowToMarketSkincareProductsUsingInfluencers",
+      "permanent": true
+    }
   ],
   "functions": {
     "api/llm/*.js": {
