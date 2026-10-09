@@ -645,3 +645,9 @@ body .progress_inner input[type=radio] {
 .runwae-stat-number { font-size: 2.5rem; font-weight: 800; color: #000; line-height: 1.1; }
 .runwae-stat-label { color: #555; font-size: 0.95rem; margin-top: 8px; }
 @media (max-width: 768px) { .runwae-stats-grid { grid-template-columns: repeat(2, 1fr); } .runwae-stat-number { font-size: 2rem; } }
+
+/* Mobile: a landing .container is 10px wider than the viewport (HQ M:68,
+   scrollWidth 385 @375). clip (not hidden) so no scroll container is created. */
+@media (max-width: 767px) {
+    html, body { overflow-x: clip; }
+}
