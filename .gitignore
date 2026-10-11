@@ -6,3 +6,4 @@ node_modules/
 
 # Runtime config (generated from env vars at build time)
 js/config.js
+dist
