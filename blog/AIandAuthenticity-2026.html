@@ -58,6 +58,8 @@
 </head>
 
 <body class="body-bg-white">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main id="main">
 	<div class="stunning-header bg-primary-opacity">
 		<div class="stunning-header bg-primary-opacity" style="padding-bottom:80px">
 			<div class="header--standard header--standard-landing animated headroom--not-bottom slideDown headroom--top"
@@ -66,11 +68,11 @@
 					<div class="header--standard-wrap">
 						<a href="/welcome" class="logo">
 							<div class="img-wrap">
-								<img src="/img/logo-colored.png" alt="Runwae">
-								<img src="/img/logo.png" alt="Runwae" class="logo-colored">
+								<img width="34" height="34" src="/img/logo-colored-68.png" alt="">
+								<img width="34" height="34" src="/img/logo-68.png" alt="" class="logo-colored">
 							</div>
 							<div class="title-block">
-								<h6 class="logo-title">Runwae</h6>
+								<h6 class="logo-title" role="none">Runwae</h6>
 							</div>
 						</a>
 						<button type="button" class="open-responsive-menu js-open-responsive-menu" aria-label="Open menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
@@ -105,7 +107,7 @@
 				</div>
 			</div>
 			<div class="header-spacer--standard"></div>
-			<div class="stunning-header-content">
+			<div class="stunning-header-content" id="main-content" tabindex="-1">
 				<h1 class="stunning-header-title">RUNWAE BLOG</h1>
 				<div style="padding-top:10px"><span>Notes on influence, marketing, and culture</span></div>
 			</div>
@@ -291,17 +293,18 @@
 		</div>
 	</div>
 
-	<div class="footer footer-full-width" id="footer">
+	</main>
+    <div class="footer footer-full-width" id="footer" role="contentinfo">
 		<div class="container">
 			<div class="row">
 				<div class="col col-lg-4 col-md-4 col-sm-12 col-12">
 					<div class="widget w-about">
 						<a href="/welcome" class="logo" style="float:none">
 							<div class="img-wrap">
-								<img src="/img/logo-colored.png" alt="Runwae">
+								<img width="34" height="34" src="/img/logo-colored-68.png" alt="">
 							</div>
 							<div class="title-block">
-								<h6 class="logo-title">Runwae</h6>
+								<h6 class="logo-title" role="none">Runwae</h6>
 							</div>
 						</a>
 						<p>Cultivating meaningful partnerships through honest design.</p>
@@ -309,7 +312,7 @@
 				</div>
 				<div class="col col-lg-2 col-md-4 col-sm-12 col-12">
 					<div class="widget w-list">
-						<h6 class="title">Help</h6>
+						<h6 class="title" aria-level="2">Help</h6>
 						<ul>
 							<li><a href="/faqs">FAQs</a></li>
 						</ul>
@@ -317,7 +320,7 @@
 				</div>
 				<div class="col col-lg-2 col-md-4 col-sm-12 col-12">
 					<div class="widget w-list">
-						<h6 class="title">Policy</h6>
+						<h6 class="title" aria-level="2">Policy</h6>
 						<ul>
 							<li><a href="/privacy">Privacy</a></li>
 							<li><a href="/terms">Terms &amp; Conditions</a></li>

@@ -379,8 +379,8 @@ POST  ICON
     color: #fff !important;
     margin: 0 20 0 0;
     position: relative;
-    background-color: #888da8;
-    border-color: #888da8;
+    background-color: #676c88;
+    border-color: #676c88;
     padding: .23rem .5rem;
     font-size: .55rem;
     line-height: 1.5;
@@ -1214,3 +1214,65 @@ STRIPE
     margin-left: 12px;
     margin-top: 28px;
 }
+/* ==========================================================================
+   Cycle 8 P2/P3 accessibility (A11Y-003/007/013/014/015)
+   ========================================================================== */
+/* A11Y-003: the brand purple (2.9:1 with white) is now #6259e8 (5.1:1) and the grey
+   (3.3:1) is #676c88 (5.2:1) in main.css, theme.css and Bootstrap. Footer copyright link: */
+.footer .sub-footer-copyright span, .footer .sub-footer-copyright a { opacity: 1; }
+.footer .sub-footer-copyright a { color: #6259e8; }
+
+/* A11Y-014: a visible keyboard focus ring on every control (mouse clicks unaffected). */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+.btn:focus-visible {
+    outline: 3px solid #4338ca !important;
+    outline-offset: 2px !important;
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.9) !important;
+}
+#main-content:focus, #main-content:focus-visible { outline: none !important; box-shadow: none !important; }
+
+/* A11Y-015: skip link, visible only when focused (clip, not left:-9999px, so RTL adds no scroll area). */
+.skip-link {
+    font-size: 14px;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 10000;
+    padding: 10px 16px;
+    background: #ffffff;
+    color: #3f4257 !important;
+    font-weight: 700;
+    border-radius: 6px;
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.skip-link:focus, .skip-link:focus-visible {
+    clip-path: none;
+    width: auto;
+    height: auto;
+    overflow: visible;
+}
+
+/* A11Y-007 / A11Y-013: footer social icons get a 44x44 tap area. */
+.socials > li > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* A11Y-009 (link-in-text-block): links inside running text are underlined, not colour-only. */
+main p a:not(.btn), main label a:not(.btn), main li > p a:not(.btn) { text-decoration: underline; }
+
+/* A11Y-003: the open mobile menu sits on the (now darker) brand purple; white text keeps 5.1:1. */
+.header--standard-landing .header-menu.open .nav-link,
+.header--standard-landing .header-menu.open .close-responsive-menu button { color: #ffffff; }

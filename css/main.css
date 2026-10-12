@@ -133,7 +133,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 .header {
     height: 70px;
     background-color: white;
-    /* #9389FF; */
+    /* #6259e8; */
     position: fixed;
     top: 0;
     left: 0;
@@ -183,7 +183,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
     min-width: 70px;
     height: 70px;
     width: 70px;
-    background-color: #9389FF;
+    background-color: #6259e8;
     padding: 15px;
 }
 
@@ -209,14 +209,14 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
     float: left;
     width: 500px;
     height: 70px;
-    /* background-color: #9389FF; */
+    /* background-color: #6259e8; */
     position: relative;
 }
 
 .search-bar.w-search {
     width: 350px;
     min-height: 70px;
-    /* background-color: #9389FF; */
+    /* background-color: #6259e8; */
 }
 
 .search-bar .form-group {
@@ -267,7 +267,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
     color: #696d87;
     fill: #696d87;
     background-color: inherit;
-    /* #9389FF; */
+    /* #6259e8; */
     width: 50px;
 }
 
@@ -521,7 +521,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .author-page .chat-settings a {
-    color: #888da8;
+    color: #676c88;
 }
 
 .author-page .chat-settings a:hover {
@@ -561,7 +561,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .account-settings a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .account-settings a>* {
@@ -915,7 +915,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .header-menu .nav-link:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .header-menu .dropdown:hover>.dropdown-menu {
@@ -937,7 +937,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 
 .header-menu .dropdown-item:focus,
 .header-menu .dropdown-item:hover {
-    color: #9389FF;
+    color: #6259e8;
     background-color: transparent;
 }
 
@@ -1089,7 +1089,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .open-responsive-menu:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .close-responsive-menu {
@@ -1108,7 +1108,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .close-responsive-menu:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .dropdown-has-megamenu {
@@ -1143,7 +1143,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
     content: "";
     display: block;
     height: 2px;
-    background-color: #9389FF;
+    background-color: #6259e8;
     width: 15%;
     position: absolute;
     bottom: 0;
@@ -1211,7 +1211,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .header--standard-landing .dropdown-menu.megamenu .dropdown-item:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .header--standard-landing .header-menu {
@@ -1281,12 +1281,12 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 
 .header--standard-landing .header-menu .nav-item .dropdown-item,
 .header--standard-landing .header-menu li .dropdown-item {
-    color: #888da8;
+    color: #676c88;
 }
 
 .header--standard-landing .header-menu .nav-item .dropdown-item:hover,
 .header--standard-landing .header-menu li .dropdown-item:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .header--standard-landing .header-menu li:first-child>a {
@@ -1305,7 +1305,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .header--standard-landing.headroom--not-top {
-    background-color: #9389ff;
+    background-color: #6259e8;
     box-shadow: 0 0 34px 0 rgba(63, 66, 87, 0.2);
 }
 
@@ -1318,7 +1318,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .header--standard-landing.headroom--not-top .open-responsive-menu:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .header--standard-landing.headroom--not-top .logo .logo-colored {
@@ -1355,7 +1355,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .landing-page .content-bg-wrap {
-    background-image: url("../img/landing-users.png");
+    background-image: none /* C7-014: ../img/landing-users.png is not in the repo */;
     background-position: 0 0;
     background-repeat: repeat;
     -webkit-animation: sidedownscroll 30s linear infinite;
@@ -1429,7 +1429,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .content-bg-wrap.bg-external:before {
-    /* background-color: #9389FF; */
+    /* background-color: #6259e8; */
     background-color: white;
     /* opacity : .925; */
     /* rgba(255, 94, 58, 0.95); */
@@ -1944,7 +1944,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
     .top-header-author {
         position: relative;
         bottom: 20px;
-        color: #888da8;
+        color: #676c88;
     }
 
     .top-header-author .author-name {
@@ -2110,9 +2110,9 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
     }
 
     .header--standard-landing .header-menu {
-        background-color: #9389FF;
+        background-color: #6259e8;
         /* #6ca0ff; */
-        /* #9389FF; */
+        /* #6259e8; */
     }
 
     .header--standard-landing .header-menu .nav-item {
@@ -2179,7 +2179,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 
     .header-menu a {
         padding: 15px 25px;
-        color: #888da8;
+        color: #676c88;
     }
 
     .header-menu ul {
@@ -2402,7 +2402,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 
 .footer--dark .socials i:hover,
 .footer--dark .socials svg:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .sub-footer-copyright {
@@ -2417,7 +2417,7 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 }
 
 .sub-footer-copyright a {
-    color: #9389FF;
+    color: #6259e8;
     opacity: .7;
     font-weight: 500;
 }
@@ -2458,23 +2458,23 @@ if the page has a “right panel”, add a class for BODY -- ".page-has-right-pa
 
 /*------------- #SECTION --------------*/
 .bg-section1 {
-    background-image: url("../img/bg-section1.png");
+    background-image: none /* C7-014: ../img/bg-section1.png is not in the repo */;
 }
 
 .bg-section2 {
-    background-image: url("../img/bg-section2.png");
+    background-image: none /* C7-014: ../img/bg-section2.png is not in the repo */;
 }
 
 .bg-section3 {
-    background-image: url("../img/bg-section3.png");
+    background-image: none /* C7-014: ../img/bg-section3.png is not in the repo */;
 }
 
 .bg-section4 {
-    background-image: url("../img/bg-section4.png");
+    background-image: none /* C7-014: ../img/bg-section4.png is not in the repo */;
 }
 
 .bg-section5 {
-    background-image: url("../img/bg-section5.png");
+    background-image: none /* C7-014: ../img/bg-section5.png is not in the repo */;
 }
 
 section {
@@ -2747,7 +2747,7 @@ section {
 }
 
 .bg-primary-opacity {
-    background-color: #9389ff;
+    background-color: #6259e8;
 }
 
 .bg-purple-dark-opacity {
@@ -2755,7 +2755,7 @@ section {
 }
 
 .stunning-header-bg1 {
-    background-image: url("../img/landing-users.png");
+    background-image: none /* C7-014: ../img/landing-users.png is not in the repo */;
 }
 
 .breadcrumbs-item {
@@ -2809,7 +2809,7 @@ section {
 }
 
 .mobile-app .chat-settings a {
-    color: #888da8;
+    color: #676c88;
     padding: 7px 0;
     display: block;
 }
@@ -2925,7 +2925,7 @@ section {
 }
 
 .mobile-app .left-menu a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .mobile-app .fixed-sidebar-left.sidebar--large {
@@ -2946,7 +2946,7 @@ section {
     position: relative;
     bottom: auto;
     margin-top: -20px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .mobile-app .top-header-author .author-name {
@@ -3072,7 +3072,7 @@ section {
 }
 
 .about-olympus a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .mobile-app-tabs {
@@ -3123,7 +3123,7 @@ section {
 .mobile-app-tabs .nav-link.active {
     background-color: transparent;
     border-color: transparent;
-    border-bottom-color: #9389FF;
+    border-bottom-color: #6259e8;
 }
 
 .mobile-app-tabs .nav-link.active svg {
@@ -3169,7 +3169,7 @@ section {
 }
 
 .nav-tabs .app-tabs-close:hover svg {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 /*------------- Responsive mode styles --------------*/
@@ -3352,7 +3352,7 @@ section {
 .product-price {
     margin-left: auto;
     font-size: 12px;
-    color: #888da8;
+    color: #676c88;
     font-weight: 700;
     margin-right: 20px;
 }
@@ -3368,7 +3368,7 @@ section {
 
 .cart-subtotal>span {
     margin-left: 25px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .cart-btn-wrap {
@@ -3413,7 +3413,7 @@ section {
 }
 
 .cart-main .product-price .price {
-    color: #888da8;
+    color: #676c88;
 }
 
 .cart-main .product-quantity .form-control {
@@ -3432,7 +3432,7 @@ section {
 }
 
 .cart-main .product-del svg:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .cart-main .form-inline>*+* {
@@ -3627,7 +3627,7 @@ a {
 }
 
 a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 select,
@@ -3745,7 +3745,7 @@ blockquote {
 blockquote h6 {
     font-size: 11px;
     font-weight: 400;
-    color: #888da8;
+    color: #676c88;
 }
 
 blockquote h6 span {
@@ -3771,7 +3771,7 @@ blockquote p:before {
     top: 0;
     left: -80px;
     display: block;
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 @media (max-width: 640px) {
@@ -3875,7 +3875,7 @@ img {
 .number-spinner.input-group .input-group-btn>.btn {
     margin-bottom: 0;
     height: 100%;
-    background-color: #9389FF;
+    background-color: #6259e8;
     z-index: 5;
 }
 
@@ -4350,7 +4350,7 @@ button:hover {
 }
 
 .btn-more:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .btn-border {
@@ -4423,7 +4423,7 @@ button:hover {
 
 .btn-purple {
     /* background-color: #7c5ac2; */
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .btn-blue {
@@ -4444,7 +4444,7 @@ button:hover {
 }
 
 .btn-grey-light {
-    background-color: #888da8;
+    background-color: #676c88;
 }
 
 .btn-grey-lighter {
@@ -4649,7 +4649,7 @@ button:hover {
 }
 
 .fav-pages {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .chat-message {
@@ -4676,7 +4676,7 @@ button:hover {
     cursor: pointer;
     box-shadow: 0 0 10px 0 rgba(63, 66, 87, 0.4);
     border-radius: 100%;
-    background-color: #9389FF;
+    background-color: #6259e8;
     text-align: center;
 }
 
@@ -4719,7 +4719,7 @@ button:hover {
 
 /*------------- #FORMS --------------*/
 label.control-label {
-    color: #888da8;
+    color: #676c88;
 }
 
 textarea {
@@ -4889,7 +4889,7 @@ select.form-control {
 
 .custom-control-description {
     padding-left: 7px;
-    color: #888da8;
+    color: #676c88;
     line-height: 2;
 }
 
@@ -4905,7 +4905,7 @@ select.form-control {
 }
 
 .tooltip-primary .tooltip-inner {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .tooltip-completed .tooltip-inner {
@@ -5001,8 +5001,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .togglebutton label input[type=checkbox]:checked+.toggle {
-    background-color: #9389FF;
-    /* #9389FF; */
+    background-color: #6259e8;
+    /* #6259e8; */
 }
 
 .togglebutton.blue label input[type=checkbox]:checked+.toggle {
@@ -5039,8 +5039,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    color: #888da8;
-    fill: #888da8;
+    color: #676c88;
+    fill: #676c88;
     margin-bottom: 1rem;
     line-height: 100%;
 }
@@ -5103,13 +5103,13 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .file-upload__label:hover {
     cursor: pointer;
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .file-upload__label.bg-green:hover,
 .file-upload__label.bg-blue:hover,
 .file-upload__label.bg-breez:hover {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .file-upload__input {
@@ -5164,7 +5164,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .list--styled i,
 .list--styled svg {
-    color: #9389FF;
+    color: #6259e8;
     font-size: 20px;
     margin-right: 17px;
 }
@@ -5239,7 +5239,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
     height: 18px;
     width: 18px;
     border-radius: 100%;
-    background-color: #9389FF;
+    background-color: #6259e8;
     -webkit-transform: scale3d(0, 0, 0);
     transform: scale3d(0, 0, 0);
 }
@@ -5275,11 +5275,11 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .radio input[type=radio]:checked~.check {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .radio input[type=radio]:checked~.circle {
-    border-color: #9389FF;
+    border-color: #6259e8;
 }
 
 .radio input[type=radio]:checked~.check {
@@ -5447,7 +5447,7 @@ fieldset[disabled] .form-group.is-focused .checkbox label {
 }
 
 .checkbox input[type=checkbox]:checked+.checkbox-material .check {
-    background: #9389FF;
+    background: #6259e8;
 }
 
 .checkbox input[type=checkbox]:checked+.checkbox-material .check:before {
@@ -5625,7 +5625,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 
 .fixed-sidebar .logo {
     height: 70px;
-    /* background-color: #9389FF; */
+    /* background-color: #6259e8; */
     padding: 15px;
 }
 
@@ -5643,7 +5643,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .fixed-sidebar .search-friend svg:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .fixed-sidebar .ui-block-title a {
@@ -5887,7 +5887,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .left-menu a:hover svg {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .profile-completion {
@@ -6221,7 +6221,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .friend-count-item .title {
-    color: #888da8;
+    color: #676c88;
 }
 
 .friend-count-item:last-child {
@@ -6282,7 +6282,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .more-dropdown a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .more:hover .more-dropdown {
@@ -6294,7 +6294,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 .more {
     position: relative;
     transition: all .3s ease;
-    color: #888da8;
+    color: #676c88;
     fill: #c0c4d8;
 }
 
@@ -6431,7 +6431,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background-color: #9389FF;
+    background-color: #6259e8;
     border-color: transparent;
 }
 
@@ -6481,7 +6481,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 .btn-prev:hover,
 .btn-next-without:hover,
 .btn-prev-without:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .btn-next,
@@ -6540,7 +6540,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 
 .single-post-slider .btn-next:hover,
 .single-post-slider .btn-prev:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .single-post-slider .btn-next {
@@ -6733,7 +6733,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
     width: 50px;
     height: 50px;
     border-radius: 100%;
-    background-color: #9389FF;
+    background-color: #6259e8;
     color: #fff;
     line-height: 50px;
     text-align: center;
@@ -6756,7 +6756,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .landing-main-content svg {
-    fill: #9389FF;
+    fill: #6259e8;
     margin-bottom: 30px;
 }
 
@@ -6835,8 +6835,8 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .registration-login-form .nav-link.active {
-    fill: #9389FF;
-    /* #9389FF; */
+    fill: #6259e8;
+    /* #6259e8; */
     background-color: #fff;
     border-color: #e6ecf5;
 }
@@ -6884,7 +6884,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 
 .remember .forgot {
     float: right;
-    color: #888da8;
+    color: #676c88;
 }
 
 .or {
@@ -7004,31 +7004,31 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .bg-account {
-    background-image: url("../img/top-header3.png");
+    background-image: none /* C7-014: ../img/top-header3.png is not in the repo */;
 }
 
 .bg-birthday {
-    background-image: url("../img/top-header6.png");
+    background-image: none /* C7-014: ../img/top-header6.png is not in the repo */;
 }
 
 .bg-badges {
-    background-image: url("../img/top-header4.png");
+    background-image: none /* C7-014: ../img/top-header4.png is not in the repo */;
 }
 
 .bg-events {
-    background-image: url("../img/top-header5.png");
+    background-image: none /* C7-014: ../img/top-header5.png is not in the repo */;
 }
 
 .bg-weather {
-    background-image: url("../img/top-header6.png");
+    background-image: none /* C7-014: ../img/top-header6.png is not in the repo */;
 }
 
 .bg-group {
-    background-image: url("../img/bg-group.png");
+    background-image: none /* C7-014: ../img/bg-group.png is not in the repo */;
 }
 
 .bg-music {
-    background-image: url("../img/top-header7.png");
+    background-image: none /* C7-014: ../img/top-header7.png is not in the repo */;
 }
 
 /* .bg-landing {
@@ -7036,7 +7036,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 } */
 /* .bg-external {
     background-image: url("../img/backgroundcoord.png");
-    background-color: #9389FF;
+    background-color: #6259e8;
 } */
 .bg-fixed {
     -webkit-animation: unset !important;
@@ -7046,12 +7046,12 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .bg-users {
-    /* background-image: url("../img/bg-users.png"); */
-    background-color: #9389ff;
+    /* background-image: none /* C7-014: ../img/bg-users.png is not in the repo */; */
+    background-color: #6259e8;
 }
 
 .bg-subscribers {
-    background-color: #9389ff;
+    background-color: #6259e8;
 }
 
 .main-header-content {
@@ -7128,7 +7128,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 .your-profile-menu li a {
     font-size: 11px;
     padding: 12px 0;
-    color: #888da8;
+    color: #676c88;
     display: block;
     font-weight: 700;
 }
@@ -7225,7 +7225,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
     position: absolute;
     left: 100%;
     top: calc(50% - 25px);
-    background-color: #9389FF;
+    background-color: #6259e8;
     color: #fff;
     box-shadow: 1px 0 3px rgba(0, 0, 0, 0.2);
     border-radius: 0 100px 100px 0;
@@ -7345,7 +7345,7 @@ fieldset[disabled] .checkbox input[type=checkbox],
 }
 
 .notification-list .notification-link {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .notification-list .notification-icon {
@@ -7992,7 +7992,7 @@ body.body--fixed {
 }
 
 .window-popup .icon {
-    fill: #888da8;
+    fill: #676c88;
     float: right;
     margin-top: 7px;
     padding: 0;
@@ -8025,22 +8025,22 @@ body.body--fixed {
 }
 
 .fav-page-popup .form-group.label-floating .bootstrap-select.btn-group .dropdown-toggle .filter-option {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .icon-close {
     position: absolute;
     top: -25px;
     right: -25px;
-    /* color: #888da8; */
-    /* fill: #888da8; */
+    /* color: #676c88; */
+    /* fill: #676c88; */
     color: white;
     fill: white;
 }
 
 .icon-close:hover {
-    color: #9389FF;
-    fill: #9389FF;
+    color: #6259e8;
+    fill: #6259e8;
 }
 
 .icon-close svg {
@@ -8083,11 +8083,11 @@ body.body--fixed {
 
 .upload-photo-item span {
     font-size: 11px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .upload-photo-item:hover {
-    fill: #9389FF;
+    fill: #6259e8;
     background-color: #fafbfd;
 }
 
@@ -8115,7 +8115,7 @@ body.body--fixed {
 }
 
 .choose-from-my-photo .nav-tabs .nav-link.active {
-    fill: #9389FF;
+    fill: #6259e8;
     background-color: #fff;
 }
 
@@ -8186,12 +8186,12 @@ figcaption a {
 }
 
 figcaption a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 figcaption span {
     font-size: 10px;
-    color: #888da8;
+    color: #676c88;
     font-weight: 400;
     display: block;
 }
@@ -8427,11 +8427,11 @@ figure {
 .add-option {
     display: block;
     margin: 30px 0;
-    color: #888da8;
+    color: #676c88;
 }
 
 .add-option svg {
-    fill: #888da8;
+    fill: #676c88;
     margin-right: 12px;
     width: 14px;
     height: 14px;
@@ -8474,7 +8474,7 @@ figure {
 }
 
 .create-friend-group .icon:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .create-friend-group .icon.check {
@@ -8596,7 +8596,7 @@ figure {
     top: auto;
     right: 25px;
     bottom: 75px;
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .playlist-popup .mCustomScrollbar {
@@ -8651,7 +8651,7 @@ figure {
 }
 
 .create-event .icon:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .create-event .icon.check {
@@ -9122,7 +9122,7 @@ ol li:before {
     /* Add "1" */
     content: counter(list1) " ";
     /* Show count */
-    color: #888da8;
+    color: #676c88;
     display: inline-block;
     margin-right: 10px;
     font-size: 10px;
@@ -9300,7 +9300,7 @@ ol ol li {
     left: 0;
     right: 8px;
     bottom: 8px;
-    background-color: #9389FF;
+    background-color: #6259e8;
     opacity: .8;
     border-radius: 3px;
 }
@@ -9375,7 +9375,7 @@ ol ol li {
 }
 
 .comments-shared span {
-    color: #888da8;
+    color: #676c88;
 }
 
 .post-add-icon {
@@ -9406,12 +9406,12 @@ ol ol li {
 }
 
 .post-add-icon:hover {
-    fill: #9389FF;
-    color: #9389FF;
+    fill: #6259e8;
+    color: #6259e8;
 }
 
 .post-add-icon:hover span {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .post-add-icon:active,
@@ -9481,7 +9481,7 @@ ol ol li {
 }
 
 .post-control-button .btn-control:hover {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .post-control-button .btn-control.featured-post:hover {
@@ -9629,7 +9629,7 @@ ol ol li {
 
 .comments-list.style-3 .reply {
     margin-right: 20px;
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .comments-list.style-3 .post__author-thumb {
@@ -9699,12 +9699,12 @@ ol ol li {
 
 .reply {
     font-size: 12px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .report {
     font-size: 12px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .more-comments {
@@ -9726,7 +9726,7 @@ ol ol li {
 }
 
 .more-comments:hover span {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .comment-form {
@@ -9840,7 +9840,7 @@ ol ol li {
 }
 
 .post-video .video-content .link-site:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .video-thumb {
@@ -9945,7 +9945,7 @@ ol ol li {
 
 .news-feed-form .nav-tabs .nav-link.active {
     background-color: #fff;
-    fill: #9389FF;
+    fill: #6259e8;
     color: #515365;
     border-bottom: transparent;
 }
@@ -9956,8 +9956,8 @@ ol ol li {
 }
 
 .news-feed-form .nav-link {
-    fill: #888da8;
-    color: #888da8;
+    fill: #676c88;
+    color: #676c88;
 }
 
 .news-feed-form .nav-link svg {
@@ -10039,7 +10039,7 @@ ol ol li {
 
 .cat-list__item a {
     font-size: 14px;
-    color: #888da8;
+    color: #676c88;
     position: relative;
     text-transform: capitalize;
     transition: all .3s ease;
@@ -10049,11 +10049,11 @@ ol ol li {
 
 .cat-list__item a:hover {
     color: #fff;
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .cat-list__item.active {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .cat-list__item.active a {
@@ -10109,7 +10109,7 @@ ol ol li {
 }
 
 .photo-gallery .nav-link.active {
-    fill: #9389FF;
+    fill: #6259e8;
     background-color: #fff;
     border-top-color: transparent;
 }
@@ -10783,7 +10783,7 @@ ol ol li {
     position: absolute;
     top: 0;
     right: 0;
-    fill: #888da8;
+    fill: #676c88;
 }
 
 .today-events .event-status-icon.completed {
@@ -10879,7 +10879,7 @@ ol ol li {
 
 .today-events-thumb {
     position: relative;
-    background-image: url("../img/bg-event-day.jpg");
+    background-image: none /* C7-014: ../img/bg-event-day.jpg is not in the repo */;
     text-align: center;
     padding: 25px;
     color: #fff;
@@ -10898,7 +10898,7 @@ ol ol li {
 
 .today-events-thumb .month-year {
     font-size: 12px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .card-header a .dropdown-arrow-icon {
@@ -10925,7 +10925,7 @@ ol ol li {
     border-color: transparent;
     font-weight: 700;
     font-size: 14px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .calendar-events-tabs.nav-tabs .nav-link.active {
@@ -10994,7 +10994,7 @@ ol ol li {
 .monthly-count .period {
     display: block;
     font-size: 12px;
-    color: #888da8;
+    color: #676c88;
     line-height: 1.5;
     margin-top: 3px;
 }
@@ -11004,7 +11004,7 @@ ol ol li {
 }
 
 .negative {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .points {
@@ -11119,7 +11119,7 @@ ol ol li {
 .general-statistics span {
     display: block;
     font-size: 12px;
-    color: #888da8;
+    color: #676c88;
     white-space: nowrap;
 }
 
@@ -11264,7 +11264,7 @@ ol ol li {
 }
 
 .statistics-slide .title .c-primary {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 /*------------- Responsive mode styles --------------*/
@@ -11357,7 +11357,7 @@ ol ol li {
 }
 
 .forums-table .count:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .forum-item img {
@@ -11370,7 +11370,7 @@ ol ol li {
 }
 
 .forum-item .title:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .forum-item .text {
@@ -11402,7 +11402,7 @@ ol ol li {
 }
 
 .author-freshness .title:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .author-freshness time {
@@ -11425,7 +11425,7 @@ ol ol li {
 }
 
 .sub-forums a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .author-started {
@@ -11533,7 +11533,7 @@ ol ol li {
 }
 
 .open-topic-table .author-name:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .open-topic-table .country {
@@ -11546,7 +11546,7 @@ ol ol li {
 
 .reply-topic {
     float: right;
-    color: #9389FF;
+    color: #6259e8;
     font-size: 11px;
 }
 
@@ -11592,7 +11592,7 @@ ol ol li {
 }
 
 .blog-post .post-title:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .blog-post .author-date {
@@ -11650,7 +11650,7 @@ ol ol li {
 }
 
 .blog-post.format-link .bg-link {
-    background-image: url("../img/post6.jpg");
+    background-image: none /* C7-014: ../img/post6.jpg is not in the repo */;
 }
 
 .blog-post.format-link .post-thumb {
@@ -11754,7 +11754,7 @@ ol ol li {
 
 .blog-post.format-quote .post-thumb {
     padding: 60px 50px;
-    background-image: url("../img/quote-bg.png");
+    background-image: none /* C7-014: ../img/quote-bg.png is not in the repo */;
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 5px;
@@ -11773,7 +11773,7 @@ ol ol li {
     left: auto;
     width: 40px;
     height: 40px;
-    background-color: #9389FF;
+    background-color: #6259e8;
     border-radius: 100%;
     border: none;
     -webkit-transform: none;
@@ -11803,13 +11803,13 @@ ol ol li {
 
 .post-category.bg-transparent {
     background-color: transparent;
-    color: #9389FF;
+    color: #6259e8;
     padding: 0;
     font-size: 10px;
 }
 
 .post-category.bg-transparent:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .post-category:hover {
@@ -11855,7 +11855,7 @@ ol ol li {
 }
 
 .blog-post-v1 .author-date {
-    color: #888da8;
+    color: #676c88;
 }
 
 .blog-post-v1 .post__author-name {
@@ -12092,7 +12092,7 @@ ol ol li {
 }
 
 .single-post-additional a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .post-date-wrap svg {
@@ -12554,7 +12554,7 @@ ol ol li {
 }
 
 .heading-sup-title {
-    color: #9389FF;
+    color: #6259e8;
     margin-bottom: 25px;
     text-transform: uppercase;
     font-size: 10px;
@@ -12584,7 +12584,7 @@ ol ol li {
 
 .with-title-decoration .heading-title:before {
     height: 2px;
-    background-color: #9389FF;
+    background-color: #6259e8;
     width: 10%;
 }
 
@@ -12628,7 +12628,7 @@ ol ol li {
 .testimonial-header-thumb {
     height: 90px;
     overflow: hidden;
-    background-image: url("../img/testimonial-header.png");
+    background-image: none /* C7-014: ../img/testimonial-header.png is not in the repo */;
     background-size: cover;
 }
 
@@ -12718,7 +12718,7 @@ ol ol li {
 }
 
 .crumina-counter-item .units div {
-    color: #9389FF;
+    color: #6259e8;
     display: inline-block;
 }
 
@@ -12840,7 +12840,7 @@ ol ol li {
 }
 
 .socials li a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .socials li+li {
@@ -12862,7 +12862,7 @@ ol ol li {
 }
 
 .socials--round .social-item.olympus {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .socials--round .social-item.rss {
@@ -13075,7 +13075,7 @@ ol ol li {
     left: 0;
     width: 15%;
     height: 2px;
-    background-color: #9389FF;
+    background-color: #6259e8;
     transition: width .3s ease-in-out;
 }
 
@@ -13084,12 +13084,12 @@ ol ol li {
 }
 
 .contact-item a {
-    color: #888da8;
+    color: #676c88;
     display: block;
 }
 
 .contact-item a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .contact-item+.contact-item {
@@ -13118,7 +13118,7 @@ ol ol li {
     position: relative;
     padding: 50px 40px;
     color: #fff;
-    background-image: url("../img/contact-bg.png");
+    background-image: none /* C7-014: ../img/contact-bg.png is not in the repo */;
     background-size: cover;
     background-repeat: no-repeat;
     width: 40%;
@@ -13196,7 +13196,7 @@ ol ol li {
 }
 
 .accordion-faqs .icons-wrap svg {
-    fill: #9389FF;
+    fill: #6259e8;
     transition: opacity .3s ease;
 }
 
@@ -13400,7 +13400,7 @@ ol ol li {
 
 .help-support-list li a {
     font-size: 14px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .help-support-list li+li {
@@ -13412,7 +13412,7 @@ ol ol li {
 }
 
 .help-support-list li:hover svg {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 .help-main-topic .title {
@@ -13510,12 +13510,12 @@ ol ol li {
 }
 
 .search-help-result-title .count-result {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .search-help-result-title .search-query {
     font-style: italic;
-    color: #888da8;
+    color: #676c88;
 }
 
 .search-help-result-list li {
@@ -13666,7 +13666,7 @@ ol ol li {
     right: 20px;
     top: 20px;
     color: #fff;
-    background-color: #9389FF;
+    background-color: #6259e8;
     font-size: 10px;
     font-weight: 900;
     text-transform: uppercase;
@@ -13687,11 +13687,11 @@ ol ol li {
 }
 
 .shop-product-item .product-price.with-sale {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .shop-product-item .product-price.with-sale del {
-    color: #888da8;
+    color: #676c88;
     margin-right: 7px;
 }
 
@@ -13753,7 +13753,7 @@ ol ol li {
     font-size: 10px;
     font-weight: 700;
     margin-bottom: 10px;
-    color: #888da8;
+    color: #676c88;
     display: block;
 }
 
@@ -13923,12 +13923,12 @@ ol ol li {
 }
 
 .tags .tags-item {
-    color: #888da8;
+    color: #676c88;
     font-weight: 400;
 }
 
 .tags .tags-item:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .article-number {
@@ -13938,7 +13938,7 @@ ol ol li {
 }
 
 .article-number span {
-    color: #888da8;
+    color: #676c88;
     font-weight: 400;
     margin-left: 8px;
 }
@@ -13953,7 +13953,7 @@ ol ol li {
 
 .product-description .nav-tabs .nav-link {
     font-weight: 700;
-    color: #888da8;
+    color: #676c88;
     font-size: 14px;
 }
 
@@ -13962,7 +13962,7 @@ ol ol li {
 }
 
 .product-description .nav-tabs .nav-link.active .total-topic {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .product-description .nav-tabs .nav-link .total-topic {
@@ -14042,7 +14042,7 @@ ol ol li {
 }
 
 .comments__item-review .comments__header-review .comments__author-review a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 /*================= Responsive Mode ============*/
@@ -14302,7 +14302,7 @@ ol ol li {
 }
 
 .bg-primary {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .bg-secondary {
@@ -14310,7 +14310,7 @@ ol ol li {
 }
 
 .bg-purple {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .bg-blue {
@@ -14334,7 +14334,7 @@ ol ol li {
 }
 
 .bg-grey-light {
-    background-color: #888da8;
+    background-color: #676c88;
 }
 
 .bg-grey-lighter {
@@ -14390,7 +14390,7 @@ ol ol li {
 }
 
 .c-primary {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .c-white {
@@ -14398,7 +14398,7 @@ ol ol li {
 }
 
 .c-grey {
-    color: #888da8;
+    color: #676c88;
 }
 
 .c-orange {
@@ -15021,15 +15021,15 @@ ol ol li {
 }
 
 .range-slider--primary .irs-bar {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .range-slider--primary .irs-grid-pol {
-    background: #9389FF;
+    background: #6259e8;
 }
 
 .range-slider--primary .irs-slider:before {
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .range-slider--red .irs-bar {
@@ -15106,7 +15106,7 @@ ol ol li {
 }
 
 .w-personal-info li .text {
-    color: #888da8;
+    color: #676c88;
     display: block;
     overflow: hidden;
 }
@@ -15120,7 +15120,7 @@ ol ol li {
 }
 
 .w-personal-info a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .w-personal-info.item-block .title {
@@ -15217,7 +15217,7 @@ ol ol li {
 }
 
 .w-contacts ul .text {
-    color: #888da8;
+    color: #676c88;
     display: block;
     overflow: hidden;
 }
@@ -15245,7 +15245,7 @@ ol ol li {
     line-height: 34px;
     text-align: center;
     color: #fff;
-    background-color: #9389FF;
+    background-color: #6259e8;
     font-size: 10px;
     font-weight: 800;
 }
@@ -15277,7 +15277,7 @@ ol ol li {
 
 .w-twitter .group {
     font-size: 11px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .w-twitter .verified {
@@ -15455,7 +15455,7 @@ ol ol li {
 .composition-author {
     display: block;
     font-size: 11px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .playlist-popup-table {
@@ -15559,7 +15559,7 @@ ol ol li {
 }
 
 .playlist-popup-table .remove-icon:hover {
-    fill: #9389FF;
+    fill: #6259e8;
 }
 
 /*================= Responsive Mode ============*/
@@ -15660,7 +15660,7 @@ ol ol li {
 /*------------- #W-CREATE-FAV-PAGE --------------*/
 .w-create-fav-page {
     padding: 25px;
-    background-color: #9389FF;
+    background-color: #6259e8;
 }
 
 .w-create-fav-page svg {
@@ -15742,7 +15742,7 @@ ol ol li {
 
 /*------------- #W-BIRTHDAY-ALERT --------------*/
 .w-birthday-alert {
-    background-image: url("../img/bg-birthdays.jpg");
+    background-image: none /* C7-014: ../img/bg-birthdays.jpg is not in the repo */;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 25px;
@@ -15819,7 +15819,7 @@ ol ol li {
 
 /*------------- #W-ACTION --------------*/
 .w-action {
-    background-image: url("../img/landing-bg.jpg");
+    background-image: none /* C7-014: ../img/landing-bg.jpg is not in the repo */;
     padding: 50px 45px 40px;
     text-align: center;
     color: #fff;
@@ -15877,7 +15877,7 @@ ol ol li {
 
 /*------------- #W-WEATHER --------------*/
 .w-wethear {
-    background-image: url("../img/bg-wethear.jpg");
+    background-image: none /* C7-014: ../img/bg-wethear.jpg is not in the repo */;
     background-repeat: no-repeat;
     background-size: cover;
     padding: 25px;
@@ -16048,7 +16048,7 @@ ol ol li {
 }
 
 .day-wethear-item .wethear-now .high {
-    color: #888da8;
+    color: #676c88;
 }
 
 .wethear-content {
@@ -16425,7 +16425,7 @@ ol ol li {
 
 /*------------- #W-LIST --------------*/
 .w-list a {
-    color: #888da8;
+    color: #676c88;
     padding: 8px 0;
     display: block;
     font-weight: 500;
@@ -16433,7 +16433,7 @@ ol ol li {
 }
 
 .w-list a:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .w-list ul {
@@ -16463,7 +16463,7 @@ ol ol li {
 }
 
 .w-featured-topics .title:hover {
-    color: #9389FF;
+    color: #6259e8;
 }
 
 .w-featured-topics time {
@@ -16474,7 +16474,7 @@ ol ol li {
 
 .w-featured-topics .forums {
     font-size: 11px;
-    color: #9389FF;
+    color: #6259e8;
 }
 
 /*------------- #W-BUILD-FAV --------------*/
@@ -16482,7 +16482,7 @@ ol ol li {
     padding: 25px;
     color: #fff;
     position: relative;
-    background: url(../img/bg-birthdays.jpg) no-repeat;
+    background: none /* C7-014: ../img/bg-birthdays.jpg is not in the repo */ no-repeat;
     background-size: cover;
     border-radius: 5px;
 }
@@ -16547,7 +16547,7 @@ select.selectpicker {
 }
 
 .bootstrap-select li.selected a {
-    background: #9389FF;
+    background: #6259e8;
     color: white;
 }
 
@@ -16730,7 +16730,7 @@ select.selectpicker {
 
 .bootstrap-select.btn-group .dropdown-menu li a {
     padding: 10px 1.5rem;
-    color: #888da8;
+    color: #676c88;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -16898,7 +16898,7 @@ select.selectpicker {
 }
 
 .dropdown-toggle::after {
-    border-top-color: #888da8;
+    border-top-color: #676c88;
     right: 20px;
     top: -2px;
     position: relative;
@@ -16964,7 +16964,7 @@ select.selectpicker {
 }
 
 .bootstrap-select.without-border .dropdown-toggle::after {
-    border-top: 0.4em solid #888da8;
+    border-top: 0.4em solid #676c88;
     border-right: 0.4em solid transparent;
     border-left: 0.4em solid transparent;
 }
@@ -17459,7 +17459,7 @@ select.selectpicker {
 .daterangepicker .calendar th,
 .daterangepicker td.off {
     font-size: 9px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .daterangepicker .calendar td {
@@ -17889,7 +17889,7 @@ hr.fc-divider {
     padding: 12px;
     background-color: transparent;
     font-size: 9px;
-    color: #888da8;
+    color: #676c88;
     text-transform: uppercase;
     border-right-width: 0;
     border-left-width: 0;
@@ -18285,7 +18285,7 @@ a.fc-more:hover {
 }
 
 .fc-toolbar .fc-button-group .fc-icon {
-    color: #888da8;
+    color: #676c88;
 }
 
 .fc-toolbar .fc-left {
@@ -18736,7 +18736,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .fc .date span {
-    color: #888da8;
+    color: #676c88;
 }
 
 .fc .nav-link {
@@ -19513,7 +19513,7 @@ screen and (max-height: 300px) {
 .mejs-controls .mejs-nexttrack button,
 .mejs-controls .mejs-shuffle-on button,
 .mejs-controls .mejs-shuffle-off button {
-    background: transparent url(./../img/controls-playlist.png) no-repeat;
+    background: transparent none /* C7-014: ./../img/controls-playlist.png is not in the repo */ no-repeat;
 }
 
 .mejs-controls .mejs-show-playlist button {
@@ -19592,7 +19592,7 @@ screen and (max-height: 300px) {
     border-top: 1px solid white;
     border-bottom: 1px solid black;
     background-color: rgba(50, 50, 50, 0.7);
-    background-image: url(./../img/mep-playlist-icons.png);
+    background-image: none /* C7-014: ./../img/mep-playlist-icons.png is not in the repo */;
     background-position: right 10px top 100px;
     background-repeat: no-repeat;
 }
@@ -19666,7 +19666,7 @@ screen and (max-height: 300px) {
     position: absolute;
     border: none;
     background-color: transparent;
-    background-image: url(./../img/bigplay.png);
+    background-image: none /* C7-014: ./../img/bigplay.png is not in the repo */;
     background-position: right 10px top 0px;
     top: 50%;
     left: 50%;
@@ -19704,7 +19704,7 @@ screen and (max-height: 300px) {
     width: 100px;
     opacity: 0.9;
     cursor: pointer;
-    background: transparent url(./../bigplay.png) left -400px no-repeat;
+    background: transparent none /* C7-014: ./../bigplay.png is not in the repo */ left -400px no-repeat;
     margin-top: -75px;
 }
 
@@ -19849,11 +19849,11 @@ screen and (max-height: 300px) {
     width: 100px;
     height: 100px;
     margin: -50px 0 0 -50px;
-    background: url(./../img/bigplay.svg) no-repeat;
+    background: none /* C7-014: ./../img/bigplay.svg is not in the repo */ no-repeat;
 }
 
 .no-svg .mejs-overlay-button {
-    background-image: url(./../img/bigplay.png);
+    background-image: none /* C7-014: ./../img/bigplay.png is not in the repo */;
 }
 
 .mejs-overlay:hover .mejs-overlay-button {
@@ -19921,7 +19921,7 @@ screen and (max-height: 300px) {
 }
 
 .no-svg .mejs-controls .mejs-button button {
-    background-image: url(./../img/controls.png);
+    background-image: none /* C7-014: ./../img/controls.png is not in the repo */;
 }
 
 /* :focus for accessibility */
@@ -19932,7 +19932,7 @@ screen and (max-height: 300px) {
 /* End: CONTROL BAR */
 /* Start: Time (Current / Duration) */
 .mejs-container .mejs-controls .mejs-time {
-    color: #888da8;
+    color: #676c88;
     display: block;
     height: 17px;
     width: auto;
@@ -20665,7 +20665,7 @@ div.mejs-speed-button {
 /* End: Jump Forward */
 /* Start: Skip Back */
 .mejs-controls .mejs-button.mejs-skip-back-button {
-    background: transparent url(./../img/skipback.png) no-repeat;
+    background: transparent none /* C7-014: ./../img/skipback.png is not in the repo */ no-repeat;
     background-position: 3px 3px;
 }
 
@@ -20853,7 +20853,7 @@ div.mejs-speed-button {
     font-weight: 600;
     text-transform: uppercase;
     font-size: 9px;
-    color: #888da8;
+    color: #676c88;
 }
 
 .calendar tbody {
@@ -21759,7 +21759,7 @@ input[type=checkbox] {
 .irs-bar,
 .irs-bar-edge,
 .irs-slider {
-    background: url(../img/sprite-skin-nice.png) repeat-x;
+    background: none /* C7-014: ../img/sprite-skin-nice.png is not in the repo */ repeat-x;
 }
 
 .irs {

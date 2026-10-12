@@ -37,11 +37,9 @@
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://api.mapbox.com" crossorigin>
     <link rel="preconnect" href="https://use.typekit.net" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="https://unpkg.com">
-    <link rel="dns-prefetch" href="https://api.mapbox.com">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
     <meta name="apple-mobile-web-app-title" content="Runwae">
@@ -69,6 +67,18 @@
         /* PERF-001: sizing for the 4 pre-rendered Font Awesome SVGs (fontawesome-all.js no longer loaded here) */
         .svg-inline--fa { display: inline-block; font-size: inherit; height: 1em; overflow: visible; vertical-align: -.125em; }
         .svg-inline--fa.fa-w-14 { width: .875em; } .svg-inline--fa.fa-w-16 { width: 1em; } .svg-inline--fa.fa-w-18 { width: 1.125em; }
+        /* PERF-001: players load lazily; reserve their box before the custom element is defined (no layout shift). */
+        lottie-player { display: block; }
+        /* PERF-001: the 8 Ionicons on this page are inline SVG (same icons, from /icons), so the ionicons runtime is not loaded. */
+        .ion-svg { display: inline-block; width: 1em; height: 1em; box-sizing: content-box; fill: currentColor; stroke: currentColor; vertical-align: -0.125em; }
+        .ion-svg.ionicon { width: 26px; height: 26px; padding: 3px; }
+        /* MOBILE-GENERAL-TEXT-SIZE: no text under 12px on phones. */
+        @media (max-width: 767.98px) {
+            body .btn, body .subscribe-form .btn { font-size: 12px; }
+            body .progress_inner__step label { font-size: 12px; }
+            body .info-box-text, body .progress_inner__tabs .tab p, body .footer .w-list a { font-size: 13px; }
+            body .footer .w-list .title { font-size: 12px; }
+        }
         body {
             overflow-x: hidden;
             background-image: url(img/background.png);
@@ -77,16 +87,13 @@
     </style>
     <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css"></noscript>
-    <script defer src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
     <!-- Main Font -->
     <script>WebFontConfig = { google: { families: ['Roboto:300,400,500,700:latin'] } };</script>
     <script async src="js/webfontloader.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin&amp;display=swap"
         media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin&amp;display=swap"></noscript>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js" integrity="sha384-mUwnAhqfq+AAZqzGDOOBVHSyB6nCxEvLpD9hkd5FN3ws2bZpssxPtDsfdH20Kiom" crossorigin="anonymous"></script>
     <script data-ad-client="ca-pub-7287110011977791" async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- PERF-001: inline module scripts run in document order with the deferred scripts (after ScrollMagic). -->
@@ -105,10 +112,12 @@
             });
         }
     </script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js" integrity="sha384-FUX7p/8KyhmpTt6AIH5uP6iqMXn8CXWI+CS5ENQdwOq6DxzbrGEB7ytb9HA8IyuO" crossorigin="anonymous"></script>
 </head>
 
 <body class="body-bg-white">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main id="main">
     <div class="main-header main-header-fullwidth main-header-has-header-standard">
         <!-- Header Standard Landing  -->
         <div class="header--standard header--standard-landing animated headroom--not-bottom slideDown headroom--top"
@@ -117,17 +126,17 @@
                 <div class="header--standard-wrap">
                     <a href="/welcome" class="logo">
                         <div class="img-wrap">
-                            <img src="img/logo-colored.png" alt="Runwae" fetchpriority="high">
-                            <img src="img/logo.png" alt="Runwae" class="logo-colored">
+                            <img width="34" height="34" src="img/logo-colored-68.png" alt="" fetchpriority="high">
+                            <img width="34" height="34" src="img/logo-68.png" alt="" class="logo-colored">
                         </div>
                         <div class="title-block">
-                            <h6 class="logo-title">Runwae</h6>
+                            <h6 class="logo-title" role="none">Runwae</h6>
                         </div>
                     </a>
-                    <button type="button" class="open-responsive-menu js-open-responsive-menu" aria-label="Open menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
-                        <ion-icon class="ionicon menu-icon" name="menu-outline"></ion-icon>
+                    <button type="button" class="open-responsive-menu js-open-responsive-menu" aria-label="Open menu" aria-controls="header-menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ion-svg ionicon menu-icon" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 160h352M80 256h352M80 352h352"/></svg>
                     </button>
-                    <div class="nav nav-pills nav1 header-menu">
+                    <div id="header-menu" class="nav nav-pills nav1 header-menu" role="navigation" aria-label="Main">
                         <div class="mCustomScrollbar ps ps--theme_default ps--active-x ps--active-y"
                             data-ps-id="13106c38-7c0f-a50d-0595-443c869e00e3">
                             <ul>
@@ -141,12 +150,14 @@
                                     <a href="login?signup" class="nav-link">Sign Up</a>
                                 </li>
                                 <li class="close-responsive-menu js-close-responsive-menu">
-                                    <ion-icon class="ionicon close-icon" name="close-outline"></ion-icon>
+                                    <button type="button" aria-label="Close menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="ion-svg ionicon close-icon" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>
+                                    </button>
                                 </li>
                                 <li class="nav-item js-expanded-menu">
                                     <button type="button" class="nav-link" aria-label="Toggle menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
-                                        <ion-icon class="ionicon menu-icon" name="menu-outline"></ion-icon>
-                                        <ion-icon class="ionicon close-icon" name="close-outline"></ion-icon>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="ion-svg ionicon menu-icon" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M80 160h352M80 256h352M80 352h352"/></svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="ion-svg ionicon close-icon" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>
                                     </button>
                                 </li>
                             </ul>
@@ -158,12 +169,12 @@
         <!-- ... end Header Standard Landing  -->
         <div class="header-spacer--standard"></div>
         <div class="content-bg-wrap bg-fixed bg-landing"></div>
-        <div class="container">
+        <div class="container" id="main-content" tabindex="-1">
             <div class="row display-flex">
                 <div class="col col-lg-3 offset-lg-1 offset-xs-1 col-md-12 col-sm-10 col-xs-10">
                     <div class="landing-content">
                         <h1 class="welcomeTitle">Fast<br>Influencer<br>Marketing</h1>
-                        <h4>Runwae is the platform for agreements between brands and influencers.
+                        <h4 role="none">Runwae is the platform for agreements between brands and influencers.
                         </h4>
                         <button type="button" class="btn btn-md btn-border c-white" id="btnInstall" aria-label="Install"
                             hidden="">Download</button>
@@ -173,7 +184,7 @@
                 </div>
                 <div class="col col-xl-5 col-lg-5 offset-lg-1 offset-sm-1 col-md-10 col-sm-10 col-10" align="left">
                     <!-- Login-Registration Form  -->
-                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_erwupjth.json"
+                    <lottie-player data-src="https://assets4.lottiefiles.com/packages/lf20_erwupjth.json"
                         class="paymentPlayer1" background="transparent" speed="1" loop autoplay></lottie-player>
                     <!-- ... end Login-Registration Form  -->
                 </div>
@@ -197,7 +208,7 @@
                 <div class="row">
                     <div class="col col-xl-10 col-lg-10  m-auto col-md-12 col-sm-12 col-12">
                         <div class="crumina-module crumina-heading" align="left">
-                            <h1 class="heading-title">More Than<br>An Agency</h1>
+                            <h1 class="heading-title" aria-level="2">More Than<br>An Agency</h1>
                         </div>
                     </div>
                 </div>
@@ -206,13 +217,13 @@
                         <div class="col col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="crumina-module crumina-info-box" data-mh="box--classic" style="height: 290px;">
                                 <div class="info-box-image" align="left">
-                                    <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_jfxxjaji.json"
+                                    <lottie-player data-src="https://assets6.lottiefiles.com/packages/lf20_jfxxjaji.json"
                                         class="paymentPlayer3" background="transparent" speed="1" loop autoplay>
                                     </lottie-player>
                                 </div>
                                 <div class="info-box-content" align="left">
-                                    <h5 class="info-box-title">
-                                        <ion-icon name="storefront-outline"></ion-icon> &nbsp; &nbsp;Marketing
+                                    <h5 class="info-box-title" aria-level="3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="ion-svg" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M448 448V240M64 240v208M382.47 48H129.53c-21.79 0-41.47 12-49.93 30.46L36.3 173c-14.58 31.81 9.63 67.85 47.19 69h2c31.4 0 56.85-25.18 56.85-52.23 0 27 25.46 52.23 56.86 52.23s56.8-23.38 56.8-52.23c0 27 25.45 52.23 56.85 52.23s56.86-23.38 56.86-52.23c0 28.85 25.45 52.23 56.85 52.23h1.95c37.56-1.17 61.77-37.21 47.19-69l-43.3-94.54C423.94 60 404.26 48 382.47 48zM32 464h448M136 288h80a24 24 0 0124 24v88h0-128 0v-88a24 24 0 0124-24zM288 464V312a24 24 0 0124-24h64a24 24 0 0124 24v152"/></svg> &nbsp; &nbsp;Marketing
                                         Opportunities
                                     </h5>
                                     <p class="info-box-text">Find the latest influencer marketing opportunities from
@@ -225,13 +236,13 @@
                             <!-- Info Box  -->
                             <div class="crumina-module crumina-info-box" data-mh="box--classic" style="height: 290px;">
                                 <div class="info-box-image" align="left">
-                                    <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_hqfsxfle.json"
+                                    <lottie-player data-src="https://assets6.lottiefiles.com/packages/lf20_hqfsxfle.json"
                                         class="paymentPlayer3" background="transparent" speed="1" loop autoplay>
                                     </lottie-player>
                                 </div>
                                 <div class="info-box-content" align="left">
-                                    <h5 class="info-box-title">
-                                        <ion-icon name="reader-outline"></ion-icon> &nbsp; &nbsp;Influencer Proposals
+                                    <h5 class="info-box-title" aria-level="3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="ion-svg" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><rect x="96" y="48" width="320" height="416" rx="48" ry="48" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M176 128h160M176 208h160M176 288h80"/></svg> &nbsp; &nbsp;Influencer Proposals
                                     </h5>
                                     <p class="info-box-text">Brands accept or reject proposals from influencers. We
                                         make sure you get what you’re paying for.</p>
@@ -243,13 +254,13 @@
                             <!-- Info Box  -->
                             <div class="crumina-module crumina-info-box" data-mh="box--classic" style="height: 290px;">
                                 <div class="info-box-image" align="left">
-                                    <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_h7c4f9f5.json"
+                                    <lottie-player data-src="https://assets9.lottiefiles.com/packages/lf20_h7c4f9f5.json"
                                         class="paymentPlayer3" background="transparent" speed="1" loop autoplay>
                                     </lottie-player>
                                 </div>
                                 <div class="info-box-content" align="left">
-                                    <h5 class="info-box-title">
-                                        <ion-icon name="lock-closed-outline"></ion-icon> &nbsp; &nbsp; Secure Agreements
+                                    <h5 class="info-box-title" aria-level="3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="ion-svg" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path d="M336 208v-95a80 80 0 00-160 0v95" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><rect x="96" y="208" width="320" height="272" rx="48" ry="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg> &nbsp; &nbsp; Secure Agreements
                                     </h5>
                                     <p class="info-box-text">Runwae gigs are designed to ensure compensation for
                                         brands and influencers in every transaction.</p>
@@ -271,8 +282,8 @@
                 <div class="row mb60">
                     <div class="col col-xl-10 col-lg-10 m-auto col-md-12 col-sm-12 col-12">
                         <div class="crumina-module crumina-heading align-center">
-                            <h1 class="heading-title">Influencer Payment Simplified</h1>
-                            <h3 class="heading-text">Manage your influencer agreements and
+                            <h1 class="heading-title" aria-level="2">Influencer Payment Simplified</h1>
+                            <h3 class="heading-text" role="none">Manage your influencer agreements and
                                 payments in one central location.</h3>
                         </div>
                     </div>
@@ -285,14 +296,14 @@
                     <div class="col col-xl-4 col-lg-4 m-auto col-md-12 col-sm-12 col-12">
                         <div class="crumina-module crumina-heading reveal2">
                             <h2 class="heading-title">Pricing Made Easy</h2>
-                            <h4 class="heading-text" style="color:black">Brands set their budget for each influencer
+                            <h4 class="heading-text" role="none" style="color:black">Brands set their budget for each influencer
                                 marketing opportunity. Sit back and watch compatible influencers show interest, then
                                 select your top candidate!
                             </h4>
                         </div>
                     </div>
                     <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_zgfvxon7.json"
+                        <lottie-player data-src="https://assets7.lottiefiles.com/packages/lf20_zgfvxon7.json"
                             class="paymentPlayer2 reveal3" background="transparent" speed="1" loop autoplay>
                         </lottie-player>
                     </div>
@@ -304,7 +315,7 @@
                 <div class="row marketerGuideSubmit">
                     <div class="col col-xl-6 col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12" align="center">
                         <div class="crumina-module crumina-heading">
-                            <h5 style="color:black">SIGN UP FOR OUR GUIDE TO INFLUENCER MARKETING!
+                            <h5 role="none" style="color:black">SIGN UP FOR OUR GUIDE TO INFLUENCER MARKETING!
                             </h5>
                         </div>
                         <!-- Subscribe Form  -->
@@ -335,8 +346,8 @@
                 <div class="row mb60">
                     <div class="col col-xl-10 col-lg-10 m-auto col-md-12 col-sm-12 col-12">
                         <div class="crumina-module crumina-heading align-center reveal1">
-                            <h1 class="heading-title">Built For Brands and Influencers</h1>
-                            <h3 class="heading-text">Identify and partner with micro-influencers who
+                            <h1 class="heading-title" aria-level="2">Built For Brands and Influencers</h1>
+                            <h3 class="heading-text" role="none">Identify and partner with micro-influencers who
                                 are most relevant to your brand and values!</h3>
                         </div>
                     </div>
@@ -348,7 +359,7 @@
                             <div class="crumina-module crumina-info-box reveal2" data-mh="box--classic"
                                 style="height: 290px;">
                                 <div class="info-box-image">
-                                    <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_06wsysj6.json"
+                                    <lottie-player data-src="https://assets2.lottiefiles.com/packages/lf20_06wsysj6.json"
                                         class="paymentPlayer5" background="transparent" speed="1" loop autoplay>
                                     </lottie-player>
                                 </div>
@@ -361,7 +372,7 @@
                             <div class="crumina-module crumina-info-box reveal2" data-mh="box--classic"
                                 style="height: 290px;">
                                 <div class="info-box-image">
-                                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_wgpzuvij.json"
+                                    <lottie-player data-src="https://assets4.lottiefiles.com/packages/lf20_wgpzuvij.json"
                                         class="paymentPlayer5" background="transparent" speed="1" loop autoplay>
                                     </lottie-player>
                                 </div>
@@ -377,7 +388,7 @@
                             <div class="crumina-module crumina-info-box reveal3" data-mh="box--classic"
                                 style="height: 290px;">
                                 <div class="info-box-image">
-                                    <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_hvna72e5.json"
+                                    <lottie-player data-src="https://assets3.lottiefiles.com/packages/lf20_hvna72e5.json"
                                         class="paymentPlayer5" background="transparent" speed="1" loop autoplay>
                                     </lottie-player>
                                 </div>
@@ -390,7 +401,7 @@
                             <div class="crumina-module crumina-info-box reveal3" data-mh="box--classic"
                                 style="height: 290px;">
                                 <div class="info-box-image">
-                                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_ekbjyozv.json"
+                                    <lottie-player data-src="https://assets4.lottiefiles.com/packages/lf20_ekbjyozv.json"
                                         class="paymentPlayer5" background="transparent" speed="1" loop autoplay>
                                     </lottie-player>
                                 </div>
@@ -409,8 +420,8 @@
             <div class="container reveal2">
                 <div class="row mb60">
                     <div class="col col-xl-6 col-lg-6 m-auto col-md-12 col-sm-12 col-12" align="center">
-                        <h1>How It Works</h1>
-                        <h3>The Runwae Agreement Process</h3>
+                        <h1 aria-level="2">How It Works</h1>
+                        <h3 role="none">The Runwae Agreement Process</h3>
                     </div>
                 </div>
                 <div class="row mb60 progressContainer">
@@ -476,7 +487,7 @@
                 <div class="row influencerGuideSubmit">
                     <div class="col col-xl-6 col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12" align="center">
                         <div class="crumina-module crumina-heading">
-                            <h5 style="color:black">GET THE BEGINNER'S GUIDE TO BECOMING AN INFLUENCER!
+                            <h5 role="none" style="color:black">GET THE BEGINNER'S GUIDE TO BECOMING AN INFLUENCER!
                             </h5>
                         </div>
                         <!-- Subscribe Form  -->
@@ -506,14 +517,14 @@
             <div class="container">
                 <div class="row">
                     <div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-                        <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_zhxvbmuu.json"
+                        <lottie-player data-src="https://assets1.lottiefiles.com/packages/lf20_zhxvbmuu.json"
                             class="paymentPlayer2 reveal2" background="transparent" speed="1" loop autoplay>
                         </lottie-player>
                     </div>
                     <div class="col col-xl-4 col-lg-4 m-auto col-md-12 col-sm-12 col-12">
                         <div class="crumina-module crumina-heading reveal3">
                             <h2 class="heading-title">Trustworthy<br><span class="c-primary">Agreements</span></h2>
-                            <h4 class="heading-text">Use Runwae to screen brands and influencers before collaborating.
+                            <h4 class="heading-text" role="none">Use Runwae to screen brands and influencers before collaborating.
                                 View their social media profiles and the marketing agreements that they’ve completed on
                                 Runwae.
                             </h4>
@@ -560,7 +571,7 @@
             <div class="row subscribeSubmit">
                 <div class="col col-xl-6 col-lg-6 offset-lg-3 col-md-12 col-sm-12 col-12" align="center">
                     <div class="crumina-module crumina-heading c-white custom-color">
-                        <h3 class="heading-text">Subscribe to be the first one to know about updates, new features and
+                        <h3 class="heading-text" role="none">Subscribe to be the first one to know about updates, new features and
                             much more!
                         </h3>
                     </div>
@@ -586,7 +597,7 @@
             </div>
         </div>
     </section>
-    </div>
+    </main>
     <!-- ... end Section Subscribe Animation -->
     <!-- ... end Section Call To Action Animation -->
     <!-- Window-popup Restore Password -->
@@ -595,10 +606,10 @@
         <div class="modal-dialog window-popup restore-password-popup" role="document">
             <div class="modal-content">
                 <button type="button" class="close icon-close" data-dismiss="modal" aria-label="Close">
-                    <ion-icon name="close-outline" class="close-icon"></ion-icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ion-svg close-icon" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>
                 </button>
                 <div class="modal-header">
-                    <h6 class="title">Reset your Password</h6>
+                    <h6 class="title" aria-level="2">Reset your Password</h6>
                 </div>
                 <div class="modal-body">
                     <form onSubmit="return false;">
@@ -617,7 +628,7 @@
         </div>
     </div>
 
-    <div class="footer footer-full-width" id="footer">
+    <div class="footer footer-full-width" id="footer" role="contentinfo">
         <div class="container">
             <div class="row">
                 <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
@@ -625,16 +636,16 @@
                     <div class="widget w-about">
                         <a href="welcome" class="logo" style="float:none">
                             <div class="img-wrap">
-                                <img loading="lazy" src="img/logo-colored.png" alt="Olympus">
+                                <img width="34" height="34" loading="lazy" src="img/logo-colored-68.png" alt="">
                             </div>
                             <div class="title-block">
-                                <h6 class="logo-title">Runwae</h6>
+                                <h6 class="logo-title" role="none">Runwae</h6>
                             </div>
                         </a>
                         <p>Cultivating meaningful partnerships through honest design.</p>
                         <ul class="socials">
                             <li>
-                                <a href="https://www.facebook.com/runwaeplatform">
+                                <a href="https://www.facebook.com/runwaeplatform" aria-label="Runwae on Facebook">
                                     <svg class="svg-inline--fa fa-facebook-square fa-w-14" aria-hidden="true"
                                         data-prefix="fab" data-icon="facebook-square" role="img"
                                         xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
@@ -645,7 +656,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="https://twitter.com/runwae_">
+                                <a href="https://twitter.com/runwae_" aria-label="Runwae on Twitter">
                                     <svg class="svg-inline--fa fa-twitter fa-w-16" aria-hidden="true" data-prefix="fab"
                                         data-icon="twitter" role="img" xmlns="https://www.w3.org/2000/svg"
                                         viewBox="0 0 512 512" data-fa-i2svg="">
@@ -656,7 +667,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.youtube.com/channel/UCv3u08c4k4GxdW97HuXYmrw">
+                                <a href="https://www.youtube.com/channel/UCv3u08c4k4GxdW97HuXYmrw" aria-label="Runwae on YouTube">
                                     <svg class="svg-inline--fa fa-youtube fa-w-18" aria-hidden="true" data-prefix="fab"
                                         data-icon="youtube" role="img" xmlns="https://www.w3.org/2000/svg"
                                         viewBox="0 0 576 512" data-fa-i2svg="">
@@ -667,7 +678,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.instagram.com/runwae_/">
+                                <a href="https://www.instagram.com/runwae_/" aria-label="Runwae on Instagram">
                                     <svg class="svg-inline--fa fa-instagram fa-w-14" aria-hidden="true"
                                         data-prefix="fab" data-icon="instagram" role="img"
                                         xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
@@ -684,7 +695,7 @@
                 <div class="col col-lg-2 col-md-4 col-sm-12 col-12">
                     <!-- Widget List -->
                     <div class="widget w-list">
-                        <h6 class="title">Help</h6>
+                        <h6 class="title" aria-level="2">Help</h6>
                         <ul>
                             <li>
                                 <a href="faqs">FAQs</a>
@@ -695,7 +706,7 @@
                 </div>
                 <div class="col col-lg-2 col-md-4 col-sm-12 col-12">
                     <div class="widget w-list">
-                        <h6 class="title">Policy</h6>
+                        <h6 class="title" aria-level="2">Policy</h6>
                         <ul>
                             <li>
                                 <a href="privacy">Privacy</a>
@@ -758,7 +769,6 @@
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script type="module">
@@ -779,44 +789,14 @@
         window.analytics = firebase.analytics();
         window.database = firebase.database();
     </script>
-    <!-- JS Scripts -->
+    <!-- JS Scripts (PERF-001: only the plugins /welcome uses; app pages keep base-init.js) -->
     <script defer src="js/jquery-3.2.1.js"></script>
-    <script defer src="js/jquery.appear.js"></script>
-    <script defer src="js/jquery.mousewheel.js"></script>
     <script defer src="js/perfect-scrollbar.js"></script>
     <script defer src="js/jquery.matchHeight.js"></script>
-    <script defer src="js/svgxuse.js"></script>
-    <script defer src="js/imagesloaded.pkgd.js"></script>
     <script defer src="js/Headroom.js"></script>
-    <script defer src="js/velocity.js"></script>
-    <script defer src="js/ScrollMagic.js"></script>
-    <script defer src="js/jquery.waypoints.js"></script>
-    <script defer src="js/jquery.countTo.js"></script>
-    <script defer src="js/popper.min.js"></script>
     <script defer src="js/material.min.js"></script>
-    <script defer src="js/bootstrap-select.js"></script>
-    <script defer src="js/smooth-scroll.js"></script>
-    <script defer src="js/selectize.js"></script>
-    <script defer src="js/swiper.jquery.js"></script>
-    <script defer src="js/moment.js"></script>
-    <script defer src="js/daterangepicker.js"></script>
-    <script defer src="js/simplecalendar.js"></script>
-    <script defer src="js/fullcalendar.js"></script>
-    <script defer src="js/isotope.pkgd.js"></script>
-    <script defer src="js/ajax-pagination.js"></script>
-    <script defer src="js/Chart.js"></script>
-    <script defer src="js/chartjs-plugin-deferred.js"></script>
-    <script defer src="js/circle-progress.js"></script>
-    <script defer src="js/loader.js"></script>
-    <script defer src="js/run-chart.js"></script>
-    <script defer src="js/jquery.magnific-popup.js"></script>
-    <script defer src="js/jquery.gifplayer.js"></script>
-    <script defer src="js/mediaelement-and-player.js"></script>
-    <script defer src="js/mediaelement-playlist-plugin.min.js"></script>
-    <script defer src="js/ion.rangeSlider.js"></script>
-    <script defer src="js/base-init.js"></script>
     <script defer src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script defer src="js/svg-loader.js"></script>
+    <script defer src="js/welcome-init.js"></script>
     <div>
         <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
             xmlns="http://www.w3.org/2000/svg"></svg>
@@ -830,6 +810,54 @@
     <script defer src="runwaejs/navHQ.js"></script>
     <!-- Theme Toggle -->
     <script defer src="js/theme-toggle.js"></script>
+    <script>
+        // PERF-001: the 10 Lottie animations used to start at load (lottie-player was ~4s of main-thread work).
+        // The player script (pinned 2.0.12 + SRI, SURF-003) now loads after the page is idle, each animation
+        // loads only when it nears the viewport and pauses when off screen, and reduced-motion users get a still frame.
+        (function () {
+            var players = [].slice.call(document.querySelectorAll('lottie-player[data-src]'));
+            if (!players.length) return;
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var requested = false, ready = false;
+            function loadLib() {
+                if (requested) return; requested = true;
+                var go = function () {
+                    var s = document.createElement('script');
+                    s.src = 'https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js';
+                    s.integrity = 'sha384-i8zT4p4C0XG4mPhfz0zuffZpppP8NjlttNsP6srEdEBatwZkcYUBoQtAW7sfKEp2';
+                    s.crossOrigin = 'anonymous';
+                    document.head.appendChild(s);
+                };
+                var idle = function () { (window.requestIdleCallback || function (f) { setTimeout(f, 1); })(go, { timeout: 3000 }); };
+                if (document.readyState === 'complete') idle(); else window.addEventListener('load', idle);
+            }
+            function activate(p) {
+                if (reduce) { p.removeAttribute('autoplay'); p.removeAttribute('loop'); }
+                if (!p.getAttribute('src')) {
+                    var src = p.getAttribute('data-src');
+                    p.setAttribute('src', src);
+                    // Already-upgraded players do not reload on a src attribute change; load explicitly.
+                    if (window.customElements && customElements.get('lottie-player') && typeof p.load === 'function') {
+                        try { p.load(src); } catch (_) {}
+                    }
+                }
+                loadLib();
+            }
+            if (!('IntersectionObserver' in window)) { players.forEach(activate); return; }
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    var p = e.target;
+                    if (e.isIntersecting) {
+                        if (!p.getAttribute('src')) activate(p);
+                        else if (!reduce && typeof p.play === 'function') { try { p.play(); } catch (_) {} }
+                    } else if (p.getAttribute('src') && typeof p.pause === 'function') {
+                        try { p.pause(); } catch (_) {}
+                    }
+                });
+            }, { rootMargin: '200px 0px' });
+            players.forEach(function (p) { io.observe(p); });
+        })();
+    </script>
 </body>
 
 </html>

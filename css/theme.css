@@ -5,7 +5,7 @@
 
 :root {
   /* Primary Colors */
-  --color-primary: #9389FF;
+  --color-primary: #6259e8;
   --color-primary-hover: #7b6fea;
   --color-primary-light: rgba(147, 137, 255, 0.1);
   --color-primary-dark: #6b5fcc;
@@ -32,10 +32,10 @@
 
   /* Text Colors - Light Mode */
   --color-text-primary: #515365;
-  --color-text-secondary: #888da8;
+  --color-text-secondary: #676c88;
   --color-text-muted: #9a9fbf;
   --color-text-heading: #3f4257;
-  --color-text-link: #9389FF;
+  --color-text-link: #6259e8;
 
   /* Border Colors - Light Mode */
   --color-border: #e6ecf5;

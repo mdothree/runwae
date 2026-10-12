@@ -100,6 +100,8 @@
 </head>
 
 <body class="body-bg-white">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main id="main">
     <div class="main-header main-header-fullwidth main-header-has-header-standard">
         <!-- Header Standard Landing  -->
         <div class="header--standard header--standard-landing animated headroom--not-bottom slideDown headroom--top"
@@ -108,11 +110,11 @@
                 <div class="header--standard-wrap">
                     <a href="/welcome" class="logo">
                         <div class="img-wrap">
-                            <img loading="lazy" src="img/logo-colored.png" alt="Runwae">
-                            <img loading="lazy" src="img/logo.png" alt="Runwae" class="logo-colored">
+                            <img width="34" height="34" loading="lazy" src="img/logo-colored-68.png" alt="">
+                            <img width="34" height="34" loading="lazy" src="img/logo-68.png" alt="" class="logo-colored">
                         </div>
                         <div class="title-block">
-                            <h6 class="logo-title">Runwae</h6>
+                            <h6 class="logo-title" role="none">Runwae</h6>
                         </div>
                     </a>
                     <button type="button" class="open-responsive-menu js-open-responsive-menu" aria-label="Open menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
@@ -149,7 +151,7 @@
         <!-- ... end Header Standard Landing  -->
         <div class="header-spacer--standard"></div>
         <div class="content-bg-wrap bg-fixed bg-landing"></div>
-        <div class="container">
+        <div class="container" id="main-content" tabindex="-1">
             <div class="row display-flex">
                 <div class="col  m-auto col-lg-4 col-md-6 col-sm-8 col-xs-8">
                     <div class="registration-login-form" style="padding:0px">
@@ -157,7 +159,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane" id="signUpPanel" role="tabpanel" data-mh="log-tab">
-                                <div class="title h6">Create Account</div>
+                                <div class="title h6" role="heading" aria-level="1">Create Account</div>
                                 <form class="content" onSubmit="return false;">
                                     <div class="row">
                                         <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -180,26 +182,27 @@
                                         </div>
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 brandName">
                                             <div class="form-group label-floating is-empty">
-                                                <label class="control-label nameLabel">Name</label>
-                                                <input class="form-control" placeholder="" id="nameInput">
+                                                <label class="control-label nameLabel" for="nameInput">Name</label>
+                                                <input class="form-control" placeholder="" id="nameInput" name="name" autocomplete="name" aria-required="true">
                                                                                             </div>
                                         </div>
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 brandName">
                                             <div class="form-group label-floating is-empty">
-                                                <label class="control-label">Username</label>
-                                                <input class="form-control" placeholder="" id="usernameInput">
+                                                <label class="control-label" for="usernameInput">Username</label>
+                                                <input class="form-control" placeholder="" id="usernameInput" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" aria-required="true">
                                                                                             </div>
                                         </div>
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group label-floating is-empty">
-                                                <label class="control-label">Your Email</label>
+                                                <label class="control-label" for="txtEmailSignUp">Your Email</label>
                                                 <input class="form-control" placeholder="" type="email"
-                                                    id="txtEmailSignUp">
+                                                    id="txtEmailSignUp" name="email" autocomplete="email" aria-required="true">
                                                                                             </div>
                                             <div class="form-group label-floating is-empty">
-                                                <label class="control-label">Your Password</label>
+                                                <label class="control-label" for="txtPasswordSignUp">Your Password</label>
                                                 <input class="form-control" placeholder="" type="password"
-                                                    id="txtPasswordSignUp">
+                                                    id="txtPasswordSignUp" name="new-password" autocomplete="new-password" minlength="6" aria-required="true" aria-describedby="pwHintSignUp">
+                                                <span id="pwHintSignUp" class="sr-only">At least 6 characters.</span>
                                                                                             </div>
                                             <div class="remember">
                                                 <div class="checkbox clicked">
@@ -212,7 +215,7 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <p style="color: salmon" id="error"></p>
+                                            <p style="color: #c0392b" id="error" role="alert"></p>
                                             <br>
                                             <button type="button" id="btnSignUp" class="btn btn-purple btn-lg full-width">Sign
                                                 Up</button>
@@ -222,19 +225,19 @@
                                 </form>
                             </div>
                             <div class="tab-pane" id="loginPanel" role="tabpanel" data-mh="log-tab">
-                                <div class="title h6">Login</div>
+                                <div class="title h6" role="heading" aria-level="1">Login</div>
                                 <form class="content" onSubmit="return false;">
                                     <div class="row">
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <div class="form-group label-floating is-empty">
-                                                <label class="control-label">Your Email</label>
+                                                <label class="control-label" for="txtEmailLogin">Your Email</label>
                                                 <input class="form-control" placeholder="" type="email"
-                                                    id="txtEmailLogin">
+                                                    id="txtEmailLogin" name="email" autocomplete="username" aria-required="true">
                                                                                             </div>
                                             <div class="form-group label-floating is-empty">
-                                                <label class="control-label">Your Password</label>
+                                                <label class="control-label" for="txtPasswordLogin">Your Password</label>
                                                 <input class="form-control" placeholder="" type="password"
-                                                    id="txtPasswordLogin">
+                                                    id="txtPasswordLogin" name="current-password" autocomplete="current-password" aria-required="true">
                                                                                             </div>
                                             <div class="remember">
                                                 <div class="checkbox">
@@ -247,7 +250,7 @@
                                                 <a href="#restore-password" class="forgot" data-toggle="modal"
                                                     data-target="#restore-password" role="button">Forgot my Password</a>
                                             </div>
-                                            <p style="color: salmon" id="loginError"></p><br>
+                                            <p style="color: #c0392b" id="loginError" role="alert"></p><br>
                                             <button type="button" class="btn btn-lg btn-purple full-width" id="btnLogin">Login</button>
                                             <p>Don’t have an account? <a href="login?signup" id="registerNow">Sign Up</a>
                                         </div>
@@ -260,6 +263,7 @@
             </div>
         </div>
     </div>
+    </main>
     <!-- Window-popup Restore Password -->
     <div class="modal fade" id="restore-password" tabindex="-1" role="dialog" aria-labelledby="restore-password"
         aria-hidden="true">
@@ -277,10 +281,10 @@
                             proceed.
                         </p>
                         <div class="form-group label-floating">
-                            <label class="control-label">Your Email</label>
-                            <input class="form-control" placeholder="" type="email" value="" id="forgotPasswordEmail">
+                            <label class="control-label" for="forgotPasswordEmail">Your Email</label>
+                            <input class="form-control" placeholder="" type="email" value="" id="forgotPasswordEmail" name="email" autocomplete="email">
                             </div>
-                        <p style="color: salmon" id="forgotPasswordError"></p><br>
+                        <p style="color: #c0392b" id="forgotPasswordError" role="alert"></p><br>
                         <button class="btn btn-purple btn-lg full-width" id="btnSendEmail">Send me the Email</button>
                     </form>
                 </div>
