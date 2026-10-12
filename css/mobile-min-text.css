@@ -1,0 +1,31 @@
+/*
+ * MOBILE-GENERAL-TEXT-SIZE: no rendered text under 12px on phones.
+ * Loaded only by the legal pages (terms, privacy), the FAQ page and the blog
+ * (index + posts). Phone widths only, so the desktop layout is unchanged.
+ * At <1024px Bootstrap sets html to 13px, so body (.812rem) rendered at 10.6px
+ * and p (.875rem) at 11.4px; the theme also had 8-11px meta text.
+ */
+@media (max-width: 767.98px) {
+    body { font-size: 12px; }
+    body p { font-size: max(.875rem, 12px); }
+    body .blog-post .author-date,
+    body .blog-post .author-date *,
+    body .post-date,
+    body .post-date *,
+    body .post-date-wrap .post-date span,
+    body blockquote h6,
+    body blockquote h6 span,
+    body .post-category,
+    body .author-date,
+    body .author-date a,
+    body .author-date .h6,
+    body time.published,
+    body .post__date,
+    body .btn,
+    body .total-topic,
+    body .footer .w-list .title,
+    body .footer .w-list a,
+    body .sub-footer-copyright,
+    body .sub-footer-copyright span,
+    body .sub-footer-copyright a { font-size: 12px; }
+}
