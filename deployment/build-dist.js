@@ -51,6 +51,12 @@ for (const f of fs.readdirSync(root)) {
 for (const d of DIRS) {
   if (fs.existsSync(path.join(root, d))) { copyDir(path.join(root, d), path.join(dist, d)); n++; }
 }
+// SURF-006: RFC 9116 security.txt (copyDir skips dot-dirs, so copy it explicitly).
+const secTxt = path.join(root, '.well-known', 'security.txt');
+if (fs.existsSync(secTxt)) {
+  fs.mkdirSync(path.join(dist, '.well-known'), { recursive: true });
+  fs.copyFileSync(secTxt, path.join(dist, '.well-known', 'security.txt')); n++;
+}
 
 // Guard: the build must fail rather than publish anything sensitive.
 const MUST_NOT_EXIST = [
@@ -61,6 +67,10 @@ const MUST_NOT_EXIST = [
 ];
 const leaked = MUST_NOT_EXIST.filter((p) => fs.existsSync(path.join(dist, p)));
 if (leaked.length) { console.error('build-dist: refusing, sensitive paths in dist:', leaked); process.exit(1); }
+if (!fs.existsSync(path.join(dist, '.well-known', 'security.txt'))) {
+  console.error('build-dist: .well-known/security.txt missing from dist');
+  process.exit(1);
+}
 if (!fs.existsSync(path.join(dist, 'welcome.html')) || !fs.existsSync(path.join(dist, 'js', 'runtime-config.js'))) {
   console.error('build-dist: welcome.html or js/runtime-config.js missing from dist (run inject-config.js first)');
   process.exit(1);
