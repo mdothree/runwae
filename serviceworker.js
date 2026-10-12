@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const CACHE_NAME = 'runwae-cache-v3';
+const CACHE_NAME = 'runwae-cache-v4';
 const RUNTIME_CACHE = 'runwae-runtime-v1';
 
 // Core assets to precache on install

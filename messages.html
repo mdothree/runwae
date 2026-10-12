@@ -72,6 +72,7 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script src="/js/consent.js"></script>
 </head>
 
 <body class="page-has-left-panels page-has-right-panels">
@@ -407,7 +408,7 @@
     </div>
     <div class="modal-backdrop fade"></div>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+    <script type="text/plain" data-consent="analytics" data-consent-init="firebase-analytics" data-src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -427,7 +428,7 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        var analytics = firebase.analytics();
+        var analytics = RunwaeConsent.analytics();
         var database = firebase.database();
     </script>
     <!-- JS Scripts -->
@@ -476,7 +477,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
     </div>
     <!-- our js -->
-    <script src="runwaejs/analytics.js"></script>
+    <script type="text/plain" data-consent="analytics" data-src="runwaejs/analytics.js"></script>
     <script src="runwaejs/util.js"></script>
     <script src="runwaejs/database.js"></script>
     <script src="runwaejs/write.js"></script>

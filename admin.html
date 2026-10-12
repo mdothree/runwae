@@ -63,6 +63,7 @@
         });
 
     </script>
+    <script src="/js/consent.js"></script>
 </head>
 
 <body class="page-has-left-panels page-has-right-panels" style="background-color: black;">
@@ -586,7 +587,7 @@
             </div>
         </div>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+        <script type="text/plain" data-consent="analytics" data-consent-init="firebase-analytics" data-src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
@@ -605,7 +606,7 @@
             };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
-            var analytics = firebase.analytics();
+            var analytics = RunwaeConsent.analytics();
             var database = firebase.database();
 
         </script>
