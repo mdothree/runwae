@@ -5,7 +5,8 @@
  * published the whole repo root: logs, config, rules, docs, build scripts).
  * Replaces the old post-build deny-list (deployment/prune-public.js).
  *
- * Run after deployment/inject-config.js (which writes js/config.js).
+ * Run after deployment/inject-config.js (which writes js/runtime-config.js; the old js/config.js
+ * name is never published: RUNWAE-PUBLIC-CONFIG-FILES).
  * api/ is NOT copied: Vercel builds api/*.js as serverless functions from the
  * project root regardless of outputDirectory.
  */
@@ -40,6 +41,8 @@ function copyDir(src, dst) {
 }
 
 fs.rmSync(dist, { recursive: true, force: true });
+// A stale js/config.js from an older local build must never ship.
+fs.rmSync(path.join(root, 'js', 'config.js'), { force: true });
 fs.mkdirSync(dist);
 let n = 0;
 for (const f of fs.readdirSync(root)) {
@@ -54,11 +57,12 @@ const MUST_NOT_EXIST = [
   'vercel.json', 'deployment', 'api', 'docs', 'package.json', 'firebase.json',
   'database.rules.json', 'README.md', 'STATUS.md', 'marketerLedger.txt', 'error_log',
   'database-debug.log', 'ui-debug.log', 'email.php', '.vercel', '.vscode', 'og/build.sh',
+  'js/config.js',
 ];
 const leaked = MUST_NOT_EXIST.filter((p) => fs.existsSync(path.join(dist, p)));
 if (leaked.length) { console.error('build-dist: refusing, sensitive paths in dist:', leaked); process.exit(1); }
-if (!fs.existsSync(path.join(dist, 'welcome.html')) || !fs.existsSync(path.join(dist, 'js', 'config.js'))) {
-  console.error('build-dist: welcome.html or js/config.js missing from dist (run inject-config.js first)');
+if (!fs.existsSync(path.join(dist, 'welcome.html')) || !fs.existsSync(path.join(dist, 'js', 'runtime-config.js'))) {
+  console.error('build-dist: welcome.html or js/runtime-config.js missing from dist (run inject-config.js first)');
   process.exit(1);
 }
 console.log(`build-dist: ${n} entries copied to dist/`);

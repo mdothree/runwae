@@ -1,6 +1,6 @@
 //-------------------------------SELECT CASCADING (Mapbox)-------------------------//
 var currentCities = [];
-// Token loaded from config.js (injected at build time from Vercel env vars)
+// Token loaded from runtime-config.js (injected at build time from Vercel env vars)
 var MAPBOX_TOKEN = (window.RUNWAE_CONFIG && window.RUNWAE_CONFIG.MAPBOX_TOKEN) || "";
 
 // Static list of countries (ISO 3166-1)

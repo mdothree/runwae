@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Build script to inject environment variables into config.js
+ * Build script to inject environment variables into js/runtime-config.js
  * Run before deployment: node deployment/inject-config.js
  */
 
@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 const templatePath = path.join(__dirname, '..', 'js', 'config.template.js');
-const outputPath = path.join(__dirname, '..', 'js', 'config.js');
+const outputPath = path.join(__dirname, '..', 'js', 'runtime-config.js');
 
 // Read template
 let template = fs.readFileSync(templatePath, 'utf8');

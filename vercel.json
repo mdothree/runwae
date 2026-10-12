@@ -4,20 +4,49 @@
   "cleanUrls": true,
   "redirects": [
     {
-      "source": "/",
-      "has": [{ "type": "host", "value": "www.runwae.com" }],
-      "destination": "https://runwae.com/welcome",
-      "statusCode": 301
-    },
-    {
-      "source": "/",
-      "destination": "/welcome",
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.runwae.com"
+        }
+      ],
+      "destination": "https://runwae.com/:path*",
       "statusCode": 301
     },
     {
       "source": "/blog/HowToMarketSkincareProdcutsUsingInfluencers",
       "destination": "/blog/HowToMarketSkincareProductsUsingInfluencers",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/welcome.html"
+    },
+    {
+      "source": "/js/libs/:file",
+      "destination": "/js/:file"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "upgrade-insecure-requests; object-src 'none'; base-uri 'self'; frame-ancestors 'self'"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
     }
   ],
   "functions": {
