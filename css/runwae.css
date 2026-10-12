@@ -1276,3 +1276,14 @@ main p a:not(.btn), main label a:not(.btn), main li > p a:not(.btn) { text-decor
 /* A11Y-003: the open mobile menu sits on the (now darker) brand purple; white text keeps 5.1:1. */
 .header--standard-landing .header-menu.open .nav-link,
 .header--standard-landing .header-menu.open .close-responsive-menu button { color: #ffffff; }
+
+/* RUNWAE-UI: on desktop (wider than the 768px off-canvas breakpoint) the header links were hidden
+   behind an extra "expand" toggle, so the only visible nav control was a hamburger. Show the links. */
+@media (min-width: 769px) {
+  .header--standard-landing .header-menu .nav-item { visibility: visible; opacity: 1; }
+  .header--standard-landing .header-menu .nav-item.js-expanded-menu { display: none; }
+  /* Once the header turns brand purple on scroll, black links drop to ~4:1; white keeps 5:1. */
+  .header--standard-landing.headroom--not-top .header-menu .nav-item a { color: #ffffff; fill: #ffffff; }
+  /* The inherited hover colour is white, which vanished on the white top-of-page header. */
+  .header--standard-landing:not(.headroom--not-top) .header-menu .nav-item .nav-link:hover { color: #4338ca; }
+}
