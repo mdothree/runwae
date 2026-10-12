@@ -152,7 +152,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Getting Started<a href="#gettingstarted" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Getting Started<a href="#gettingstarted" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -183,7 +183,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Posts<a href="#posts" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Posts<a href="#posts" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -215,7 +215,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Gigs<a href="#gigs" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Gigs<a href="#gigs" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -247,7 +247,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Interests<a href="#interests" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Interests<a href="#interests" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -279,7 +279,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Followers<a href="#followers" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Followers<a href="#followers" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -311,7 +311,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Favorites<a href="#favorites" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Favorites<a href="#favorites" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -343,7 +343,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Messaging<a href="#messaging" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Messaging<a href="#messaging" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -375,7 +375,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Shares<a href="#shares" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Shares<a href="#shares" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -407,7 +407,7 @@
                     <!-- Help Support Block -->
 
                     <div class="help-support-block">
-                        <h3 class="title">Payment<a href="#payment" class="total-topic">3</a></h3>
+                        <h3 class="title" aria-level="2">Payment<a href="#payment" class="total-topic">3</a></h3>
                         <ul class="help-support-list">
                             <li>
                                 <svg class="blog-icon">
@@ -442,14 +442,13 @@
                 <div class="col col-xl-8 m-auto col-lg-10 col-md-12 col-sm-12 col-12">
 
 
-                    <div id="accordion" role="tablist" aria-multiselectable="true" class="accordion-faqs">
+                    <div id="accordion" class="accordion-faqs">
                         <div class="card">
-                            <h1 id="gettingstarted">Getting Started</h1>
-                            <div class="card-header" role="tab" id="headingOne">
+                            <h1 id="gettingstarted" aria-level="2">Getting Started</h1>
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whatisrunwae">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                                        aria-expanded="true" aria-controls="collapseOne">What is Runwae?<span
-                                            class="icons-wrap">
+                                    <button type="button" id="headingOne" class="faq-toggle" data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">What is Runwae?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -457,11 +456,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                            <div id="collapseOne" class="collapse show" role="region" aria-labelledby="headingOne">
                                 <p>
                                     At Runwae, our mission is to cultivate meaningful partnerships and opportunities
                                     through honest design. We do that through our apparel line and our online platform.
@@ -475,11 +474,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-1">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whocansignup">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-1"
-                                        aria-expanded="false" aria-controls="collapseOne-1" class="collapsed">Who can sign
-                                        up?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-1" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-1"
+                                        aria-expanded="false" aria-controls="collapseOne-1">Who can sign
+                                        up?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -487,11 +486,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-1" class="collapse" role="tabpanel" aria-labelledby="headingOne-1">
+                            <div id="collapseOne-1" class="collapse" role="region" aria-labelledby="headingOne-1">
                                 <p>
                                     Whether you're already established or just getting started, Runwae is the place for
                                     you. At Runwae, we know that Fast Influencer Marketing, and we allow you to get paid
@@ -506,11 +505,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-2">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="isitfree">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-2"
-                                        aria-expanded="false" aria-controls="collapseOne-2" class="collapsed">Is it
-                                        free?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-2" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-2"
+                                        aria-expanded="false" aria-controls="collapseOne-2">Is it
+                                        free?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -518,11 +517,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-2" class="collapse" role="tabpanel" aria-labelledby="headingOne-2">
+                            <div id="collapseOne-2" class="collapse" role="region" aria-labelledby="headingOne-2">
                                 <p>
                                     It is completely free to sign up on Runwae. Registered users will always have free
                                     membership. At this point, we cannot promise that registration will always be free
@@ -536,14 +535,14 @@
                                 </p>
                             </div>
 
-                            <h1 id="posts">Posts</h1>
+                            <h1 id="posts" aria-level="2">Posts</h1>
 
-                            <div class="card-header" role="tab" id="headingOne-3">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whatisapost">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-3"
-                                        aria-expanded="false" aria-controls="collapseOne-3" class="collapsed">
+                                    <button type="button" id="headingOne-3" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-3"
+                                        aria-expanded="false" aria-controls="collapseOne-3">
                                         What is a Runwae Post?
-                                        <span class="icons-wrap">
+                                        <span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -551,11 +550,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-3" class="collapse" role="tabpanel" aria-labelledby="headingOne-3">
+                            <div id="collapseOne-3" class="collapse" role="region" aria-labelledby="headingOne-3">
                                 <p>
                                     Marketers post opportunities in search of influencers on the Runwae platform. These
                                     post can be viewed on the explore page, or the profile page of the marketer. The
@@ -573,11 +572,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-4">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whocanpost">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-4"
-                                        aria-expanded="false" aria-controls="collapseOne-4" class="collapsed">Who can post
-                                        on Runwae?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-4" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-4"
+                                        aria-expanded="false" aria-controls="collapseOne-4">Who can post
+                                        on Runwae?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -585,11 +584,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-4" class="collapse" role="tabpanel" aria-labelledby="headingOne-4">
+                            <div id="collapseOne-4" class="collapse" role="region" aria-labelledby="headingOne-4">
                                 <p>
                                     Marketers are allowed to post opportunities on the Runwae platform. First, you must
                                     create an account as a marketer.
@@ -600,11 +599,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-5">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="howdoipost">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-5"
-                                        aria-expanded="false" aria-controls="collapseOne-5" class="collapsed">How do I post
-                                        on Runwae?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-5" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-5"
+                                        aria-expanded="false" aria-controls="collapseOne-5">How do I post
+                                        on Runwae?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -612,11 +611,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-5" class="collapse" role="tabpanel" aria-labelledby="headingOne-5">
+                            <div id="collapseOne-5" class="collapse" role="region" aria-labelledby="headingOne-5">
                                 <p>
                                     At the top of the explore page, registered marketers will be prompted to create a
                                     post on Runwae. Use the caption, platforms, and compensation tabs to navigate.
@@ -631,12 +630,12 @@
                                 </p>
                             </div>
 
-                            <h1 id="gigs">Gigs</h1>
-                            <div class="card-header" role="tab" id="headingOne-6">
+                            <h1 id="gigs" aria-level="2">Gigs</h1>
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whatisagig">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-6"
-                                        aria-expanded="false" aria-controls="collapseOne-6" class="collapsed">What is a gig
-                                        on Runwae?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-6" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-6"
+                                        aria-expanded="false" aria-controls="collapseOne-6">What is a gig
+                                        on Runwae?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -644,10 +643,10 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
-                            <div id="collapseOne-6" class="collapse" role="tabpanel" aria-labelledby="headingOne-6">
+                            <div id="collapseOne-6" class="collapse" role="region" aria-labelledby="headingOne-6">
                                 <p>
                                     A gig on Runwae is an agreement between a marketer and an influencer. There are
                                     several steps in completing the gig before it is completed. Gigs are designed to
@@ -676,11 +675,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-7">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="howdoistartagig">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-7"
-                                        aria-expanded="false" aria-controls="collapseOne-7" class="collapsed">How do I
-                                        start a gig?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-7" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-7"
+                                        aria-expanded="false" aria-controls="collapseOne-7">How do I
+                                        start a gig?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -688,22 +687,22 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-7" class="collapse" role="tabpanel" aria-labelledby="headingOne-7">
+                            <div id="collapseOne-7" class="collapse" role="region" aria-labelledby="headingOne-7">
                                 <p>
                                     A marketer initiates a gig once the engage interests that has been shown on their
                                     post. Therefore, a marketer must first post a proposal, then an influencer must show
                                     interest in the proposal in order for a gig to be initiated.
                                 </p>
                             </div>
-                            <div class="card-header" role="tab" id="headingOne-8">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="howlongdoesagiglast">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-8"
-                                        aria-expanded="false" aria-controls="collapseOne-8" class="collapsed">How long does
-                                        a gig last?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-8" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-8"
+                                        aria-expanded="false" aria-controls="collapseOne-8">How long does
+                                        a gig last?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -711,11 +710,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-8" class="collapse" role="tabpanel" aria-labelledby="headingOne-8">
+                            <div id="collapseOne-8" class="collapse" role="region" aria-labelledby="headingOne-8">
                                 <p>
                                     A gig can remain open for as long as it takes the two parties to complete it. Either
                                     party can decline the gig if no payment has been made. If a payment has been
@@ -724,12 +723,12 @@
                                 </p>
 
                             </div>
-                            <h1 id="interests">Interest</h1>
-                            <div class="card-header" role="tab" id="headingOne-10">
+                            <h1 id="interests" aria-level="2">Interest</h1>
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whatisinterest">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-10"
-                                        aria-expanded="false" aria-controls="collapseOne-10" class="collapsed">What is
-                                        interest on Runwae?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-10" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-10"
+                                        aria-expanded="false" aria-controls="collapseOne-10">What is
+                                        interest on Runwae?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -737,22 +736,22 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-10" class="collapse" role="tabpanel" aria-labelledby="headingOne-10">
+                            <div id="collapseOne-10" class="collapse" role="region" aria-labelledby="headingOne-10">
                                 <p>
                                     An influencer expresses that they are interested in an opportunity posted by a
                                     marketer.
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-11">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="howdoishowinterest">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-11"
-                                        aria-expanded="false" aria-controls="collapseOne-11" class="collapsed">How do I show
-                                        interest?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-11" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-11"
+                                        aria-expanded="false" aria-controls="collapseOne-11">How do I show
+                                        interest?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -760,11 +759,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-11" class="collapse" role="tabpanel" aria-labelledby="headingOne-11">
+                            <div id="collapseOne-11" class="collapse" role="region" aria-labelledby="headingOne-11">
                                 <p>
                                     On a Runwae post, social media icons are listed which represent the social media
                                     platforms that the marketer is looking to promote on. Influencers can show interest
@@ -777,11 +776,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-12">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="caniremoveinterest">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-12"
-                                        aria-expanded="false" aria-controls="collapseOne-12" class="collapsed">Can I remove
-                                        interest?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-12" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-12"
+                                        aria-expanded="false" aria-controls="collapseOne-12">Can I remove
+                                        interest?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -789,23 +788,23 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-12" class="collapse" role="tabpanel" aria-labelledby="headingOne-12">
+                            <div id="collapseOne-12" class="collapse" role="region" aria-labelledby="headingOne-12">
                                 <p>
                                     Once you show interest in a post on Runwae, you cannot remove the interest shown on
                                     the post. Your interest does not hold you to any responsibility.
                                 </p>
                             </div>
 
-                            <h1 id="followers">Followers</h1>
-                            <div class="card-header" role="tab" id="headingOne-13">
+                            <h1 id="followers" aria-level="2">Followers</h1>
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whatarefollowers">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-13"
-                                        aria-expanded="false" aria-controls="collapseOne-13" class="collapsed">What are
-                                        followers on Runwae?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-13" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-13"
+                                        aria-expanded="false" aria-controls="collapseOne-13">What are
+                                        followers on Runwae?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -813,11 +812,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-13" class="collapse" role="tabpanel" aria-labelledby="headingOne-13">
+                            <div id="collapseOne-13" class="collapse" role="region" aria-labelledby="headingOne-13">
                                 <p>
                                     Users of the same role may follow each other on the Runwae platform. An influencer
                                     cannot follow a marketer, and vice versa. The people who follow you are displayed on
@@ -829,11 +828,11 @@
                                     follow.
                                 </p>
                             </div>
-                            <div class="card-header" role="tab" id="headingOne-14">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whoshouldifollow">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-14"
-                                        aria-expanded="false" aria-controls="collapseOne-14" class="collapsed">Who should I
-                                        follow?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-14" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-14"
+                                        aria-expanded="false" aria-controls="collapseOne-14">Who should I
+                                        follow?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -841,11 +840,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-14" class="collapse" role="tabpanel" aria-labelledby="headingOne-14">
+                            <div id="collapseOne-14" class="collapse" role="region" aria-labelledby="headingOne-14">
                                 <p>
                                     You should follow users that you are interested in learning more about, users who
                                     have similar partnerships, or users who share similar interests. You may unfollow
@@ -853,11 +852,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-15">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whocanfollowme">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-15"
-                                        aria-expanded="false" aria-controls="collapseOne-15" class="collapsed">Who can
-                                        follow me?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-15" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-15"
+                                        aria-expanded="false" aria-controls="collapseOne-15">Who can
+                                        follow me?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -865,22 +864,22 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-15" class="collapse" role="tabpanel" aria-labelledby="headingOne-15">
+                            <div id="collapseOne-15" class="collapse" role="region" aria-labelledby="headingOne-15">
                                 <p>
                                     Anyone user of the same role may follow you on the Runwae platform. Currently,
                                     Runwae does not have the capability to allow users to block other users.
                                 </p>
                             </div>
-                            <h1 id="favorites">Favorites</h1>
-                            <div class="card-header" role="tab" id="headingOne-16">
+                            <h1 id="favorites" aria-level="2">Favorites</h1>
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whatarefavorites">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-16"
-                                        aria-expanded="false" aria-controls="collapseOne-16" class="collapsed">What are
-                                        favorites on Runwae?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-16" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-16"
+                                        aria-expanded="false" aria-controls="collapseOne-16">What are
+                                        favorites on Runwae?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -888,11 +887,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-16" class="collapse" role="tabpanel" aria-labelledby="headingOne-16">
+                            <div id="collapseOne-16" class="collapse" role="region" aria-labelledby="headingOne-16">
                                 <p>
                                     Users of opposite roles may follow each other on the Runwae platform. An influencer
                                     cannot favorite a influencer, and a marketer cannot favorite a marketer. The people
@@ -905,11 +904,11 @@
                                     to keep track of your interests.
                                 </p>
                             </div>
-                            <div class="card-header" role="tab" id="headingOne-17">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whoshouldifavorite">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-17"
-                                        aria-expanded="false" aria-controls="collapseOne-17" class="collapsed">Who should I
-                                        favorite?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-17" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-17"
+                                        aria-expanded="false" aria-controls="collapseOne-17">Who should I
+                                        favorite?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -917,22 +916,22 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-17" class="collapse" role="tabpanel" aria-labelledby="headingOne-17">
+                            <div id="collapseOne-17" class="collapse" role="region" aria-labelledby="headingOne-17">
                                 <p>
                                     Favorite pages that you find interesting or satisfactory. You may unfavorite pages
                                     whenever you choose.
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-18">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whocanfavoriteme">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-18"
-                                        aria-expanded="false" aria-controls="collapseOne-18" class="collapsed">Who can
-                                        favorite me?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-18" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-18"
+                                        aria-expanded="false" aria-controls="collapseOne-18">Who can
+                                        favorite me?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -940,21 +939,21 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-18" class="collapse" role="tabpanel" aria-labelledby="headingOne-18">
+                            <div id="collapseOne-18" class="collapse" role="region" aria-labelledby="headingOne-18">
                                 <p>
                                     Any user of the opposite role may favorite your page on Runwae.
                                 </p>
                             </div>
-                            <h1 id="messaging">Messaging</h1>
-                            <div class="card-header" role="tab" id="headingOne-19">
+                            <h1 id="messaging" aria-level="2">Messaging</h1>
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whatismessaging">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-19"
-                                        aria-expanded="false" aria-controls="collapseOne-19" class="collapsed">What is
-                                        Runwae messaging?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-19" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-19"
+                                        aria-expanded="false" aria-controls="collapseOne-19">What is
+                                        Runwae messaging?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -962,22 +961,22 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-19" class="collapse" role="tabpanel" aria-labelledby="headingOne-19">
+                            <div id="collapseOne-19" class="collapse" role="region" aria-labelledby="headingOne-19">
                                 <p>
                                     Runwae messagin is a conversation between a marketer and an influencer. They allow
                                     both parties to communicate intentions and desires in an agreement, and to maintain
                                     communication after the transaction.
                                 </p>
                             </div>
-                            <div class="card-header" role="tab" id="headingOne-20">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whocanimessage">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-20"
-                                        aria-expanded="false" aria-controls="collapseOne-20" class="collapsed">Who can I
-                                        message?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-20" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-20"
+                                        aria-expanded="false" aria-controls="collapseOne-20">Who can I
+                                        message?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -985,11 +984,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-20" class="collapse" role="tabpanel" aria-labelledby="headingOne-20">
+                            <div id="collapseOne-20" class="collapse" role="region" aria-labelledby="headingOne-20">
                                 <p>
                                     You can only message a user once a gig is initiated between you. Therefore, users of
                                     the same role cannot message each other on Runwae. This is done so that we
@@ -998,11 +997,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-21">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="howdoimessage">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-21"
-                                        aria-expanded="false" aria-controls="collapseOne-21" class="collapsed">How do I
-                                        message?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-21" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-21"
+                                        aria-expanded="false" aria-controls="collapseOne-21">How do I
+                                        message?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -1010,23 +1009,23 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-21" class="collapse" role="tabpanel" aria-labelledby="headingOne-21">
+                            <div id="collapseOne-21" class="collapse" role="region" aria-labelledby="headingOne-21">
                                 <p>
                                     Once you enter a gig, click the manage tab, and you will find the button prompting
                                     you to message your partner.
                                 </p>
                             </div>
 
-                            <h1 id="shares">Shares</h1>
-                            <div class="card-header" role="tab" id="headingOne-22">
+                            <h1 id="shares" aria-level="2">Shares</h1>
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whatareshares">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-22"
-                                        aria-expanded="false" aria-controls="collapseOne-22" class="collapsed">What are
-                                        shares on Runwae?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-22" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-22"
+                                        aria-expanded="false" aria-controls="collapseOne-22">What are
+                                        shares on Runwae?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -1034,22 +1033,22 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-22" class="collapse" role="tabpanel" aria-labelledby="headingOne-22">
+                            <div id="collapseOne-22" class="collapse" role="region" aria-labelledby="headingOne-22">
                                 <p>
                                     Users share a post to communicate their interest in the post to their followers.
                                     Currently, shares only appear on the activity feed, and not on the profile of the
                                     user who shared the item.
                                 </p>
                             </div>
-                            <div class="card-header" role="tab" id="headingOne-23">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="howdoishare">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-23"
-                                        aria-expanded="false" aria-controls="collapseOne-23" class="collapsed">How do I
-                                        share?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-23" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-23"
+                                        aria-expanded="false" aria-controls="collapseOne-23">How do I
+                                        share?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -1057,11 +1056,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-23" class="collapse" role="tabpanel" aria-labelledby="headingOne-23">
+                            <div id="collapseOne-23" class="collapse" role="region" aria-labelledby="headingOne-23">
                                 <p>
                                     Click the paper plane icon next to the comment icon when viewing a post. The icon
                                     will change colors to reflect tha you have shared the item. You may not unshare an
@@ -1070,11 +1069,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-24">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whocansharemycontent">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-24"
-                                        aria-expanded="false" aria-controls="collapseOne-24" class="collapsed">Who can share
-                                        my content?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-24" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-24"
+                                        aria-expanded="false" aria-controls="collapseOne-24">Who can share
+                                        my content?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -1082,21 +1081,21 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-24" class="collapse" role="tabpanel" aria-labelledby="headingOne-24">
+                            <div id="collapseOne-24" class="collapse" role="region" aria-labelledby="headingOne-24">
                                 <p>
                                     Anyone may share content on the Runwae platform, except the user that has posted it.
                                 </p>
                             </div>
-                            <h1 id="payment">Payment</h1>
-                            <div class="card-header" role="tab" id="headingOne-25">
+                            <h1 id="payment" aria-level="2">Payment</h1>
+                            <div class="card-header">
                                 <h3 class="mb-0" id="howdoigetpaid">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-25"
-                                        aria-expanded="false" aria-controls="collapseOne-25" class="collapsed">How do I get
-                                        paid?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-25" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-25"
+                                        aria-expanded="false" aria-controls="collapseOne-25">How do I get
+                                        paid?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -1104,11 +1103,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-25" class="collapse" role="tabpanel" aria-labelledby="headingOne-25">
+                            <div id="collapseOne-25" class="collapse" role="region" aria-labelledby="headingOne-25">
                                 <p>
                                     Influencers receive payment during the process of completing a gig with a marketer.
                                     This step occurs after the marketer has verified that the influencer posted the
@@ -1120,11 +1119,11 @@
                                     will receive a refund in a dispute.
                                 </p>
                             </div>
-                            <div class="card-header" role="tab" id="headingOne-26">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="ismypaymentsecure">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-26"
-                                        aria-expanded="false" aria-controls="collapseOne-26" class="collapsed">Is my payment
-                                        secure?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-26" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-26"
+                                        aria-expanded="false" aria-controls="collapseOne-26">Is my payment
+                                        secure?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -1132,11 +1131,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-26" class="collapse" role="tabpanel" aria-labelledby="headingOne-26">
+                            <div id="collapseOne-26" class="collapse" role="region" aria-labelledby="headingOne-26">
                                 <p>
                                     Runwae uses Stripe for all payments on the Runwae platform. Runwae only receives a
                                     token representing your payment information and never stores this token, or any
@@ -1144,11 +1143,11 @@
                                 </p>
                             </div>
 
-                            <div class="card-header" role="tab" id="headingOne-27">
+                            <div class="card-header">
                                 <h3 class="mb-0" id="whenwillibecharged">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne-27"
-                                        aria-expanded="false" aria-controls="collapseOne-27" class="collapsed">When will I
-                                        be charged?<span class="icons-wrap">
+                                    <button type="button" id="headingOne-27" class="faq-toggle collapsed" data-toggle="collapse" data-target="#collapseOne-27"
+                                        aria-expanded="false" aria-controls="collapseOne-27">When will I
+                                        be charged?<span class="icons-wrap" aria-hidden="true">
                                             <svg class="plus-icon">
                                                 <use xlink:href="#plus-icon"></use>
                                             </svg>
@@ -1156,11 +1155,11 @@
                                                 <use xlink:href="#accordion-close-icon"></use>
                                             </svg>
                                         </span>
-                                    </a>
+                                    </button>
                                 </h3>
                             </div>
 
-                            <div id="collapseOne-27" class="collapse" role="tabpanel" aria-labelledby="headingOne-27">
+                            <div id="collapseOne-27" class="collapse" role="region" aria-labelledby="headingOne-27">
                                 <p>
                                     Influencers are never charged on the Runwae platform. The marketer is during the gig
                                     process when they accept the proposal from the influencer. Though the marketer is

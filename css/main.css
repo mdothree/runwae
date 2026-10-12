@@ -13243,6 +13243,49 @@ ol ol li {
     align-items: baseline;
 }
 
+/* FAQ accordion toggles are real <button>s (A11Y: nested-interactive / aria-required-children);
+   these rules make them render exactly like the former .card-header links. */
+.accordion-faqs .card-header .faq-toggle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: baseline;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: left;
+    text-transform: none;
+    color: #515365;
+    cursor: pointer;
+    transition: all .15s ease;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.accordion-faqs .card-header .faq-toggle:hover,
+.accordion-faqs .card-header .faq-toggle:focus {
+    color: #515365;
+}
+
+@media (max-width: 600px) {
+    .accordion-faqs .card-header .faq-toggle {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    .accordion-faqs .card-header .faq-toggle {
+        font-size: 14px;
+    }
+}
+
 /*================= Responsive Mode ============*/
 @media (max-width: 600px) {
     .accordion-faqs .card-header {
