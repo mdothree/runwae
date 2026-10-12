@@ -5,8 +5,14 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/welcome.html",
-      "permanent": false
+      "has": [{ "type": "host", "value": "www.runwae.com" }],
+      "destination": "https://runwae.com/welcome",
+      "statusCode": 301
+    },
+    {
+      "source": "/",
+      "destination": "/welcome",
+      "statusCode": 301
     },
     {
       "source": "/blog/HowToMarketSkincareProdcutsUsingInfluencers",

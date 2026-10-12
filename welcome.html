@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en"
     class="wf-roboto-n4-active wf-roboto-n7-active wf-roboto-n5-active wf-roboto-n3-active wf-active fontawesome-i2svg-active fontawesome-i2svg-complete">
 
@@ -65,33 +66,33 @@
     <!-- Theme Support -->
     <link rel="stylesheet" type="text/css" href="css/theme.css">
     <style>
+        /* PERF-001: sizing for the 4 pre-rendered Font Awesome SVGs (fontawesome-all.js no longer loaded here) */
+        .svg-inline--fa { display: inline-block; font-size: inherit; height: 1em; overflow: visible; vertical-align: -.125em; }
+        .svg-inline--fa.fa-w-14 { width: .875em; } .svg-inline--fa.fa-w-16 { width: 1em; } .svg-inline--fa.fa-w-18 { width: 1.125em; }
         body {
             overflow-x: hidden;
             background-image: url(img/background.png);
             object-fit: cover;
         }
     </style>
-    <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css">
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css"></noscript>
+    <script defer src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js"></script>
     <!-- Main Font -->
-    <script src="js/webfontloader.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
+    <script>WebFontConfig = { google: { families: ['Roboto:300,400,500,700:latin'] } };</script>
+    <script async src="js/webfontloader.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin&amp;display=swap"
+        media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin&amp;display=swap"></noscript>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
     <script data-ad-client="ca-pub-7287110011977791" async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
+    <!-- PERF-001: inline module scripts run in document order with the deferred scripts (after ScrollMagic). -->
+    <script type="module">
         // init controller
-        var controller = new ScrollMagic.Controller();
-    </script>
-    <script>
-        WebFont.load({
-            google: {
-                families: ['Roboto:300,400,500,700:latin']
-            }
-        });
+        window.controller = new ScrollMagic.Controller();
     </script>
     <script src="//widget.manychat.com/104609561367359.js" async="async"></script>
     <script>
@@ -104,7 +105,7 @@
             });
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
 </head>
 
 <body class="body-bg-white">
@@ -116,8 +117,8 @@
                 <div class="header--standard-wrap">
                     <a href="/welcome" class="logo">
                         <div class="img-wrap">
-                            <img loading="lazy" src="img/logo-colored.png" alt="Runwae">
-                            <img loading="lazy" src="img/logo.png" alt="Runwae" class="logo-colored">
+                            <img src="img/logo-colored.png" alt="Runwae" fetchpriority="high">
+                            <img src="img/logo.png" alt="Runwae" class="logo-colored">
                         </div>
                         <div class="title-block">
                             <h6 class="logo-title">Runwae</h6>
@@ -309,7 +310,7 @@
                         <!-- Subscribe Form  -->
                         <form class="form-inline subscribe-form" onSubmit="return false;">
                             <div class="form-group label-floating is-empty">
-                                <label class="control-label">Enter your email</label>
+                                <label class="control-label" for="marketerGuideEmailInput">Enter your email</label>
                                 <input class="form-control bg-white" placeholder="" type="email"
                                     id="marketerGuideEmailInput">
                                 </div>
@@ -481,7 +482,7 @@
                         <!-- Subscribe Form  -->
                         <form class="form-inline subscribe-form" onSubmit="return false;">
                             <div class="form-group label-floating is-empty">
-                                <label class="control-label">Enter your email</label>
+                                <label class="control-label" for="influencerGuideEmailInput">Enter your email</label>
                                 <input class="form-control bg-white" placeholder="" type="email"
                                     id="influencerGuideEmailInput">
                                 </div>
@@ -566,7 +567,7 @@
                     <!-- Subscribe Form  -->
                     <form class="form-inline subscribe-form" onSubmit="return false;">
                         <div class="form-group label-floating is-empty">
-                            <label class="control-label">Enter your email</label>
+                            <label class="control-label" for="subscribeEmailInput">Enter your email</label>
                             <input class="form-control bg-white" placeholder="" type="email" id="subscribeEmailInput">
                             </div>
                         <button class="btn btn-lg" id="btnSubscribe">Send</button>
@@ -605,7 +606,7 @@
                             proceed.
                         </p>
                         <div class="form-group label-floating">
-                            <label class="control-label">Your Email</label>
+                            <label class="control-label" for="forgotPasswordEmail">Your Email</label>
                             <input class="form-control" placeholder="" type="email" value="" id="forgotPasswordEmail">
                             </div>
                         <p style="color: salmon" id="forgotPasswordError"></p><br>
@@ -717,7 +718,7 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="module">
         // build scene
         new ScrollMagic.Scene({
                 triggerElement: ".trigger1",
@@ -754,13 +755,13 @@
                 .addTo(controller);
         }
     </script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
-    <script>
+    <script type="module">
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         var firebaseConfig = {
@@ -775,61 +776,60 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        var analytics = firebase.analytics();
-        var database = firebase.database();
+        window.analytics = firebase.analytics();
+        window.database = firebase.database();
     </script>
     <!-- JS Scripts -->
-    <script src="js/jquery-3.2.1.js"></script>
-    <script src="js/jquery.appear.js"></script>
-    <script src="js/jquery.mousewheel.js"></script>
-    <script src="js/perfect-scrollbar.js"></script>
-    <script src="js/jquery.matchHeight.js"></script>
-    <script src="js/svgxuse.js"></script>
-    <script src="js/imagesloaded.pkgd.js"></script>
-    <script src="js/Headroom.js"></script>
-    <script src="js/velocity.js"></script>
-    <script src="js/ScrollMagic.js"></script>
-    <script src="js/jquery.waypoints.js"></script>
-    <script src="js/jquery.countTo.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/material.min.js"></script>
-    <script src="js/bootstrap-select.js"></script>
-    <script src="js/smooth-scroll.js"></script>
-    <script src="js/selectize.js"></script>
-    <script src="js/swiper.jquery.js"></script>
-    <script src="js/moment.js"></script>
-    <script src="js/daterangepicker.js"></script>
-    <script src="js/simplecalendar.js"></script>
-    <script src="js/fullcalendar.js"></script>
-    <script src="js/isotope.pkgd.js"></script>
-    <script src="js/ajax-pagination.js"></script>
-    <script src="js/Chart.js"></script>
-    <script src="js/chartjs-plugin-deferred.js"></script>
-    <script src="js/circle-progress.js"></script>
-    <script src="js/loader.js"></script>
-    <script src="js/run-chart.js"></script>
-    <script src="js/jquery.magnific-popup.js"></script>
-    <script src="js/jquery.gifplayer.js"></script>
-    <script src="js/mediaelement-and-player.js"></script>
-    <script src="js/mediaelement-playlist-plugin.min.js"></script>
-    <script src="js/ion.rangeSlider.js"></script>
-    <script src="js/base-init.js"></script>
-    <script defer="" src="fonts/fontawesome-all.js"></script>
-    <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="js/svg-loader.js"></script>
+    <script defer src="js/jquery-3.2.1.js"></script>
+    <script defer src="js/jquery.appear.js"></script>
+    <script defer src="js/jquery.mousewheel.js"></script>
+    <script defer src="js/perfect-scrollbar.js"></script>
+    <script defer src="js/jquery.matchHeight.js"></script>
+    <script defer src="js/svgxuse.js"></script>
+    <script defer src="js/imagesloaded.pkgd.js"></script>
+    <script defer src="js/Headroom.js"></script>
+    <script defer src="js/velocity.js"></script>
+    <script defer src="js/ScrollMagic.js"></script>
+    <script defer src="js/jquery.waypoints.js"></script>
+    <script defer src="js/jquery.countTo.js"></script>
+    <script defer src="js/popper.min.js"></script>
+    <script defer src="js/material.min.js"></script>
+    <script defer src="js/bootstrap-select.js"></script>
+    <script defer src="js/smooth-scroll.js"></script>
+    <script defer src="js/selectize.js"></script>
+    <script defer src="js/swiper.jquery.js"></script>
+    <script defer src="js/moment.js"></script>
+    <script defer src="js/daterangepicker.js"></script>
+    <script defer src="js/simplecalendar.js"></script>
+    <script defer src="js/fullcalendar.js"></script>
+    <script defer src="js/isotope.pkgd.js"></script>
+    <script defer src="js/ajax-pagination.js"></script>
+    <script defer src="js/Chart.js"></script>
+    <script defer src="js/chartjs-plugin-deferred.js"></script>
+    <script defer src="js/circle-progress.js"></script>
+    <script defer src="js/loader.js"></script>
+    <script defer src="js/run-chart.js"></script>
+    <script defer src="js/jquery.magnific-popup.js"></script>
+    <script defer src="js/jquery.gifplayer.js"></script>
+    <script defer src="js/mediaelement-and-player.js"></script>
+    <script defer src="js/mediaelement-playlist-plugin.min.js"></script>
+    <script defer src="js/ion.rangeSlider.js"></script>
+    <script defer src="js/base-init.js"></script>
+    <script defer src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script defer src="js/svg-loader.js"></script>
     <div>
         <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
             xmlns="http://www.w3.org/2000/svg"></svg>
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"></svg>
     </div>
-    <script src="runwaejs/analytics.js"></script>
-    <script src="runwaejs/database.js"></script>
-    <script src="runwaejs/util.js"></script>
-    <script src="runwaejs/subscribe.js"></script>
-    <script src="runwaejs/navHQ.js"></script>
+    <script defer src="runwaejs/analytics.js"></script>
+    <script defer src="runwaejs/database.js"></script>
+    <script defer src="runwaejs/util.js"></script>
+    <script defer src="runwaejs/subscribe.js"></script>
+    <script defer src="runwaejs/navHQ.js"></script>
     <!-- Theme Toggle -->
-    <script src="js/theme-toggle.js"></script>
+    <script defer src="js/theme-toggle.js"></script>
 </body>
 
 </html>
