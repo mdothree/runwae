@@ -39,8 +39,15 @@
             }
         });
     </script>
-    <script src="//widget.manychat.com/486546825175017.js" async="async"></script>
+    <script type="text/plain" data-consent="analytics" data-src="https://widget.manychat.com/486546825175017.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <style>
+        /* consent hotfix: readable text for the new cookie section and its links (WCAG AA) */
+        .rw-cookies-section p, .rw-cookies-section li { color: #5f6379; }
+        .rw-cookies-section strong { color: #3f4257; }
+        .rw-cookie-link { color: #4f46d4; text-decoration: underline; }
+    </style>
+    <script src="/js/consent.js"></script>
 </head>
 
 <body class="body-bg-white">
@@ -106,7 +113,7 @@
                         <use xlink:href="#calendar-icon"></use>
                     </svg>
                     <div class="post-date">
-                        <a class="h6">August 1st, 2019</a>
+                        <a class="h6">October 12th, 2026</a>
                         <span>Last Updated</span>
                     </div>
                 </div>
@@ -158,6 +165,12 @@
                                     <use xlink:href="#blog-icon"></use>
                                 </svg>
                                 <a href="#youractivity">Your Activity</a>
+                            </li>
+                            <li>
+                                <svg class="blog-icon">
+                                    <use xlink:href="#blog-icon"></use>
+                                </svg>
+                                <a href="#cookies">Cookies and Analytics</a>
                             </li>
                             <li>
                                 <svg class="blog-icon">
@@ -384,8 +397,51 @@
                             </li>
                         </ul>
                         <br>
-                        <p>Note: Runwae does not collect any metrics on user activity on the platform other than for the
-                            purpose of the activity feed described previously.</p>
+                        <p>Note: apart from the activity feed described above, Runwae only measures how the site is
+                            used through the analytics tools described in
+                            <a class="rw-cookie-link" href="#cookies">Cookies and Analytics</a>, and only if you accept them.</p>
+                    </div>
+                    <div class="help-main-topic rw-cookies-section">
+                        <h3 class="title" id="cookies">Cookies and Analytics</h3>
+                        <p>When you first visit runwae.com we show a cookie banner with two equal choices:
+                            <strong>Accept</strong> and <strong>Reject</strong>. Until you click Accept, none of the
+                            tools below are loaded, so they set no cookies and receive no data from your visit. If you
+                            click Reject, they stay off.</p>
+                        <p>If you click Accept, the following load on the pages that use them:</p>
+                        <ul>
+                            <li><p><strong>Google Analytics (through Firebase Analytics)</strong>: measures page
+                                views and some actions on the site (for example sign-up, login, following a user or
+                                submitting a payment). Google sets cookies such as _ga and
+                                _ga_*. Data is sent to Google.</p></li>
+                            <li><p><strong>Google AdSense</strong>: on some pages, shows ads. Google may set
+                                advertising cookies (for example __gads, __gpi, or
+                                IDE on doubleclick.net). Data is sent to Google.</p></li>
+                            <li><p><strong>ManyChat</strong>: a chat widget on some pages. ManyChat may set its own
+                                cookies. Data is sent to ManyChat.</p></li>
+                            <li><p><strong>Facebook SDK</strong>: on some signed-in pages, used for sharing to
+                                Facebook. Facebook (Meta) may set its own cookies. Data is sent to Meta.</p></li>
+                            <li><p><strong>Runwae page-visit counter</strong>: our own script that counts visits
+                                to some pages and records which website referred you (the referring site's name
+                                only), stored in our Firebase database. It sets no cookie.</p></li>
+                        </ul>
+                        <p>Some things work without asking, because the site needs them:</p>
+                        <ul>
+                            <li><p><strong>runwae_consent</strong>: a first-party cookie (also kept
+                                in your browser's local storage) that remembers your Accept or Reject choice for
+                                about 6 months.</p></li>
+                            <li><p><strong>Firebase Authentication</strong>: if you sign in, your session is
+                                kept in your browser's storage so you stay signed in.</p></li>
+                            <li><p><strong>Stripe</strong>: on payment pages, Stripe's script may set its own
+                                cookies to process payments and prevent fraud.</p></li>
+                            <li><p>Fonts are loaded from Google Fonts and Adobe Fonts, which receive your IP address
+                                when your browser downloads them.</p></li>
+                        </ul>
+                        <p>You can change your choice at any time with the <strong>Cookie settings</strong> link in
+                            the site footer or the button below. If you switch from Accept to Reject, we delete the
+                            analytics and advertising cookies that we can reach and reload the page. Cookies that
+                            providers set on their own domains have to be cleared in your browser settings.</p>
+                        <p><button type="button" class="rw-cookie-btn" data-cookie-settings>Change cookie
+                            settings</button></p>
                     </div>
                     <div class="help-main-topic">
                         <h3 class="title" id="firebase">Firebase</h3>
@@ -402,8 +458,10 @@
                     </div>
                     <div class="help-main-topic">
                         <h3 class="title" id="sharinganddisclosure">Sharing and Disclosure</h3>
-                        <p>Runwae will not share or sell any information regarding individual users under any
-                            circumstances.</p>
+                        <p>Runwae does not sell information about individual users. If you accept cookies, the
+                            providers listed in <a class="rw-cookie-link" href="#cookies">Cookies and Analytics</a> receive the usage
+                            data described there. We also use service providers to run the platform, such as
+                            Firebase (hosting your account data) and Stripe (payments).</p>
                     </div>
                     <div class="help-main-topic">
                         <h3 class="title" id="changes">Changes To This Policy</h3>
@@ -553,7 +611,7 @@
     </div>
     <!-- ... end Footer Full Width -->
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+    <script type="text/plain" data-consent="analytics" data-consent-init="firebase-analytics" data-src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
@@ -573,7 +631,7 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        var analytics =  firebase.analytics();
+        var analytics =  RunwaeConsent.analytics();
         var database = firebase.database();
     </script>
     <!-- JS Scripts -->
@@ -626,7 +684,7 @@
             }
         });
     </script>
-    <script src="runwaejs/analytics.js"></script>
+    <script type="text/plain" data-consent="analytics" data-src="runwaejs/analytics.js"></script>
     <script src="runwaejs/database.js"></script>
     <script src="runwaejs/util.js"></script>
     <script src="runwaejs/subscribe.js"></script>
