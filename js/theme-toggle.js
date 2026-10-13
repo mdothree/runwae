@@ -4,7 +4,10 @@
    ========================================================================== */
 
 const ThemeManager = {
-  STORAGE_KEY: 'runwae-theme',
+  STORAGE_KEY: 'mdo-theme',  // shared with the public pages (MDOThree template js/theme-init.js)
+
+  _get: function() { try { return window.localStorage.getItem(this.STORAGE_KEY); } catch (e) { return null; } },
+  _set: function(v) { try { if (v === null) window.localStorage.removeItem(this.STORAGE_KEY); else window.localStorage.setItem(this.STORAGE_KEY, v); } catch (e) {} },
   ATTRIBUTE: 'data-theme',
 
   /**
@@ -30,9 +33,9 @@ const ThemeManager = {
    * Apply initial theme (called immediately, before DOM ready)
    */
   applyInitialTheme: function() {
-    const saved = localStorage.getItem(this.STORAGE_KEY);
+    const saved = this._get(); const ok = saved === 'light' || saved === 'dark';
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved || (systemPrefersDark ? 'dark' : 'light');
+    const theme = ok ? saved : (systemPrefersDark ? 'dark' : 'light');
 
     document.documentElement.setAttribute(this.ATTRIBUTE, theme);
   },
@@ -51,7 +54,7 @@ const ThemeManager = {
    */
   setTheme: function(theme) {
     document.documentElement.setAttribute(this.ATTRIBUTE, theme);
-    localStorage.setItem(this.STORAGE_KEY, theme);
+    this._set(theme);
     this.updateToggleIcon(theme);
     this.dispatchThemeChange(theme);
   },
@@ -116,7 +119,7 @@ const ThemeManager = {
 
     mediaQuery.addEventListener('change', (e) => {
       // Only auto-switch if user hasn't manually set a preference
-      if (!localStorage.getItem(this.STORAGE_KEY)) {
+      if (!this._get()) {
         this.setTheme(e.matches ? 'dark' : 'light');
       }
     });
@@ -138,7 +141,7 @@ const ThemeManager = {
    * Reset to system preference
    */
   resetToSystem: function() {
-    localStorage.removeItem(this.STORAGE_KEY);
+    this._set(null);
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     this.setTheme(systemPrefersDark ? 'dark' : 'light');
   }

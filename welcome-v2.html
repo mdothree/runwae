@@ -791,6 +791,10 @@
             .stat-number { font-size: 2.25rem; }
         }
         .footer-links h4 { color: #fff; }
+        /* visual QA 2026-10-13: "Get Started" inherited .nav-links a rgba(255,255,255,.7) on #928bff (2.1:1) -> #fff on #6259e8 5.1:1;
+           orb-1 hung 150px off the right edge at desktop widths (horizontal scroll). */
+        .nav-links a.btn-nav-filled { color: #fff; background: #6259e8; }
+        .orb-1 { right: 0; }
         .footer-bottom, .footer-bottom p { color: rgba(255, 255, 255, 0.6); }
     </style>
 
@@ -856,8 +860,8 @@
     <section class="stats-section">
         <div class="stats-grid">
             <div class="stat-item fade-up">
-                <div class="stat-number">$0</div>
-                <div class="stat-label">To Create an Account</div>
+                <div class="stat-number">One</div>
+                <div class="stat-label">Profile for All Your Gigs</div>
             </div>
             <div class="stat-item fade-up fade-up-delay-1">
                 <div class="stat-number">Direct</div>

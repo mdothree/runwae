@@ -1,0 +1,56 @@
+/* rw-dark.css — runwae public pages (welcome, login, faqs, blog, terms, privacy): the dark palette behind the
+   MDOThree theme toggle (html[data-theme="dark"], set by js/theme-init.js). Light theme is untouched.
+   The purple brand bands (.subscribe-animation, .bg-subscribers, the purple page heroes) keep their light-theme colours.
+   Contrast (WCAG AA): text #E5E7EB on #0F0F1A 15.6:1, on #1A1A2E 13.6:1; muted #C3C6DA on #1A1A2E 9.9:1;
+   links #B9B2FF on #0F0F1A 9.4:1; inputs #F1F5F9 on #252540 13:1, placeholder/label #B4B8CC on #252540 7.3:1. */
+html[data-theme="dark"] {
+  --rw-bg: #0F0F1A; --rw-surface: #1A1A2E; --rw-input: #252540; --rw-border: #3A3A5A;
+  --rw-text: #E5E7EB; --rw-muted: #C3C6DA; --rw-heading: #FFFFFF; --rw-link: #B9B2FF; --rw-label: #B4B8CC;
+}
+html[data-theme="dark"] body,
+html[data-theme="dark"] body.body-bg-white { background-color: var(--rw-bg); color: var(--rw-text); }  /* the purple wave art (body background-image img/background.png) has opaque white areas: dark drops it and
+   gives the bands it framed a flat brand-purple fill instead (#000 on #8F88FF 7.6:1, as in light) */
+html[data-theme="dark"] body.body-bg-white { background-image: none !important; }
+html[data-theme="dark"] .subscribe-animation:not(.bg-subscribers) { background-color: #8F88FF; }
+html[data-theme="dark"] .content-bg-wrap.bg-landing:before, html[data-theme="dark"] .content-bg-wrap.bg-external:before { background-color: var(--rw-bg); }
+
+/* Header (white at the top of the page) */
+html[data-theme="dark"] .header--standard-landing:not(.headroom--not-top),
+html[data-theme="dark"] .header--standard { background-color: var(--rw-bg); }
+html[data-theme="dark"] .header--standard .logo-title { color: var(--rw-heading); }
+html[data-theme="dark"] .header--standard .logo img,
+html[data-theme="dark"] .footer .logo img { filter: invert(1); }
+html[data-theme="dark"] .header--standard-landing:not(.headroom--not-top) #header-menu .nav-item .nav-link,
+html[data-theme="dark"] .header--standard .open-responsive-menu,
+html[data-theme="dark"] .header--standard .js-expanded-menu .nav-link { color: var(--rw-heading) !important; fill: var(--rw-heading); }
+html[data-theme="dark"] .header--standard-landing:not(.headroom--not-top) #header-menu .nav-item .nav-link:hover { color: var(--rw-link) !important; }
+@media (max-width: 768px) {
+  html[data-theme="dark"] .header--standard .header-menu { background-color: var(--rw-surface); border-left-color: var(--rw-border); }
+  html[data-theme="dark"] .header--standard .header-menu .nav-link,
+  html[data-theme="dark"] .header--standard .header-menu .close-responsive-menu button { color: var(--rw-heading) !important; }
+}
+
+/* Text outside the purple bands (inline style="color:black" included) */
+html[data-theme="dark"] :is(h1, h2, h3, h4, h5, h6, .h4, .h6, .heading-title, .welcomeTitle, .title, .post-title, .runwae-stat-number, .info-box-title, .post__author-name):not(:is(.subscribe-animation, .bg-subscribers, .stunning-header, .header--standard) *) { color: var(--rw-heading) !important; }
+html[data-theme="dark"] :is(h1, h2, h3, h4, h5, h6) span:not(.c-primary):not(:is(.subscribe-animation, .bg-subscribers, .stunning-header, .header--standard) *) { color: inherit !important; }
+html[data-theme="dark"] h5.info-box-title { color: var(--rw-link) !important; }
+html[data-theme="dark"] :is(p, li, label, .control-label, .heading-text, .info-box-text, .runwae-stat-label, .author-date, time, .total-topic, .faq-toggle, .sub-footer-copyright span, .w-about p, .card-body, .card-body p, .post-content strong, .post-content li):not(:is(.subscribe-animation, .bg-subscribers, .stunning-header, .header--standard) *) { color: var(--rw-muted) !important; }
+html[data-theme="dark"] a:not(.btn):not([class*="btn-"]):not([class*="bg-"]):not(.nav-link):not(.skip-link):not(:is(.subscribe-animation, .bg-subscribers, .stunning-header, .header--standard) *):not(.post-title):not(.post__author-name):not(.total-topic) { color: var(--rw-link); }
+html[data-theme="dark"] .faq-toggle .c-primary, html[data-theme="dark"] span.c-primary { color: var(--rw-link) !important; }
+html[data-theme="dark"] .rw-cookie-settings { color: var(--rw-link) !important; }
+
+/* Surfaces */
+html[data-theme="dark"] :is(.ui-block, .blog-post, .single-post, .card, .card-header, .registration-login-form, .tab, .footer, .footer-full-width, .runwae-stats) { background-color: var(--rw-surface) !important; border-color: var(--rw-border) !important; }
+html[data-theme="dark"] .registration-login-form .title { border-color: var(--rw-border); }
+html[data-theme="dark"] .runwae-stats { border-top-color: var(--rw-border); border-bottom-color: var(--rw-border); }
+html[data-theme="dark"] hr, html[data-theme="dark"] .card { border-color: var(--rw-border) !important; }
+
+/* Form fields (outside the purple bands the email inputs sit on, which keep white fields) */
+html[data-theme="dark"] .form-control:not(:is(.subscribe-animation, .bg-subscribers) *) { background-color: var(--rw-input) !important; border-color: var(--rw-border); color: #F1F5F9; }
+html[data-theme="dark"] .form-control:not(:is(.subscribe-animation, .bg-subscribers) *)::placeholder { color: var(--rw-label); }
+html[data-theme="dark"] .label-floating:not(:is(.subscribe-animation, .bg-subscribers) *) .control-label { color: var(--rw-label) !important; }
+html[data-theme="dark"] .checkbox input[type="checkbox"] + .checkbox-material .check,
+html[data-theme="dark"] .checkbox .checkbox-material .check { border-color: var(--rw-label); background-color: var(--rw-input); }
+
+/* Line-art Lottie illustrations are black on transparent: flip them so they read on the dark page */
+html[data-theme="dark"] lottie-player:not(:is(.subscribe-animation, .bg-subscribers) *) { filter: invert(1) hue-rotate(180deg); }

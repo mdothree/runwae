@@ -4,8 +4,8 @@
  */
 'use strict';
 
-const CACHE_NAME = 'runwae-cache-v4';
-const RUNTIME_CACHE = 'runwae-runtime-v1';
+const CACHE_NAME = 'runwae-cache-v5'; // v5: theme toggle (theme-init.js, html[data-theme]) + theme.css
+const RUNTIME_CACHE = 'runwae-runtime-v2';
 
 // Core assets to precache on install
 const PRECACHE_ASSETS = [

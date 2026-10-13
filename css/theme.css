@@ -152,8 +152,8 @@
    Color scheme preference detection (before JS loads)
    ========================================================================== */
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+/* theme: was @media (prefers-color-scheme: dark) */
+  :root[data-theme="dark"]:not([data-theme="light"]) {
     --color-bg-body: #0f0f1a;
     --color-bg-card: #1a1a2e;
     --color-bg-header: #12121f;
@@ -174,4 +174,4 @@
     --shadow-hover: 0 4px 20px rgba(147, 137, 255, 0.2);
     --color-primary-light: rgba(147, 137, 255, 0.15);
   }
-}
+
