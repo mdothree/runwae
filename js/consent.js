@@ -95,7 +95,7 @@
     var s = document.createElement('script');
     s.src = ph.getAttribute('data-src');
     s.async = true;
-    var copy = ['data-ad-client', 'crossorigin'];
+    var copy = ['data-ad-client', 'crossorigin', 'integrity'];
     for (var i = 0; i < copy.length; i++) {
       if (ph.hasAttribute(copy[i])) s.setAttribute(copy[i], ph.getAttribute(copy[i]));
     }
