@@ -779,6 +779,19 @@
                 display: block;
             }
         }
+
+        /* L-RWE-03: no sideways scroll on phones (orb-1 sits off the right edge; 2-col stats + 2rem gap
+           overflow at 320 px), and footer text inherits low-contrast theme colors (axe color-contrast). */
+        @media (max-width: 768px) {
+            .orb-1 { right: 0; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { gap: 1rem; }
+            .stat-item { padding: 0.5rem; min-width: 0; }
+            .stat-number { font-size: 2.25rem; }
+        }
+        .footer-links h4 { color: #fff; }
+        .footer-bottom, .footer-bottom p { color: rgba(255, 255, 255, 0.6); }
     </style>
 
     <script>
@@ -796,7 +809,7 @@
 
     <!-- Navigation -->
     <nav class="nav-v2" id="navbar">
-        <a href="#" class="nav-logo">
+        <a href="/" class="nav-logo">
             <img loading="lazy" src="img/logo-colored.png" alt="Runwae">
             <span>Runwae</span>
         </a>
@@ -979,7 +992,7 @@
     <footer class="footer-v2">
         <div class="footer-content">
             <div class="footer-brand">
-                <a href="#" class="nav-logo">
+                <a href="/" class="nav-logo">
                     <img loading="lazy" src="img/logo-colored.png" alt="Runwae">
                     <span>Runwae</span>
                 </a>
