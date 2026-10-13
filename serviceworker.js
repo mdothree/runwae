@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const CACHE_NAME = 'runwae-cache-v5'; // v5: theme toggle (theme-init.js, html[data-theme]) + theme.css
+const CACHE_NAME = 'runwae-cache-v6'; // v6: / is the landing (SEO-003). v5: theme toggle (theme-init.js, html[data-theme]) + theme.css
 const RUNTIME_CACHE = 'runwae-runtime-v2';
 
 // Core assets to precache on install

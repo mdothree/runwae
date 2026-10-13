@@ -23,7 +23,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/welcome.html"
+      "destination": "/welcome"
     },
     {
       "source": "/js/libs/:file",
