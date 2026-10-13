@@ -3,7 +3,16 @@
   "outputDirectory": ".",
   "cleanUrls": true,
   "redirects": [
-    { "source": "/", "destination": "/welcome.html", "permanent": false }
+    {
+      "source": "/:path(vercel\\.json|deployment/.*|firebase\\.json|database\\.rules\\.json|README\\.md|error_log|database-debug\\.log|ui-debug\\.log)",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/welcome.html",
+      "permanent": false
+    }
   ],
   "functions": {
     "api/llm/*.js": {
