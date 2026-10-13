@@ -270,7 +270,7 @@ function writeProposalAssist(snapMarketer, snapInfluencer, snapItem, snapGig, pa
         }
 
         // Reset button state
-        $btn.prop('disabled', false).html('<ion-icon name="sparkles-outline"></ion-icon> Generate with AI');
+        $btn.prop('disabled', false).html('<ion-icon name="color-wand-outline"></ion-icon> Generate with AI');
     });
 
     $("#btnWriteProposal").click(function (event) {

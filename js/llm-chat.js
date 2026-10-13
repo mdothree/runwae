@@ -219,7 +219,7 @@ const LLMChat = {
 
       this.elements.messages.innerHTML = `
         <div class="llm-chat-welcome">
-          <ion-icon name="sparkles-outline"></ion-icon>
+          <ion-icon name="color-wand-outline"></ion-icon>
           <h5>Welcome to Runwae Assistant</h5>
           <p>I can help you with campaigns, finding influencers, and understanding your analytics.</p>
           <div class="llm-chat-suggestions">
@@ -347,7 +347,7 @@ const LLMChat = {
     const messageClass = role === 'error' ? 'assistant error' : role;
     const avatar = role === 'assistant' || role === 'error' ? `
       <div class="llm-message-avatar">
-        <ion-icon name="${role === 'error' ? 'alert-circle' : 'sparkles'}"></ion-icon>
+        <ion-icon name="${role === 'error' ? 'alert-circle' : 'color-wand'}"></ion-icon>
       </div>
     ` : '';
 
@@ -394,7 +394,7 @@ const LLMChat = {
     const html = `
       <div class="llm-message-wrapper assistant">
         <div class="llm-message-avatar">
-          <ion-icon name="sparkles"></ion-icon>
+          <ion-icon name="color-wand"></ion-icon>
         </div>
         <div class="llm-message assistant llm-typing">
           <span></span>
@@ -476,7 +476,7 @@ const LLMChat = {
           this.messages.forEach(msg => {
             const avatar = msg.role === 'assistant' ? `
               <div class="llm-message-avatar">
-                <ion-icon name="sparkles"></ion-icon>
+                <ion-icon name="color-wand"></ion-icon>
               </div>
             ` : '';
 
