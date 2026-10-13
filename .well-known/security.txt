@@ -1,4 +1,4 @@
-Contact: mailto:security@runwae.com
+Contact: mailto:hello@runwae.com
 Expires: 2027-10-12T00:00:00Z
 Preferred-Languages: en
 Canonical: https://runwae.com/.well-known/security.txt
