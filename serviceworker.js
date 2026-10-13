@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const CACHE_NAME = 'runwae-cache-v7'; // v7: policy pages + footer links (L-RWE-03). v6: / is the landing (SEO-003). v5: theme toggle (theme-init.js, html[data-theme]) + theme.css
+const CACHE_NAME = 'runwae-cache-v8'; // v8: honest-claims copy in terms/privacy (refund, account closing, Stripe disconnect by email). v7: policy pages + footer links (L-RWE-03). v6: / is the landing (SEO-003). v5: theme toggle (theme-init.js, html[data-theme]) + theme.css
 const RUNTIME_CACHE = 'runwae-runtime-v2';
 
 // Core assets to precache on install
