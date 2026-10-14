@@ -7,7 +7,7 @@
  * Tracker scripts are written into the HTML as inert placeholders:
  *   <script type="text/plain" data-consent="analytics" data-src="https://..."></script>
  * They are only turned into real <script> elements after the visitor clicks "Accept".
- * Until then no Google Analytics (Firebase Analytics / gtag), AdSense, ManyChat, Facebook SDK
+ * Until then no Google Analytics (Firebase Analytics / gtag), Facebook SDK
  * or first-party page-hit counter is loaded, and no tracking cookie is set.
  *
  * Inline page code calls RunwaeConsent.analytics() instead of firebase.analytics(); it returns
@@ -176,8 +176,8 @@
     banner.innerHTML =
       '<div class="rw-c-inner">' +
         '<p class="rw-c-text"><span class="rw-c-title" id="rw-consent-title">Cookies and analytics</span>' +
-        '<span id="rw-consent-desc">With your OK we use Google Analytics (via Firebase), Google AdSense, ' +
-        'the ManyChat chat widget, the Facebook SDK (on some pages) and our own page-visit counter. ' +
+        '<span id="rw-consent-desc">With your OK we use Google Analytics (via Firebase), ' +
+        'the Facebook SDK (on some pages) and our own page-visit counter. ' +
         'They set cookies and send usage data to those providers. None of them load unless you accept. ' +
         '<a href="' + PRIVACY_URL + '">How we use cookies</a></span></p>' +
         '<div class="rw-c-actions" role="group" aria-label="Cookie choice">' +

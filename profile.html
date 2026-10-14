@@ -43,7 +43,7 @@
     <!-- Main Font (deduplicated) -->
     <script src="js/webfontloader.min.js"></script>
     <script src="/js/theme-init.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin&display=swap" media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin&display=swap"></noscript>
     <script>
         WebFont.load({
             google: {
@@ -74,7 +74,6 @@
     <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js" integrity="sha384-xK1UWIBr4owfX2pXIO/ElRBj/nWGR+woU/2HlMLCUjwdl/4PZIroSf5NQ11p6DaZ" crossorigin="anonymous"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js" integrity="sha384-ci2kdqk58PzPOZ+JQ395GmtevjTssApbrX8PcCvc5mdaopJTEEKTRmi8m1zWoo7A" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js" integrity="sha384-FUX7p/8KyhmpTt6AIH5uP6iqMXn8CXWI+CS5ENQdwOq6DxzbrGEB7ytb9HA8IyuO" crossorigin="anonymous"></script>
-    <script type="text/plain" data-consent="analytics" data-ad-client="ca-pub-7287110011977791" data-src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         window.fbAsyncInit = function () {
             FB.init({
@@ -90,6 +89,7 @@
 </head>
 
 <body class="page-has-left-panels page-has-right-panels">
+    <noscript><p class="rw-noscript" style="margin:0;padding:12px 16px;background:#fff3cd;color:#1f1d2e;font:15px/1.5 Roboto,Arial,sans-serif;text-align:center">Runwae needs JavaScript for sign-in, gigs and messages. Turn JavaScript on to use the marketplace.</p></noscript>
     <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="fixed-sidebar">
@@ -1234,7 +1234,7 @@
             var database = firebase.database();
         </script>
         <!-- JS Scripts -->
-        <script class="keep" src="js/jquery-3.2.1.js"></script>
+        <script class="keep" src="js/jquery-3.7.1.min.js"></script>
         <script src="js/jquery.appear.js"></script>
         <script src="js/jquery.mousewheel.js"></script>
         <script src="js/perfect-scrollbar.js"></script>
@@ -1271,7 +1271,7 @@
         <script src="js/ion.rangeSlider.js"></script>
         <script src="js/main.js"></script>
         <script defer="" src="fonts/fontawesome-all.js"></script>
-        <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="Bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/svg-loader.js"></script>
         <div>
             <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"

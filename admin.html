@@ -51,11 +51,7 @@
     <script nomodule src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js" integrity="sha384-ci2kdqk58PzPOZ+JQ395GmtevjTssApbrX8PcCvc5mdaopJTEEKTRmi8m1zWoo7A" crossorigin="anonymous"></script>
     <!-- Main Font -->
     <script src="js/webfontloader.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin" media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin" media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin" media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin" media="all">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin" media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin&amp;display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin&amp;display=swap"></noscript>
     <script>
         WebFont.load({
             google: {
@@ -68,6 +64,7 @@
 </head>
 
 <body class="page-has-left-panels page-has-right-panels" style="background-color: black;">
+    <noscript><p class="rw-noscript" style="margin:0;padding:12px 16px;background:#fff3cd;color:#1f1d2e;font:15px/1.5 Roboto,Arial,sans-serif;text-align:center">Runwae needs JavaScript for sign-in, gigs and messages. Turn JavaScript on to use the marketplace.</p></noscript>
     <!-- Admin gate: covers the dashboard until auth + admins/{uid} === true is confirmed -->
     <div id="adminGate" role="alert" aria-live="polite"
         style="position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:#000;color:#fff;font:16px/1.5 Roboto,Arial,sans-serif;text-align:center;padding:16px;">
@@ -683,7 +680,7 @@
             </div>
         </script>
         <!-- JS Scripts -->
-        <script src="js/jquery-3.2.1.js"></script>
+        <script src="js/jquery-3.7.1.min.js"></script>
         <script src="js/jquery.appear.js"></script>
         <script src="unobfrunwaejs/util.js"></script>
         <script src="unobfrunwaejs/params.js"></script>
@@ -751,7 +748,7 @@
                 });
             });
         </script>
-        <!-- <script src="js/jquery-3.2.1.js"></script>
+        <!-- <script src="js/jquery-3.7.1.min.js"></script>
         <script src="js/jquery.appear.js"></script> -->
         <script src="js/jquery.mousewheel.js"></script>
         <script src="js/perfect-scrollbar.js"></script>
@@ -787,7 +784,7 @@
         <script src="js/ion.rangeSlider.js"></script>
         <script src="js/base-init.js"></script>
         <script defer src="fonts/fontawesome-all.js"></script>
-        <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="Bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         <script src="js/svg-loader.js"></script>
         <div>
             <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>

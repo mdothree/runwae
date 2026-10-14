@@ -1,0 +1,13 @@
+/* HID-010: print stylesheet for the policy pages (terms, privacy, refund, cancellation, acceptable use, contact, FAQs).
+   Loaded with media="print", so it never blocks screen rendering. Prints the policy text only, dark on white. */
+@page { margin: 18mm 16mm; }
+html, body { background: #fff !important; color: #000 !important; }
+.header--standard, .header-spacer--standard, .header-menu, nav, .skip-link, .back-to-top, .footer, .sub-footer-copyright,
+#rw-consent, .rw-cookie-settings, .rw-cookie-btn, .theme-toggle, [data-theme-toggle], .rw-noscript, lottie-player,
+.fixed-sidebar, .window-popup, .modal { display: none !important; }
+.stunning-header, .stunning-header-content { background: none !important; color: #000 !important; padding: 0 0 8pt !important; min-height: 0 !important; }
+.stunning-header-title, h1, h2, h3, h4, p, li, td, th, span, strong, a { color: #000 !important; text-shadow: none !important; }
+.container, .row, [class*="col-"] { max-width: 100% !important; width: 100% !important; flex: 0 0 100% !important; margin: 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+a[href^="http"]::after, a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: 90%; }
+h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+p, li { orphans: 3; widows: 3; }

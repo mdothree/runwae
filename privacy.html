@@ -47,13 +47,12 @@
     <link rel="stylesheet" type="text/css" href="css/runwae.css">
     <link rel="stylesheet" type="text/css" href="css/privacyterms.css">
     <link rel="stylesheet" type="text/css" href="css/ext.css">
-    <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css">
+    <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css"></noscript>
     <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js" integrity="sha384-xK1UWIBr4owfX2pXIO/ElRBj/nWGR+woU/2HlMLCUjwdl/4PZIroSf5NQ11p6DaZ" crossorigin="anonymous"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js" integrity="sha384-ci2kdqk58PzPOZ+JQ395GmtevjTssApbrX8PcCvc5mdaopJTEEKTRmi8m1zWoo7A" crossorigin="anonymous"></script>
     <!-- Main Font -->
     <script src="js/webfontloader.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin"
-        media="all">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin&amp;display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin&amp;display=swap"></noscript>
     <script>
         WebFont.load({
             google: {
@@ -61,16 +60,17 @@
             }
         });
     </script>
-    <script type="text/plain" data-consent="analytics" data-src="https://widget.manychat.com/486546825175017.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js" integrity="sha384-FUX7p/8KyhmpTt6AIH5uP6iqMXn8CXWI+CS5ENQdwOq6DxzbrGEB7ytb9HA8IyuO" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/css/mobile-min-text.css">
     <script src="/js/consent.js"></script>
     <link rel="stylesheet" href="/css/theme-toggle.css" />
     <link rel="stylesheet" href="/css/rw-dark.css" />
+    <link rel="stylesheet" href="/css/print.css" media="print">
 </head>
 
 <body class="body-bg-white">
     <a class="skip-link" href="#main-content">Skip to main content</a>
+    <noscript><p class="rw-noscript" style="margin:0;padding:12px 16px;background:#fff3cd;color:#1f1d2e;font:15px/1.5 Roboto,Arial,sans-serif;text-align:center">Runwae needs JavaScript for sign-in, gigs and messages. Turn JavaScript on to use the marketplace.</p></noscript>
     <main id="main">
     <div class="stunning-header bg-primary-opacity">
         <!-- Header Standard Landing  -->
@@ -441,11 +441,6 @@
                                 views and some actions on the site (for example sign-up, login, following a user or
                                 submitting a payment). Google sets cookies such as _ga and
                                 _ga_*. Data is sent to Google.</p></li>
-                            <li><p><strong>Google AdSense</strong>: on some pages, shows ads. Google may set
-                                advertising cookies (for example __gads, __gpi, or
-                                IDE on doubleclick.net). Data is sent to Google.</p></li>
-                            <li><p><strong>ManyChat</strong>: a chat widget on some pages. ManyChat may set its own
-                                cookies. Data is sent to ManyChat.</p></li>
                             <li><p><strong>Facebook SDK</strong>: on some signed-in pages, used for sharing to
                                 Facebook. Facebook (Meta) may set its own cookies. Data is sent to Meta.</p></li>
                             <li><p><strong>Runwae page-visit counter</strong>: our own script that counts visits
@@ -466,7 +461,7 @@
                         </ul>
                         <p>You can change your choice at any time with the <strong>Cookie settings</strong> link in
                             the site footer or the button below. If you switch from Accept to Reject, we delete the
-                            analytics and advertising cookies that we can reach and reload the page. Cookies that
+                            analytics cookies that we can reach and reload the page. Cookies that
                             providers set on their own domains have to be cleared in your browser settings.</p>
                         <p><button type="button" class="rw-cookie-btn" data-cookie-settings>Change cookie
                             settings</button></p>
@@ -496,7 +491,7 @@
                             <li><strong>Payments.</strong> Runwae does not store card details. Our records of a
                                 transaction (the gig, the amount, the two accounts involved and the Stripe payment
                                 reference) are kept with your gig records. Stripe keeps its own payment records under
-                                its own terms and privacy policy. Google, ManyChat and Meta keep the data they receive
+                                its own terms and privacy policy. Google and Meta keep the data they receive
                                 under their own policies.</li>
                         </ul>
                     </div>
@@ -705,7 +700,7 @@
         var database = firebase.database();
     </script>
     <!-- JS Scripts -->
-    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/jquery.appear.js"></script>
     <script src="js/jquery.mousewheel.js"></script>
     <script src="js/perfect-scrollbar.js"></script>
@@ -742,7 +737,7 @@
     <!--    <script src="js/main.js"></script>-->
     <script src="js/base-init.js"></script>
     <script defer="" src="fonts/fontawesome-all.js"></script>
-    <script src="Bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="Bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $('a').click(function (event) {
             event.preventDefault();

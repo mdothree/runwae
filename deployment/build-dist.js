@@ -23,7 +23,7 @@ const DIRS = [
 ];
 // Root-level static files (plus every root *.html).
 const ROOT_FILES = [
-  'ads.txt', 'apple-touch-icon.png', 'favicon.ico', 'manifest.json', 'og-image.png',
+  'apple-touch-icon.png', 'favicon.ico', 'manifest.json', 'og-image.png',
   'robots.txt', 'serviceworker.js', 'site.webmanifest', 'sitemap.xml',
 ];
 // Never published, even inside an allowlisted directory.
