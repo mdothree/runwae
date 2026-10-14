@@ -25,11 +25,18 @@ const { getDatabase } = require('./_lib/firebase-admin');
 const { generateProposal } = require('./_lib/anthropic');
 const { validatePlatform, validateStyle } = require('./_lib/sanitize');
 
+const ALLOWED_ORIGINS = new Set(['https://runwae.com', 'https://www.runwae.com']);
+
 module.exports = async function handler(req, res) {
-  // CORS headers for client-side fetch
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  // SURF-011: the only caller is same-origin (runwaejs/llm.js), so no wildcard: CORS headers go
+  // only to runwae's own origins (www.runwae.com redirects to runwae.com).
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  }
+  res.setHeader('Vary', 'Origin');
 
   // Handle preflight
   if (req.method === 'OPTIONS') {
