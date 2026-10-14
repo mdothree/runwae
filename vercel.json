@@ -71,6 +71,10 @@
     "api/payment/*.js": {
       "memory": 256,
       "maxDuration": 10
+    },
+    "api/public/*.js": {
+      "memory": 256,
+      "maxDuration": 10
     }
   },
   "git": {
