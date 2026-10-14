@@ -34,91 +34,35 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="author" content="Runwae">
-	<script src="/js/theme-init.js"></script>
-    <link rel="stylesheet" type="text/css" href="/Bootstrap/dist/css/bootstrap-reboot.css">
-	<link rel="stylesheet" type="text/css" href="/Bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/Bootstrap/dist/css/bootstrap-grid.css">
-	<link rel="stylesheet" type="text/css" href="/css/main.css">
-	<link rel="stylesheet" type="text/css" href="/css/fonts.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/runwae.css">
-	<link rel="stylesheet" type="text/css" href="/css/ext.css">
-	<link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css"></noscript>
+    <script src="/js/theme-init.js"></script>
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;subset=latin&amp;display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;subset=latin&amp;display=swap"></noscript>
+    <link rel="stylesheet" href="/Bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/rw.css">
 	<script defer src="https://unpkg.com/@lottiefiles/lottie-player@2.0.12/dist/lottie-player.js" integrity="sha384-i8zT4p4C0XG4mPhfz0zuffZpppP8NjlttNsP6srEdEBatwZkcYUBoQtAW7sfKEp2" crossorigin="anonymous"></script>
 	<script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js" integrity="sha384-xK1UWIBr4owfX2pXIO/ElRBj/nWGR+woU/2HlMLCUjwdl/4PZIroSf5NQ11p6DaZ" crossorigin="anonymous"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js" integrity="sha384-ci2kdqk58PzPOZ+JQ395GmtevjTssApbrX8PcCvc5mdaopJTEEKTRmi8m1zWoo7A" crossorigin="anonymous"></script>
-	<script src="/js/webfontloader.min.js"></script>
-	<script>
-		WebFont.load({
-			google: {
-				families: ['Roboto:300,400,500,700:latin']
-			}
-		});
-	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js" integrity="sha384-FUX7p/8KyhmpTt6AIH5uP6iqMXn8CXWI+CS5ENQdwOq6DxzbrGEB7ytb9HA8IyuO" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/css/mobile-min-text.css">
     <script src="/js/consent.js"></script>
-    <link rel="stylesheet" href="/css/theme-toggle.css" />
-    <link rel="stylesheet" href="/css/rw-dark.css" />
 </head>
 
-<body class="body-bg-white">
+<body class="rw-public">
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <noscript><p class="rw-noscript" style="margin:0;padding:12px 16px;background:#fff3cd;color:#1f1d2e;font:15px/1.5 Roboto,Arial,sans-serif;text-align:center">Runwae needs JavaScript for sign-in, gigs and messages. Turn JavaScript on to use the marketplace.</p></noscript>
+<header class="rw-header"><div class="rw-header__inner">
+  <a class="rw-logo logo" href="/"><img src="/img/logo-colored-68.png" alt="" width="30" height="30"><span>Runwae</span></a>
+  <nav class="rw-nav rw-nav--public" aria-label="Main"><a href="/#howItWorks">How it works</a><a href="/faqs">FAQ</a><a href="/blog" aria-current="page">Blog</a></nav>
+  <div class="rw-header__end">
+    <button type="button" class="mdo-theme rw-theme-btn" data-mdo-theme aria-label="Switch theme" title="Switch theme"><svg class="mdo-i mdo-i-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="mdo-i mdo-i-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+    <a class="rw-btn rw-btn--text rw-btn--sm" href="/login?login">Log in</a><a class="rw-btn rw-btn--quiet rw-btn--sm" href="/login?signup">Sign up</a>
+  </div>
+</div></header>
     <main id="main">
-	<div class="stunning-header bg-primary-opacity">
-		<div class="stunning-header bg-primary-opacity" style="padding-bottom:80px">
-			<div class="header--standard header--standard-landing animated headroom--not-bottom slideDown headroom--top"
-				id="header--standard">
-				<div class="container">
-					<div class="header--standard-wrap">
-						<a href="/" class="logo">
-							<div class="img-wrap">
-								<img width="34" height="34" src="/img/logo-colored-68.png" alt="">
-								<img width="34" height="34" src="/img/logo-68.png" alt="" class="logo-colored">
-							</div>
-							<div class="title-block">
-								<h6 class="logo-title" role="none">Runwae</h6>
-							</div>
-						</a>
-						<button type="button" class="open-responsive-menu js-open-responsive-menu" aria-label="Open menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
-							<ion-icon class="ionicon menu-icon" name="menu-outline"></ion-icon>
-						</button>
-						<div class="nav nav-pills nav1 header-menu">
-							<div class="mCustomScrollbar ps ps--theme_default ps--active-x ps--active-y"
-								data-ps-id="13106c38-7c0f-a50d-0595-443c869e00e3">
-								<ul>
-									<li class="nav-item">
-										<a href="/blog" class="nav-link">Blog</a>
-									</li>
-									<li class="nav-item">
-										<a href="/login?login" class="nav-link">Login</a>
-									</li>
-									<li class="nav-item">
-										<a href="/login?signup" class="nav-link">Sign Up</a>
-									</li>
-									<li class="close-responsive-menu js-close-responsive-menu">
-										<ion-icon class="ionicon close-icon" name="close-outline"></ion-icon>
-									</li>
-									<li class="nav-item js-expanded-menu">
-										<button type="button" class="nav-link" aria-label="Toggle menu" style="background:none;border:0;padding:0;cursor:pointer;color:inherit;">
-											<ion-icon class="ionicon menu-icon" name="menu-outline"></ion-icon>
-											<ion-icon class="ionicon close-icon" name="close-outline"></ion-icon>
-										</button>
-									</li>
-								</ul>
-							</div>
-						</div>
-                    <button type="button" class="mdo-theme rw-theme" data-mdo-theme aria-label="Switch theme" title="Switch theme"><svg class="mdo-i mdo-i-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="mdo-i mdo-i-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-					</div>
-				</div>
-			</div>
-			<div class="header-spacer--standard"></div>
-			<div class="stunning-header-content" id="main-content" tabindex="-1">
-				<h1 class="stunning-header-title">RUNWAE BLOG</h1>
-				<div style="padding-top:10px"><span>Notes on influence, marketing, and culture</span></div>
-			</div>
-		</div>
-	</div>
+    <div class="rw-post" id="main-content" tabindex="-1">
+    <p class="rw-blog-kicker"><a href="/blog">RUNWAE BLOG</a> <span class="rw-muted">· Notes on influence, marketing, and culture</span></p>
 	<div class="container negative-margin-top150 mb60">
 		<div class="row">
 			<div class="col col-xl-8 m-auto col-lg-12 col-md-12 col-sm-12 col-12">
@@ -281,52 +225,25 @@
 		</div>
 	</div>
 
+    </div>
 	</main>
-    <div class="footer footer-full-width" id="footer" role="contentinfo">
-		<div class="container">
-			<div class="row">
-				<div class="col col-lg-4 col-md-4 col-sm-12 col-12">
-					<div class="widget w-about">
-						<a href="/" class="logo" style="float:none">
-							<div class="img-wrap">
-								<img width="34" height="34" src="/img/logo-colored-68.png" alt="">
-							</div>
-							<div class="title-block">
-								<h6 class="logo-title" role="none">Runwae</h6>
-							</div>
-						</a>
-						<p>Cultivating meaningful partnerships through honest design.</p>
-					</div>
-				</div>
-				<div class="col col-lg-2 col-md-4 col-sm-12 col-12">
-					<div class="widget w-list">
-						<h6 class="title" aria-level="2">Help</h6>
-						<ul>
-							<li><a href="/faqs">FAQs</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col col-lg-2 col-md-4 col-sm-12 col-12">
-					<div class="widget w-list">
-						<h6 class="title" aria-level="2">Policy</h6>
-						<ul>
-							<li><a href="/privacy">Privacy</a></li>
-							<li><a href="/terms">Terms &amp; Conditions</a></li>
-							<li><a href="/refund">Refunds</a></li>
-							<li><a href="/cancellation">Cancellation</a></li>
-							<li><a href="/acceptable-use">Acceptable Use</a></li>
-							<li><a href="/contact">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col col-lg-12 col-md-12 col-sm-12 col-12">
-					<div class="sub-footer-copyright">
-						<span>Copyright <a href="/">Runwae</a> All Rights Reserved 2026</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<footer class="rw-footer" id="footer">
+  <div class="rw-footer__inner">
+    <div><a class="rw-logo" href="/"><img src="/img/logo-colored-68.png" alt="" width="30" height="30" loading="lazy"><span>Runwae</span></a>
+      <p class="rw-muted rw-small" style="margin-top:12px;max-width:30ch">Cultivating meaningful partnerships through honest design.</p>
+      <ul class="rw-socials">
+        <li><a href="https://www.facebook.com/runwaeplatform" aria-label="Runwae on Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H7v3h2v9h3v-9h2.5l.5-3H12V7a1 1 0 0 1 1-1h2z"/></svg></a></li>
+        <li><a href="https://twitter.com/runwae_" aria-label="Runwae on Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg></a></li>
+        <li><a href="https://www.youtube.com/channel/UCv3u08c4k4GxdW97HuXYmrw" aria-label="Runwae on YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></a></li>
+        <li><a href="https://www.instagram.com/runwae_/" aria-label="Runwae on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17" cy="7" r=".6"/></svg></a></li>
+      </ul></div>
+    <div><h4>Product</h4><ul><li><a href="/#howItWorks">How it works</a></li><li><a href="/explore">Explore</a></li><li><a href="/faqs">FAQs</a></li><li><a href="/blog">Blog</a></li></ul></div>
+    <div><h4>Policy</h4><ul><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms &amp; Conditions</a></li><li><a href="/refund">Refunds</a></li><li><a href="/cancellation">Cancellation</a></li><li><a href="/acceptable-use">Acceptable Use</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="/contact">Contact</a></li><li><a href="/login?signup">Sign up</a></li></ul></div>
+  </div>
+  <div class="rw-footer__base sub-footer-copyright">Copyright <a href="/">Runwae</a> All Rights Reserved 2026</div>
+</footer>
+
 	<script src="/js/jquery-3.7.1.min.js"></script>
 	<script src="/js/jquery.appear.js"></script>
 	<script src="/js/jquery.mousewheel.js"></script>
