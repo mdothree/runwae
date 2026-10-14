@@ -39,39 +39,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.gstatic.com">
-    <!-- Bootstrap CSS -->
     <script src="/js/theme-init.js"></script>
-    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-reboot.css">
-    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="Bootstrap/dist/css/bootstrap-grid.css">
-    <!-- Main Styles CSS -->
-    <link rel="stylesheet" type="text/css" href="css/progressbar.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" type="text/css" href="css/fonts.min.css">
-    <link rel="stylesheet" type="text/css" href="css/runwae.css">
-    <!-- Modern UI Improvements -->
-    <link rel="stylesheet" type="text/css" href="css/theme.css">
-    <link rel="stylesheet" type="text/css" href="css/modern-overrides.css">
-    <link rel="stylesheet" type="text/css" href="css/sidebar-modern.css">
-    <link rel="stylesheet" type="text/css" href="css/modal-modern.css">
-    <link rel="stylesheet" type="text/css" href="css/chat-drawer.css">
-    <link rel="stylesheet" type="text/css" href="css/feed-cards.css">
-    <link rel="stylesheet" type="text/css" href="css/refinements.css">
-    <link rel="stylesheet" type="text/css" href="css/profile-chat-modern.css">
-    <link rel="stylesheet" type="text/css" href="css/accessibility.css">
-    <link rel="stylesheet" type="text/css" href="css/toast.css">
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin>
+    <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css"></noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;subset=latin&amp;display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;subset=latin&amp;display=swap"></noscript>
+    <link rel="stylesheet" href="/Bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/rw.css">
     <script type="module" src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.esm.js" integrity="sha384-xK1UWIBr4owfX2pXIO/ElRBj/nWGR+woU/2HlMLCUjwdl/4PZIroSf5NQ11p6DaZ" crossorigin="anonymous"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.2.3/dist/ionicons/ionicons.js" integrity="sha384-ci2kdqk58PzPOZ+JQ395GmtevjTssApbrX8PcCvc5mdaopJTEEKTRmi8m1zWoo7A" crossorigin="anonymous"></script>
     <!-- Main Font -->
-    <script src="js/webfontloader.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&subset=latin&display=swap"></noscript>
-    <script>
-        WebFont.load({
-            google: {
-                families: ['Roboto:300,400,500,700:latin']
-            }
-        });
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js" integrity="sha384-FUX7p/8KyhmpTt6AIH5uP6iqMXn8CXWI+CS5ENQdwOq6DxzbrGEB7ytb9HA8IyuO" crossorigin="anonymous"></script>
     <style>
         .ai-spinner {
@@ -94,264 +72,63 @@
     <script src="/js/consent.js"></script>
 </head>
 
-<body class="page-has-left-panels page-has-right-panels">
+<body class="rw-app">
     <noscript><p class="rw-noscript" style="margin:0;padding:12px 16px;background:#fff3cd;color:#1f1d2e;font:15px/1.5 Roboto,Arial,sans-serif;text-align:center">Runwae needs JavaScript for sign-in, gigs and messages. Turn JavaScript on to use the marketplace.</p></noscript>
     <!-- Skip Link for Accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    <div class="fixed-sidebar">
-        <div>
-            <a href="explore" class="logo">
-                <div class="img-wrap">
-                    <img loading="lazy" src="img/logo-colored.png" alt="Runwae">
-                </div>
-            </a>
-        </div>
+<header class="rw-header" id="site-header"><div class="rw-header__inner">
+  <a class="rw-logo logo" href="explore"><img src="img/logo-colored-68.png" alt="" width="30" height="30"><span>Runwae</span></a>
+  <nav class="rw-nav" aria-label="Main">
+    <a href="explore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>Explore</a>
+    <a href="messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4A8 8 0 1 1 20 12z"/></svg>Messages<span class="rw-count unreadMessagesCount" aria-label="unread"></span></a>
+    <a href="profile" class="rw-nav-profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Profile</a>
+  </nav>
+  <details class="rw-menu nav-prof">
+    <summary aria-label="Account menu"><span style="position:relative;display:block"><span class="rw-avatar rw-avatar--me"><img src="" alt=""></span><span class="rw-dot" data-zero aria-hidden="true"></span></span></summary>
+    <div class="rw-menu__panel">
+      <div class="rw-menu__head author-thumb"><span class="rw-avatar"><img alt="Your profile" src="" class="avatar" id="navProfilePicture"></span><span><strong id="navName"></strong><span class="rw-muted rw-small" id="navUsername"></span></span></div>
+      <a class="rw-menu__item" href="notifications">Notifications <span class="rw-count unreadNotificationsCount"></span></a>
+      <a class="rw-menu__item" href="account">Account settings</a>
+      <button class="rw-menu__item theme-toggle" type="button" aria-label="Toggle dark mode">Theme <ion-icon name="moon-outline" aria-hidden="true"></ion-icon></button>
+      <button class="rw-menu__item llm-chat-toggle" type="button" aria-label="Open AI Assistant">AI assistant <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon></button>
+      <a class="rw-menu__item" href="faqs">Help &amp; FAQ</a>
+      <div class="rw-menu__sep"></div>
+      <a class="rw-menu__item" href="#" id="btnLogout">Log out</a>
     </div>
-    <header class="header" id="site-header">
-        <div class="header-content-wrapper">
-            <form class="search-bar w-search notification-list friend-requests">
-                <div class="form-group with-button is-empty"><input class="form-control js-user-search selectized"
-                        placeholder="Search here people or pages..." type="text" tabindex="-1" style="display: none;"
-                        value="">
-                    <div class="selectize-control form-control js-user-search selectized multi">
-                        <div class="selectize-input items not-full has-options"><input type="text" autocomplete="off"
-                                tabindex="-1" placeholder="Search for brands or influencers..." style="width: 250px;"
-                                id="searchInput"></div>
-                        <div class="selectize-dropdown multi form-control js-user-search selectized"
-                            style="display: none; width: 350px; top: 70px; left: 0px;">
-                            <div class="selectize-dropdown-content" id="searchDisplay"></div>
-                        </div>
-                    </div>
-                    <button>
-                        <div class="control-icon has-items">
-                            <ion-icon class="ionicon" name="search-outline"></ion-icon>
-                        </div>
-                    </button>
-                    
-                </div>
-            </form>
-            <div class="control-block">
-                <div class="control-icon more has-items">
-                    <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
-                </div>
-                <div class="control-icon more has-items">
-                    <ion-icon class="ionicon mail-icon" name="mail-outline"></ion-icon>
-                    <div class="label-avatar bg-purple unreadMessagesCount"></div>
-                    <div class="more-dropdown more-with-triangle triangle-top-center">
-                        <div class="ui-block-title ui-block-title-small">
-                            <h6 class="title">Messages</h6>
-                            <a href="#" class="messagesMarkAll">Mark all as read</a>
-                        </div>
-                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
-                            data-ps-id="82c5a48e-d0ee-7f82-ea59-b3f9fb526d46">
-                            <ul class="notification-list chat-message" id="navConversationsDisplay">
-                            </ul>
-                        </div>
-                        <a href="messages" class="view-all bg-purple">View All Messages</a>
-                    </div>
-                </div>
-                <div class="control-icon more has-items">
-                    <ion-icon class="ionicon notifications-icon" name="notifications-outline"></ion-icon>
-                    <div class="label-avatar bg-primary unreadNotificationsCount"></div>
-                    <div class="more-dropdown more-with-triangle triangle-top-center">
-                        <div class="ui-block-title ui-block-title-small">
-                            <h6 class="title">Notifications</h6>
-                            <a href="#" class="notificationsMarkAll">Mark all as read</a>
-                        </div>
-                        <div class="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark"
-                            data-ps-id="f394c115-21ed-552b-81c8-ace246c0d11b">
-                            <ul class="notification-list" id="navNotificationsDisplay">
-                            </ul>
-                        </div>
-                        <a href="notifications" class="view-all bg-primary">View All Notifications</a>
-                    </div>
-                </div>
-                <!-- Theme Toggle -->
-                <div class="control-icon theme-toggle" title="Toggle dark mode" tabindex="0" role="button" aria-label="Toggle dark mode">
-                    <ion-icon name="moon-outline"></ion-icon>
-                </div>
-                <!-- LLM Chat Toggle -->
-                <div class="control-icon llm-chat-toggle" title="Open AI Assistant" tabindex="0" role="button" aria-label="Open AI Assistant">
-                    <ion-icon name="chatbubbles-outline"></ion-icon>
-                </div>
-                <div class="author-page author vcard inline-items more nav-prof">
-                    <div class="author-thumb">
-                        <img alt="author" src="" class="avatar" style="height:36px;  width:36px;" id="navProfilePicture">
-                        <div class="more-dropdown more-with-triangle">
-                            <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
-                                data-ps-id="35a6f9b9-b18c-d9cb-06c3-2dd2cb9a7a33">
-                                <div class="ui-block-title ui-block-title-small">
-                                    <h6 class="title">Your Account</h6>
-                                </div>
-                                <ul class="account-settings">
-                                    <li>
-                                        <a href="account">
-                                            <ion-icon class="ionicon" name="person-circle-outline"></ion-icon>
-                                            &nbsp; <span>Account</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="faqs">
-                                            <ion-icon class="ionicon" name="file-tray-full-outline"></ion-icon>
-                                            &nbsp; <span>FAQs</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" id="btnLogout">
-                                            <ion-icon class="ionicon" name="exit-outline"></ion-icon>
-                                            &nbsp; <span>Log Out</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
-                                    <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                                </div>
-                                <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
-                                    <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="" class="author-name fn">
-                        <div class="author-title">
-                            <text id="navName"></text>
-                        </div>
-                        <span class="author-subtitle" id="navUsername"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-    <header class="header header-responsive" id="site-header-responsive">
-        <div class="header-content-wrapper">
-            <ul class="nav nav-tabs mobile-app-tabs" role="tablist">
-                <li class="nav-item">
-                    <div class="vcard " style="
-                    margin-top: 19.5px;">
-                        <div class="author-thumb">
-                            <img alt="" src="" class="avatar" style="height: 36px; display: inline-block;"
-                                id="navMobileProfilePicture">
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#" role="tab">
-                        <div class="control-icon has-items">
-                            <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#chat" role="tab">
-                        <div class="control-icon has-items">
-                            <div class="control-icon has-items">
-                                <ion-icon class="ionicon" name="mail-outline"></ion-icon>
-                            </div>
-                            <div class="label-avatar bg-purple unreadMessagesCount"></div>
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#notification" role="tab">
-                        <div class="control-icon has-items">
-                            <div class="control-icon has-items">
-                                <ion-icon class="ionicon" name="notifications-outline"></ion-icon>
-                            </div>
-                            <div class="label-avatar bg-primary unreadNotificationsCount"></div>
-                        </div>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#search" role="tab">
-                        <ion-icon class="ionicon search-icon" name="search-outline"></ion-icon>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- Tab panes -->
-        <div class="tab-content tab-content-responsive">
-            <div class="tab-pane" id="chat" role="tabpanel">
-                <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
-                    data-ps-id="8c34af73-b408-6fa7-c529-a0ac3a0dacfc">
-                    <div class="ui-block-title ui-block-title-small">
-                        <h6 class="title">Messages</h6>
-                        <a href="#" class="messagesMarkAll">Mark all as read</a>
-                    </div>
-                    <ul class="notification-list chat-message" id="mobileNavConversationsDisplay">
-                    </ul>
-                    <a href="messages" class="view-all bg-purple" id="messages">View All Messages</a>
-                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
-                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                    </div>
-                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
-                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane" id="notification" role="tabpanel">
-                <div class="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark"
-                    data-ps-id="68f43a37-1d6c-18d1-e75e-b6313dfc2d36">
-                    <div class="ui-block-title ui-block-title-small">
-                        <h6 class="title">Notifications</h6>
-                        <a href="#" class="notificationsMarkAll">Mark all as read</a>
-                    </div>
-                    <ul class="notification-list" id="mobileNavNotificationsDisplay">
-                    </ul>
-                    <a href="notifications" class="view-all bg-primary">View All Notifications</a>
-                    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
-                        <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-                    </div>
-                    <div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;">
-                        <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane" id="search" role="tabpanel">
-                <form class="search-bar w-search notification-list friend-requests">
-                    <div class="form-group with-button is-empty">
-                        <input class="form-control js-user-search selectized"
-                            placeholder="Search here people or pages..." type="text" tabindex="-1"
-                            style="display: none;" value="">
-                        <div class="selectize-control form-control js-user-search selectized multi">
-                            <div class="selectize-input items not-full has-options"><input type="text"
-                                    autocomplete="off" tabindex="-1" placeholder="Search for brands or influencers..."
-                                    style="width: 250px;" id="navSearchInput"></div>
-                            <div class="selectize-dropdown multi form-control js-user-search selectized"
-                                style="display: none; top: 70px; left: 0px;">
-                                <div class="selectize-dropdown-content" id="navSearchDisplay"></div>
-                            </div>
-                        </div>
-                        <!---Selecticize enf here -->
-                        
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- ... end  Tab panes -->
-    </header>
-    <div class="header-spacer header-spacer-small"></div>
-    <main id="main-content" class="main-header" style="padding: 30px 0 0px 0">
-        <div class="content-bg-wrap bg-account"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col col-lg-8 m-auto col-sm-10 col-xs-10">
+  </details>
+</div></header>
+<div class="rw-legacy-hooks" hidden aria-hidden="true">
+  <!-- old dropdown/mobile-tab targets that navHQ/messages/notifications/search JS write into; kept, never shown -->
+  <ul class="notification-list chat-message" id="navConversationsDisplay"></ul><ul class="notification-list" id="navNotificationsDisplay"></ul>
+  <a href="#" class="messagesMarkAll" tabindex="-1">Mark all as read</a><a href="#" class="notificationsMarkAll" tabindex="-1">Mark all as read</a>
+  <img alt="" src="" class="avatar" id="navMobileProfilePicture">
+  <ul class="notification-list chat-message" id="mobileNavConversationsDisplay"></ul><ul class="notification-list" id="mobileNavNotificationsDisplay"></ul>
+  <a href="messages" id="messages" tabindex="-1">View All Messages</a>
+  <input type="text" id="navSearchInput" tabindex="-1" aria-hidden="true"><div id="navSearchDisplay"></div>
+  <!-- explore.html moves #searchInput/#searchDisplay into the page; other app pages keep them here -->
+  <input type="text" id="searchInput" tabindex="-1" aria-hidden="true"><div id="searchDisplay"></div>
+</div>
+    <main id="main-content" class="rw-page rw-gig-page">
+        <div class="rw-gig">
+            <div class="rw-gig__row">
+                <div class="rw-gig__col">
                     <div class="gig-header">
                         <div style="width:50%" align="left">
-                            <h3 id="partnerName"></h3>
+                            <h1 id="partnerName"></h1>
                             <h4 class="platform"></h4>
                         </div>
                         <div class="gigNavigationContainer" style="width:50%" align="right">
                             <row id="gigNavigationIcons">
-                                <a id="btnDetailsContainer" class="gig-icon" href="#">
+                                <a id="btnDetailsContainer" class="gig-icon" href="#" aria-label="Gig details" title="Gig details">
                                     <ion-icon name="reader-outline"></ion-icon>
                                 </a>
-                                <a id="btnMessage" class="gig-icon" href="#">
+                                <a id="btnMessage" class="gig-icon" href="#" aria-label="Message" title="Message">
                                     <ion-icon name="mail-outline"></ion-icon>
                                 </a>
-                                <a id="btnHistoryContainer" class="gig-icon" href="#">
+                                <a id="btnHistoryContainer" class="gig-icon" href="#" aria-label="History" title="History">
                                     <ion-icon name="list-outline"></ion-icon>
                                 </a>
-                                <a id="btnDisputesContainer" class="gig-icon" href="#">
+                                <a id="btnDisputesContainer" class="gig-icon" href="#" aria-label="Disputes" title="Disputes">
                                     <ion-icon name="warning-outline"></ion-icon>
                                 </a>
                             </row>
@@ -359,8 +136,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col col-lg-8 m-auto col-sm-10 col-xs-10">
+            <div class="rw-gig__row">
+                <div class="rw-gig__col">
                     <div class='progress'>
                         <div class='progress_inner'>
                             <div class='progress_inner__step'>
@@ -845,6 +622,23 @@
                 </div>
             </div>
         </div>
+    </main>
+<footer class="rw-footer" id="footer">
+  <div class="rw-footer__inner">
+    <div><a class="rw-logo" href="/"><img src="/img/logo-colored-68.png" alt="" width="30" height="30" loading="lazy"><span>Runwae</span></a>
+      <p class="rw-muted rw-small" style="margin-top:12px;max-width:30ch">Cultivating meaningful partnerships through honest design.</p>
+      <ul class="rw-socials">
+        <li><a href="https://www.facebook.com/runwaeplatform" aria-label="Runwae on Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H7v3h2v9h3v-9h2.5l.5-3H12V7a1 1 0 0 1 1-1h2z"/></svg></a></li>
+        <li><a href="https://twitter.com/runwae_" aria-label="Runwae on Twitter"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg></a></li>
+        <li><a href="https://www.youtube.com/channel/UCv3u08c4k4GxdW97HuXYmrw" aria-label="Runwae on YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z"/></svg></a></li>
+        <li><a href="https://www.instagram.com/runwae_/" aria-label="Runwae on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17" cy="7" r=".6"/></svg></a></li>
+      </ul></div>
+    <div><h4>Product</h4><ul><li><a href="/#howItWorks">How it works</a></li><li><a href="/explore">Explore</a></li><li><a href="/faqs">FAQs</a></li><li><a href="/blog">Blog</a></li></ul></div>
+    <div><h4>Policy</h4><ul><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms &amp; Conditions</a></li><li><a href="/refund">Refunds</a></li><li><a href="/cancellation">Cancellation</a></li><li><a href="/acceptable-use">Acceptable Use</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="/contact">Contact</a></li><li><a href="/login?signup">Sign up</a></li></ul></div>
+  </div>
+  <div class="rw-footer__base sub-footer-copyright">Copyright <a href="/">Runwae</a> All Rights Reserved 2026</div>
+</footer>
         <div class="modal-backdrop fade"></div>
         <div class="modal fade" id="open-verifyEmail" tabindex="-1" role="dialog" aria-labelledby="open-verifyEmail"
             style="display: none;" aria-modal="true">
@@ -954,6 +748,7 @@
         <script src="runwaejs/listeners.js"></script>
         <script src="runwaejs/feed.js"></script>
         <script src="runwaejs/navHQ.js"></script>
+        <script src="js/rw-nav.js"></script>
         <script src="runwaejs/transactions.js"></script>
         <script src="runwaejs/llm.js"></script>
         <script src="runwaejs/gigHQ.js"></script>
