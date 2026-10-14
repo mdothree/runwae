@@ -63,6 +63,8 @@
         "transactions": {
           "$k": { ".validate": false }
         },
+        "plan": { ".validate": false },
+        "stripe_customer_id": { ".validate": false },
 
         "unread_notifications_count": {
           ".write": "auth != null && root.child('users').child($uid).exists()",
@@ -226,6 +228,11 @@
           "$other": { ".validate": false }
         }
       }
+    },
+
+    "billing": {
+      ".read": false,
+      ".write": false
     },
 
     "rate_limits": {

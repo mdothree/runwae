@@ -6,7 +6,7 @@
 <meta charset="utf-8">
 <!-- SEO:BEGIN -->
 <title>Cancellation Policy — Runwae</title>
-<meta name="description" content="Runwae has no subscriptions to cancel. How to stop using Runwae or close your account, and what happens to payments for gigs in progress.">
+<!--rw-billing:off--><meta name="description" content="Runwae has no subscriptions to cancel. How to stop using Runwae or close your account, and what happens to payments for gigs in progress."><!--/rw-billing:off--><!--rw-billing:on--><meta name="description" content="How to cancel a Runwae plan, stop using Runwae or close your account, and what happens to payments for gigs in progress."><!--/rw-billing:on-->
 <meta name="keywords" content="influencer marketing, brand partnerships, influencer platform, creator collaborations, influencer agreements">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://runwae.com/cancellation">
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Runwae">
 <meta property="og:title" content="Cancellation Policy — Runwae">
-<meta property="og:description" content="Runwae has no subscriptions to cancel. How to stop using Runwae or close your account, and what happens to payments for gigs in progress.">
+<!--rw-billing:off--><meta property="og:description" content="Runwae has no subscriptions to cancel. How to stop using Runwae or close your account, and what happens to payments for gigs in progress."><!--/rw-billing:off--><!--rw-billing:on--><meta property="og:description" content="How to cancel a Runwae plan, stop using Runwae or close your account, and what happens to payments for gigs in progress."><!--/rw-billing:on-->
 <meta property="og:url" content="https://runwae.com/cancellation">
 <meta property="og:image" content="https://runwae.com/og-image.png">
 <meta property="og:image:type" content="image/png">
@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cancellation Policy — Runwae">
-<meta name="twitter:description" content="Runwae has no subscriptions to cancel. How to stop using Runwae or close your account, and what happens to payments for gigs in progress.">
+<!--rw-billing:off--><meta name="twitter:description" content="Runwae has no subscriptions to cancel. How to stop using Runwae or close your account, and what happens to payments for gigs in progress."><!--/rw-billing:off--><!--rw-billing:on--><meta name="twitter:description" content="How to cancel a Runwae plan, stop using Runwae or close your account, and what happens to payments for gigs in progress."><!--/rw-billing:on-->
 <meta name="twitter:image" content="https://runwae.com/og-image.png">
 <meta name="twitter:image:alt" content="Runwae — Fast Influencer Marketing">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -156,7 +156,7 @@
                                 <svg class="blog-icon">
                                     <use xlink:href="#blog-icon"></use>
                                 </svg>
-                                <a href="#nosubscriptions">No Subscriptions</a>
+                                <!--rw-billing:off--><a href="#nosubscriptions">No Subscriptions</a><!--/rw-billing:off--><!--rw-billing:on--><a href="#subscriptions">Cancelling Your Plan</a><!--/rw-billing:on-->
                             </li>
                             <li>
                                 <svg class="blog-icon">
@@ -188,13 +188,24 @@
                 </div>
                 <div class="col col-xl-8 ml-auto order-xl-2 col-lg-8 order-lg-2 col-md-12 order-md-2 col-sm-12 col-12">
                     <!-- Help Main Topic -->
-                    <div class="help-main-topic">
+                    <!--rw-billing:off--><div class="help-main-topic">
                         <h3 aria-level="2" class="title" id="nosubscriptions">No Subscriptions</h3>
                         <p>Runwae has no subscription plans and no recurring charges. A marketer pays once for each
                             gig, at the moment they choose to pay for it. Runwae does not keep your card on file, so it
                             cannot charge you again unless you pay for another gig. There is no plan to cancel and no
                             renewal to stop.</p>
-                    </div>
+                    </div><!--/rw-billing:off--><!--rw-billing:on--><div class="help-main-topic">
+                        <h3 aria-level="2" class="title" id="subscriptions">Cancelling Your Plan</h3>
+                        <p>Brands pay a monthly Brand plan and creators a monthly Creator membership. You can cancel at
+                            any time from Account &rarr; Plan &rarr; Manage billing, which opens Stripe&rsquo;s billing
+                            page. Cancelling stops the next renewal: your plan stays active until the end of the period you
+                            already paid for, and you are not charged again.</p>
+                        <p>The card for your plan is stored by Stripe, not by Runwae, so the plan can renew each month
+                            until you cancel. If a renewal payment fails and is still unpaid after Stripe&rsquo;s retries,
+                            the plan ends.</p>
+                        <p>Gig payments are separate from plans: a marketer pays once for each gig, at the moment they
+                            choose to pay for it.</p>
+                    </div><!--/rw-billing:on-->
                     <div class="help-main-topic">
                         <h3 aria-level="2" class="title" id="stopusing">Stop Using Runwae at Any Time</h3>
                         <p>You may stop using Runwae at any time, for any reason. To close your account, email
@@ -203,6 +214,9 @@
                             your profile, and your posts are marked inactive. Our <a href="/privacy">Privacy Policy</a>
                             (section &ldquo;Data Retention&rdquo;) explains what we keep afterwards and how to ask us to
                             delete it.</p>
+                        <!--rw-billing:on--><p>Closing your account does not cancel your plan by itself. Cancel it first under
+                            Account &rarr; Plan &rarr; Manage billing, or say so in your email and we will cancel it for
+                            you.</p><!--/rw-billing:on-->
                     </div>
                     <div class="help-main-topic">
                         <h3 aria-level="2" class="title" id="influencers">Influencers and Stripe</h3>

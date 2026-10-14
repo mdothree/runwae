@@ -6,6 +6,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         database.ref().child('users/' + useri).once('value', function (snap) {
             handleMessagePreference();
             displayAccountInfo();
+            rwMountPlanSection(snap);
             profilePhotos(snap);
             whoToFollow(snap, 6, "#influencersToFollowDisplay", "influencer");
             whoToFollow(snap, 6, "#brandsToFollowDisplay", "marketer");

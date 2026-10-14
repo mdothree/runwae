@@ -3,6 +3,12 @@
  * Auth: Firebase ID token (Bearer). Caller must be the marketer who owns the item.
  * Body: { stripeToken, gigPath }   (any client "amount" is ignored; price comes from items/{id}/price)
  *
+ * Amount charged (0% platform fee, Principal 2026-10-14):
+ *   gig price + card processing passed through at cost (billing-config.js PROCESSING),
+ *   when billing is enabled and RUNWAE_PROCESSING_PASS_THROUGH is not "0"; otherwise the
+ *   gig price only. GET /api/payment/quote shows the marketer the same numbers first.
+ *   The influencer is always transferred the full gig price (transactions/{key}/price).
+ *
  * On success the server writes (admin SDK):
  *   transactions/{key}                       full record, status "incomplete"
  *   users/{marketerUid}/transactions/{key}   { path, time }
@@ -10,6 +16,7 @@
  *   {gigPath}/transaction_key                key
  */
 const stripe = require('../lib/stripe');
+const billing = require('../lib/billing');
 const { HttpError, requireUser, loadGig, itemPrice, takeLock, sendError } = require('./_shared');
 
 module.exports = async (req, res) => {
@@ -35,15 +42,16 @@ module.exports = async (req, res) => {
       if (existing.exists()) throw new HttpError(409, 'already_paid', 'This gig has already been paid');
     }
     const price = itemPrice(item);
+    const quote = billing.processingQuote(price, billing.processingPassThrough(process.env));
 
     lock = await takeLock(db, itemId, gigKey, 'charge', uid);
 
     charge = await stripe.charges.create({
-      amount: price * 100,
+      amount: quote.total_cents,
       currency: 'usd',
       source: stripeToken,
       description: (typeof description === 'string' && description.slice(0, 200)) || 'Runwae partnership payment',
-      metadata: { gigPath, marketerID: uid, influencerID: gig.uid },
+      metadata: { gigPath, marketerID: uid, influencerID: gig.uid, gig_price_cents: String(quote.price_cents), processing_fee_cents: String(quote.processing_cents), platform_fee_cents: '0' },
     }, { idempotencyKey: `charge_${itemId}_${gigKey}_${stripeToken}` });
 
     const now = Date.now();
@@ -55,6 +63,8 @@ module.exports = async (req, res) => {
         marketer_transactionID: charge.id,
         influencer_transactionID: '',
         price: String(price),
+        processing_fee_cents: quote.processing_cents,
+        amount_charged_cents: quote.total_cents,
         tracking_number: '',
         marketerID: uid,
         influencerID: gig.uid,
@@ -68,7 +78,7 @@ module.exports = async (req, res) => {
     });
     await lock.done({ transactionKey: key });
 
-    return res.status(200).json({ success: true, chargeId: charge.id, transactionKey: key });
+    return res.status(200).json({ success: true, chargeId: charge.id, transactionKey: key, amountChargedCents: quote.total_cents });
   } catch (error) {
     if (lock && charge) {
       // Card was charged but recording failed: keep the lock so it cannot be

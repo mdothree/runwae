@@ -224,6 +224,12 @@
                                 </svg>
                                 <a href="#shippingpayment">Shipping Payment</a>
                             </li>
+                            <!--rw-billing:on--><li>
+                                <svg class="blog-icon">
+                                    <use xlink:href="#blog-icon"></use>
+                                </svg>
+                                <a href="#plans">Plans and Subscriptions</a>
+                            </li><!--/rw-billing:on-->
                             <li>
                                 <svg class="blog-icon">
                                     <use xlink:href="#blog-icon"></use>
@@ -540,17 +546,37 @@
                         <p>Note: The influencer may message the marketer and request proof of shipment before accepting
                             the shipment.</p>
                     </div>
-                    <div class="help-main-topic">
+                    <!--rw-billing:on--><div class="help-main-topic">
+                        <h3 aria-level="2" class="title" id="plans">Plans and Subscriptions</h3>
+                        <p>To post campaigns, a marketer needs an active Brand plan. To apply to campaigns or list
+                            services, an influencer needs an active Creator membership. Current prices are shown on the
+                            <a href="/plans">Plans</a> page and at checkout before you pay. Plans are billed monthly in
+                            advance through Stripe and renew automatically until you cancel.</p>
+                        <p>A promotion code can reduce the plan price for a limited time. The discount and how long it
+                            lasts are shown at checkout. When it ends, the regular price applies unless you cancel
+                            first.</p>
+                        <p>You can cancel at any time from Account &rarr; Plan &rarr; Manage billing. Cancelling stops
+                            the next renewal; your plan stays active until the end of the period you already paid for.
+                            If a renewal payment fails, Stripe retries it. Until it succeeds you cannot post or apply to
+                            new campaigns, but gigs already in progress, gig payments and payouts continue.</p>
+                        <p>If we change a plan price, we will email you before the new price applies to your plan, and
+                            you can cancel before it does.</p>
+                        <p>Plan fees are separate from gig payments. Runwae keeps none of the gig price.</p>
+                    </div>
+                    <!--/rw-billing:on-->                    <div class="help-main-topic">
                         <h3 aria-level="2" class="title" id="monetarypayment">Monetary Payment (Marketers)</h3>
                         <p>Runwae utilizes the Stripe platform to accept payments from Runwae marketers. Marketers are
                             not required to create a stripe account at all. However, payments must be made utilizing
                             card payments and not bank payments. Runwae does not collect the card information at all,
                             but uses a token representative of the card (created by the stripe platform) to charge the
                             card. Runwae does not store this token either.</p>
-                        <p>The marketer pays the gig price shown at checkout. Runwae adds no platform fee, processing
+                        <!--rw-billing:off--><p>The marketer pays the gig price shown at checkout. Runwae adds no platform fee, processing
                             fee, or other charge on top of that price, and the influencer is paid that same amount when
                             they accept the payment. A money-compensated gig must be listed at a price of at least
-                            $10.</p>
+                            $10.</p><!--/rw-billing:off--><!--rw-billing:on--><p>Runwae adds no platform fee and keeps none of the gig price: the influencer is paid the full
+                            gig price when they accept the payment.<!--rw-processing:off--> The marketer pays the gig price shown at checkout, with no processing fee or other charge on top.<!--/rw-processing:off--><!--rw-processing:on--> The marketer pays the gig price plus card processing: Stripe&rsquo;s standard card fee (2.9% +
+                            30&cent;), passed through at cost and shown as its own line at checkout before you pay.<!--/rw-processing:on-->
+                            A money-compensated gig must be listed at a price of at least $10.</p><!--/rw-billing:on-->
                     </div>
                     <div class="help-main-topic">
                         <h3 aria-level="2" class="title" id="monetaryrefunds">Monetary Refunds (Marketer)</h3>
@@ -564,7 +590,9 @@
                             gig and the email address on your account. Refunds are returned to the card used for the
                             payment.
                         </p>
-                        <p>Note: Once the influencer accepts the payment, it has been transferred to the influencer and
+                        <!--rw-billing:on--><!--rw-processing:on--><p>A gig refund returns the full amount charged, including the card
+                            processing line.</p>
+                        <!--/rw-processing:on--><!--/rw-billing:on--><p>Note: Once the influencer accepts the payment, it has been transferred to the influencer and
                             is final; no refund is issued after that point. The influencer can only accept the payment
                             after the post has been verified.</p>
                     </div>

@@ -170,6 +170,12 @@
                                 </svg>
                                 <a href="#gifts">Gift Compensation</a>
                             </li>
+                            <!--rw-billing:on--><li>
+                                <svg class="blog-icon">
+                                    <use xlink:href="#blog-icon"></use>
+                                </svg>
+                                <a href="#planfees">Plan Fees</a>
+                            </li><!--/rw-billing:on-->
                             <li>
                                 <svg class="blog-icon">
                                     <use xlink:href="#blog-icon"></use>
@@ -196,9 +202,11 @@
                     <!-- Help Main Topic -->
                     <div class="help-main-topic">
                         <h3 aria-level="2" class="title" id="scope">Who This Applies To</h3>
-                        <p>This Refund Policy applies to payments made through Runwae at runwae.com. Runwae is a
+                        <!--rw-billing:off--><p>This Refund Policy applies to payments made through Runwae at runwae.com. Runwae is a
                             marketplace: marketers pay for gigs, and influencers receive those payments. Runwae has no
-                            subscription plans and no recurring charges.</p>
+                            subscription plans and no recurring charges.</p><!--/rw-billing:off--><!--rw-billing:on--><p>This Refund Policy applies to payments made through Runwae at runwae.com: gig payments
+                            (marketers pay for gigs, and influencers receive those payments) and plan fees (the monthly
+                            Brand plan and Creator membership).</p><!--/rw-billing:on-->
                     </div>
                     <div class="help-main-topic">
                         <h3 aria-level="2" class="title" id="marketerpayments">Marketer Payments for Gigs</h3>
@@ -215,13 +223,25 @@
                                 is final. The influencer can only accept the payment after the post has been
                                 verified.</li>
                         </ul>
-                        <p>How marketer payments work (the marketer pays the gig price shown at checkout, with no
+                        <!--rw-billing:off--><p>How marketer payments work (the marketer pays the gig price shown at checkout, with no
                             platform fee added) is described in the section &ldquo;Monetary Payment
-                            (Marketers)&rdquo; of the same <a href="/terms">Terms and Conditions</a>.</p>
+                            (Marketers)&rdquo; of the same <a href="/terms">Terms and Conditions</a>.</p><!--/rw-billing:off--><!--rw-billing:on--><p>How marketer payments work (the influencer receives the full gig price; Runwae adds no
+                            platform fee<!--rw-processing:off--><!--/rw-processing:off--><!--rw-processing:on-->, and card processing is passed through at cost<!--/rw-processing:on-->) is described in the section
+                            &ldquo;Monetary Payment (Marketers)&rdquo; of the same <a href="/terms">Terms and
+                            Conditions</a>. A gig refund returns the full amount charged.</p><!--/rw-billing:on-->
                         <p>To request a refund under this rule, email <a href="mailto:hello@runwae.com">hello@runwae.com</a> with a link to the gig and the email
                             address on your Runwae account. Never send card numbers or passwords by email.</p>
                     </div>
-                    <div class="help-main-topic">
+                    <!--rw-billing:on--><div class="help-main-topic">
+                        <h3 aria-level="2" class="title" id="planfees">Plan Fees</h3>
+                        <p>The Brand plan and the Creator membership are billed monthly in advance. You can cancel at
+                            any time; your plan stays active until the end of the period you already paid for. We do not
+                            refund part of a period that has already started, except where the law requires it.</p>
+                        <p>If you were charged after you cancelled, or charged twice for the same period, email
+                            <a href="mailto:hello@runwae.com">hello@runwae.com</a> within 30 days of the charge and we will
+                            refund it.</p>
+                    </div>
+                    <!--/rw-billing:on-->                    <div class="help-main-topic">
                         <h3 aria-level="2" class="title" id="gifts">Gift Compensation</h3>
                         <p>Some gigs are paid in products (&ldquo;gift&rdquo; compensation) rather than money. Runwae
                             does not sell, hold, or ship these products, so it cannot refund them. Questions about a
@@ -236,7 +256,9 @@
                         <ul style="list-style: unset">
                             <li>Any payment that the influencer has already accepted;</li>
                             <li>Any payment for a gig after the refund window described above has closed; or</li>
-                            <li>Any amount, if your account was closed for breaking our
+                            <!--rw-billing:on--><li>Plan fees for a billing period that has already started, except as
+                                described under &ldquo;Plan Fees&rdquo;;</li>
+                            <!--/rw-billing:on--><li>Any amount, if your account was closed for breaking our
                                 <a href="/acceptable-use">Acceptable Use Policy</a>.</li>
                         </ul>
                     </div>

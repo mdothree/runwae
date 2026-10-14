@@ -529,6 +529,7 @@
                             </div>
 
                             <div id="collapseOne-2" class="collapse" role="region" aria-labelledby="headingOne-2">
+<!--rw-billing:off-->
                                 <p>
                                     There is currently no fee to sign up on Runwae.
                                     Pricing may change in the future.
@@ -539,7 +540,22 @@
                                     checkout, and when the influencer accepts the payment, Runwae transfers that same
                                     amount to the influencer's connected Stripe account.
                                 </p>
-                            </div>
+<!--/rw-billing:off--><!--rw-billing:on-->
+                                <p>
+                                    Runwae is paid by plan, not by gig. Brands pay the Brand plan,
+                                    <span data-rw-price="brand">$49</span> a month, to post campaigns and hire creators. Creators pay the
+                                    Creator membership, <span data-rw-price="creator">$12</span> a month, to apply to campaigns and list
+                                    services. Have an early-access promo code? Enter it at checkout. You can cancel anytime from your
+                                    account. See <a href="/plans">Plans</a>.
+                                </p>
+
+                                <p>
+                                    Runwae keeps 0% of gig payments: 100% of each gig price goes to the creator. When the influencer
+                                    accepts the payment, Runwae transfers the full gig price to the influencer's connected Stripe
+                                    account.<!--rw-processing:off--><!--/rw-processing:off--><!--rw-processing:on--> When a brand pays for a gig by card, Stripe&rsquo;s card processing fee (2.9% + 30&cent;) is shown as its own
+                                    line at checkout and passed through at cost, so the creator still receives the full gig price.<!--/rw-processing:on-->
+                                </p>
+<!--/rw-billing:on-->                            </div>
 
                             <h1 id="posts" aria-level="2">Posts</h1>
 

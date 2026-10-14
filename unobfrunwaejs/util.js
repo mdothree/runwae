@@ -403,3 +403,57 @@ function getCookieObj() {
     document.cookie = JSON.stringify(obj);
     return obj;
 }
+// ---------------------------------------------------------------------------
+// Plans (subscription + 0% transaction fee, Principal 2026-10-14).
+// Brands need an active Brand plan to post a campaign; creators need an active
+// Creator membership to apply to a campaign or list a service. The database
+// rules enforce this on the server (deployment/gate-rules.js); this is the UI.
+// Billing is OFF until /api/billing/plans says enabled, and the UI fails open
+// if that endpoint is missing (the rules still decide).
+// ---------------------------------------------------------------------------
+var rwBillingInfoPromise = null;
+function rwBillingInfo() {
+    if (!rwBillingInfoPromise) {
+        rwBillingInfoPromise = fetch('/api/billing/plans', { credentials: 'same-origin' })
+            .then(function (r) { return r.ok ? r.json() : { enabled: false }; })
+            .catch(function () { return { enabled: false }; });
+    }
+    return rwBillingInfoPromise;
+}
+
+// Same rule as api/lib/billing.isPlanActive (3 days grace past the period end).
+function rwPlanActive(plan) {
+    if (!plan || (plan.status !== 'active' && plan.status !== 'trialing')) return false;
+    var end = Number(plan.current_period_end);
+    return isFinite(end) && end + 3 * 24 * 60 * 60 * 1000 > Date.now();
+}
+
+function rwLoadBillingUi(cb) {
+    if (window.RwBilling) return cb(window.RwBilling);
+    var s = document.createElement('script');
+    s.src = '/js/rw-billing.js';
+    s.onload = function () { cb(window.RwBilling); };
+    document.head.appendChild(s);
+}
+
+// action: "post" (brand campaign / creator service) or "apply" (creator interest).
+function rwRequirePlan(snapUser, action, proceed) {
+    rwBillingInfo().then(function (info) {
+        if (!info || !info.enabled || !snapUser || !snapUser.key) return proceed();
+        database.ref().child('users/' + snapUser.key + '/plan').once('value').then(function (snapPlan) {
+            if (rwPlanActive(snapPlan.val())) return proceed();
+            var u = snapUser.val() || {};
+            rwLoadBillingUi(function (RwBilling) {
+                RwBilling.paywall({ action: action, role: u.role, info: info, plan: snapPlan.val() });
+            });
+        }, function () { proceed(); });
+    });
+}
+
+// Account page: the "Plan" section (manage billing -> Stripe customer portal).
+function rwMountPlanSection(snapUser) {
+    rwBillingInfo().then(function (info) {
+        if (!info || !info.enabled) return;
+        rwLoadBillingUi(function (RwBilling) { RwBilling.mountPlanSection(snapUser.key, snapUser.val() || {}, info); });
+    });
+}
