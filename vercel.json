@@ -18,6 +18,16 @@
       "source": "/blog/HowToMarketSkincareProdcutsUsingInfluencers",
       "destination": "/blog/HowToMarketSkincareProductsUsingInfluencers",
       "permanent": true
+    },
+    {
+      "source": "/refund-policy",
+      "destination": "/refund",
+      "permanent": false
+    },
+    {
+      "source": "/pricing",
+      "destination": "/faqs#cost",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -36,7 +46,11 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "upgrade-insecure-requests; object-src 'none'; base-uri 'self'; frame-ancestors 'self'"
+          "value": "upgrade-insecure-requests; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
         },
         {
           "key": "X-Content-Type-Options",
