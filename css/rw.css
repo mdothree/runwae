@@ -1018,4 +1018,11 @@ a.control_prev { left: 8px; } a.control_next { right: 8px; }
 .bootstrap-select .dropdown-item { white-space: normal; }
 fieldset.form-group { margin: 0; }
 
+/* ---- 10g. Notifications (one list; unread rows tinted with a periwinkle dot) ---- */
+.rw-notifications__list .notification-list > li { padding: var(--rw-s4) var(--rw-s5) var(--rw-s4) var(--rw-s6); }
+.rw-notifications__list .notification-list > li:hover { background: var(--rw-bg-subtle); }
+.rw-notifications__list .notification-list > li.unread:hover { background: var(--rw-accent-soft); }
+.rw-notifications__list .notification-list:empty { min-height: 120px; }
+.rw-notifications__list > .notification-list > h3, #notificationsDisplay > h3 { font: 400 .9375rem var(--rw-font-body); color: var(--rw-muted); padding: var(--rw-s5); }
+
 /* -- end 10 -- */
