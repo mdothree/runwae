@@ -85,6 +85,9 @@
             background-image: url(img/background.png);
             object-fit: cover;
         }
+        /* F13 (gate, 390px): an unrevealed .reveal3 starts at translateX(40px), so body.scrollWidth read 400 @390.
+           Clip that x-offset at its section (clip, not hidden: no scroll container); the reveal animation is unchanged. */
+        section:has(.reveal3) { overflow-x: clip; }
     </style>
     <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css"></noscript>
