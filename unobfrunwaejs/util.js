@@ -75,15 +75,66 @@ function anchors() {
     });
 }
 
-function sendEmail(emailAddress, subject, payload) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {}
-    };
-    var params = "emailAddress=" + emailAddress + "&subject=" + subject + "&payload=" + payload;
-    xmlhttp.open("GET", "email.php?" + params, true);
-    xmlhttp.send();
+// Email notifications: the browser only reports WHAT happened (event + ids);
+// /api/notify verifies the caller, looks up the recipient and the content in the
+// database and sends the email. (Replaces the old email.php relay.)
+// Most flows navigate away right after acting, so each event is queued in
+// sessionStorage first and flushed now and on the next page load. The server
+// de-duplicates, so a retry never sends twice. 409 = records not written yet.
+var RW_NOTIFY_KEY = 'runwae_notify_queue';
+var rwNotifyFlushing = false;
+function rwNotifyRead() {
+    try { return JSON.parse(sessionStorage.getItem(RW_NOTIFY_KEY) || '[]') || []; } catch (e) { return []; }
 }
+function rwNotifyWrite(list) {
+    try {
+        if (list.length) sessionStorage.setItem(RW_NOTIFY_KEY, JSON.stringify(list.slice(-50)));
+        else sessionStorage.removeItem(RW_NOTIFY_KEY);
+    } catch (e) { /* storage unavailable */ }
+}
+function rwNotify(event, ids) {
+    var list = rwNotifyRead();
+    list.push({ id: Date.now() + '-' + Math.random().toString(36).slice(2, 8), event: event, ids: ids || {}, t: Date.now(), n: 0 });
+    rwNotifyWrite(list);
+    setTimeout(rwNotifyFlush, 600);
+}
+function rwNotifyFlush() {
+    if (rwNotifyFlushing || typeof firebase === 'undefined' || !firebase.auth) return;
+    var user;
+    try { user = firebase.auth().currentUser; } catch (e) { return; }
+    if (!user) return;
+    var now = Date.now();
+    var list = rwNotifyRead().filter(function (x) { return x && x.n < 6 && now - x.t < 86400000; });
+    rwNotifyWrite(list);
+    if (!list.length) return;
+    rwNotifyFlushing = true;
+    user.getIdToken().then(function (token) {
+        return Promise.all(list.map(function (x) {
+            return fetch('/api/notify', {
+                method: 'POST',
+                keepalive: true,
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                body: JSON.stringify({ event: x.event, ids: x.ids })
+            }).then(function (r) {
+                var retry = r.status === 409 || r.status === 429 || r.status === 401 || r.status >= 500;
+                return { id: x.id, retry: retry };
+            }).catch(function () { return { id: x.id, retry: true }; });
+        }));
+    }).then(function (results) {
+        var done = {}, retry = {};
+        results.forEach(function (r) { if (r.retry) retry[r.id] = true; else done[r.id] = true; });
+        rwNotifyWrite(rwNotifyRead().filter(function (x) { return !done[x.id]; }).map(function (x) {
+            if (retry[x.id]) x.n = (x.n || 0) + 1;
+            return x;
+        }));
+        if (Object.keys(retry).length) setTimeout(rwNotifyFlush, 5000);
+    }).catch(function () { /* keep the queue */ }).then(function () { rwNotifyFlushing = false; });
+}
+try {
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+        firebase.auth().onAuthStateChanged(function (u) { if (u) setTimeout(rwNotifyFlush, 1500); });
+    }
+} catch (e) { /* firebase not initialised on this page yet */ }
 
 function sendVerifyEmail(user) {
     user.sendEmailVerification().then(function () {

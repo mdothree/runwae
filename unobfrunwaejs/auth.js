@@ -215,6 +215,7 @@ function createUser(email, password) {
                         "time": dNow,
                         "uid": "XU5wu0gQWrTqnqnyPMU3bBo5uoK2"
                     });
+                    if (typeof rwNotify === 'function') rwNotify("account.created", {});
                     sendVerifyEmail(user);
                     window.location.href = "account";
                 }

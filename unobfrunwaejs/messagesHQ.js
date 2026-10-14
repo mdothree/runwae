@@ -84,12 +84,7 @@ function write(snapUser, snapRecipient, conversation) {
         "time": dNow
     });
     $("textarea#messageInput").val("");
-    title = "Message from " + snapUser.val().name;
-    body = "Hey " + snapRecipient.val().name.split(" ")[0] + "! " + snapUser.val().name + " sent you a message on Runwae. It reads: " + $("textarea#messageInput").val();
-    bodyNote = "Please don't hesitate to email us if there's anything you think we can do better!";
-    moreLink = "Runwae.com/messages";
-    actionText = "Reply Now";
-    sendEmail(snapRecipient.val().email, "You have a message on Runwae!", [title, body, bodyNote, moreLink, actionText]);
+    if (typeof rwNotify === 'function') rwNotify("message.sent", { conversationId: conversation });
 
     database.ref().child('users/' + snapUser.key).once('value', function (snapUser) {
         database.ref().child('users/' + snapRecipient.key).once('value', function (snapRecipient) {

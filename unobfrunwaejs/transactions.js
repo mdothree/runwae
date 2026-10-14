@@ -57,14 +57,7 @@ function submitGiftPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path
     database.ref().child(path).update({
         "tracking_number": $("#trackingNumberInput").val()
     });
-    subject = "Your Order Summary!";
-    title = "Payment Details";
-    body = "Hey " + snapMarketer.val().name.split(" ")[0] + "! Congrats on the new partnership! The details of your transaction are as follows: You shipped to " + snapInfluencer.val().name + " with tracking No. " + $("#trackingNumberInput").val() + " for a " + snapGig.val().platform + " agreement";
-    bodyNote = "You can also keep track of your transactions on your dashbaord. Please don't hesitate to email us if there's anything you think we can do better!";
-    moreLink = "Runwae.com/account";
-    actionText = "Review Order";
 
-    sendEmail(snapMarketer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
     recordMarketerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, false)
     writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "paid you for", "a post", path);
     writeToLedger(path, "payment submitted", "Marketer shipped an item");
@@ -75,12 +68,6 @@ function submitGiftPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path
 function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     price = Number(snapItem.val().price).toFixed(0);
 
-    subject = "Your Order Summary!";
-    title = "Payment Details";
-    body = "Hey " + snapInfluencer.val().name.split(" ")[0] + "! Congrats on the new partnership! The details of your transaction are as follows: You paid " + snapInfluencer.val().name + " $" + price + " for a " + snapGig.val().platform + " agreement";
-    bodyNote = "You can also keep track of your transactions on your dashbaord. Please don't hesitate to email us if there's anything you think we can do better!";
-    moreLink = "Runwae.com/account";
-    actionText = "Review Campaign";
 
     $("#btnSubmitStripePayment").show();
     $("#btnAboutStripe").show();
@@ -146,7 +133,6 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
                 })
                 .then(function(data) {
                     if (data.success && data.chargeId) {
-                        sendEmail(snapMarketer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
                         recordMarketerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.chargeId);
                         writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "paid you for", "a post", path);
                         writeToLedger(path, "payment submitted", "Marketer paid $" + price);
@@ -169,12 +155,6 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
 }
 
 function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
-    subject = "Your Payment Summary!";
-    title = "Payment Details";
-    body = "Hey " + snapInfluencer.val().name.split(" ")[0] + "! Congrats on the gig! The details of your transaction are as follows: " + snapMarketer.val().name + " paid you $" + snapItem.val().price + " for a " + snapGig.val().platform + " agreement";
-    bodyNote = "You can also keep track of your transactions on your dashbaord. Please don't hesitate to email us if there's anything you think we can do better!";
-    moreLink = "Runwae.com/account";
-    actionText = "Review Gig";
 
     getAccountID();
 
@@ -211,7 +191,6 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
         paymentApi('pay-influencer', { gigPath: path })
         .then(function(data) {
             if (data.success && data.transferId) {
-                sendEmail(snapInfluencer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
                 recordInfluencerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.transferId);
                 writeNotification(snapInfluencer.key, snapMarketer.key, snapInfluencer.val().username, "accepted", "your payment", path);
                 writeToLedger(path, "payment accepted", "Influencer accepted payment");

@@ -35,6 +35,7 @@ function actions(snapdb) {
                         //     "profile_completion_email_time": dNow
                         // });
                         // sendEmail(email, "You're almost there!", [title, body, bodyNote, moreLink, actionText]);
+                        // (email.php is gone: a profile nudge needs a server cron using api/lib/email.js template "account_profile_nudge")
                         console.log("profile Email", email);
                         }
                     }
