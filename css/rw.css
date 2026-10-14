@@ -399,6 +399,18 @@ img { max-width: 100%; display: block; }
    The live pages keep their JS hooks (ids/classes); these rules give that markup the rw look.
    ========================================================================== */
 .rw-footer a { display: inline-block; min-height: 24px; padding: 2px 0; } /* A11Y-013: >= 24px targets */
+/* HID-010: print (folded in from the retired css/print.css): the document text only, dark on white */
+@media print {
+  @page { margin: 18mm 16mm; }
+  html, body { background: #fff !important; color: #000 !important; }
+  .rw-header, .rw-nav, .rw-menu, .rw-footer, .rw-toc, .skip-link, nav, #rw-consent, .rw-cookie-settings, .rw-cookie-btn,
+  .theme-toggle, [data-mdo-theme], .rw-noscript, lottie-player, .modal, .rw-legacy-hooks { display: none !important; }
+  h1, h2, h3, h4, p, li, td, th, span, strong, a { color: #000 !important; }
+  .rw-doc, .rw-article, .rw-page { display: block !important; max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+  a[href^="http"]::after, a[href^="mailto:"]::after { content: " (" attr(href) ")"; font-size: 90%; }
+  h1, h2, h3 { page-break-after: avoid; break-after: avoid; }
+  p, li { orphans: 3; widows: 3; }
+}
 .rw-footer__base a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .rw-socials { display: flex; gap: var(--rw-s2); list-style: none; margin: var(--rw-s4) 0 0; padding: 0; }
 .rw-socials a { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--rw-line); border-radius: 50%; color: var(--rw-ink); }
