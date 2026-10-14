@@ -989,4 +989,33 @@ a.control_prev { left: 8px; } a.control_next { right: 8px; }
   .rw-composer { padding: var(--rw-s3); }
 }
 
+/* ---- 10f. Account (settings sections; styled file inputs; destructive action demoted) ---- */
+.rw-account { max-width: 960px; }
+.rw-account .form-group { margin-bottom: 0; }
+.rw-account .rw-field > .form-group > label { margin-bottom: 6px; }
+.rw-settings-section--save { border-top: 0; padding-top: var(--rw-s2); }
+.rw-account form + form .rw-settings-section:first-child { border-top: 1px solid var(--rw-line); padding-top: var(--rw-s6); }
+.rw-file label.btn { position: relative; cursor: pointer; margin: 0; }
+.rw-file label.btn:focus-within { outline: 2px solid var(--rw-accent); outline-offset: 2px; }
+.rw-file .rw-file__thumb { overflow: hidden; }
+.rw-file .rw-file__thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.rw-file .rw-file__thumb--wide img { border-radius: 10px; }
+.form-group.with-icon { position: relative; }
+.form-group.with-icon .form-control { padding-left: 40px; }
+.form-group.with-icon > svg { position: absolute; left: 14px; bottom: 14px; width: 16px; height: 16px; color: var(--rw-muted); }
+.rw-account .rw-check { margin: 0; }
+/* Location / industry pickers (bootstrap-select markup that location.js fills and reads) */
+.bootstrap-select.form-control { height: auto; padding: 0; border: 0; background: none; position: relative; display: block; width: 100%; }
+.bootstrap-select > .dropdown-toggle { width: 100%; min-height: 44px; justify-content: space-between; padding: 0 14px; border: 1px solid var(--rw-line); border-radius: 12px; background: var(--rw-bg); color: var(--rw-ink); font-weight: 400; }
+.bootstrap-select > .dropdown-toggle:hover, .bootstrap-select > .dropdown-toggle:focus { border-color: var(--rw-accent); background: var(--rw-bg); color: var(--rw-ink); opacity: 1; }
+.bootstrap-select .filter-option { flex: 1; min-width: 0; text-align: left; }
+.bootstrap-select .filter-option input { width: 100%; background: transparent !important; color: var(--rw-ink); font: inherit; pointer-events: none; }
+.bootstrap-select .dropdown-toggle::after { margin-left: 8px; }
+.bootstrap-select .bs-caret, .bootstrap-select .ripple-container { display: none; }
+.bootstrap-select > .dropdown-menu { width: 100%; }
+.bootstrap-select .dropdown-menu.inner { display: block; position: static; float: none; border: 0; padding: 0; margin: 0; min-width: 0; background: none; }
+.bootstrap-select .dropdown-li .check-mark { display: none; }
+.bootstrap-select .dropdown-item { white-space: normal; }
+fieldset.form-group { margin: 0; }
+
 /* -- end 10 -- */
