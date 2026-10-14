@@ -626,6 +626,27 @@ a.post-title:hover { text-decoration: underline; text-underline-offset: 3px; }
   .rw-blog .col { padding: 0; }
 }
 
+/* Legal (privacy, terms, refund, cancellation, acceptable use, contact): rw-doc layout on the kept grid */
+.rw-legal { max-width: var(--rw-max); margin: 0 auto; padding: var(--rw-s7) var(--rw-s5) var(--rw-s7); }
+.rw-legal__head { margin-bottom: var(--rw-s6); }
+.rw-legal__head p { margin-top: var(--rw-s2); }
+.rw-legal .policy-container { max-width: none; padding: 0; }
+.rw-legal .policy-container > .row { display: grid; grid-template-columns: 220px minmax(0, 680px); gap: var(--rw-s8); margin: 0; }
+.rw-legal .policy-container > .row > .col { max-width: none; padding: 0; margin: 0 !important; flex: none; width: auto; }
+.rw-legal .help-support-block { position: sticky; top: calc(var(--rw-header-h) + 24px); border-top: 0; padding: 0; }
+.rw-legal .help-support-block .title { margin-bottom: var(--rw-s3) !important; font-size: .9375rem; }
+.help-main-topic + .help-main-topic { margin-top: var(--rw-s6); }
+.help-main-topic .title { font-size: 1.375rem; font-weight: 800; margin-bottom: var(--rw-s3); }
+.help-main-topic p, .help-main-topic li { line-height: 1.7; }
+.help-main-topic p + p, .help-main-topic ul, .help-main-topic ol { margin-top: var(--rw-s3); }
+.help-main-topic ul, .help-main-topic ol { padding-left: 1.25em; }
+.help-main-topic a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 760px) {
+  .rw-legal { padding: var(--rw-s5) var(--rw-s4) var(--rw-s6); }
+  .rw-legal .policy-container > .row { grid-template-columns: 1fr; gap: var(--rw-s5); }
+  .rw-legal .help-support-block { position: static; }
+}
+
 /* -- end 9 -- */
 
 
