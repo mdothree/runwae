@@ -651,3 +651,13 @@ body .progress_inner input[type=radio] {
 @media (max-width: 767px) {
     html, body { overflow-x: clip; }
 }
+
+/* A11Y-013 / MOBILE-WARN-BUNDLE: footer text links get >= 24px targets (WCAG 2.5.8). The copyright
+   "Runwae" link measured 43x14 on /welcome. inline-block + 24px line box; text size and color unchanged. */
+.footer .w-list a,
+.footer .sub-footer-copyright a {
+    display: inline-block;
+    min-height: 24px;
+    min-width: 24px;
+    line-height: 24px;
+}
