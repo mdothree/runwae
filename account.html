@@ -392,7 +392,7 @@
   <div class="rw-footer__base sub-footer-copyright">Copyright <a href="/">Runwae</a> All Rights Reserved 2026</div>
 </footer>
 
-    <div class="modal fade" id="deactiveAccountModal" tabindex="-1" role="dialog" aria-labelledby="update-photo"
+    <div class="modal fade" id="deactiveAccountModal" tabindex="-1" role="dialog" aria-labelledby="deactivateTitle"
         aria-hidden="true">
         <div class="modal-dialog window-popup update-header-photo" role="document">
             <div class="modal-content">
@@ -400,16 +400,27 @@
                     <ion-icon name="close-outline" class="close-icon"></ion-icon>
                 </a>
                 <div class="modal-header">
-                    <h6 class="title">Deactivate Account</h6>
+                    <h6 class="title" id="deactivateTitle">Remove Account</h6>
                 </div>
                 <div class="modal-body">
-                    <a href="#" class="upload-photo-item" style="width:100%">
-                        <svg class="computer-icon">
-                            <use xlink:href="#computer-icon"></use>
-                        </svg>
-                        <h6>Are You Sure?</h6>
-                        <a href="#" class="btn btn-primary btn-md" id="btnDeactivateConfirmation">Deactive Account</a>
-                    </a>
+                    <div class="rw-stack" id="deactivateConfirm" style="width:100%">
+                        <p>Are you sure? Removing your account deletes your sign-in, removes your email address
+                            from your profile and marks your posts inactive. The rest of your profile and your gig,
+                            message and transaction records stay in our database until you ask us to delete them
+                            (see our <a href="/privacy#dataretention">Privacy Policy</a>). This cannot be undone.</p>
+                        <div class="form-group rw-field" id="deactivatePasswordField">
+                            <label class="control-label" for="deactivatePassword">Your Password</label>
+                            <input class="form-control" type="password" id="deactivatePassword"
+                                autocomplete="current-password">
+                        </div>
+                        <p class="rw-error" id="deactivateError" role="alert"></p>
+                        <a href="#" class="btn btn-danger btn-md" id="btnDeactivateConfirmation" role="button">Remove my account</a>
+                    </div>
+                    <div class="rw-stack" id="deactivateDone" role="status" style="display:none">
+                        <p>Your account has been removed and you are signed out. Your sign-in is deleted, your email
+                            address is removed from your profile and your posts are inactive.</p>
+                        <p><a href="/login?login">Continue</a></p>
+                    </div>
                 </div>
             </div>
         </div>

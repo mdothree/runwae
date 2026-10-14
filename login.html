@@ -96,6 +96,8 @@
     <div class="rw-auth" id="main-content" tabindex="-1">
         <div class="rw-hide-sm"><img class="rw-illo" src="img/rw/relax.png" alt="" width="380" height="380"></div>
         <div class="registration-login-form">
+            <p class="rw-banner" id="accountRemovedNotice" role="status" style="display:none">Your account has been
+                removed and you are signed out.</p>
             <div class="tab-content">
                 <div class="tab-pane" id="signUpPanel" role="tabpanel" aria-labelledby="signUpTitle">
                     <h1 class="rw-auth__title" id="signUpTitle">Create Account</h1>
@@ -288,6 +290,15 @@
     <script src="runwaejs/auth.js"></script>
     <script src="runwaejs/login.js"></script>
     <script src="runwaejs/navHQ.js"></script>
+    <script>
+        // Set by deactivateAccount() (database.js) just before the sign-in is deleted.
+        try {
+            if (sessionStorage.getItem("rw_account_removed") === "1") {
+                sessionStorage.removeItem("rw_account_removed");
+                document.getElementById("accountRemovedNotice").style.display = "";
+            }
+        } catch (e) { /* storage blocked */ }
+    </script>
     <!-- Theme Toggle -->
 <script src="/js/mdo-theme-toggle.js" defer></script>
 </body>

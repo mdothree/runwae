@@ -13,10 +13,8 @@ firebase.auth().onAuthStateChanged(function (user) {
             $("#btnResetPassword").click(function () {
                 sendResetPassword(email);
             });
-            $("#btnDeactivateAccount").click(function () {
-                analytics.logEvent('account_deactivated', {
-                    category: 'authentication'
-                });
+            $("#btnRemoveAccount, #btnDeactivateAccount").click(function (event) {
+                event.preventDefault();
                 deactivateAccount(snap);
             });
             if (user.emailVerified == false) {
