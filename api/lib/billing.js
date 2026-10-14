@@ -3,7 +3,8 @@
  * 0% transaction fee model, Principal 2026-10-14). Prices/fees: billing-config.js.
  *
  * Firebase layout (written ONLY with the admin SDK; see database.rules.json):
- *   users/{uid}/plan              { tier, status, current_period_end (ms), cancel_at_period_end, updated }
+ *   plans/{uid}                   { tier, status, current_period_end (ms), cancel_at_period_end, updated }
+ *                                 (owner-only read; users/* is readable by every signed-in user)
  *   billing/customers/{uid}       { id: "cus_...", created }
  *   billing/customer_uid/{cusId}  uid
  *   billing/subscriptions/{uid}   { id: "sub_...", event_created }
@@ -67,7 +68,7 @@ function processingQuote(priceDollars, passThrough) {
   return { price_cents, processing_cents: total_cents - price_cents, total_cents, pass_through: true };
 }
 
-/** Is a users/{uid}/plan record currently usable? */
+/** Is a plans/{uid} record currently usable? */
 function isPlanActive(plan, now) {
   if (!plan || typeof plan !== 'object') return false;
   if (!ACTIVE_STATUSES.includes(plan.status)) return false;
@@ -79,7 +80,7 @@ function planByLookupKey(key) {
   return Object.values(PLANS).find((p) => p.lookup_key === key) || null;
 }
 
-/** Build the users/{uid}/plan record from a Stripe Subscription object. */
+/** Build the plans/{uid} record from a Stripe Subscription object. */
 function planFromSubscription(sub, now) {
   const item = sub && sub.items && sub.items.data && sub.items.data[0];
   const price = item && item.price;

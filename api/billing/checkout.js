@@ -8,7 +8,7 @@
  *   influencer -> Creator membership (lookup_key runwae_creator_monthly)
  * Promotion codes are allowed (early access). The Stripe customer is created
  * once per user and reused (billing/customers/{uid}).
- * Nothing about the plan is written here: users/{uid}/plan is written only by
+ * Nothing about the plan is written here: plans/{uid} is written only by
  * api/billing/webhook.js after Stripe confirms.
  *
  * 200 { url }   -> browser redirects to Stripe Checkout
@@ -40,11 +40,14 @@ module.exports = async (req, res) => {
     preflight();
     const { uid, email } = await requireUser(req);
     const db = admin.database();
-    const user = (await db.ref(`users/${uid}`).once('value')).val() || {};
+    const [user, current] = await Promise.all([
+      db.ref(`users/${uid}`).once('value').then((s) => s.val() || {}),
+      db.ref(`plans/${uid}`).once('value').then((s) => s.val()),
+    ]);
 
     const plan = billing.planForRole(user.role);
     if (!plan) throw new BillingError(400, 'no_plan_for_role', 'Choose brand or creator on your account first');
-    if (billing.isPlanActive(user.plan)) {
+    if (billing.isPlanActive(current)) {
       throw new BillingError(409, 'already_subscribed', 'Your plan is already active. Manage it from your account.');
     }
 

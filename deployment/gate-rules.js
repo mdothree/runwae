@@ -14,7 +14,7 @@
  * block every post and application. The plain database.rules.json (plan field
  * locked, no gate) is safe to deploy at any time.
  *
- * A plan unlocks when users/{auth.uid}/plan/status is active|trialing and
+ * A plan unlocks when plans/{auth.uid}/status is active|trialing and
  * current_period_end + 3 days grace is in the future (same rule as
  * api/lib/billing.isPlanActive). Editing/removing existing items, comments,
  * shares, gigs in progress, payments and payouts are NOT gated.
@@ -25,7 +25,7 @@ const fs = require('fs');
 const path = require('path');
 const { ACTIVE_STATUSES, GRACE_MS } = require('../api/lib/billing-config');
 
-const PLAN = "root.child('users').child(auth.uid).child('plan')";
+const PLAN = "root.child('plans').child(auth.uid)";
 const PLAN_OK = '(' + '(' + ACTIVE_STATUSES.map((s) => `${PLAN}.child('status').val() === '${s}'`).join(' || ') + ')'
   + ` && ${PLAN}.child('current_period_end').isNumber() && ${PLAN}.child('current_period_end').val() + ${GRACE_MS} > now)`;
 

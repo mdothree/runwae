@@ -23,14 +23,13 @@
       "source": "/refund-policy",
       "destination": "/refund",
       "permanent": false
-    },
-    {
-      "source": "/pricing",
-      "destination": "/faqs#cost",
-      "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/pricing",
+      "destination": "/api/billing/pricing"
+    },
     {
       "source": "/",
       "destination": "/welcome"

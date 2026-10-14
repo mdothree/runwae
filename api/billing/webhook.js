@@ -1,7 +1,7 @@
 /**
  * POST /api/billing/webhook  (called by Stripe, not by browsers)
  * Signature-verified with STRIPE_BILLING_WEBHOOK_SECRET (whsec_...). This is the ONLY
- * code path that writes users/{uid}/plan (admin SDK; clients are blocked by
+ * code path that writes plans/{uid} (admin SDK; clients are blocked by
  * database.rules.json).
  *
  * Events handled (subscribe exactly these in the Stripe dashboard):
@@ -60,7 +60,7 @@ async function writePlan(db, uid, sub, eventCreated) {
   }
   const plan = billing.planFromSubscription(sub);
   await db.ref().update({
-    [`users/${uid}/plan`]: plan,
+    [`plans/${uid}`]: plan,
     [`billing/subscriptions/${uid}`]: { id: sub.id, event_created: Number(eventCreated) || 0 },
   });
   return { plan };
@@ -120,7 +120,7 @@ async function handle(event, db) {
       const uid = await uidForSubscription(db, obj);
       if (!uid) return { ignored: 'unknown_customer' };
       const sub = event.type === 'customer.subscription.deleted' ? Object.assign({}, obj, { status: 'canceled' }) : obj;
-      const before = (await db.ref(`users/${uid}/plan`).once('value')).val() || {};
+      const before = (await db.ref(`plans/${uid}`).once('value')).val() || {};
       const r = await writePlan(db, uid, sub, event.created);
       if (r.plan && event.type === 'customer.subscription.deleted') {
         await notify(db, event.id, 'subscription_cancelled', uid, r.plan.tier, '', { endsAt: null });
@@ -142,7 +142,7 @@ async function handle(event, db) {
       const line0 = obj.lines && obj.lines.data && obj.lines.data[0];
       const tier = (r.plan && r.plan.tier)
         || ((line0 && line0.price && billing.planByLookupKey(line0.price.lookup_key)) || {}).tier
-        || ((await db.ref(`users/${uid}/plan/tier`).once('value')).val());
+        || ((await db.ref(`plans/${uid}/tier`).once('value')).val());
       if (event.type === 'invoice.paid') {
         if (!obj.amount_paid) return { ignored: 'zero_invoice' }; // e.g. a 100%-off promo period: no receipt
         await notify(db, event.id, 'subscription_receipt', uid, tier, obj.customer_email, {

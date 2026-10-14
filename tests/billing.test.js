@@ -261,9 +261,9 @@ test('checkout: role -> plan mapping, subscription mode, promo codes allowed, cu
     assert.strictEqual(rn.statusCode, 400);
     assert.strictEqual(rn.body.error, 'no_plan_for_role');
 
-    assert.strictEqual(db.get('users/uBrand/plan'), undefined, 'checkout never writes the plan');
-    assert.strictEqual(db.get('users/uCreator/plan'), undefined, 'checkout never writes the plan');
-    assert.ok(!db.writes.some((w) => /\/plan(\/|$)/.test(w)), 'no plan writes outside the webhook');
+    assert.strictEqual(db.get('plans/uBrand'), undefined, 'checkout never writes the plan');
+    assert.strictEqual(db.get('plans/uCreator'), undefined, 'checkout never writes the plan');
+    assert.ok(!db.writes.some((w) => /(^|\/)plans?(\/|$)/.test(w)), 'no plan writes outside the webhook');
   });
 });
 
@@ -285,7 +285,7 @@ test('checkout: already subscribed -> 409; portal works only with a customer', a
   await withEnv({}, async () => {
     const rp = res(); await portal(req('POST', { token: 'tok_uBrand' }), rp);
     assert.strictEqual(rp.statusCode, 404);
-    db.ref('users/uBrand/plan').set({ tier: 'brand', status: 'active', current_period_end: NOW + 86400000 });
+    db.ref('plans/uBrand').set({ tier: 'brand', status: 'active', current_period_end: NOW + 86400000 });
     db.ref('billing/customers/uBrand').set({ id: 'cus_test9' });
     const r = res(); await checkout(req('POST', { token: 'tok_uBrand' }), r);
     assert.strictEqual(r.statusCode, 409);
@@ -308,7 +308,7 @@ test('webhook: bad / missing signature rejected, nothing written', async () => {
     const goodSig = realStripe.webhooks.generateTestHeaderString({ payload, secret: WEBHOOK_SECRET });
     const r3 = res(); await webhook(rawReq(payload.replace('"active"', '"trialing"'), goodSig), r3); // tampered body
     assert.strictEqual(r3.statusCode, 400);
-    assert.strictEqual(db.get('users/uBrand/plan'), undefined);
+    assert.strictEqual(db.get('plans/uBrand'), undefined);
     assert.strictEqual(db.writes.length, 0);
     const r4 = res(); await withEnv({ STRIPE_BILLING_WEBHOOK_SECRET: null }, () => webhook(rawReq(payload, goodSig), r4));
     assert.strictEqual(r4.statusCode, 503);
@@ -325,7 +325,8 @@ test('webhook: checkout.session.completed writes users/{uid}/plan via admin; ide
       data: { object: { id: 'cs_1', mode: 'subscription', subscription: 'sub_1', customer: 'cus_test1', client_reference_id: 'uBrand' } } };
     const r = res(); await webhook(signed(ev), r);
     assert.strictEqual(r.statusCode, 200, JSON.stringify(r.body));
-    const plan = db.get('users/uBrand/plan');
+    const plan = db.get('plans/uBrand');
+    assert.strictEqual(db.get('users/uBrand/plan'), undefined, 'plan is not in the public users/{uid} record');
     assert.strictEqual(plan.tier, 'brand');
     assert.strictEqual(plan.status, 'active');
     assert.strictEqual(plan.current_period_end, FUTURE_S * 1000);
@@ -342,22 +343,22 @@ test('webhook: subscription.updated / deleted / invoice.payment_failed update th
     db.ref('billing/customer_uid/cus_test1').set('uBrand');
     const up = { id: 'evt_u', type: 'customer.subscription.updated', created: 200, data: { object: subObj({ cancel_at_period_end: true }) } };
     let r = res(); await webhook(signed(up), r);
-    assert.strictEqual(db.get('users/uBrand/plan').cancel_at_period_end, true);
+    assert.strictEqual(db.get('plans/uBrand').cancel_at_period_end, true);
 
     stripeState.subs.sub_1 = subObj({ status: 'past_due' });
     const failed = { id: 'evt_f', type: 'invoice.payment_failed', created: 300, data: { object: { customer: 'cus_test1', subscription: 'sub_1', amount_due: 4900, currency: 'usd' } } };
     r = res(); await webhook(signed(failed), r);
-    assert.strictEqual(db.get('users/uBrand/plan').status, 'past_due');
-    assert.strictEqual(billing.isPlanActive(db.get('users/uBrand/plan')), false);
+    assert.strictEqual(db.get('plans/uBrand').status, 'past_due');
+    assert.strictEqual(billing.isPlanActive(db.get('plans/uBrand')), false);
 
     const stale = { id: 'evt_old', type: 'customer.subscription.updated', created: 150, data: { object: subObj({ status: 'active' }) } };
     r = res(); await webhook(signed(stale), r);
     assert.strictEqual(r.body.result, 'stale_event');
-    assert.strictEqual(db.get('users/uBrand/plan').status, 'past_due');
+    assert.strictEqual(db.get('plans/uBrand').status, 'past_due');
 
     const del = { id: 'evt_d', type: 'customer.subscription.deleted', created: 400, data: { object: subObj({ status: 'canceled' }) } };
     r = res(); await webhook(signed(del), r);
-    assert.strictEqual(db.get('users/uBrand/plan').status, 'canceled');
+    assert.strictEqual(db.get('plans/uBrand').status, 'canceled');
 
     const unknown = { id: 'evt_x', type: 'customer.subscription.updated', created: 500, data: { object: subObj({ customer: 'cus_other', metadata: {} }) } };
     r = res(); await webhook(signed(unknown), r);
@@ -369,6 +370,7 @@ test('rules: plan + stripe customer id are client-unwritable; billing/* admin-on
   const rules = JSON.parse(fs.readFileSync(path.join(ROOT, 'database.rules.json'), 'utf8'));
   const u = rules.rules.users.$uid;
   assert.deepStrictEqual(u.plan, { '.validate': false });
+  assert.deepStrictEqual(rules.rules.plans, { $uid: { '.read': 'auth != null && auth.uid === $uid', '.write': false } }, 'plans/{uid}: owner-only read, never client-written');
   assert.deepStrictEqual(u.stripe_customer_id, { '.validate': false });
   assert.deepStrictEqual(rules.rules.billing, { '.read': false, '.write': false });
   assert.strictEqual(u['.write'], 'auth != null && auth.uid === $uid');
@@ -382,6 +384,7 @@ test('gating (server): gated rules require an active plan to CREATE items and in
   assert.ok(item['.write'].includes(PLAN_OK));
   assert.ok(item['.write'].indexOf(PLAN_OK) > item['.write'].indexOf(':'), 'gate only on the create branch');
   assert.ok(item.interests.$k['.write'].includes("!data.exists() && newData.child('uid').val() === auth.uid && " + PLAN_OK));
+  assert.ok(PLAN_OK.includes("root.child('plans').child(auth.uid)") && !PLAN_OK.includes("child('users')"), 'gate reads plans/{uid}');
   assert.ok(PLAN_OK.includes("'active'") && PLAN_OK.includes("'trialing'") && PLAN_OK.includes(String(config.GRACE_MS)));
   // everything else identical
   const strip = (r) => { const c = JSON.parse(JSON.stringify(r)); delete c.rules.items.$item['.write']; delete c.rules.items.$item.interests.$k['.write']; return c; };
@@ -534,4 +537,50 @@ test('emails: webhook calls the email hook with the template data contract', asy
     const r2 = res(); await webhook(signed(paid), r2);
     assert.ok(!sentEmails.some((x) => x.template === 'subscription_receipt'), 'no receipt for a $0 promo invoice');
   });
+});
+
+test('close account guard: a renewing plan must be cancelled first; fails open when billing is off', async () => {
+  const src = fs.readFileSync(path.join(ROOT, 'unobfrunwaejs/util.js'), 'utf8');
+  const start = src.indexOf('var rwBillingInfoPromise');
+  async function run(info, plan) {
+    const calls = { proceed: 0, blocked: 0, path: '' };
+    const ctx = {
+      fetch: async () => ({ ok: true, json: async () => info }),
+      database: { ref: () => ({ child: (p) => { calls.path = p; return { once: () => Promise.resolve({ val: () => plan }) }; } }) },
+      window: {}, document: {}, Date, isFinite, Number, Promise,
+    };
+    ctx.window.RwBilling = { closeAccountBlocked: () => { calls.blocked++; } };
+    vm.createContext(ctx);
+    vm.runInContext(src.slice(start), ctx);
+    ctx.rwCloseAccountGuard('u1', () => { calls.proceed++; });
+    await new Promise((r) => setTimeout(r, 20));
+    return calls;
+  }
+  const renewing = { status: 'active', current_period_end: NOW + 86400000, cancel_at_period_end: false };
+  assert.deepStrictEqual(await run({ enabled: true }, renewing), { proceed: 0, blocked: 1, path: 'plans/u1' });
+  assert.deepStrictEqual(await run({ enabled: true }, Object.assign({}, renewing, { cancel_at_period_end: true })), { proceed: 1, blocked: 0, path: 'plans/u1' });
+  assert.deepStrictEqual(await run({ enabled: true }, { status: 'past_due', current_period_end: NOW }), { proceed: 0, blocked: 1, path: 'plans/u1' });
+  assert.deepStrictEqual(await run({ enabled: true }, { status: 'canceled' }), { proceed: 1, blocked: 0, path: 'plans/u1' });
+  assert.deepStrictEqual((await run({ enabled: false }, renewing)).proceed, 1);
+  assert.ok(fs.readFileSync(path.join(ROOT, 'unobfrunwaejs/database.js'), 'utf8').includes('rwCloseAccountGuard(snapUser.key'));
+});
+
+test('/pricing: 307 to /plans with billing on, /faqs#cost with billing off', async () => {
+  const pricing = load('api/billing/pricing.js');
+  const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+  assert.ok(vercel.rewrites.some((r) => r.source === '/pricing' && r.destination === '/api/billing/pricing'));
+  assert.ok(!vercel.redirects.some((r) => r.source === '/pricing'), 'no static /pricing redirect left');
+  for (const [on, want] of [[true, '/plans'], [false, '/faqs#cost']]) {
+    await withEnv({ RUNWAE_BILLING_ENABLED: on ? '1' : null }, () => {
+      const r = res(); r.end = () => r; pricing(req('GET'), r);
+      assert.strictEqual(r.statusCode, 307);
+      assert.strictEqual(r.headers.Location, want);
+    });
+  }
+});
+
+test('terms: price changes are announced at least 30 days ahead', () => {
+  const { applyBillingCopy } = load('deployment/billing-copy.js');
+  const on = applyBillingCopy(fs.readFileSync(path.join(ROOT, 'terms.html'), 'utf8'), { RUNWAE_BILLING_ENABLED: '1' }).replace(/\s+/g, ' ');
+  assert.ok(on.includes('we will email you at least 30 days before the new price applies to your plan'));
 });

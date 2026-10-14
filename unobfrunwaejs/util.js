@@ -440,7 +440,7 @@ function rwLoadBillingUi(cb) {
 function rwRequirePlan(snapUser, action, proceed) {
     rwBillingInfo().then(function (info) {
         if (!info || !info.enabled || !snapUser || !snapUser.key) return proceed();
-        database.ref().child('users/' + snapUser.key + '/plan').once('value').then(function (snapPlan) {
+        database.ref().child('plans/' + snapUser.key).once('value').then(function (snapPlan) {
             if (rwPlanActive(snapPlan.val())) return proceed();
             var u = snapUser.val() || {};
             rwLoadBillingUi(function (RwBilling) {
@@ -451,9 +451,30 @@ function rwRequirePlan(snapUser, action, proceed) {
 }
 
 // Account page: the "Plan" section (manage billing -> Stripe customer portal).
+// The plan lives at plans/{uid} (owner-only read), not in the public users/{uid} record.
 function rwMountPlanSection(snapUser) {
     rwBillingInfo().then(function (info) {
         if (!info || !info.enabled) return;
-        rwLoadBillingUi(function (RwBilling) { RwBilling.mountPlanSection(snapUser.key, snapUser.val() || {}, info); });
+        database.ref().child('plans/' + snapUser.key).once('value').then(function (snapPlan) {
+            var u = snapUser.val() || {};
+            rwLoadBillingUi(function (RwBilling) {
+                RwBilling.mountPlanSection(snapUser.key, { role: u.role, plan: snapPlan.val() }, info);
+            });
+        });
+    });
+}
+
+// Closing an account is client-only (database.js deactivateAccount -> user.delete()), and it does not
+// cancel a Stripe subscription. So with a live plan that still renews, stop and send the user to
+// Manage billing first. Fails open (the Cancellation copy tells them the same).
+function rwCloseAccountGuard(uid, proceed) {
+    rwBillingInfo().then(function (info) {
+        if (!info || !info.enabled || !uid) return proceed();
+        database.ref().child('plans/' + uid).once('value').then(function (snapPlan) {
+            var p = snapPlan.val();
+            var renewing = p && (p.status === 'active' || p.status === 'trialing' || p.status === 'past_due') && !p.cancel_at_period_end;
+            if (!renewing) return proceed();
+            rwLoadBillingUi(function (RwBilling) { RwBilling.closeAccountBlocked(); });
+        }, function () { proceed(); });
     });
 }

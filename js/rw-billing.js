@@ -5,7 +5,8 @@
  * with textContent; prices come from GET /api/billing/plans (api/lib/billing-config.js).
  *
  *   RwBilling.paywall({ action: 'post'|'apply', role, info, plan })
- *   RwBilling.mountPlanSection(uid, user, info)     account page, section#billing
+ *   RwBilling.mountPlanSection(uid, {role, plan}, info)   account page, section#billing (plan from plans/{uid})
+ *   RwBilling.closeAccountBlocked()                 account closing while a plan still renews
  *   RwBilling.startCheckout(buttonEl)               -> Stripe Checkout (promo codes accepted there)
  *   RwBilling.openPortal(buttonEl)                  -> Stripe customer portal
  *   RwBilling.renderPlanCards(container, info, role)  /plans page
@@ -156,6 +157,38 @@
     return dlg;
   }
 
+  // ---------- account closing while a plan still renews ----------
+  function closeAccountBlocked() {
+    ensureStyle();
+    var old = document.getElementById('rwCloseBlocked');
+    if (old) old.remove();
+    var dlg = el('dialog', 'rw-paywall');
+    dlg.id = 'rwCloseBlocked';
+    dlg.setAttribute('aria-labelledby', 'rwCloseBlockedTitle');
+    var body = el('div', 'rw-paywall__body');
+    var h = el('h2', null, 'Cancel your plan first');
+    h.id = 'rwCloseBlockedTitle';
+    body.appendChild(h);
+    body.appendChild(el('p', null, 'Closing your account does not cancel your plan. Cancel it in Manage billing so you are not charged again, then come back to close your account.'));
+    var err = el('p', 'rw-billing-err');
+    err.setAttribute('role', 'alert');
+    var actions = el('div', 'rw-billing-actions');
+    var manage = el('button', 'rw-btn', 'Manage billing');
+    manage.type = 'button';
+    manage.addEventListener('click', function () { openPortal(manage, err); });
+    actions.appendChild(manage);
+    var close = el('button', 'rw-btn rw-btn--quiet', 'Keep my account');
+    close.type = 'button';
+    close.addEventListener('click', function () { dlg.close(); dlg.remove(); });
+    actions.appendChild(close);
+    body.appendChild(actions);
+    body.appendChild(err);
+    dlg.appendChild(body);
+    document.body.appendChild(dlg);
+    if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+    return dlg;
+  }
+
   // ---------- account page: Plan section ----------
   function mountPlanSection(uid, user, info) {
     ensureStyle();
@@ -242,6 +275,7 @@
 
   window.RwBilling = {
     paywall: paywall,
+    closeAccountBlocked: closeAccountBlocked,
     mountPlanSection: mountPlanSection,
     startCheckout: startCheckout,
     openPortal: openPortal,

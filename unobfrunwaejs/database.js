@@ -6,6 +6,11 @@ function updateGigStatus(path, status) {
 }
 
 function deactivateAccount(snapUser) {
+    // A plan that still renews must be cancelled in Manage billing first (util.js rwCloseAccountGuard).
+    rwCloseAccountGuard(snapUser.key, function () { deactivateAccountConfirmed(snapUser); });
+}
+
+function deactivateAccountConfirmed(snapUser) {
     useri = snapUser.key;
     openModal("#deactivateAccountModal");
     $("#btnDeactivateConfirmation").click(function () {

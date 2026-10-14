@@ -65,13 +65,16 @@ async function check(name, got, want) {
   await loadRules(plainRules);
   await seed();
   await check('plain: user edits own profile', await brand('PATCH', 'users/uBrand', { name: 'Brand 2' }), 200);
-  await check('plain: user cannot write own plan', await brand('PUT', 'users/uBrand/plan', { tier: 'brand', status: 'active', current_period_end: Date.now() + 30 * DAY }), 401);
+  await check('plain: user cannot write own plan', await brand('PUT', 'plans/uBrand', { tier: 'brand', status: 'active', current_period_end: Date.now() + 30 * DAY }), 401);
   await check('plain: user cannot write plan via parent update', await brand('PATCH', 'users/uBrand', { plan: { status: 'active' } }), 401);
-  await check('plain: user cannot write plan.status', await brand('PUT', 'users/uBrand/plan/status', 'active'), 401);
+  await check('plain: user cannot write plan.status', await brand('PUT', 'plans/uBrand/status', 'active'), 401);
+  await check('plain: user cannot put a plan in the public users record', await brand('PUT', 'users/uBrand/plan', { status: 'active' }), 401);
+  await check('plain: owner reads own plans/{uid}', await brand('GET', 'plans/uBrand'), 200);
+  await check('plain: other signed-in user cannot read plans/{uid}', await creator('GET', 'plans/uBrand'), 401);
   await check('plain: user cannot write stripe_customer_id', await brand('PUT', 'users/uBrand/stripe_customer_id', 'cus_x'), 401);
   await check('plain: user cannot read billing/*', await brand('GET', 'billing/customers/uBrand'), 401);
   await check('plain: user cannot write billing/*', await brand('PUT', 'billing/customers/uBrand', { id: 'cus_x' }), 401);
-  await check('plain: admin (webhook) writes plan', await asAdmin('PUT', 'users/uBrand/plan', { tier: 'brand', status: 'canceled', current_period_end: 1 }), 200);
+  await check('plain: admin (webhook) writes plan', await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'canceled', current_period_end: 1 }), 200);
   await check('plain: no gate yet, brand posts without plan', await brand('PUT', 'items/itPlain', item('uBrand')), 200);
   await check('plain: no gate yet, creator applies without plan', await creator('PUT', 'items/it1/interests/iPlain', interest('uCreator')), 200);
 
@@ -83,19 +86,19 @@ async function check(name, got, want) {
   await check('gated: creator without plan cannot list a service', await creator('PUT', 'items/itS', item('uCreator')), 401);
   await check('gated: brand edits existing item without plan', await brand('PATCH', 'items/it1', { status: 'inactive' }), 200);
 
-  await asAdmin('PUT', 'users/uBrand/plan', { tier: 'brand', status: 'past_due', current_period_end: Date.now() + 20 * DAY });
+  await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'past_due', current_period_end: Date.now() + 20 * DAY });
   await check('gated: past_due plan cannot post', await brand('PUT', 'items/itB', item('uBrand')), 401);
-  await asAdmin('PUT', 'users/uBrand/plan', { tier: 'brand', status: 'active', current_period_end: Date.now() - 4 * DAY });
+  await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'active', current_period_end: Date.now() - 4 * DAY });
   await check('gated: expired (past 3-day grace) cannot post', await brand('PUT', 'items/itC', item('uBrand')), 401);
-  await asAdmin('PUT', 'users/uBrand/plan', { tier: 'brand', status: 'active', current_period_end: Date.now() - 1 * DAY });
+  await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'active', current_period_end: Date.now() - 1 * DAY });
   await check('gated: within 3-day grace can post', await brand('PUT', 'items/itD', item('uBrand')), 200);
-  await asAdmin('PUT', 'users/uBrand/plan', { tier: 'brand', status: 'active', current_period_end: Date.now() + 30 * DAY });
+  await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'active', current_period_end: Date.now() + 30 * DAY });
   await check('gated: active brand plan posts', await brand('PUT', 'items/itE', item('uBrand')), 200);
-  await check('gated: brand still cannot forge plan', await brand('PATCH', 'users/uBrand/plan', { current_period_end: Date.now() + 999 * DAY }), 401);
+  await check('gated: brand still cannot forge plan', await brand('PATCH', 'plans/uBrand', { current_period_end: Date.now() + 999 * DAY }), 401);
 
-  await asAdmin('PUT', 'users/uCreator/plan', { tier: 'creator', status: 'trialing', current_period_end: Date.now() + 7 * DAY });
+  await asAdmin('PUT', 'plans/uCreator', { tier: 'creator', status: 'trialing', current_period_end: Date.now() + 7 * DAY });
   await check('gated: active creator membership applies', await creator('PUT', 'items/it1/interests/iB', interest('uCreator')), 200);
-  await asAdmin('PUT', 'users/uCreator/plan', { tier: 'creator', status: 'canceled', current_period_end: Date.now() - 30 * DAY });
+  await asAdmin('PUT', 'plans/uCreator', { tier: 'creator', status: 'canceled', current_period_end: Date.now() - 30 * DAY });
   await check('gated: lapsed creator can still withdraw own interest', await creator('DELETE', 'items/it1/interests/iB'), 200);
   await check('gated: lapsed creator cannot apply again', await creator('PUT', 'items/it1/interests/iC', interest('uCreator')), 401);
 
