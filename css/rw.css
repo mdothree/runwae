@@ -544,6 +544,17 @@ section:has(.reveal3) { overflow-x: clip; } /* F13: never wider than the viewpor
   .rw-signup__form .rw-btn { width: 100%; }
 }
 
+/* Login / sign up */
+.rw-auth__title { font-size: 2.25rem; margin-bottom: var(--rw-s5); }
+.rw-auth .form-group { margin: 0; }
+.rw-auth .tab-pane { padding: 0; }
+.rw-role { display: flex; gap: var(--rw-s5); border: 0; margin: 0; padding: 0; }
+.rw-auth__row { display: flex; justify-content: space-between; align-items: center; gap: var(--rw-s3); flex-wrap: wrap; }
+.rw-auth__row .forgot { display: inline-block; min-height: 24px; padding: 2px 0; text-decoration: underline; text-underline-offset: 3px; }
+.rw-auth__alt { text-align: center; }
+.rw-auth__alt a, .rw-check a { color: var(--rw-ink); text-decoration: underline; text-underline-offset: 3px; }
+.rw-check { line-height: 1.4; }
+
 /* -- end 9 -- */
 
 
