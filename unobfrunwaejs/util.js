@@ -33,20 +33,60 @@ function toObject(arr) {
     return rv;
 }
 
-function closeModal() {
-    $('.close').click(function () {
-        $(this).closest('.modal-content').css("display", "none !important");
-        $(this).closest('.modal').removeClass("show");
-        $(this).closest('.modal').attr("class", "modal fade");
-        $('.modal-backdrop').hide();
-        $('.modal-backdrop').attr("class", "modal-backdrop fade");
+// Modals: shown and hidden with Bootstrap's modal plugin (bootstrap.bundle 4.6.2), which sets display, adds the
+// backdrop, moves focus into the dialog and keeps it there, and closes on Esc, the backdrop and [data-dismiss].
+// Adding .show alone never displays a .modal. openModal(el, focusEl) focuses focusEl (if given) once the dialog is
+// shown; focus goes back to whatever had it before, when the dialog closes.
+function closeModal(el) {
+    if (el) {
+        hideRwModal($(el));
+        return;
+    }
+    $(document).off('click.rwModal').on('click.rwModal', '.modal .close', function (event) {
+        event.preventDefault();
+        hideRwModal($(this).closest('.modal'));
+    });
+    // js/simplecalendar.js slides up the parent of every .close it finds (the .modal-content here), which left a
+    // dialog empty the next time it opened: undo that whenever a modal opens.
+    $(document).off('show.bs.modal.rwModal').on('show.bs.modal.rwModal', '.modal', function () {
+        $(this).find('.modal-content').stop(true, true).css('display', '');
     });
 }
 
-function openModal(el) {
-    $('.modal-backdrop').show();
-    $('.modal-backdrop').addClass("show");
-    $(el).addClass("show");
+function hideRwModal($m) {
+    if (!$m.length) {
+        return;
+    }
+    if ($.fn.modal) {
+        $m.modal('hide');
+    } else {
+        $m.removeClass('show').css('display', 'none').attr('aria-hidden', 'true').trigger('hidden.bs.modal');
+    }
+}
+
+function openModal(el, focusEl) {
+    var $m = $(el).first();
+    if (!$m.length) {
+        return;
+    }
+    var opener = document.activeElement;
+    $m.off('.rwModalOpen');
+    $m.one('shown.bs.modal.rwModalOpen', function () {
+        if (focusEl) {
+            $(focusEl).filter(':visible').first().trigger('focus');
+        }
+    });
+    $m.one('hidden.bs.modal.rwModalOpen', function () {
+        if (opener && opener !== document.body && document.contains(opener)) {
+            $(opener).trigger('focus');
+        }
+    });
+    if ($.fn.modal) {
+        $m.modal('show');
+    } else {
+        $m.find('.modal-content').stop(true, true).css('display', '');
+        $m.addClass('show').css('display', 'block').removeAttr('aria-hidden').trigger('focus').trigger('shown.bs.modal');
+    }
 }
 
 function anchors() {

@@ -17,8 +17,7 @@ function deactivateAccount(snapUser) {
         return p && p.providerId === "password";
     }));
     $("#deactivatePasswordField").toggle(usesPassword);
-    openModal("#deactiveAccountModal");
-    $(usesPassword ? "#deactivatePassword" : "#btnDeactivateConfirmation").focus();
+    openModal("#deactiveAccountModal", usesPassword ? "#deactivatePassword" : "#btnDeactivateConfirmation");
     $("#btnDeactivateConfirmation").off("click").on("click", function (event) {
         event.preventDefault();
         var btn = $(this);

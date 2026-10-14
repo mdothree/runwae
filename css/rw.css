@@ -1004,8 +1004,7 @@ a.control_prev { left: 8px; } a.control_next { right: 8px; }
 .form-group.with-icon .form-control { padding-left: 40px; }
 .form-group.with-icon > svg { position: absolute; left: 14px; bottom: 14px; width: 16px; height: 16px; color: var(--rw-muted); }
 .rw-account .rw-check { margin: 0; }
-/* Remove Account confirm: util.js openModal() only toggles .show (no Bootstrap modal JS), so it is shown here */
-#deactiveAccountModal.show { display: block; overflow-y: auto; }
+/* Remove Account confirm (shown by util.js openModal() through Bootstrap's modal plugin) */
 #deactiveAccountModal .btn-danger { justify-self: start; }
 /* Location / industry pickers (bootstrap-select markup that location.js fills and reads) */
 .bootstrap-select.form-control { height: auto; padding: 0; border: 0; background: none; position: relative; display: block; width: 100%; }
