@@ -58,5 +58,11 @@
       "memory": 256,
       "maxDuration": 10
     }
+  },
+  "git": {
+    "deploymentEnabled": {
+      "**": false,
+      "main": true
+    }
   }
 }
