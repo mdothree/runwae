@@ -965,4 +965,28 @@ a.control_prev { left: 8px; } a.control_next { right: 8px; }
   .progress_inner__step { font-size: .75rem; padding: 0 2px; }
 }
 
+/* ---- 10e. Messages (one inbox: conversation list + thread; no black header bar on phones) ---- */
+.rw-messages .rw-inbox { height: 620px; }
+.rw-messages .rw-inbox__list .notification-list > li { padding: var(--rw-s4); }
+.rw-messages .conversationLi .chat-message-item { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rw-messages .rw-thread__head h2 { font-size: 1.0625rem; margin: 0; }
+.rw-messages .rw-thread__head h2:empty::before { content: "\00a0"; }
+.rw-messages .rw-thread__body { padding: var(--rw-s4) var(--rw-s5); }
+.rw-messages .rw-thread__body .notification-list > li.messageLi { border: 0; padding: var(--rw-s2) 0; }
+.messageLi .notification-event { padding: 10px 14px; border-radius: 16px; border: 1px solid var(--rw-line); max-width: 85%; flex: 0 1 auto; }
+.messageLi .chat-message-item { color: var(--rw-text); font-size: .9375rem; margin-top: 2px; }
+.messageLi .author-thumb img { width: 32px; height: 32px; }
+.rw-composer { align-items: flex-end; }
+.rw-composer .form-group { flex: 1; margin: 0; }
+.rw-composer textarea.form-control { min-height: 44px; height: 44px; resize: vertical; }
+.rw-composer .add-options-message { flex: none; }
+.rw-composer .btn { min-height: 44px; }
+@media (max-width: 760px) {
+  .rw-messages .rw-inbox { height: auto; margin: 0; border: 1px solid var(--rw-line); border-radius: var(--rw-radius); }
+  .rw-messages .rw-inbox__list { max-height: 50vh; overflow: auto; border-bottom: 1px solid var(--rw-line); }
+  .rw-messages .rw-thread { display: flex; min-height: 360px; }   /* no separate thread screen exists: stack it */
+  .rw-messages .rw-thread__body { max-height: 55vh; }
+  .rw-composer { padding: var(--rw-s3); }
+}
+
 /* -- end 10 -- */
