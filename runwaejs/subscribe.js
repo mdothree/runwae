@@ -1,1 +1,58 @@
-var a0_0x33c614=a0_0x5b7b;(function(_0x41b3ea,_0x3138c9){var _0x157295=a0_0x5b7b,_0x1c5db4=_0x41b3ea();while(!![]){try{var _0x3648af=-parseInt(_0x157295(0x15d))/0x1*(-parseInt(_0x157295(0x16a))/0x2)+parseInt(_0x157295(0x151))/0x3*(-parseInt(_0x157295(0x193))/0x4)+-parseInt(_0x157295(0x171))/0x5+parseInt(_0x157295(0x18a))/0x6+-parseInt(_0x157295(0x17d))/0x7*(parseInt(_0x157295(0x16c))/0x8)+parseInt(_0x157295(0x183))/0x9+parseInt(_0x157295(0x156))/0xa;if(_0x3648af===_0x3138c9)break;else _0x1c5db4['push'](_0x1c5db4['shift']());}catch(_0x533237){_0x1c5db4['push'](_0x1c5db4['shift']());}}}(a0_0xb246,0x9b263));var a0_0x2a0198=(function(){var _0x2dfb75=!![];return function(_0x2abe3a,_0x453f39){var _0x3d3096=_0x2dfb75?function(){var _0x2c2362=a0_0x5b7b;if(_0x453f39){var _0x15592a=_0x453f39[_0x2c2362(0x15b)](_0x2abe3a,arguments);return _0x453f39=null,_0x15592a;}}:function(){};return _0x2dfb75=![],_0x3d3096;};}()),a0_0x158df2=a0_0x2a0198(this,function(){var _0x17c0fe=a0_0x5b7b;return a0_0x158df2['toString']()[_0x17c0fe(0x192)](_0x17c0fe(0x188))['toString']()['constructor'](a0_0x158df2)[_0x17c0fe(0x192)]('(((.+)+)+)+$');});a0_0x158df2();var a0_0x55d29f=(function(){var _0x57b6f3=!![];return function(_0x43b2c9,_0x24d037){var _0x291a60=_0x57b6f3?function(){var _0x460be2=a0_0x5b7b;if(_0x24d037){var _0x4e1cc3=_0x24d037[_0x460be2(0x15b)](_0x43b2c9,arguments);return _0x24d037=null,_0x4e1cc3;}}:function(){};return _0x57b6f3=![],_0x291a60;};}()),a0_0x4650a9=a0_0x55d29f(this,function(){var _0x632492=a0_0x5b7b,_0x26fac4=function(){var _0x2dd7b8=a0_0x5b7b,_0x2b734f;try{_0x2b734f=Function('return\x20(function()\x20'+_0x2dd7b8(0x178)+');')();}catch(_0x4c0513){_0x2b734f=window;}return _0x2b734f;},_0x583112=_0x26fac4(),_0x3c9f57=_0x583112['console']=_0x583112[_0x632492(0x194)]||{},_0x1957c1=[_0x632492(0x165),'warn',_0x632492(0x162),_0x632492(0x169),'exception',_0x632492(0x15c),_0x632492(0x18f)];for(var _0x13adca=0x0;_0x13adca<_0x1957c1[_0x632492(0x157)];_0x13adca++){var _0x3db3ca=a0_0x55d29f[_0x632492(0x16b)][_0x632492(0x18e)]['bind'](a0_0x55d29f),_0x5ba1f5=_0x1957c1[_0x13adca],_0x4300ff=_0x3c9f57[_0x5ba1f5]||_0x3db3ca;_0x3db3ca[_0x632492(0x16f)]=a0_0x55d29f[_0x632492(0x179)](a0_0x55d29f),_0x3db3ca['toString']=_0x4300ff['toString'][_0x632492(0x179)](_0x4300ff),_0x3c9f57[_0x5ba1f5]=_0x3db3ca;}});a0_0x4650a9();var dNow=new Date(),dNow=dNow[a0_0x33c614(0x18d)]();$(a0_0x33c614(0x163))[a0_0x33c614(0x184)](function(){var _0x36a568=a0_0x33c614;errBool=$(this)[_0x36a568(0x16d)]('form')[_0x36a568(0x17c)]('.form-group')[_0x36a568(0x160)](_0x36a568(0x186)),$(_0x36a568(0x191))[_0x36a568(0x15f)]()&&!errBool&&(sendEmail($(_0x36a568(0x191))['val'](),'Thanks\x20for\x20Subscribing!',[_0x36a568(0x15a),_0x36a568(0x15e),'We\x27re\x20always\x20within\x20reach!\x20Get\x20in\x20touch\x20with\x20us\x20on\x20the\x20Runwae\x20platform\x20or\x20on\x20social\x20media',_0x36a568(0x185),_0x36a568(0x167)]),database[_0x36a568(0x17a)]()[_0x36a568(0x189)](_0x36a568(0x187))['push']()[_0x36a568(0x154)]({'email':$('#subscribeEmailInput')[_0x36a568(0x15f)](),'time':new Date()['getTime']()}),displaySuccess());}),$(a0_0x33c614(0x159))[a0_0x33c614(0x184)](function(){var _0x3804ab=a0_0x33c614;errBool=$(this)[_0x3804ab(0x16d)](_0x3804ab(0x152))[_0x3804ab(0x17c)](_0x3804ab(0x170))[_0x3804ab(0x160)](_0x3804ab(0x186)),$(_0x3804ab(0x14f))[_0x3804ab(0x15f)]()&&!errBool&&(sendEmail($(_0x3804ab(0x14f))[_0x3804ab(0x15f)](),_0x3804ab(0x177),[_0x3804ab(0x15a),_0x3804ab(0x14e),'We\x27re\x20always\x20within\x20reach!\x20Get\x20in\x20touch\x20with\x20us\x20on\x20the\x20Runwae\x20platform\x20or\x20on\x20social\x20media',_0x3804ab(0x17e),_0x3804ab(0x17b)]),database['ref']()[_0x3804ab(0x189)](_0x3804ab(0x173))[_0x3804ab(0x161)]()['update']({'email':$(_0x3804ab(0x14f))[_0x3804ab(0x15f)](),'time':new Date()[_0x3804ab(0x18d)](),'type':_0x3804ab(0x18b)}),displayMarketerGuideSuccess());}),$(a0_0x33c614(0x153))[a0_0x33c614(0x184)](function(){var _0xd556cb=a0_0x33c614;errBool=$(this)[_0xd556cb(0x16d)](_0xd556cb(0x152))[_0xd556cb(0x17c)](_0xd556cb(0x170))[_0xd556cb(0x160)](_0xd556cb(0x186)),$(_0xd556cb(0x158))[_0xd556cb(0x15f)]()&&!errBool&&(sendEmail($(_0xd556cb(0x155))[_0xd556cb(0x15f)](),_0xd556cb(0x177),[_0xd556cb(0x15a),_0xd556cb(0x14e),'We\x27re\x20always\x20within\x20reach!\x20Get\x20in\x20touch\x20with\x20us\x20on\x20the\x20Runwae\x20platform\x20or\x20on\x20social\x20media',_0xd556cb(0x176),_0xd556cb(0x17b)]),database['ref']()[_0xd556cb(0x189)]('guides')[_0xd556cb(0x161)]()['update']({'email':$('#influencerGuideEmailInput')[_0xd556cb(0x15f)](),'time':new Date()[_0xd556cb(0x18d)](),'type':'influencer'}),displayInfluencerGuideSuccess());});function sendEmail(_0x2f5aed,_0x3a43ea,_0x59c9b5){var _0x1a1194=a0_0x33c614,_0x2a8ab9=new XMLHttpRequest();_0x2a8ab9['onreadystatechange']=function(){var _0x930562=a0_0x5b7b;this[_0x930562(0x180)]==0x4&&this['status']==0xc8&&console['log'](this[_0x930562(0x175)]);};var _0x3e90d2='emailAddress='+_0x2f5aed+_0x1a1194(0x174)+_0x3a43ea+_0x1a1194(0x166)+_0x59c9b5;_0x2a8ab9[_0x1a1194(0x16e)](_0x1a1194(0x164),'email.php?'+_0x3e90d2,!![]),_0x2a8ab9[_0x1a1194(0x150)]();}function a0_0x5b7b(_0x2da8c2,_0xf55d31){_0x2da8c2=_0x2da8c2-0x14e;var _0x4833e0=a0_0xb246();var _0x4650a9=_0x4833e0[_0x2da8c2];return _0x4650a9;}function displaySubscriberSuccess(){var _0x2bdcdd=a0_0x33c614;$(_0x2bdcdd(0x182))[_0x2bdcdd(0x168)](),$(_0x2bdcdd(0x18c))[_0x2bdcdd(0x172)]();}function displayInfluencerGuideSuccess(){var _0x307b15=a0_0x33c614;$(_0x307b15(0x181))[_0x307b15(0x168)](),$(_0x307b15(0x17f))['show']();}function a0_0xb246(){var _0x30e15b=['bind','ref','Open\x20Guide','find','7SnZCQW','runwae.com/guides/InfluencerMarketingGuide.pdf','.influencerGuideSuccess','readyState','.influencerGuideSubmit','.subscribeSubmit','2309463rxvayQ','click','Runwae.com','has-error','subscriptions','(((.+)+)+)+$','child','7106334ZxNIQq','marketer','.subscribeSuccess','getTime','prototype','trace','.marketerGuideSuccess','#subscribeEmailInput','search','1063420ncgaKM','console','At\x20Runwae\x20we\x20strive\x20to\x20empower\x20brands\x20and\x20influencers\x20while\x20serving\x20them\x20as\x20a\x20trustworthy\x20resource.\x20We\x20believe\x20in\x20protecting\x20our\x20users\x20and\x20forming\x20profitable\x20connections\x20between\x20them\x20above\x20all\x20else.','#marketerGuideEmailInput','send','3TdiSoG','form','#btnInfluencerGuide','update','influencerGuideEmailInput','10962740pcZePM','length','#influencerGuideEmailInput','#btnMarketerGuide','Welcome\x20to\x20Runwae!','apply','table','7HQgggv','We\x27re\x20a\x20small\x20team\x20of\x20college\x20students\x20around\x20the\x20country\x20with\x20the\x20goal\x20of\x20developing\x20the\x20best\x20platform\x20for\x20meaningful\x20partnerships.\x20We\x20noticed\x20the\x20trend\x20in\x20influencer\x20marketing\x20a\x20while\x20back\x20and\x20decided\x20the\x20real\x20excitement\x20would\x20be\x20in\x20servicing\x20microinfluencers\x20and\x20small\x20brands,\x20so\x20that\x20is\x20who\x20we\x20aim\x20to\x20please.\x20But\x20enough\x20about\x20us.\x20We\x20can\x27t\x20wait\x20to\x20get\x20to\x20know\x20you!\x20Don\x27t\x20be\x20a\x20stranger!','val','hasClass','push','info','#btnSubscribe','GET','log','&payload=','Visit\x20Runwae','hide','error','108334kGapWm','constructor','6514352YsXUaO','closest','open','__proto__','.form-group','6003995gKPnwf','show','guides','&subject=','responseText','runwae.com/guides/BecomingAnInfluencerGuide.pdf','Here\x27s\x20Your\x20Guide!','{}.constructor(\x22return\x20this\x22)(\x20)'];a0_0xb246=function(){return _0x30e15b;};return a0_0xb246();}function displayMarketerGuideSuccess(){var _0x3c3efd=a0_0x33c614;$('.marketerGuideSubmit')[_0x3c3efd(0x168)](),$(_0x3c3efd(0x190))[_0x3c3efd(0x172)]();}
+// Subscribe + guide capture. The address is stored in Firebase; no email is sent
+// from this page (email.php is not deployed), so the guide is handed over directly.
+$("#btnSubscribe").click(function () {
+    var errBool = $(this).closest('form').find('.form-group').hasClass('has-error');
+    if ($("#subscribeEmailInput").val() && !errBool) {
+        database.ref().child('subscriptions').push().update({
+            email: $("#subscribeEmailInput").val(),
+            time: new Date().getTime()
+        });
+        displaySubscriberSuccess();
+    }
+});
+
+$("#btnMarketerGuide").click(function () {
+    var errBool = $(this).closest('form').find('.form-group').hasClass('has-error');
+    if ($("#marketerGuideEmailInput").val() && !errBool) {
+        database.ref().child('guides').push().update({
+            email: $("#marketerGuideEmailInput").val(),
+            time: new Date().getTime(),
+            type: "marketer"
+        });
+        displayMarketerGuideSuccess();
+        openGuide("/guides/InfluencerMarketingGuide.pdf");
+    }
+});
+
+$("#btnInfluencerGuide").click(function () {
+    var errBool = $(this).closest('form').find('.form-group').hasClass('has-error');
+    if ($("#influencerGuideEmailInput").val() && !errBool) {
+        database.ref().child('guides').push().update({
+            email: $("#influencerGuideEmailInput").val(),
+            time: new Date().getTime(),
+            type: "influencer"
+        });
+        displayInfluencerGuideSuccess();
+        openGuide("/guides/BecomingAnInfluencerGuide.pdf");
+    }
+});
+
+function openGuide(url) {
+    // Popup blockers may stop this; the success block also carries a download link.
+    try { window.open(url, "_blank", "noopener"); } catch (e) { /* link below still works */ }
+}
+
+function displaySubscriberSuccess() {
+    $('.subscribeSubmit').hide();
+    $('.subscribeSuccess').show();
+}
+
+function displayInfluencerGuideSuccess() {
+    $('.influencerGuideSubmit').hide();
+    $('.influencerGuideSuccess').show();
+}
+
+function displayMarketerGuideSuccess() {
+    $('.marketerGuideSubmit').hide();
+    $('.marketerGuideSuccess').show();
+}
