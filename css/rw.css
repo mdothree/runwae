@@ -1025,4 +1025,7 @@ fieldset.form-group { margin: 0; }
 .rw-notifications__list .notification-list:empty { min-height: 120px; }
 .rw-notifications__list > .notification-list > h3, #notificationsDisplay > h3 { font: 400 .9375rem var(--rw-font-body); color: var(--rw-muted); padding: var(--rw-s5); }
 
+/* Profile: owner-only stacked sections disappear whenever profileHQ.js has removed their owner-only tab
+   buttons (visitingRemove), whatever order its tab clicks ran in. */
+body:not(:has(#current)) #currentBlock, body:not(:has(#transactions)) #transactionsBlock { display: none !important; }
 /* -- end 10 -- */
