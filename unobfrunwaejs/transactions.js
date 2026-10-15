@@ -68,6 +68,9 @@ function submitGiftPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path
 // Gig checkout breakdown (0% platform fee, Principal 2026-10-14).
 // Lines come from POST /api/payment/quote; the processing line appears only
 // when card processing is passed through (RUNWAE_PROCESSING_PASS_THROUGH).
+// Billing OFF (the default, /api/billing/plans enabled:false): no summary, no
+// quote call, and the card form and ledger read exactly as before billing.
+var rwGigBillingOn = false;
 function rwMoney(cents) {
     return '$' + (Number(cents) / 100).toFixed(2);
 }
@@ -75,8 +78,14 @@ function rwMoney(cents) {
 function rwRenderGigQuote(path) {
     var form = document.getElementById('payment-form');
     if (!form || document.getElementById('rwGigQuote')) return;
-    paymentApi('quote', { gigPath: path }).then(function (q) {
+    if (typeof rwBillingInfo !== 'function') return;
+    rwBillingInfo().then(function (info) {
+        if (!info || info.enabled !== true) return null;
+        rwGigBillingOn = true;
+        return paymentApi('quote', { gigPath: path });
+    }).then(function (q) {
         if (!q || q.httpStatus !== 200 || typeof q.total_cents !== 'number') return;
+        if (document.getElementById('rwGigQuote')) return;
         var box = document.createElement('dl');
         box.id = 'rwGigQuote';
         box.className = 'rw-quote';
@@ -193,8 +202,12 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
                     if (data.success && data.chargeId) {
                         recordMarketerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.chargeId);
                         writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "paid you for", "a post", path);
-                        var paid = data.amountChargedCents ? (data.amountChargedCents / 100).toFixed(2) : price;
-                        writeToLedger(path, "payment submitted", "Marketer paid $" + paid + " (gig price $" + price + " goes to the influencer in full)");
+                        if (rwGigBillingOn) {
+                            var paid = data.amountChargedCents ? (data.amountChargedCents / 100).toFixed(2) : price;
+                            writeToLedger(path, "payment submitted", "Marketer paid $" + paid + " (gig price $" + price + " goes to the influencer in full)");
+                        } else {
+                            writeToLedger(path, "payment submitted", "Marketer paid $" + price);
+                        }
                         updateGigStatus(path, 4);
                     } else {
                         var errorElement = document.getElementById('card-errors');
