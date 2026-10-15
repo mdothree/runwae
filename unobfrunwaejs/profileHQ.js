@@ -236,8 +236,7 @@ function showHeaderField(useri) {
 
 function profilePhotos() {
     $('.profilePictureOverlay').click(function (event) {
-        $("#update-photo").addClass('show');
-        $('html').append('<div class="modal-backdrop fade show"></div>');
+        openModal('#update-photo');
     });
     /* click event only works on header image thumb which contains profile picture also. 
     Including this listener causes an event on both when the above is clicked, causing both popups to
