@@ -180,13 +180,14 @@ async function gigEvent(ctx, name, ids) {
   }
 
   const [brand, creator] = await Promise.all([profile(db, brandUid), profile(db, creatorUid)]);
-  const base = Object.assign({ brandName: brand.name, creatorName: creator.name, gig: g }, extra);
+  // gigPath (validated by GIG_PATH above) lets the templates deep-link the button to this agreement.
+  const base = Object.assign({ brandName: brand.name, creatorName: creator.name, gig: g, gigPath: ids.gigPath }, extra);
   const out = [];
   for (const [who, template] of spec.send) {
     if (who === 'ops') {
       const filer = role === 'brand' ? brand : creator;
       out.push({ address: SUPPORT_INBOX(), template, dedupe: `${dedupe}:ops`, ttl: spec.ttl,
-        data: Object.assign({}, base, { recipientName: 'Runwae', filerName: filer.name, filerRole: role, gigPath: ids.gigPath }) });
+        data: Object.assign({}, base, { recipientName: 'Runwae', filerName: filer.name, filerRole: role }) });
       continue;
     }
     const target = who === 'other' ? (role === 'brand' ? creator : brand) : who === 'brand' ? brand : creator;

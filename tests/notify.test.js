@@ -259,6 +259,22 @@ test('every link and image in a sent email is https on runwae.com or a known hos
   assert.ok(receipt.html.includes('$10.55') && receipt.html.includes('$250'));
 });
 
+test('gig emails deep-link to the agreement when RUNWAE_EMAIL_DEEP_LINKS=1 (else /notifications)', async () => {
+  reset();
+  await call({ event: 'payment.sent', ids: { gigPath: 'items/item1/influencers/gigPaid' } }, { uid: 'uBrand' });
+  for (const c of fetchCalls) assert.ok(c.body.html.includes('href="https://runwae.com/notifications"') && !c.body.html.includes('/gig?'));
+  process.env.RUNWAE_EMAIL_DEEP_LINKS = '1';
+  try {
+    reset();
+    await call({ event: 'payment.sent', ids: { gigPath: 'items/item1/influencers/gigPaid' } }, { uid: 'uBrand' });
+    assert.strictEqual(fetchCalls.length, 2);
+    for (const c of fetchCalls) {
+      assert.ok(c.body.html.includes('href="https://runwae.com/gig?item=item1&amp;gig=gigPaid"'), c.body.subject);
+      assert.ok(c.body.text.includes('https://runwae.com/gig?item=item1&gig=gigPaid'));
+    }
+  } finally { delete process.env.RUNWAE_EMAIL_DEEP_LINKS; }
+});
+
 /* ---------------- preferences ---------------- */
 test('muted categories are skipped; receipts are not mutable; unverified skipped for notifications', async () => {
   reset();

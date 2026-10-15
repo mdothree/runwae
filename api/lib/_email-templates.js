@@ -10,18 +10,21 @@
  *   transactional                      -> always sent (receipts, payouts, disputes, account, billing)
  */
 const L = require('./_email-layout');
+const { PLANS } = require('./billing-config');
 
-const { block: B, line, para, money, date } = L;
+const { block: B, line, para, money, date, routes } = L;
 
 const STEPS = ['Proposal', 'Payment', 'Post', 'Verification', 'Payout'];
 const step = (n) => `Agreement · ${STEPS[n - 1]} · step ${n} of 5`;
 const first = (name) => line(String(name || '').split(' ')[0] || 'there', 40);
 const nm = (name, fallback) => line(name || fallback || 'Someone', 60);
-const PLATFORMS = { instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', twitter: 'X (Twitter)', x: 'X', facebook: 'Facebook', linkedin: 'LinkedIn', pinterest: 'Pinterest', snapchat: 'Snapchat', twitch: 'Twitch', spotify: 'Spotify' };
+const PLATFORMS = { instagram: 'Instagram', tiktok: 'TikTok', youtube: 'YouTube', twitter: 'Twitter', x: 'X', facebook: 'Facebook', linkedin: 'LinkedIn', pinterest: 'Pinterest', snapchat: 'Snapchat', twitch: 'Twitch', spotify: 'Spotify' };
 const plat = (p) => {
   const s = line(p || '', 30);
   return PLATFORMS[s.toLowerCase()] || (s ? s.charAt(0).toUpperCase() + s.slice(1) : '');
 };
+/** Agreement button target: that agreement when deep links are live, else /notifications (see L.routes). */
+const deal = (d) => routes.agreement(d.gigPath);
 /** Agreement summary rows shared by the gig mails. */
 function gigRows(d, extra) {
   const g = d.gig || {};
@@ -50,7 +53,7 @@ T.gig_proposal_requested = {
     blocks: [
       B.p([`Hi ${first(d.recipientName)}, `, { b: nm(d.brandName) }, ' picked you for their campaign and wants to see your idea before the agreement starts.']),
       gigRows(d),
-      B.button('Write your proposal', '/notifications'),
+      B.button('Write your proposal', deal(d)),
     ],
     reason: 'You are getting this because a brand requested a proposal from you on Runwae.',
   }),
@@ -67,7 +70,7 @@ T.gig_proposal_received = {
     blocks: [
       B.p([`Hi ${first(d.recipientName)}, `, { b: nm(d.creatorName) }, ' sent a proposal for your campaign. Accept it to pay and start the agreement, or decline so they can send a new one.']),
       gigRows(d),
-      B.button('Review the proposal', '/notifications'),
+      B.button('Review the proposal', deal(d)),
     ],
     reason: 'You are getting this because a creator sent a proposal for your campaign on Runwae.',
   }),
@@ -84,7 +87,7 @@ T.gig_proposal_declined = {
     blocks: [
       B.p([`Hi ${first(d.recipientName)}, `, { b: nm(d.brandName) }, ' passed on this version of your proposal. The agreement is still open, so you can send a new one.']),
       gigRows(d),
-      B.button('Send a new proposal', '/notifications'),
+      B.button('Send a new proposal', deal(d)),
     ],
     reason: 'You are getting this because a brand responded to your proposal on Runwae.',
   }),
@@ -106,7 +109,7 @@ T.gig_proposal_accepted = {
           ? [`Hi ${first(d.recipientName)}, `, { b: nm(d.brandName) }, ' accepted your proposal and shipped your item. Make the post, then mark it done in Runwae.']
           : [`Hi ${first(d.recipientName)}, `, { b: nm(d.brandName) }, ` accepted your proposal and paid ${money(g.priceCents)}. Make the post, then mark it done in Runwae. You accept the payment once they verify the post.`]),
         gigRows(d, gift && g.trackingNumber ? [['Tracking number', line(g.trackingNumber, 60)]] : []),
-        B.button('Mark your post done', '/notifications'),
+        B.button('Mark your post done', deal(d)),
       ],
       reason: 'You are getting this because a brand accepted your proposal on Runwae.',
     });
@@ -138,7 +141,7 @@ T.gig_payment_receipt = {
           ['Date', date(d.paidAt)],
           ['Reference', line(d.reference, 40)],
         ]),
-        B.button('View the agreement', '/notifications'),
+        B.button('View the agreement', deal(d)),
       ],
       reason: 'You are getting this receipt because you paid for an agreement on Runwae.',
       manage: false,
@@ -157,7 +160,7 @@ T.gig_post_submitted = {
     blocks: [
       B.p([`Hi ${first(d.recipientName)}, `, { b: nm(d.creatorName) }, ' marked the post as done. Check it on their account and verify it so they can be paid.']),
       gigRows(d),
-      B.button('Verify the post', '/notifications'),
+      B.button('Verify the post', deal(d)),
     ],
     reason: 'You are getting this because a creator completed a post for your campaign on Runwae.',
   }),
@@ -179,7 +182,7 @@ T.gig_post_verified = {
           ? [`Hi ${first(d.recipientName)}, `, { b: nm(d.brandName) }, ' verified your post. Confirm you received the item to close the agreement.']
           : [`Hi ${first(d.recipientName)}, `, { b: nm(d.brandName) }, ` verified your post. Accept the ${money(g.priceCents)} payment in Runwae to have it sent to your connected Stripe account.`]),
         gigRows(d),
-        B.button(gift ? 'Close the agreement' : 'Accept payment', '/notifications'),
+        B.button(gift ? 'Close the agreement' : 'Accept payment', deal(d)),
       ],
       reason: 'You are getting this because a brand verified your post on Runwae.',
     });
@@ -209,7 +212,7 @@ T.gig_payout_sent = {
           ['Date', date(d.paidAt)],
           ['Reference', line(d.reference, 40)],
         ]),
-        B.button('View the agreement', '/notifications'),
+        B.button('View the agreement', deal(d)),
       ],
       reason: 'You are getting this because you accepted a payment on Runwae.',
       manage: false,
@@ -228,7 +231,7 @@ T.gig_complete = {
     blocks: [
       B.p([`Hi ${first(d.recipientName)}, `, { b: nm(d.creatorName) }, ' accepted the payment, so this agreement is closed. A short review helps other brands find good partners.']),
       gigRows(d),
-      B.button('Leave a review', '/notifications'),
+      B.button('Leave a review', deal(d)),
     ],
     reason: 'You are getting this because an agreement you started on Runwae was completed.',
   }),
@@ -246,7 +249,7 @@ T.gig_dispute = {
       B.p([`Hi ${first(d.recipientName)}, `, { b: nm(d.otherName) }, ' opened a dispute on your agreement. The Runwae team reviews every dispute and will reply to both of you by email.']),
       gigRows(d),
       B.note('You can reply to this email to add your side.'),
-      B.button('View the agreement', '/notifications'),
+      B.button('View the agreement', deal(d)),
     ],
     reason: 'You are getting this because a dispute was opened on one of your Runwae agreements.',
     manage: false,
@@ -317,7 +320,7 @@ T.review_new = {
         B.p([`Hi ${first(d.recipientName)}, `, { b: nm(d.actorName) }, ' left a review on your profile.']),
         r ? B.details([['Rating', `${r} out of 5`]]) : null,
         d.body ? B.quote(para(d.body, 400), nm(d.actorName)) : null,
-        B.button('See your profile', '/profile'),
+        routes.ownProfile() ? B.button('See your profile', routes.ownProfile()) : B.button('See your notifications', '/notifications'),
       ].filter(Boolean),
       reason: 'You are getting this because someone reviewed you on Runwae.',
     });
@@ -389,93 +392,119 @@ T.account_profile_nudge = {
 //         periodStart, periodEnd, nextBillingAt, invoiceNumber, invoiceUrl (Stripe hosted),
 //         portalUrl (Stripe billing portal), retryAt, endsAt }
 const per = (i) => (i === 'year' ? 'year' : 'month');
+/**
+ * Plan display name, as plans.html says it: "Brand plan" / "Creator membership" (billing-config PLANS[*].short).
+ * Accepts d.planTier ('brand'|'creator') or d.planName in any form the billing code has used ('Brand',
+ * 'Brand plan', 'Runwae Brand plan', ...). Anything unrecognised reads as "subscription", never a made-up name.
+ */
+function planLabel(d) {
+  const keys = [d.planTier, d.planName].map((v) => String(v || '').trim().toLowerCase()).filter(Boolean);
+  for (const p of Object.values(PLANS)) {
+    const names = [p.tier, p.email_name, p.short, p.name].map((v) => String(v || '').toLowerCase());
+    if (keys.some((k) => names.includes(k))) return p.short;
+  }
+  return 'subscription';
+}
 const billLink = (d) => d.portalUrl || '/account#billing';
 
 T.subscription_welcome = {
   category: 'transactional',
   sample: { recipientName: 'Maya Ortiz', planName: 'Brand', amountCents: 4900, currency: 'usd', interval: 'month', nextBillingAt: 1794600000 },
-  render: (d) => L.layout({
-    subject: `You're on the Runwae ${line(d.planName, 40)} plan`,
-    preheader: `${money(d.amountCents, d.currency)} per ${per(d.interval)}. Manage it anytime.`,
-    eyebrow: 'Subscription',
-    heading: `Welcome to ${line(d.planName, 40)}`,
-    blocks: [
-      B.p(`Hi ${first(d.recipientName)}, your subscription is active.`),
-      B.details([
-        ['Plan', line(d.planName, 40)],
-        ['Price', `${money(d.amountCents, d.currency)} per ${per(d.interval)}`],
-        ['Next billing date', date(d.nextBillingAt)],
-      ]),
-      B.button('Manage your plan', billLink(d)),
-    ],
-    reason: 'You are getting this because you subscribed to a Runwae plan.',
-    manage: false,
-  }),
+  render: (d) => {
+    const plan = planLabel(d);
+    return L.layout({
+      subject: `Your Runwae ${plan} is active`,
+      preheader: `${money(d.amountCents, d.currency)} per ${per(d.interval)}. Manage it anytime.`,
+      eyebrow: 'Subscription',
+      heading: `Welcome to your ${plan}`,
+      blocks: [
+        B.p(`Hi ${first(d.recipientName)}, your Runwae ${plan} is active.`),
+        B.details([
+          ['Plan', plan.charAt(0).toUpperCase() + plan.slice(1)],
+          ['Price', `${money(d.amountCents, d.currency)} per ${per(d.interval)}`],
+          ['Next billing date', date(d.nextBillingAt)],
+        ]),
+        B.button(`Manage your ${plan}`, billLink(d)),
+      ],
+      reason: `You are getting this because you subscribed to the Runwae ${plan}.`,
+      manage: false,
+    });
+  },
 };
 
 T.subscription_receipt = {
   category: 'transactional',
   sample: { recipientName: 'Maya Ortiz', planName: 'Brand', amountCents: 4900, currency: 'usd', interval: 'month', periodStart: 1792000000, periodEnd: 1794600000, invoiceNumber: 'RW-0042', invoiceUrl: 'https://invoice.stripe.com/i/acct_test/test_abc' },
-  render: (d) => L.layout({
-    subject: `Receipt: ${money(d.amountCents, d.currency)} for Runwae ${line(d.planName, 40)}`,
-    preheader: `Invoice ${line(d.invoiceNumber, 40)} paid.`,
-    eyebrow: 'Receipt',
-    heading: 'Payment received',
-    blocks: [
-      B.p(`Hi ${first(d.recipientName)}, thanks. Your payment for Runwae ${line(d.planName, 40)} went through.`),
-      B.details([
-        ['Amount', money(d.amountCents, d.currency)],
-        ['Plan', line(d.planName, 40)],
-        ['Period', d.periodStart && d.periodEnd ? `${date(d.periodStart)} – ${date(d.periodEnd)}` : ''],
-        ['Invoice', line(d.invoiceNumber, 40)],
-      ]),
-      B.button('View invoice', d.invoiceUrl || billLink(d)),
-    ],
-    reason: 'You are getting this receipt because you have a Runwae subscription.',
-    manage: false,
-  }),
+  render: (d) => {
+    const plan = planLabel(d);
+    return L.layout({
+      subject: `Receipt: ${money(d.amountCents, d.currency)} for your Runwae ${plan}`,
+      preheader: `Invoice ${line(d.invoiceNumber, 40)} paid.`,
+      eyebrow: 'Receipt',
+      heading: 'Payment received',
+      blocks: [
+        B.p(`Hi ${first(d.recipientName)}, thanks. Your payment for your Runwae ${plan} went through.`),
+        B.details([
+          ['Amount', money(d.amountCents, d.currency)],
+          ['Plan', plan.charAt(0).toUpperCase() + plan.slice(1)],
+          ['Period', d.periodStart && d.periodEnd ? `${date(d.periodStart)} – ${date(d.periodEnd)}` : ''],
+          ['Invoice', line(d.invoiceNumber, 40)],
+        ]),
+        B.button('View invoice', d.invoiceUrl || billLink(d)),
+      ],
+      reason: `You are getting this receipt because you have a Runwae ${plan}.`,
+      manage: false,
+    });
+  },
 };
 
 T.subscription_payment_failed = {
   category: 'transactional',
   sample: { recipientName: 'Maya Ortiz', planName: 'Brand', amountCents: 4900, currency: 'usd', retryAt: 1792250000, portalUrl: 'https://billing.stripe.com/p/session/test_abc' },
-  render: (d) => L.layout({
-    subject: 'Your Runwae payment didn’t go through',
-    preheader: 'Update your card to keep your plan active.',
-    eyebrow: 'Billing',
-    heading: 'Your payment didn’t go through',
-    blocks: [
-      B.p(`Hi ${first(d.recipientName)}, we couldn’t charge ${money(d.amountCents, d.currency)} for your Runwae ${line(d.planName, 40)} plan. Update your payment method to keep it active.`),
-      B.details([
-        ['Plan', line(d.planName, 40)],
-        ['Amount due', money(d.amountCents, d.currency)],
-        ['Next attempt', date(d.retryAt)],
-      ]),
-      B.button('Update payment method', billLink(d)),
-      B.note('If nothing changes, the plan ends after the final retry.', { danger: true }),
-    ],
-    reason: 'You are getting this because a payment for your Runwae subscription failed.',
-    manage: false,
-  }),
+  render: (d) => {
+    const plan = planLabel(d);
+    return L.layout({
+      subject: 'Your Runwae payment didn’t go through',
+      preheader: `Update your card to keep your ${plan} active.`,
+      eyebrow: 'Billing',
+      heading: 'Your payment didn’t go through',
+      blocks: [
+        B.p(`Hi ${first(d.recipientName)}, we couldn’t charge ${money(d.amountCents, d.currency)} for your Runwae ${plan}. Update your payment method to keep it active.`),
+        B.details([
+          ['Plan', plan.charAt(0).toUpperCase() + plan.slice(1)],
+          ['Amount due', money(d.amountCents, d.currency)],
+          ['Next attempt', date(d.retryAt)],
+        ]),
+        B.button('Update payment method', billLink(d)),
+        // Muted, not red: the style guide keeps --rw-danger for destructive actions only.
+        B.note(`If nothing changes, your ${plan} ends after the final retry.`),
+      ],
+      reason: `You are getting this because a payment for your Runwae ${plan} failed.`,
+      manage: false,
+    });
+  },
 };
 
 T.subscription_cancelled = {
   category: 'transactional',
-  sample: { recipientName: 'Maya Ortiz', planName: 'Brand', endsAt: 1794600000 },
-  render: (d) => L.layout({
-    subject: `Your Runwae ${line(d.planName, 40)} plan is cancelled`,
-    preheader: d.endsAt ? `Access continues until ${date(d.endsAt)}.` : 'Your plan has ended.',
-    eyebrow: 'Subscription',
-    heading: 'Your plan is cancelled',
-    blocks: [
-      B.p(d.endsAt
-        ? `Hi ${first(d.recipientName)}, your ${line(d.planName, 40)} plan is cancelled. You keep access until ${date(d.endsAt)}, and you won’t be charged again.`
-        : `Hi ${first(d.recipientName)}, your ${line(d.planName, 40)} plan has ended and you won’t be charged again.`),
-      B.button('Resubscribe', billLink(d)),
-    ],
-    reason: 'You are getting this because your Runwae subscription was cancelled.',
-    manage: false,
-  }),
+  sample: { recipientName: 'Ivy Chen', planName: 'Creator', endsAt: 1794600000 },
+  render: (d) => {
+    const plan = planLabel(d);
+    return L.layout({
+      subject: `Your Runwae ${plan} is cancelled`,
+      preheader: d.endsAt ? `Access continues until ${date(d.endsAt)}.` : `Your ${plan} has ended.`,
+      eyebrow: 'Subscription',
+      heading: `Your ${plan} is cancelled`,
+      blocks: [
+        B.p(d.endsAt
+          ? `Hi ${first(d.recipientName)}, your Runwae ${plan} is cancelled. You keep access until ${date(d.endsAt)}, and you won’t be charged again.`
+          : `Hi ${first(d.recipientName)}, your Runwae ${plan} has ended and you won’t be charged again.`),
+        B.button('Resubscribe', billLink(d)),
+      ],
+      reason: `You are getting this because your Runwae ${plan} was cancelled.`,
+      manage: false,
+    });
+  },
 };
 
 module.exports = T;
