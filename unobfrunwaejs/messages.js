@@ -80,6 +80,18 @@ function openUserConversation(snapUser, uid) {
     });
 }
 
+// rw: show the newest message. The thread renders one message per async user lookup, so this runs once the last
+// one is in (on load, after opening a conversation and after sending). Images are fixed-size avatars, so the height
+// is final; a second pass after layout covers late web-font metrics.
+function rwScrollThreadToEnd() {
+    var el = document.querySelector(".rw-thread-scroll");
+    if (!el) return;
+    var go = function () { el.scrollTop = el.scrollHeight; };
+    go();
+    if (window.requestAnimationFrame) requestAnimationFrame(go);
+    setTimeout(go, 250);
+}
+
 function displayConversation(snapUser, conversationKey) {
     $("#conversationDisplay").html("");
     useri = snapUser.key;
@@ -97,6 +109,7 @@ function displayConversation(snapUser, conversationKey) {
                 displayMessage(messageObj, i);
             } else {
                 importScripts();
+                rwScrollThreadToEnd();
             }
         }
 
@@ -105,6 +118,9 @@ function displayConversation(snapUser, conversationKey) {
             database.ref().child('users/' + senderId).once('value', function (snapSender) {
                 var after = [messageObj["uid"], snapSender.val().photo_url, snapSender.val().username, timeDisplay(messageObj["time"]), messageObj["body"]];
                 displayHTML("#messageInConversationTemplate", "#conversationDisplay", before, after);
+                // rw: my own messages sit on the right (bubble style); the template has no viewer context
+                var me = firebase.auth().currentUser;
+                if (me && senderId === me.uid) $("#conversationDisplay > .messageLi").last().addClass("rw-me");
                 $(".messageLi .notification-friend").click(function (event) {
                     event.preventDefault();
                         event.stopImmediatePropagation();
