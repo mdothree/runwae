@@ -26,6 +26,9 @@ const ROOT_FILES = [
   'apple-touch-icon.png', 'favicon.ico', 'manifest.json', 'og-image.png',
   'robots.txt', 'serviceworker.js', 'site.webmanifest', 'sitemap.xml',
 ];
+// Root *.html never published: welcome-v2.html is an unlinked draft of the landing (no rw header/footer;
+// nothing in the site, sitemap or vercel.json points to it). Swarm pages 2026-10-14.
+const EXCLUDE_ROOT_HTML = new Set(['welcome-v2.html']);
 // Never published, even inside an allowlisted directory.
 const EXCLUDE_EXT = new Set(['.md', '.sh', '.py', '.php', '.log', '.map']);
 const EXCLUDE_NAME = new Set(['.DS_Store', 'config.template.js']);
@@ -46,6 +49,7 @@ fs.rmSync(path.join(root, 'js', 'config.js'), { force: true });
 fs.mkdirSync(dist);
 let n = 0;
 for (const f of fs.readdirSync(root)) {
+  if (EXCLUDE_ROOT_HTML.has(f)) continue;
   if (f.endsWith('.html') || ROOT_FILES.includes(f)) { fs.copyFileSync(path.join(root, f), path.join(dist, f)); n++; }
 }
 for (const d of DIRS) {
@@ -77,7 +81,7 @@ const MUST_NOT_EXIST = [
   'vercel.json', 'deployment', 'api', 'docs', 'package.json', 'firebase.json',
   'database.rules.json', 'README.md', 'STATUS.md', 'marketerLedger.txt', 'error_log',
   'database-debug.log', 'ui-debug.log', 'email.php', '.vercel', '.vscode', 'og/build.sh',
-  'js/config.js',
+  'js/config.js', 'welcome-v2.html',
 ];
 const leaked = MUST_NOT_EXIST.filter((p) => fs.existsSync(path.join(dist, p)));
 if (leaked.length) { console.error('build-dist: refusing, sensitive paths in dist:', leaked); process.exit(1); }
