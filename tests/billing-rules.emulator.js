@@ -48,6 +48,8 @@ async function seed() {
     items: { it1: { uid: 'uBrand', caption: 'existing', time: 1, status: 'active' } },
   }), 200);
 }
+// Items are created with update() (PATCH), as postHQ.js writePost does: under the sec/payments per-field rules
+// a PUT of a whole items/{id} has no .write to match and is refused for everyone.
 const item = (uid) => ({ uid, caption: 'new campaign', time: Date.now(), status: 'active', price: '25', compensation: 'money' });
 const interest = (uid) => ({ uid, time: Date.now(), platform: 'instagram' });
 const results = [];
@@ -75,25 +77,32 @@ async function check(name, got, want) {
   await check('plain: user cannot read billing/*', await brand('GET', 'billing/customers/uBrand'), 401);
   await check('plain: user cannot write billing/*', await brand('PUT', 'billing/customers/uBrand', { id: 'cus_x' }), 401);
   await check('plain: admin (webhook) writes plan', await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'canceled', current_period_end: 1 }), 200);
-  await check('plain: no gate yet, brand posts without plan', await brand('PUT', 'items/itPlain', item('uBrand')), 200);
+  // email prefs (account toggles, api/notify): owner-only at users_private/{uid}/email_prefs (RW-SEC-03 home)
+  await check('plain: owner writes own email pref', await brand('PATCH', 'users_private/uBrand/email_prefs', { messages: false }), 200);
+  await check('plain: owner reads own email prefs', await brand('GET', 'users_private/uBrand/email_prefs'), 200);
+  await check('plain: other user cannot write my email prefs', await creator('PATCH', 'users_private/uBrand/email_prefs', { messages: true }), 401);
+  await check('plain: other user cannot read my email prefs', await creator('GET', 'users_private/uBrand/email_prefs'), 401);
+  await check('plain: email pref must be a boolean', await brand('PATCH', 'users_private/uBrand/email_prefs', { messages: 'off' }), 401);
+  await check('plain: unknown email pref category refused', await brand('PATCH', 'users_private/uBrand/email_prefs', { receipts: false }), 401);
+  await check('plain: no gate yet, brand posts without plan', await brand('PATCH', 'items/itPlain', item('uBrand')), 200);
   await check('plain: no gate yet, creator applies without plan', await creator('PUT', 'items/it1/interests/iPlain', interest('uCreator')), 200);
 
   // ---- gated rules (deployment/gate-rules.js) ----
   await loadRules(gatedRules);
   await seed();
-  await check('gated: brand without plan cannot post', await brand('PUT', 'items/itA', item('uBrand')), 401);
+  await check('gated: brand without plan cannot post', await brand('PATCH', 'items/itA', item('uBrand')), 401);
   await check('gated: creator without plan cannot apply', await creator('PUT', 'items/it1/interests/iA', interest('uCreator')), 401);
-  await check('gated: creator without plan cannot list a service', await creator('PUT', 'items/itS', item('uCreator')), 401);
+  await check('gated: creator without plan cannot list a service', await creator('PATCH', 'items/itS', item('uCreator')), 401);
   await check('gated: brand edits existing item without plan', await brand('PATCH', 'items/it1', { status: 'inactive' }), 200);
 
   await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'past_due', current_period_end: Date.now() + 20 * DAY });
-  await check('gated: past_due plan cannot post', await brand('PUT', 'items/itB', item('uBrand')), 401);
+  await check('gated: past_due plan cannot post', await brand('PATCH', 'items/itB', item('uBrand')), 401);
   await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'active', current_period_end: Date.now() - 4 * DAY });
-  await check('gated: expired (past 3-day grace) cannot post', await brand('PUT', 'items/itC', item('uBrand')), 401);
+  await check('gated: expired (past 3-day grace) cannot post', await brand('PATCH', 'items/itC', item('uBrand')), 401);
   await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'active', current_period_end: Date.now() - 1 * DAY });
-  await check('gated: within 3-day grace can post', await brand('PUT', 'items/itD', item('uBrand')), 200);
+  await check('gated: within 3-day grace can post', await brand('PATCH', 'items/itD', item('uBrand')), 200);
   await asAdmin('PUT', 'plans/uBrand', { tier: 'brand', status: 'active', current_period_end: Date.now() + 30 * DAY });
-  await check('gated: active brand plan posts', await brand('PUT', 'items/itE', item('uBrand')), 200);
+  await check('gated: active brand plan posts', await brand('PATCH', 'items/itE', item('uBrand')), 200);
   await check('gated: brand still cannot forge plan', await brand('PATCH', 'plans/uBrand', { current_period_end: Date.now() + 999 * DAY }), 401);
 
   await asAdmin('PUT', 'plans/uCreator', { tier: 'creator', status: 'trialing', current_period_end: Date.now() + 7 * DAY });
