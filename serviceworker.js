@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const CACHE_NAME = 'runwae-cache-v11'; // v11: HID-004 offline shell (clean /offline URL, never cache redirected/failed responses); jQuery 3.7.1 + Bootstrap 4.6.2 JS (SURF-007); AdSense/ManyChat removed. v10: 14-day marketer refund window (R-runwae-2). v9: fee copy. v8: honest-claims copy. v7: policy pages (L-RWE-03). v6: / is the landing (SEO-003). v5: theme toggle
+const CACHE_NAME = 'runwae-cache-v11-hf1'; // v11-hf1: feed escaping hotfix (2026-10-14; drops cached util/feed/timeline JS). v11: HID-004 offline shell (clean /offline URL, never cache redirected/failed responses); jQuery 3.7.1 + Bootstrap 4.6.2 JS (SURF-007); AdSense/ManyChat removed. v10: 14-day marketer refund window (R-runwae-2). v9: fee copy. v8: honest-claims copy. v7: policy pages (L-RWE-03). v6: / is the landing (SEO-003). v5: theme toggle
 const RUNTIME_CACHE = 'runwae-runtime-v3'; // v3: drops pages cached as redirects by v2 (HID-004)
 
 // Core assets to precache on install
