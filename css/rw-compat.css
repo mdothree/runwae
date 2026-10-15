@@ -362,9 +362,14 @@ select.form-control { height: 40px; padding: 0 2rem 0 .875rem; line-height: norm
 .rw-confirm__err:empty { display: none; }
 .rw-confirm__actions { display: flex; flex-wrap: wrap; gap: var(--rw-s3); }
 .rw-prefs .checkbox-material .check { border-color: var(--rw-muted) !important; }
-#deactivateAccountModal .modal-header { background: var(--rw-bg) !important; }
-#deactivateAccountModal .modal-header .title { color: var(--rw-ink) !important; }
-#deactivateAccountModal .icon-close, #deactivateAccountModal .close-icon { color: var(--rw-ink) !important; background: transparent !important; }
+/* every dialog: white header, ink title and close (was the old indigo bar; dialogs now really open, C1) */
+.modal .modal-header { background: var(--rw-bg) !important; border-bottom: 1px solid var(--rw-line); }
+.modal .modal-header .title { color: var(--rw-ink) !important; font: 700 1.0625rem/1.3 var(--rw-font-display); }
+.modal .icon-close, .modal .close-icon { color: var(--rw-ink) !important; background: transparent !important; }
+#open-influencerTutorial li h4, #open-marketerTutorial li h4 { color: var(--rw-ink); margin: 0 0 var(--rw-s3); }
+#open-influencerTutorial .create-friend-group, #open-marketerTutorial .create-friend-group { width: auto; max-width: 570px; }
+.slider a.control_prev, .slider a.control_next { background: var(--rw-ink); color: var(--rw-on-ink); border-radius: var(--rw-radius-pill); padding: 8px 14px; opacity: .85; }
+@media (max-width: 600px) { .modal-dialog { max-width: calc(100vw - 32px); margin-left: auto; margin-right: auto; } }
 #deactivateAccountModal .rw-confirm { padding: var(--rw-s5); }
 #deactivateAccountModal .rw-field { margin: 0 0 var(--rw-s4); }
 /* Account page cohesion (style guide): styled file inputs, one primary button, quiet secondaries, mono icons */
