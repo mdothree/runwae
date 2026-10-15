@@ -5,7 +5,8 @@ function displayProfile(snap) {
         $(".firstName").text(snap.val().name.split(" ")[0]);
     }
     $("#name").text(snap.val().name);
-    $("#username").text("@" + snap.val().username);
+    // profile.html prints the "@" before #username, so the value goes in bare (was "@@name").
+    $("#username").text(snap.val().username || "");
     // Use SafeRender for descriptions to support line breaks safely
     if (typeof SafeRender !== 'undefined') {
         SafeRender.setTextWithBreaks("#description", snap.val().description);
@@ -22,7 +23,7 @@ function displayProfile(snap) {
         $("#website").text("").removeAttr("href").hide();
     }
     $("#industry").text(snap.val().industry);
-    $("#gigsCount").text(snap.val().gigs_count);
+    $("#gigsCount, #gigsCountStat").text(snap.val().gigs_count || 0);
     $("#role").text(capitalizeFLetter(snap.val().role));
     if (snap.val().city != "" && snap.val().city) {
         $("#city").text(snap.val().city);
@@ -30,6 +31,7 @@ function displayProfile(snap) {
     } else {
         $("#city, #region").remove();
     }
+    rwTrustSignals(snap.val());
     var ids = ["instagram", "twitter", "facebook", "linkedin"];
     for (var i = 0; i < ids.length; i++) {
         var socialUrl = (typeof rwSocialUrl === 'function') ? rwSocialUrl(ids[i], snap.val()[ids[i]]) : '';
@@ -42,6 +44,18 @@ function displayProfile(snap) {
         }
     }
     displayBadges(snap);
+}
+
+// Profile sidebar facts, only from data the record really has (no presence or response-time data exists, so
+// those badges are gone). Member since = year of users/{uid}/time, which auth.js createUser() writes at signup.
+function rwTrustSignals(u) {
+    u = u || {};
+    var loc = [u.city, u.region].filter(function (x) { return x; }).join(", ");
+    $("#locationBadge").text(loc).closest(".trust-badge").prop("hidden", !loc);
+    var joined = Number(u.time);
+    var year = joined > 1262304000000 && joined <= Date.now() ? new Date(joined).getFullYear() : null;
+    $(".member-since").text(year ? "Member since " + year : "").closest(".trust-badge").prop("hidden", !year);
+    $("#trustSignals").prop("hidden", !loc && !year);
 }
 
 function displayBadges(snap) {

@@ -65,9 +65,12 @@ function writePostAssist(snapUser) {
                         var compensation = checkCompensation();
                         var file = document.getElementById('btnPhoto').files[0];
                         if (fileOk(file)) {
-                            $("#alert").text("Posting item...");
-                            //send type of media and media url to write post !!!
-                            writePost(snapUser, file, compensation);
+                            // Posting needs an active plan (Brand plan / Creator membership).
+                            rwRequirePlan(snapUser, "post", function () {
+                                $("#alert").text("Posting item...");
+                                //send type of media and media url to write post !!!
+                                writePost(snapUser, file, compensation);
+                            });
                         }
                     }
                 }

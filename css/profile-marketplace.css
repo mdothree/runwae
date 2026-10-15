@@ -51,48 +51,6 @@
   display: block;
 }
 
-/* Online Status Indicator */
-.online-status {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  color: var(--color-success);
-  font-size: 13px;
-  font-weight: 500;
-  margin-top: var(--spacing-sm);
-}
-
-.online-status::before {
-  content: '';
-  width: 10px;
-  height: 10px;
-  background: var(--color-success);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
-  }
-}
-
-.online-status.offline {
-  color: var(--color-text-muted);
-}
-
-.online-status.offline::before {
-  background: var(--color-text-muted);
-  animation: none;
-}
-
 /* Profile Name & Handle */
 .profile-name {
   font-size: var(--font-size-2xl);

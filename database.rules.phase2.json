@@ -121,6 +121,11 @@
         "customer_id": {
           ".validate": "newData.isString() && newData.val().length <= 100"
         },
+        "email_prefs": {
+          "$cat": {
+            ".validate": "newData.isBoolean() && ($cat === 'agreements' || $cat === 'messages' || $cat === 'activity')"
+          }
+        },
         "notifications": {
           "$k": {
             ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && !data.exists() && newData.child('uid').val() === auth.uid && (!newData.exists() || (newData.hasChildren(['uid', 'action', 'read_or_unread', 'time']) && newData.child('action').isString() && newData.child('action').val().length <= 100 && (newData.child('read_or_unread').val() === 'read' || newData.child('read_or_unread').val() === 'unread') && newData.child('time').isNumber()))"

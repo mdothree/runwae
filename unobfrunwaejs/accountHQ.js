@@ -6,6 +6,8 @@ firebase.auth().onAuthStateChanged(function (user) {
         rwOwnUser(useri, function (snap) {
             handleMessagePreference();
             displayAccountInfo();
+            rwMountPlanSection(snap);
+            rwMountEmailPrefs(snap);
             profilePhotos(snap);
             whoToFollow(snap, 6, "#influencersToFollowDisplay", "influencer");
             whoToFollow(snap, 6, "#brandsToFollowDisplay", "marketer");
@@ -141,6 +143,32 @@ firebase.auth().onAuthStateChanged(function (user) {
         });
     }
 });
+
+// /account#notifications (the "Manage email notifications" link in every email footer).
+// One switch per category in api/notify.js: users_private/{uid}/email_prefs/{agreements|messages|activity}
+// (RW-SEC-03: owner-only; rwOwnUser merges it into snap.val()).
+// The server mutes a category only when its pref is === false, so a missing pref shows as on.
+function rwMountEmailPrefs(snap) {
+    var prefs = (snap.val() && snap.val().email_prefs) || {};
+    var $status = $("#emailPrefsStatus");
+    $("[data-email-pref]").each(function () {
+        var key = $(this).attr("data-email-pref");
+        $(this).prop("checked", prefs[key] !== false);
+    }).off("change").on("change", function () {
+        var $box = $(this);
+        var key = $box.attr("data-email-pref");
+        var on = $box.is(":checked");
+        var update = {};
+        update[key] = on;
+        $status.text("Saving...");
+        rwPrivateRef(snap.key, 'email_prefs').update(update).then(function () {
+            $status.text("Saved.");
+        }).catch(function () {
+            $box.prop("checked", !on);
+            $status.text("Couldn't save that. Please try again.");
+        });
+    });
+}
 
 function showFieldError(id, message) {
     var $input = $("#" + id);

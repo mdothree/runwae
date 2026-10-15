@@ -134,6 +134,11 @@ function displayInterests(snapVisitor, snapHost, el) {
 }
 
 function handleInterest(snapUser, el) {
+    // Applying to a campaign needs an active Creator membership.
+    rwRequirePlan(snapUser, "apply", function () { handleInterestWithPlan(snapUser, el); });
+}
+
+function handleInterestWithPlan(snapUser, el) {
     var platform = $(el).attr("id");
     var key = $(el).closest(".ui-block").attr("id");
     var uid = $(el).closest("article").attr("id");

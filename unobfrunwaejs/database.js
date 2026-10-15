@@ -102,26 +102,47 @@ function updateGigStatus(path, status) {
 }
 
 function deactivateAccount(snapUser) {
+    // A plan that still renews must be cancelled in Manage billing first (util.js rwCloseAccountGuard).
+    rwCloseAccountGuard(snapUser.key, function () { deactivateAccountConfirmed(snapUser); });
+}
+
+function deactivateAccountConfirmed(snapUser) {
     useri = snapUser.key;
+    $("#deactivateAccountError").text("");
     openModal("#deactivateAccountModal");
-    $("#btnDeactivateConfirmation").click(function () {
-
-        dbRefPosts = dbRefUsers.child('posts');
-        database.ref().child('users/' + useri + '/posts').orderByKey().on('child_added', function (snapP) {
-            var key = snapP.key;
-            database.ref().child('items/' + key).update({
-                "status": "inactive"
+    $("#btnDeactivateCancel").off("click").on("click", function () {
+        $("#deactivateAccountModal .icon-close").trigger("click");
+    });
+    // .off first: the button is wired once per open, not once per earlier open.
+    $("#btnDeactivateConfirmation").off("click").on("click", function () {
+        var authUser = firebase.auth().currentUser;
+        if (!authUser) {
+            window.location.href = "login";
+            return;
+        }
+        var $btn = $(this).prop("disabled", true);
+        // Take the user's posts off Explore, then clear the email, then delete the sign-in.
+        // (Used to reference the undefined dbRefUsers / user globals, so the click threw and did nothing.)
+        database.ref().child('users/' + useri + '/posts').once('value').then(function (snapPosts) {
+            var jobs = [];
+            snapPosts.forEach(function (snapP) {
+                jobs.push(database.ref().child('items/' + snapP.key).update({ "status": "inactive" }).catch(function () {}));
             });
-        });
-
-        rwPrivateRef(useri).update({
-            "email": ""
-        });
-        user.delete().then(function () {
-            // User deleted.
-            window.location.href = "login.html";
+            return Promise.all(jobs);
+        }).then(function () {
+            // RW-SEC-03: the email lives at users_private/{uid}.
+            return rwPrivateRef(useri).update({ "email": "" });
+        }).then(function () {
+            return authUser.delete();
+        }).then(function () {
+            window.location.href = "login";
         }).catch(function (error) {
-            // An error happened.
+            $btn.prop("disabled", false);
+            if (error && error.code === "auth/requires-recent-login") {
+                $("#deactivateAccountError").text("For your security, log out and back in, then remove your account.");
+            } else {
+                $("#deactivateAccountError").text("Something went wrong. Please try again.");
+            }
         });
     });
 }

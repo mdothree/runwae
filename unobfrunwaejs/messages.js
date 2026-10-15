@@ -81,7 +81,8 @@ function displayConversation(snapUser, conversationKey) {
     var before = ["{{uid}}", "{{src}}", "{{username}}", "{{time}}", "{{body}}"];
     var dbRefConversation = firebase.database().ref().child('conversations/' + conversationKey);
     dbRefConversation.once('value', function (snapConversation) {
-        obj = snapConversation.val();
+        // Local: this used to write the global `obj` that displayConversations() is still walking.
+        var obj = snapConversation.val() || {};
         var messagesLength = Object.keys(obj).length;
         getMessage(0);
 
@@ -95,7 +96,7 @@ function displayConversation(snapUser, conversationKey) {
         }
 
         function displayMessage(messageObj, i) {
-            senderId = messageObj["uid"];
+            var senderId = messageObj["uid"];
             database.ref().child('users/' + senderId).once('value', function (snapSender) {
                 var after = [messageObj["uid"], snapSender.val().photo_url, snapSender.val().username, timeDisplay(messageObj["time"]), messageObj["body"]];
                 displayHTML("#messageInConversationTemplate", "#conversationDisplay", before, after);
@@ -131,9 +132,10 @@ function displayConversations(snapUser, limit) {
     }
     $('.unreadMessagesCount').text(snapUser.val().unread_messages_count);
     var before = ["{{status}}", "{{key}}", "{{uid}}", "{{src}}", "{{username}}", "{{time}}", "{{body}}"];
-    var i = 0;
-    var total = 0;
-    obj = snapUser.val().conversations;
+    // Locals: the thread view (displayConversation) and a second displayConversations() call run while this
+    // list is still loading; with globals the list showed only its first conversation.
+    var obj = snapUser.val().conversations;
+    var conversationKeys;
     if (obj) {
         conversationKeys = Object.keys(obj);
         var conversations = conversationKeys.length;
@@ -154,6 +156,8 @@ function displayConversations(snapUser, limit) {
             var conversationObj = obj[conversationKey];
             if (conversationObj) {
                 displayConversation(conversationObj, n);
+            } else {
+                getConversation(n + 1);
             }
         } else {
             if (limit < 7 && $("#navConversationsDisplay, #mobileNavConversationsDisplay").html() == "") {
@@ -167,17 +171,24 @@ function displayConversations(snapUser, limit) {
 
     function displayConversation(conversationObj, n) {
         database.ref().child('conversations/' + conversationKeys[n]).once('value', function (snapConv) {
-            convObj = snapConv.val();
+            var convObj = snapConv.val();
+            if (!convObj) {
+                getConversation(n + 1);
+                return;
+            }
             if (convObj) {
-                messageObj = convObj[Object.keys(convObj)[Object.keys(convObj).length - 1]];
+                var messageObj = convObj[Object.keys(convObj)[Object.keys(convObj).length - 1]];
                 //                database.ref().child('conversations/' + conversationKeys[n]).orderByKey().limitToLast(1).once('value', function (snapMessage) {
-                database.ref().child('users/' + messageObj["uid"]).once('value', function (snapSender) {
+                // The row names the other person in the conversation (users/{me}/conversations/{key}.uid), not the
+                // sender of the last message, which is often me.
+                var partnerId = conversationObj["uid"] || messageObj["uid"];
+                database.ref().child('users/' + partnerId).once('value', function (snapSender) {
                     if (snapSender.val()){
-                    body = messageObj["body"];
+                    var body = messageObj["body"] || "";
                     if (body.length > 30) {
                         body = body.substring(0, 27) + "...";
                     }
-                    var after = [conversationObj["read_or_unread"], conversationKeys[n], messageObj["uid"], snapSender.val().photo_url, snapSender.val().username, timeDisplay(messageObj["time"]), body];
+                    var after = [conversationObj["read_or_unread"], conversationKeys[n], partnerId, snapSender.val().photo_url, snapSender.val().username, timeDisplay(messageObj["time"]), body];
                     if (limit < 7) {
                         displayHTML("#conversationTemplate", "#mobileNavConversationsDisplay", before, after);
                         displayHTML("#conversationTemplate", "#navConversationsDisplay", before, after);

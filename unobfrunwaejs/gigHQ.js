@@ -366,7 +366,7 @@ function fileOk(file) {
     if (file.size < 100 * Math.pow(10, 6)) {
         sizeok = true;
     } else {
-        $("#writeProposalAlert").html("File size larger than 100 KB...");
+        $("#writeProposalAlert").html("File is larger than 100 MB.");
     }
     var ext = file.name.split('.').pop().toLowerCase();
     image = ["jpg", "png", "jpeg"];
@@ -704,13 +704,7 @@ function influencerAcceptHandler(snapMarketer, snapInfluencer, snapItem, snapGig
 
 function acceptGiftRecorded(snapMarketer, snapInfluencer, snapItem, snapGig, path, existing) {
     if (!existing) {
-            subject = "Your Payment Summary!";
-            title = "Payment Details";
-            body = "Hey " + snapInfluencer.val().name.split(" ")[0] + "! Congrats on the gig! The details of your transaction are as follows: " + snapMarketer.val().name + " paid you with tracking No. " + snapGig.val().tracking_number + " for a " + snapGig.val().platform + " agreement";
-            bodyNote = "You can also keep track of your transactions on your dashbaord. As usual, please don't hesitate to email us if there's anything you think we can do better!";
-            moreLink = "Runwae.com/account";
-            actionText = "Review Gig";
-            sendEmail(snapMarketer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
+            // The payment email goes out through /api/notify (writeNotification "accepted").
             recordInfluencerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, false)
             writeNotification(snapInfluencer.key, snapMarketer.key, snapInfluencer.val().username, "accepted", " your payment", path);
             event = "Influencer accepted the payment";
@@ -764,6 +758,7 @@ function disputeHandler(snapMarketer, snapInfluencer, snapItem, snapGig, path, r
             type = "dispute";
             writeToLedger(path, type, event);
             writeDispute(snapMarketer.key, snapInfluencer.key, path, dispute);
+            if (typeof rwNotify === 'function') rwNotify("dispute.opened", { gigPath: path });
             $("#disputeBlock").hide();
             $("#disputeRecorded").show();
         }

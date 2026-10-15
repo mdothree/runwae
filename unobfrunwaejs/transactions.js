@@ -57,14 +57,7 @@ function submitGiftPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path
     database.ref().child(path).update({
         "tracking_number": $("#trackingNumberInput").val()
     });
-    subject = "Your Order Summary!";
-    title = "Payment Details";
-    body = "Hey " + snapMarketer.val().name.split(" ")[0] + "! Congrats on the new partnership! The details of your transaction are as follows: You shipped to " + snapInfluencer.val().name + " with tracking No. " + $("#trackingNumberInput").val() + " for a " + snapGig.val().platform + " agreement";
-    bodyNote = "You can also keep track of your transactions on your dashbaord. Please don't hesitate to email us if there's anything you think we can do better!";
-    moreLink = "Runwae.com/account";
-    actionText = "Review Order";
 
-    sendEmail(snapMarketer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
     recordMarketerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, false)
     writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "paid you for", "a post", path);
     writeToLedger(path, "payment submitted", "Marketer shipped an item");
@@ -72,15 +65,64 @@ function submitGiftPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path
 }
 
 
+// Gig checkout breakdown (0% platform fee, Principal 2026-10-14).
+// Lines come from POST /api/payment/quote; the processing line appears only
+// when card processing is passed through (RUNWAE_PROCESSING_PASS_THROUGH).
+function rwMoney(cents) {
+    return '$' + (Number(cents) / 100).toFixed(2);
+}
+
+function rwRenderGigQuote(path) {
+    var form = document.getElementById('payment-form');
+    if (!form || document.getElementById('rwGigQuote')) return;
+    paymentApi('quote', { gigPath: path }).then(function (q) {
+        if (!q || q.httpStatus !== 200 || typeof q.total_cents !== 'number') return;
+        var box = document.createElement('dl');
+        box.id = 'rwGigQuote';
+        box.className = 'rw-quote';
+        box.setAttribute('aria-label', 'Payment summary');
+        function row(label, value, note, strong) {
+            var wrap = document.createElement('div');
+            wrap.className = 'rw-quote__row' + (strong ? ' rw-quote__row--total' : '');
+            var dt = document.createElement('dt');
+            dt.textContent = label;
+            if (note) {
+                var small = document.createElement('span');
+                small.className = 'rw-quote__note';
+                small.textContent = note;
+                dt.appendChild(small);
+            }
+            var dd = document.createElement('dd');
+            dd.textContent = value;
+            wrap.appendChild(dt);
+            wrap.appendChild(dd);
+            box.appendChild(wrap);
+        }
+        row('Gig price', rwMoney(q.gig_price_cents), 'Paid to the influencer in full');
+        row('Runwae fee', rwMoney(0), 'Runwae keeps 0% of the gig price');
+        if (q.pass_through && q.processing_fee_cents > 0) {
+            row('Card processing', rwMoney(q.processing_fee_cents), 'Stripe\'s card fee, passed through at cost');
+        }
+        row('Total', rwMoney(q.total_cents), '', true);
+        form.parentNode.insertBefore(box, form);
+        var btn = document.getElementById('btnSubmitStripePayment');
+        if (btn) btn.textContent = 'Pay ' + rwMoney(q.total_cents);
+        if (!document.getElementById('rwQuoteStyle')) {
+            var st = document.createElement('style');
+            st.id = 'rwQuoteStyle';
+            st.textContent = '.rw-quote{max-width:420px;margin:0 auto 20px;text-align:left;border:1px solid var(--rw-line,#e6e6ee);border-radius:var(--rw-radius,14px);padding:12px 16px}' +
+                '.rw-quote__row{display:flex;justify-content:space-between;gap:16px;padding:6px 0}' +
+                '.rw-quote__row dt{font-weight:400;color:var(--rw-text,#2b2c36);margin:0}.rw-quote__row dd{margin:0;color:var(--rw-ink,#000);font-variant-numeric:tabular-nums}' +
+                '.rw-quote__note{display:block;font-size:.8125rem;color:var(--rw-muted,#6b6d7a)}' +
+                '.rw-quote__row--total{border-top:1px solid var(--rw-line,#e6e6ee);margin-top:4px;padding-top:10px}.rw-quote__row--total dt,.rw-quote__row--total dd{font-weight:700}';
+            document.head.appendChild(st);
+        }
+    }).catch(function () { /* no quote endpoint yet: the form works as before */ });
+}
+
 function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     price = Number(snapItem.val().price).toFixed(0);
 
-    subject = "Your Order Summary!";
-    title = "Payment Details";
-    body = "Hey " + snapInfluencer.val().name.split(" ")[0] + "! Congrats on the new partnership! The details of your transaction are as follows: You paid " + snapInfluencer.val().name + " $" + price + " for a " + snapGig.val().platform + " agreement";
-    bodyNote = "You can also keep track of your transactions on your dashbaord. Please don't hesitate to email us if there's anything you think we can do better!";
-    moreLink = "Runwae.com/account";
-    actionText = "Review Campaign";
 
     $("#btnSubmitStripePayment").show();
     $("#btnAboutStripe").show();
@@ -116,6 +158,9 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element');
 
+    // Show the exact amounts before the marketer pays (same numbers the server charges).
+    rwRenderGigQuote(path);
+
     // Handle real-time validation errors from the card Element.
     card.addEventListener('change', function (event) {
         var displayError = document.getElementById('card-errors');
@@ -146,10 +191,10 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
                 })
                 .then(function(data) {
                     if (data.success && data.chargeId) {
-                        sendEmail(snapMarketer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
                         recordMarketerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.chargeId);
                         writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "paid you for", "a post", path);
-                        writeToLedger(path, "payment submitted", "Marketer paid $" + price);
+                        var paid = data.amountChargedCents ? (data.amountChargedCents / 100).toFixed(2) : price;
+                        writeToLedger(path, "payment submitted", "Marketer paid $" + paid + " (gig price $" + price + " goes to the influencer in full)");
                         updateGigStatus(path, 4);
                     } else {
                         var errorElement = document.getElementById('card-errors');
@@ -169,12 +214,6 @@ function chargeMarketer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
 }
 
 function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
-    subject = "Your Payment Summary!";
-    title = "Payment Details";
-    body = "Hey " + snapInfluencer.val().name.split(" ")[0] + "! Congrats on the gig! The details of your transaction are as follows: " + snapMarketer.val().name + " paid you $" + snapItem.val().price + " for a " + snapGig.val().platform + " agreement";
-    bodyNote = "You can also keep track of your transactions on your dashbaord. Please don't hesitate to email us if there's anything you think we can do better!";
-    moreLink = "Runwae.com/account";
-    actionText = "Review Gig";
 
     initPayout();
 
@@ -269,7 +308,6 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
         paymentApi('pay-influencer', { gigPath: path })
         .then(function(data) {
             if (data.success && data.transferId) {
-                sendEmail(snapInfluencer.val().email, subject, [title, body, bodyNote, moreLink, actionText]);
                 recordInfluencerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, data.transferId);
                 writeNotification(snapInfluencer.key, snapMarketer.key, snapInfluencer.val().username, "accepted", "your payment", path);
                 writeToLedger(path, "payment accepted", "Influencer accepted payment");

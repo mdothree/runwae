@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const CACHE_NAME = 'runwae-cache-v11-sec1'; // v11-sec1: payments + private-data security fix (2026-10-14; drops cached gig/transactions/notifications/messages/navHQ JS). v11-hf2: profile website/social link + gig history/download XSS fixes (drops cached util/display/accountHQ/gigHQ JS). v11-hf1: feed escaping hotfix (2026-10-14; drops cached util/feed/timeline JS). v11: HID-004 offline shell (clean /offline URL, never cache redirected/failed responses); jQuery 3.7.1 + Bootstrap 4.6.2 JS (SURF-007); AdSense/ManyChat removed. v10: 14-day marketer refund window (R-runwae-2). v9: fee copy. v8: honest-claims copy. v7: policy pages (L-RWE-03). v6: / is the landing (SEO-003). v5: theme toggle
+const CACHE_NAME = 'runwae-cache-v14-int'; // v14-int: integrated release (rw.css style system + swarm page/profile/account/gig/email fixes + sec/payments f1dfeef), newer than every deployed name (v11-hf1, v11-hf2, v11-sec1, v12-hf2, v13-*). v11-sec1: payments + private-data security fix. v11-hf2/v12-hf2: profile website/social link + gig history/download XSS fixes. v11-hf1: feed escaping hotfix. v12: rw.css style system (shared header/footer, rw-compat.css, rw-shell.js). v11: HID-004 offline shell; jQuery 3.7.1 + Bootstrap 4.6.2 JS (SURF-007); AdSense/ManyChat removed. v10: 14-day marketer refund window. v9: fee copy. v8: honest-claims copy. v7: policy pages. v6: / is the landing. v5: theme toggle
 const RUNTIME_CACHE = 'runwae-runtime-v3'; // v3: drops pages cached as redirects by v2 (HID-004)
 
 // Core assets to precache on install
@@ -17,6 +17,8 @@ const PRECACHE_ASSETS = [
     'css/fonts.min.css',
     'css/ext.css',
     'css/theme.css',
+    'css/rw.css',
+    'css/rw-compat.css',
     'Bootstrap/dist/css/bootstrap.css',
     'Bootstrap/dist/css/bootstrap-reboot.css',
     'Bootstrap/dist/css/bootstrap-grid.css',
@@ -24,6 +26,7 @@ const PRECACHE_ASSETS = [
     'js/console-toggle.js',
     'js/consent.js',
     'js/theme-init.js',
+    'js/rw-shell.js',
     'js/main.js',
     'js/base-init.js',
     'js/webfontloader.min.js',

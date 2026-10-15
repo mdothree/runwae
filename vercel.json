@@ -23,14 +23,13 @@
       "source": "/refund-policy",
       "destination": "/refund",
       "permanent": false
-    },
-    {
-      "source": "/pricing",
-      "destination": "/faqs#cost",
-      "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/pricing",
+      "destination": "/api/billing/pricing"
+    },
     {
       "source": "/",
       "destination": "/welcome"
@@ -68,9 +67,21 @@
       "memory": 256,
       "maxDuration": 30
     },
+    "api/billing/*.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
     "api/payment/*.js": {
       "memory": 256,
       "maxDuration": 10
+    },
+    "api/public/*.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/notify.js": {
+      "memory": 256,
+      "maxDuration": 15
     }
   },
   "git": {

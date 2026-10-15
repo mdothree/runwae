@@ -27,17 +27,34 @@ function writeNotification(useri, uid, username, action, target, targetKey) {
     rwPrivateRef(uid, 'notifications/' + notificationKey).update(notification);
 
 
-    database.ref().child('users/' + uid).once('value', function (snap) {
-        // The recipient's unread badge is recounted on their next page load.
-        title = "Notification from " + username;
-        body = "Hey " + snap.val().name.split(" ")[0] + "! Have you logged into Runwae lately? It looks like " + username + " just " + action + " " + target + ".";
-        bodyNote = "Don't miss the action! Please don't hesitate to email us if there's anything you think we can do better!";
-        moreLink = "Runwae.com/notifications";
-        actionText = "Check Notifications";
-        if (action != "favorited") {
-            sendEmail(snap.val().email, 'You have a notification on Runwae!', [title, body, bodyNote, moreLink, actionText]);
-        }
-    });
+    // The recipient's unread badge is recounted on their next page load (RW-SEC-03:
+    // their notifications are private). Email goes through /api/notify below.
+    notifyByEmail(uid, action, targetKey);
+}
+
+// Map an in-app notification to a server email event (/api/notify picks the
+// recipient and content). Actions not listed here send no email.
+var NOTIFY_EVENTS = {
+    "requested a proposal for": "proposal.requested",
+    "submitted a proposal for": "proposal.submitted",
+    "declined": "proposal.declined",
+    "paid you for": "payment.sent",
+    "posted for": "post.submitted",
+    "verified": "post.verified",
+    "accepted": "payout.accepted"
+};
+var NOTIFY_ACTIVITY = { "commented on": "comment", "shared": "share", "showed interest in": "interest" };
+function notifyByEmail(uid, action, targetKey) {
+    if (typeof rwNotify !== 'function') return;
+    if (NOTIFY_EVENTS[action]) {
+        rwNotify(NOTIFY_EVENTS[action], { gigPath: targetKey });
+    } else if (action == "followed") {
+        rwNotify("user.followed", { uid: uid });
+    } else if (action == "left a review on") {
+        rwNotify("review.posted", { uid: uid });
+    } else if (NOTIFY_ACTIVITY[action]) {
+        rwNotify("post.activity", { itemKey: targetKey, kind: NOTIFY_ACTIVITY[action] });
+    }
 }
 
 

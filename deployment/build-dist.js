@@ -51,6 +51,20 @@ for (const f of fs.readdirSync(root)) {
 for (const d of DIRS) {
   if (fs.existsSync(path.join(root, d))) { copyDir(path.join(root, d), path.join(dist, d)); n++; }
 }
+// Billing copy (subscription + 0% fee model, Principal 2026-10-14): see deployment/billing-copy.js.
+// One switch (RUNWAE_BILLING_ENABLED), one price source (api/lib/billing-config.js).
+const { applyBillingCopy, billingOn } = require('./billing-copy');
+let billingPages = 0;
+for (const f of fs.readdirSync(dist)) {
+  if (!f.endsWith('.html')) continue;
+  const fp = path.join(dist, f);
+  if (f === 'plans.html' && !billingOn(process.env)) { fs.rmSync(fp); continue; }
+  const before = fs.readFileSync(fp, 'utf8');
+  const after = applyBillingCopy(before, process.env);
+  if (after !== before) { fs.writeFileSync(fp, after); billingPages++; }
+}
+console.log(`build-dist: billing ${billingOn(process.env) ? 'ON' : 'OFF'}, copy applied to ${billingPages} page(s)`);
+
 // SURF-006: RFC 9116 security.txt (copyDir skips dot-dirs, so copy it explicitly).
 const secTxt = path.join(root, '.well-known', 'security.txt');
 if (fs.existsSync(secTxt)) {
