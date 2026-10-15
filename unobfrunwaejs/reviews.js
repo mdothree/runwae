@@ -77,7 +77,9 @@ function postReview(visitorSnap, hostSnap) {
     });
     updateReviewsCount(visitorSnap, hostSnap);
     writeNotification(visitorSnap.key, hostSnap.key, visitorSnap.val().username, "left a review on", "your profile", visitorSnap.key);
-    displayReviews(hostSnap);
+    database.ref().child('users/' + hostSnap.key).once('value', function (snapHost) {
+        displayReviews(snapHost);
+    });
     $('#reviewSubmissionBlock').remove();
 }
 
@@ -113,29 +115,55 @@ function refreshReviewsCount(reviewsCount) {
 }
 
 
+// Rating summary (sidebar + Reviews header): average of the ratings shown, out of 10 like the review form.
+function rwRatingSummary(count, ratings) {
+    var sum = 0;
+    for (var i = 0; i < ratings.length; i++) sum += ratings[i];
+    $(".rating-value").text(ratings.length ? (sum / ratings.length).toFixed(1) + " / 10" : "");
+    $(".rating-count").text(count ? "(" + count + (count === 1 ? " review)" : " reviews)") : "No reviews yet");
+}
+
+// One row per review: reviewer, time, text, score. Each row gets its own review object (the old loop
+// shared one `key` across async callbacks, so every row showed the last review's text), and the list is
+// written once all reviewer lookups are back (the old empty-state check ran before any of them returned,
+// so "No reviews to display" showed above the reviews).
 function displayReviews(snap) {
-    $("#reviewsDisplay").html("");
-    before = ["{{key}}", "{{body}}", "{{rating}}", "{{uid}}", "{{username}}", "{{time}}"]
-    var obj = snap.val().reviews_received;
-    reviewCount = 0;
-    if (snap.val().reviews_received_count) {
-        $("#reviewsCount").text(snap.val().reviews_received_count);
-    } else {
-        $("#reviewsCount").text(reviewCount);
+    var $list = $("#reviewsDisplay");
+    var before = ["{{key}}", "{{body}}", "{{rating}}", "{{uid}}", "{{username}}", "{{time}}"];
+    var obj = snap.val().reviews_received || {};
+    var keys = Object.keys(obj).filter(function (k) {
+        return obj[k] && obj[k]["uid"];
+    }).sort(function (a, b) {
+        return (Number(obj[b]["time"]) || 0) - (Number(obj[a]["time"]) || 0);
+    });
+    var ratings = [];
+    keys.forEach(function (k) {
+        var r = Number(obj[k]["rating"]);
+        if (!isNaN(r)) ratings.push(r);
+    });
+    rwRatingSummary(keys.length, ratings);
+    if (!keys.length) {
+        $list.html('<li class="rw-review rw-review--empty">No reviews yet</li>');
+        return;
     }
-    if (obj) {
-        total = Object.keys(obj).length;
-        for (var key of Object.keys(obj)) {
-            database.ref().child('users/' + obj[key]["uid"]).once('value', function (snapReviewer) {
-                after = [key, obj[key]["body"], obj[key]["rating"], obj[key]["uid"], snapReviewer.val().username, timeDisplay(obj[key]["time"])];
-                reviewCount = reviewCount + 1;
-                displayHTML("#reviewTemplate", "#reviewsDisplay", before, after);
-            });
-        }
-        if (reviewCount == 0) {
-            $("#reviewsDisplay").html("<br><h6 align='center'>No reviews to display</h6><br>");
-        }
-    } else {
-        $("#reviewsDisplay").html("<br><h6 align='center'>No reviews to display</h6><br>");
+    var rows = new Array(keys.length);
+    var pending = keys.length;
+    function done() {
+        pending -= 1;
+        if (pending === 0) $list.html(rows.join(""));
     }
+    keys.forEach(function (key, i) {
+        var review = obj[key];
+        database.ref().child('users/' + review["uid"]).once('value', function (snapReviewer) {
+            var reviewer = snapReviewer.val();
+            var rating = Number(review["rating"]);
+            var after = [key, review["body"] || "", isNaN(rating) ? "" : String(rating), review["uid"],
+                reviewer && reviewer.username ? reviewer.username : "Former member", timeDisplay(review["time"])];
+            rows[i] = replaceText($("#reviewTemplate").html(), before, after);
+            done();
+        }, function () {
+            rows[i] = "";
+            done();
+        });
+    });
 }

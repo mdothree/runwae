@@ -317,6 +317,40 @@
                         <!-- ... end Personal Information Form  -->
                     </div>
                 </div>
+                <div class="ui-block" id="notifications">
+                    <div class="ui-block-title">
+                        <h6 class="title">Email notifications</h6>
+                    </div>
+                    <div class="ui-block-content">
+                        <!-- accountHQ.js rwMountEmailPrefs: each switch writes users/{uid}/email_prefs/{key} (true/false).
+                             api/notify.js skips a category's emails only when its pref is false; missing = on. -->
+                        <form onsubmit="return false;" class="rw-prefs" id="emailPrefsForm">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-email-pref="agreements" id="emailPrefAgreements" checked><span class="checkbox-material"><span class="check"></span></span>
+                                    <span class="rw-prefs__label">Agreements</span>
+                                    <span class="rw-prefs__hint">Proposals, posts to make or verify, and payouts.</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-email-pref="messages" id="emailPrefMessages" checked><span class="checkbox-material"><span class="check"></span></span>
+                                    <span class="rw-prefs__label">Messages</span>
+                                    <span class="rw-prefs__hint">When someone sends you a message.</span>
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-email-pref="activity" id="emailPrefActivity" checked><span class="checkbox-material"><span class="check"></span></span>
+                                    <span class="rw-prefs__label">Activity</span>
+                                    <span class="rw-prefs__hint">New followers, reviews, and comments or interest on your posts.</span>
+                                </label>
+                            </div>
+                            <p class="rw-prefs__note">Payment receipts and account emails are always sent.</p>
+                            <p class="rw-prefs__status" id="emailPrefsStatus" role="status" aria-live="polite"></p>
+                        </form>
+                    </div>
+                </div>
                 <div class="ui-block" id="portfolio">
                     <div class="ui-block-title">
                         <h6 class="title">Portfolio</h6>
@@ -406,8 +440,7 @@
                                     <a href="#" class="btn btn-primary btn-md" id="btnResetPassword">Reset Password</a>
                                 </div>
                                 <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
-                                    <button class="btn btn-primary btn-lg full-width" id="btnRemoveAccount">Remove
-                                        Account</button>
+                                    <button type="button" class="btn btn-danger btn-md" id="btnDeactivateAccount">Remove account</button>
                                 </div>
                             </div>
                         </form>
@@ -438,6 +471,9 @@
                                         </li>
                                         <li>
                                             <a href="#portfolio">Portfolio</a>
+                                        </li>
+                                        <li>
+                                            <a href="#notifications">Email notifications</a>
                                         </li>
                                         <li>
                                             <a href="#account">Account</a>
@@ -480,7 +516,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deactiveAccountModal" tabindex="-1" role="dialog" aria-labelledby="update-photo"
+    <div class="modal fade" id="deactivateAccountModal" tabindex="-1" role="dialog" aria-labelledby="deactivateAccountTitle"
         aria-hidden="true">
         <div class="modal-dialog window-popup update-header-photo" role="document">
             <div class="modal-content">
@@ -488,16 +524,15 @@
                     <ion-icon name="close-outline" class="close-icon"></ion-icon>
                 </a>
                 <div class="modal-header">
-                    <h6 class="title">Deactivate Account</h6>
+                    <h6 class="title" id="deactivateAccountTitle">Remove your account?</h6>
                 </div>
-                <div class="modal-body">
-                    <a href="#" class="upload-photo-item" style="width:100%">
-                        <svg class="computer-icon">
-                            <use xlink:href="#computer-icon"></use>
-                        </svg>
-                        <h6>Are You Sure?</h6>
-                        <a href="#" class="btn btn-primary btn-md" id="btnDeactivateConfirmation">Deactive Account</a>
-                    </a>
+                <div class="modal-body rw-confirm">
+                    <p>This deletes your sign-in and takes your posts off Explore. It can't be undone.</p>
+                    <p class="rw-confirm__err" id="deactivateAccountError" role="alert"></p>
+                    <div class="rw-confirm__actions">
+                        <button type="button" class="btn btn-danger btn-md" id="btnDeactivateConfirmation">Remove account</button>
+                        <button type="button" class="btn btn-secondary btn-md" id="btnDeactivateCancel">Keep my account</button>
+                    </div>
                 </div>
             </div>
         </div>

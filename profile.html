@@ -190,8 +190,8 @@
                 <div class="rating-summary">
                     <div class="rating-stars">
                         <ion-icon name="star"></ion-icon>
-                        <strong class="rating-value">0.0</strong>
-                        <span class="rating-count">(0 reviews)</span>
+                        <strong class="rating-value"></strong>
+                        <span class="rating-count"></span>
                     </div>
                 </div>
 
@@ -341,13 +341,13 @@
                     <h2>Reviews</h2>
                     <div class="rating-summary-inline">
                         <ion-icon name="star"></ion-icon>
-                        <strong class="rating-value">0.0</strong>
-                        <span class="rating-count">(<span id="reviewsCount">0</span> reviews)</span>
+                        <strong class="rating-value"></strong>
+                        <span class="rating-count"></span>
                     </div>
                 </div>
-                <div class="reviews-list" id="reviewsDisplay">
-                    <!-- Review cards rendered here -->
-                </div>
+                <ul class="reviews-list rw-reviews" id="reviewsDisplay">
+                    <!-- reviews.js displayReviews: one #reviewTemplate row per review -->
+                </ul>
 
                 <!-- Review Submission (for visitors) -->
                 <div id="reviewSubmissionBlock" style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border);">
@@ -1261,12 +1261,13 @@
          </form>
     </script>
         <script type="template" id="reviewTemplate">
-            <li id="{{key}}">
-                <div class="content">
-                    <div id="{{uid}}" style="font-weight: bold;">{{username}}</div></div>
-                    <time class = "entry-date updated" datetime = "2017-06-24T18:18">{{time}}</time> 
-                <div>{{body}}</div> 
-                <div>{{rating}} out of 10</div></div> 
+            <li class="rw-review" id="{{key}}" data-uid="{{uid}}">
+                <div class="rw-review__head">
+                    <span class="rw-review__who">{{username}}</span>
+                    <span class="rw-review__time">{{time}}</span>
+                    <span class="rw-review__score" aria-label="Rated {{rating}} out of 10">{{rating}}<span class="rw-review__of"> / 10</span></span>
+                </div>
+                <p class="rw-review__text">{{body}}</p>
             </li>
         </script>
         <script type="template" id="searchTemplate">

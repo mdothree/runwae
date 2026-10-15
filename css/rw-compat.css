@@ -326,3 +326,44 @@ html body #rw-consent a:focus-visible, html body #rw-consent button:focus-visibl
   html body.rw-app #rw-consent { bottom: calc(76px + env(safe-area-inset-bottom)); }
   html body #rw-consent button { flex: 1 1 0; }
 }
+
+/* ---------- 12. Page pass A: profile, gig, account ---------- */
+/* Cards: hairline border, no shadow (style guide). profile-marketplace.css gave these a 34px drop shadow. */
+.profile-marketplace :is(.profile-card, .profile-section, .service-card, .review-card, .profile-avatar-lg, .hentry),
+.stripe-button-el { box-shadow: none !important; }
+.profile-marketplace :is(.profile-card, .profile-section) { border: 1px solid var(--rw-line); }
+
+/* Reviews: plain list rows (reviewer, time, text, score), no bullets. Template: profile.html #reviewTemplate. */
+.rw-reviews { list-style: none; margin: 0; padding: 0; }
+.rw-review { padding: var(--rw-s4) 0; border-top: 1px solid var(--rw-line); }
+.rw-review:first-child { border-top: 0; padding-top: 0; }
+.rw-review__head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px var(--rw-s3); }
+.rw-review__who { font-weight: 600; color: var(--rw-ink); }
+.rw-review__time { color: var(--rw-muted); font-size: .8125rem; }
+.rw-review__score { margin-left: auto; font-weight: 600; color: var(--rw-ink); white-space: nowrap; }
+.rw-review__of { color: var(--rw-muted); font-weight: 400; }
+.rw-review__text { margin: 4px 0 0; color: var(--rw-text); white-space: pre-line; }
+.rw-review--empty { padding: var(--rw-s5) 0; border: 0; color: var(--rw-muted); text-align: center; }
+
+/* Native selects: the legacy .form-control padding (1.1rem top+bottom) inside a 38px box left no room for the
+   option text, so the gig "Caption tone" select looked empty. */
+select.form-control { height: 40px; padding: 0 2rem 0 .875rem; line-height: normal; }
+.ai-controls .rw-ai-tone { margin: 0; padding: 0; line-height: 40px; font-size: .875rem; font-weight: 500; color: var(--rw-muted); }
+
+/* Account: email notification switches + the remove-account confirm */
+.rw-prefs .checkbox { margin: 0 0 var(--rw-s4); }
+.rw-prefs .checkbox label { display: block; padding-left: 0; }
+.rw-prefs__label { color: var(--rw-ink); font-weight: 500; }
+.rw-prefs__hint { display: block; margin-left: 28px; color: var(--rw-muted); font-size: .8125rem; }
+.rw-prefs__note { margin: 0; color: var(--rw-muted); font-size: .8125rem; }
+.rw-prefs__status { margin: var(--rw-s2) 0 0; min-height: 1.25em; color: var(--rw-ink); font-size: .8125rem; }
+.rw-confirm p { margin: 0 0 var(--rw-s4); color: var(--rw-text); }
+.rw-confirm__err { color: var(--rw-danger) !important; min-height: 0; }
+.rw-confirm__err:empty { display: none; }
+.rw-confirm__actions { display: flex; flex-wrap: wrap; gap: var(--rw-s3); }
+.modal.show#deactivateAccountModal { display: block; }
+.rw-prefs .checkbox-material .check { border-color: var(--rw-muted) !important; }
+#deactivateAccountModal .modal-header { background: var(--rw-bg) !important; }
+#deactivateAccountModal .modal-header .title { color: var(--rw-ink) !important; }
+#deactivateAccountModal .icon-close, #deactivateAccountModal .close-icon { color: var(--rw-ink) !important; background: transparent !important; }
+#deactivateAccountModal .rw-confirm { padding: var(--rw-s5); }

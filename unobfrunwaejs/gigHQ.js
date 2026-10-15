@@ -366,7 +366,7 @@ function fileOk(file) {
     if (file.size < 100 * Math.pow(10, 6)) {
         sizeok = true;
     } else {
-        $("#writeProposalAlert").html("File size larger than 100 KB...");
+        $("#writeProposalAlert").html("File is larger than 100 MB.");
     }
     var ext = file.name.split('.').pop().toLowerCase();
     image = ["jpg", "png", "jpeg"];

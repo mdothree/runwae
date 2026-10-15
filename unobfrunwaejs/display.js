@@ -5,7 +5,8 @@ function displayProfile(snap) {
         $(".firstName").text(snap.val().name.split(" ")[0]);
     }
     $("#name").text(snap.val().name);
-    $("#username").text("@" + snap.val().username);
+    // profile.html prints the "@" before #username, so the value goes in bare (was "@@name").
+    $("#username").text(snap.val().username || "");
     // Use SafeRender for descriptions to support line breaks safely
     if (typeof SafeRender !== 'undefined') {
         SafeRender.setTextWithBreaks("#description", snap.val().description);
@@ -16,7 +17,7 @@ function displayProfile(snap) {
     $("#website").attr("href", snap.val().website);
     $("#website").attr("target", "_blank");
     $("#industry").text(snap.val().industry);
-    $("#gigsCount").text(snap.val().gigs_count);
+    $("#gigsCount, #gigsCountStat").text(snap.val().gigs_count || 0);
     $("#role").text(capitalizeFLetter(snap.val().role));
     if (snap.val().city != "" && snap.val().city) {
         $("#city").text(snap.val().city);

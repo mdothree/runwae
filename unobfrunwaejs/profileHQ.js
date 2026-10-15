@@ -71,6 +71,7 @@ function handlePost(visitorSnap, hostSnap) {
 }
 
 function handleRole(visitorSnap, hostSnap) {
+    rwSyncSectionCount();
     if (hostSnap.val().role == "influencer") {
         $(".marketer").remove();
         $(".influencer").show();
@@ -82,6 +83,24 @@ function handleRole(visitorSnap, hostSnap) {
     }
     $('#campaigns').click();
     $('#gigs').click();
+}
+
+// "N items" in the Services / Campaigns header = the cards timeline.js actually rendered into the grid
+// (each card is a .ui-block; the empty state is an <h6>). It used to stay at the static "0 items".
+function rwSyncSectionCount() {
+    var grid = document.querySelector('#gigsBlock .services-grid');
+    var out = document.getElementById('gigCount');
+    if (!grid || !out) return;
+    function update() {
+        var n = 0;
+        for (var i = 0; i < grid.children.length; i++) {
+            if (grid.children[i].classList.contains('ui-block')) n++;
+        }
+        out.textContent = n === 1 ? '1 item' : n + ' items';
+        out.hidden = n === 0;
+    }
+    update();
+    new MutationObserver(update).observe(grid, { childList: true });
 }
 
 function handleMessagePreference(visitorSnap, hostSnap) {
@@ -293,9 +312,12 @@ function profilePhotos() {
 }
 
 function displayCurrent(userSnap, limit) {
-    before = ["{{path}}", "{{time}}", "{{uid}}", "{{name}}", "{{status}}", "{{platform}}"];
+    // Locals on purpose: timeline.js displayInfluencerGigs walks the globals gigKeys/gigsObj/gigs at the
+    // same time, and sharing them broke the Services list for users with 2+ gigs.
+    var before = ["{{path}}", "{{time}}", "{{uid}}", "{{name}}", "{{status}}", "{{platform}}"];
     role = userSnap.val().role;
-    gigsObj = userSnap.val().gigs;
+    var gigsObj = userSnap.val().gigs;
+    var gigKeys, gigs;
     if (gigsObj) {
         gigKeys = Object.keys(gigsObj);
         gigs = gigKeys.length;
@@ -329,12 +351,11 @@ function displayCurrent(userSnap, limit) {
     }
 
     function displayGig(gigObj, n) {
-        key = gigKeys[n];
         database.ref().child('users/' + gigObj["uid"]).once('value', function (snapPartner) {
             database.ref().child(gigObj["path"]).once('value', function (snapGig) {
                 if (snapPartner.val() && snapGig.val()) {
-                    name = snapPartner.val().name;
-                    status = getStatus(snapGig.val().status);
+                    var name = snapPartner.val().name;
+                    var status = getStatus(snapGig.val().status);
                     var after = [gigObj["path"], timeDisplay(gigObj["time"]), snapPartner.key, name, status, gigObj["platform"]];
                     displayHTML("#currentScript", "#currentDisplay", before, after);
                     $(".currentLi .openGig").click(function (event) {
