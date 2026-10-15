@@ -218,7 +218,54 @@ test('billing OFF by default: plans says disabled, checkout 503, no processing l
     const r2 = res(); await checkout(req('POST', { token: 'tok_uBrand' }), r2);
     assert.strictEqual(r2.statusCode, 503);
     assert.strictEqual(r2.body.error, 'billing_not_enabled');
+    // gig checkout summary: no quote at all while billing is off (the gig page keeps the plain card form)
+    const r3 = res(); await quote(req('POST', { token: 'tok_uBrand', body: { gigPath: 'items/it1/influencers/g1' } }), r3);
+    assert.strictEqual(r3.statusCode, 503);
+    assert.strictEqual(r3.body.error, 'billing_not_enabled');
+    assert.strictEqual(r3.body.total_cents, undefined);
+    // the charge is the plain gig price
+    const rc = res(); await chargeMarketer(req('POST', { token: 'tok_uBrand', body: { stripeToken: 'tok_visa', gigPath: 'items/it1/influencers/g1' } }), rc);
+    assert.strictEqual(rc.statusCode, 200, JSON.stringify(rc.body));
+    assert.strictEqual(stripeState.calls.find((x) => x[0] === 'charges.create')[1].amount, 2500);
   });
+});
+
+test('gig checkout (UI): no summary and the pre-billing ledger line while billing is off; summary when on', async () => {
+  const src = fs.readFileSync(path.join(ROOT, 'unobfrunwaejs/transactions.js'), 'utf8');
+  const start = src.indexOf('var rwGigBillingOn');
+  const end = src.indexOf('function chargeMarketer');
+  assert.ok(start > 0 && end > start);
+  const ledgerSrc = src.slice(end);
+  async function run(info, quoteBody) {
+    const calls = { quote: 0, inserted: [], btn: 'Submit Payment' };
+    const el = () => ({ appendChild() {}, setAttribute() {}, set textContent(v) { this._t = v; }, get textContent() { return this._t; } });
+    const form = { parentNode: { insertBefore: (box) => { calls.inserted.push(box.id); } } };
+    const btn = { set textContent(v) { calls.btn = v; } };
+    const ctx = {
+      document: {
+        getElementById: (id) => (id === 'payment-form' ? form : id === 'btnSubmitStripePayment' ? btn : null),
+        createElement: el, head: { appendChild() {} },
+      },
+      rwBillingInfo: () => Promise.resolve(info),
+      paymentApi: (ep) => { calls.quote++; return Promise.resolve(Object.assign({ httpStatus: quoteBody ? 200 : 503 }, quoteBody || { error: 'billing_not_enabled' })); },
+      Number, Promise,
+    };
+    vm.createContext(ctx);
+    vm.runInContext(src.slice(start, end), ctx);
+    ctx.rwRenderGigQuote('items/it1/influencers/g1');
+    await new Promise((r) => setTimeout(r, 20));
+    calls.billingOn = vm.runInContext('rwGigBillingOn', ctx);
+    return calls;
+  }
+  const q = { gig_price_cents: 25000, platform_fee_cents: 0, processing_fee_cents: 755, total_cents: 25755, pass_through: true };
+  // billing off (or /api/billing/plans missing): the quote endpoint is never called, the button keeps its label
+  assert.deepStrictEqual(await run({ enabled: false }, q), { quote: 0, inserted: [], btn: 'Submit Payment', billingOn: false });
+  assert.deepStrictEqual(await run(undefined, q), { quote: 0, inserted: [], btn: 'Submit Payment', billingOn: false });
+  // billing on: summary + "Pay $total"; a 503 quote still leaves the plain form
+  assert.deepStrictEqual(await run({ enabled: true }, q), { quote: 1, inserted: ['rwGigQuote'], btn: 'Pay $257.55', billingOn: true });
+  assert.deepStrictEqual(await run({ enabled: true }, null), { quote: 1, inserted: [], btn: 'Submit Payment', billingOn: true });
+  // ledger: the pre-billing line when off, the itemised line only when billing is on
+  assert.ok(/if \(rwGigBillingOn\) \{[\s\S]*?goes to the influencer in full[\s\S]*?\} else \{\s*writeToLedger\(path, "payment submitted", "Marketer paid \$" \+ price\);/.test(ledgerSrc));
 });
 
 test('checkout: auth required', async () => {
