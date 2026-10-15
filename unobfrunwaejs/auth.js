@@ -84,6 +84,16 @@ function passwordStrength(password) {
     return bool;
 }
 
+// Return path after login: ?next=<same-origin path>, e.g. /login?login&next=%2Fprofile%3Fme. Only a path that
+// starts with one "/" (no "//", no backslash, no whitespace) is used, so it can't send the user off-site.
+function rwNextPath() {
+    var m = /[?&]next=([^&#]*)/.exec(window.location.search);
+    if (!m) return null;
+    var p;
+    try { p = decodeURIComponent(m[1]); } catch (e) { return null; }
+    return /^\/(?![\/\\])[^\s\\]*$/.test(p) ? p : null;
+}
+
 function signIn(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
         firebase.auth().onAuthStateChanged(function (user) {
@@ -97,7 +107,7 @@ function signIn(email, password) {
                     category: 'authentication',
                     user_id: useri
                 });
-                window.location.href = rwLoginNext() || 'explore';
+                window.location.href = rwNextPath() || 'explore';
             } else {
                 var myVar = setTimeout(myTimer, 2000);
 
@@ -221,19 +231,5 @@ function createUser(email, password) {
                 }
             });
         }
-    }
-}
-
-// Return path after sign-in: /login?login&next=<path>. Same-origin paths only ("/gig?item=..");
-// absolute, protocol-relative ("//host", "/\\host") and javascript: values are ignored.
-function rwLoginNext() {
-    try {
-        var next = new URLSearchParams(window.location.search).get('next');
-        if (!next || next.charAt(0) !== '/' || /^\/[\/\\]/.test(next) || /[\u0000-\u001f\u007f]/.test(next)) return '';
-        var u = new URL(next, window.location.origin);
-        if (u.origin !== window.location.origin) return '';
-        return u.pathname + u.search + u.hash;
-    } catch (e) {
-        return '';
     }
 }

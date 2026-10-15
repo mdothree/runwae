@@ -313,7 +313,7 @@ function displayTransactions(userSnap, limit) {
         getTransaction(0);
     } else {
         if ($("#transactionsDisplay li").length == 1) {
-            $("#transactionsDisplay").html("<h3 align='center' style='width:100%'>No transactions to Display</h3>");
+            $("#transactionsDisplay").html("<h3 align='center' style='width:100%'>No transactions yet</h3>");
         }
     }
 
@@ -328,7 +328,7 @@ function displayTransactions(userSnap, limit) {
             }
         } else {
             if ($("#transactionsDisplay li").length == 1) {
-                $("#transactionsDisplay").html("<h3 align='center' style='width:100%'>No transactions to Display</h3>");
+                $("#transactionsDisplay").html("<h3 align='center' style='width:100%'>No transactions yet</h3>");
             }
             return true;
         }
