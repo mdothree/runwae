@@ -371,7 +371,7 @@ select.form-control { height: 40px; padding: 0 2rem 0 .875rem; line-height: norm
 .rw-file { flex-wrap: wrap; gap: var(--rw-s3); }
 #personalInformation .inline-items { display: flex; align-items: center; gap: var(--rw-s4); margin: 0 0 var(--rw-s4); padding: 0 var(--rw-s4); }
 #personalInformation .inline-items + br { display: none; }
-#personalInformation .notification-event.rw-file { display: flex; padding: 0; margin: 0; }
+#personalInformation .notification-event.rw-file { display: flex; padding: 0; margin: 0; justify-content: flex-start; text-align: left; }
 #personalInformation .author-thumb { margin: 0; flex: none; }
 #personalInformation #infoHeaderPicture { width: 112px !important; height: 64px !important; border-radius: 10px !important; overflow: hidden; background: var(--rw-accent-soft); }
 #personalInformation #infoHeaderPicture img { width: 100% !important; height: 100% !important; object-fit: cover; border-radius: 0 !important; display: block; }

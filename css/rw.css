@@ -355,6 +355,9 @@ img { max-width: 100%; display: block; }
 @media (max-width: 760px) {
   .rw-nav.rw-nav--public { display: none; }
   .rw-header__end .rw-btn--text { padding: 0 8px; }
+  .rw-header__end { gap: var(--rw-s2); }
+  .rw-header__end .rw-btn { white-space: nowrap; }
+  .rw-header__end .rw-btn--quiet.rw-btn--sm { padding: 0 12px; }
   .rw-footer__inner { grid-template-columns: 1fr 1fr; padding: var(--rw-s6) var(--rw-s4); gap: var(--rw-s5); }
   .rw-footer__inner > :first-child { grid-column: 1 / -1; }
   .rw-footer__base { padding: var(--rw-s4) var(--rw-s4) var(--rw-s5); }
