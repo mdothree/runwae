@@ -82,27 +82,43 @@ firebase.auth().onAuthStateChanged(function (user) {
                 var name = $("#name").val();
                 var username = $("#username").val();
                 var description = $("#description").val();
-                var website = $("#website").val();
-                if ($("#instagram").val()) {
-                    var instagram = 'https://www.instagram.com/' + $("#instagram").val().replace('@', '');
-                } else {
-                    var instagram = '';
+                // Validate user-entered links before saving (P1: javascript: URLs).
+                // Website: http(s) only (a bare domain gets https://). Socials:
+                // a plain handle, stored as the fixed platform URL + handle.
+                clearFieldErrors();
+                var errors = 0;
+                var websiteRaw = $.trim($("#website").val() || "");
+                var website = '';
+                if (websiteRaw) {
+                    website = rwExternalUrl(websiteRaw);
+                    if (!website) {
+                        showFieldError("website", "Enter a web address like https://example.com (http or https only).");
+                        errors++;
+                    }
                 }
-                if ($("#twitter").val()) {
-                    var twitter = 'https://www.twitter.com/' + $("#twitter").val().replace('@', '');
-                } else {
-                    var twitter = '';
+                var social = {};
+                var platforms = ["instagram", "twitter", "linkedin", "facebook"];
+                for (var p = 0; p < platforms.length; p++) {
+                    var raw = $.trim($("#" + platforms[p]).val() || "");
+                    social[platforms[p]] = '';
+                    if (raw) {
+                        social[platforms[p]] = rwSocialUrl(platforms[p], raw, true);
+                        if (!social[platforms[p]]) {
+                            showFieldError(platforms[p], "Enter just your username: letters, numbers, dots, dashes or underscores.");
+                            errors++;
+                        }
+                    }
                 }
-                if ($("#linkedin").val()) {
-                    var linkedin = 'https://www.linkedin.com/in/' + $("#linkedin").val().replace('@', '');
-                } else {
-                    var linkedin = '';
+                if (errors) {
+                    return;
                 }
-                if ($("#facebook").val()) {
-                    var facebook = 'https://www.facebook.com/' + $("#facebook").val().replace('@', '');
-                } else {
-                    var facebook = '';
+                if (website) {
+                    $("#website").val(website);
                 }
+                var instagram = social.instagram;
+                var twitter = social.twitter;
+                var linkedin = social.linkedin;
+                var facebook = social.facebook;
                 console.log(getMessagePreference())
                 var complete = name && username && description && instagram && twitter && linkedin && facebook;
                 database.ref().child('users/' + useri).update({
@@ -151,6 +167,23 @@ function rwMountEmailPrefs(snap) {
             $status.text("Couldn't save that. Please try again.");
         });
     });
+}
+
+function showFieldError(id, message) {
+    var $input = $("#" + id);
+    var $group = $input.closest('.form-group');
+    $group.addClass("has-danger").removeClass("has-success");
+    $input.attr("aria-invalid", "true");
+    var $msg = $('<small class="rw-field-error" role="alert"></small>').text(message)
+        .attr("id", id + "Error").css({ display: "block", color: "#d9534f", marginTop: "4px" });
+    $input.attr("aria-describedby", id + "Error");
+    $input.after($msg);
+}
+
+function clearFieldErrors() {
+    $(".rw-field-error").remove();
+    $(".form-group.has-danger").removeClass("has-danger");
+    $("[aria-invalid='true']").removeAttr("aria-invalid").removeAttr("aria-describedby");
 }
 
 function handleMessagePreference() {
