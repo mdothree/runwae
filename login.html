@@ -125,6 +125,8 @@
             <div class="row display-flex">
                 <div class="col  m-auto col-lg-4 col-md-6 col-sm-8 col-xs-8">
                     <div class="registration-login-form" style="padding:0px">
+                        <p class="rw-banner" id="accountRemovedNotice" role="status" style="display:none">Your account has been
+                            removed and you are signed out.</p>
                         <!-- Nav tabs -->
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -132,6 +134,9 @@
                                 <div class="title h6" role="heading" aria-level="1">Create Account</div>
                                 <form class="content" onSubmit="return false;">
                                     <div class="row">
+                                        <fieldset class="col col-12 rw-roles" style="border:0;margin:0;padding:0;min-width:0">
+                                        <legend class="sr-only">Account type</legend>
+                                        <div class="row" style="margin:0">
                                         <div class="col col-6 col-xl-6 col-lg-6 col-md-6 col-sm-12">
                                             <div class="checkbox roleToggle">
                                                 <label>
@@ -150,6 +155,8 @@
                                                 </label>
                                             </div>
                                         </div>
+                                        </div>
+                                        </fieldset>
                                         <div class="col col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 brandName">
                                             <div class="form-group label-floating is-empty">
                                                 <label class="control-label nameLabel" for="nameInput">Name</label>
@@ -338,6 +345,15 @@
     <script src="runwaejs/auth.js"></script>
     <script src="runwaejs/login.js"></script>
     <script src="runwaejs/navHQ.js"></script>
+    <script>
+        // Set by deactivateAccountConfirmed() (database.js) just before the sign-in is deleted.
+        try {
+            if (sessionStorage.getItem("rw_account_removed") === "1") {
+                sessionStorage.removeItem("rw_account_removed");
+                document.getElementById("accountRemovedNotice").style.display = "";
+            }
+        } catch (e) { /* storage blocked */ }
+    </script>
     <!-- Theme Toggle -->
 <script src="/js/mdo-theme-toggle.js" defer></script>
 <!-- rw: shared footer -->

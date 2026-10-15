@@ -527,11 +527,26 @@
                     <h6 class="title" id="deactivateAccountTitle">Remove your account?</h6>
                 </div>
                 <div class="modal-body rw-confirm">
-                    <p>This deletes your sign-in and takes your posts off Explore. It can't be undone.</p>
-                    <p class="rw-confirm__err" id="deactivateAccountError" role="alert"></p>
-                    <div class="rw-confirm__actions">
-                        <button type="button" class="btn btn-danger btn-md" id="btnDeactivateConfirmation">Remove account</button>
-                        <button type="button" class="btn btn-secondary btn-md" id="btnDeactivateCancel">Keep my account</button>
+                    <div id="deactivateConfirm">
+                        <p>Removing your account deletes your sign-in, removes your email address from your profile
+                            and marks your posts inactive. The rest of your profile and your gig, message and
+                            transaction records stay in our database until you ask us to delete them (see our
+                            <a href="/privacy#dataretention">Privacy Policy</a>). This can't be undone.</p>
+                        <div class="rw-field" id="deactivatePasswordField">
+                            <label for="deactivatePassword">Your password</label>
+                            <input class="rw-input form-control" type="password" id="deactivatePassword"
+                                autocomplete="current-password">
+                        </div>
+                        <p class="rw-confirm__err" id="deactivateAccountError" role="alert"></p>
+                        <div class="rw-confirm__actions">
+                            <button type="button" class="btn btn-danger btn-md" id="btnDeactivateConfirmation">Remove account</button>
+                            <button type="button" class="btn btn-secondary btn-md" id="btnDeactivateCancel">Keep my account</button>
+                        </div>
+                    </div>
+                    <div id="deactivateDone" role="status" style="display:none">
+                        <p>Your account has been removed and you are signed out. Your sign-in is deleted, your email
+                            address is removed from your profile and your posts are inactive.</p>
+                        <p><a href="/login?login">Continue</a></p>
                     </div>
                 </div>
             </div>
