@@ -124,10 +124,7 @@
             <div class="col col-xl-9 order-xl-1 col-lg-9 order-lg-1 col-md-12 order-md-1 col-sm-12 col-12">
                 <div class="ui-block">
                     <div class="ui-block-title">
-                        <h6 class="title">Notifications</h6>
-                        <a href="#" class="more"><svg class="three-dots-icon">
-                                <use xlink:href="#three-dots-icon"></use>
-                            </svg></a>
+                        <h1 class="title rw-page-h1">Notifications</h1>
                     </div>
                     <!-- Notification List -->
                     <ul class="notification-list" id="notificationsDisplay">
@@ -136,20 +133,18 @@
                 </div>
             </div>
             <aside
-                class="col col-xl-3 order-xl-2 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12 order-md-2 responsive-display-none">
+                class="rw-side col col-xl-3 order-xl-2 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12 order-md-2 responsive-display-none">
                 <div class="ui-block">
                     <div class="ui-block-title">
-                        <h6 class="title">Brands To Follow</h6>
+                        <h2 class="title">Brands To Follow</h2>
                     </div>
                     <ul class="widget w-friend-pages-added notification-list friend-requests whoToFollowDisplay"
                         id="brandsToFollowDisplay">
                     </ul>
                 </div>
                 <div class="ui-block">
-                </div>
-                <div class="ui-block">
                     <div class="ui-block-title">
-                        <h6 class="title">Influencers To Follow</h6>
+                        <h2 class="title">Influencers To Follow</h2>
                     </div>
                     <ul class="widget w-friend-pages-added notification-list friend-requests whoToFollowDisplay"
                         id="influencersToFollowDisplay">
@@ -322,9 +317,9 @@
                 <span class="chat-message-item">{{connections}} Connections in Common</span>
             </div>
             <span class="notification-icon">
-							<a href="#" class="accept-request" >
+							<a href="#" class="accept-request" aria-label="Follow {{name}}" title="Follow">
 								<span class="without-text">
-									<ion-icon name="add-circle-outline"></ion-icon>								</span>
+									<ion-icon name="add-circle-outline" aria-hidden="true"></ion-icon>								</span>
             </a>
             </span>
         </li>

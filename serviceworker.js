@@ -4,7 +4,7 @@
  */
 'use strict';
 
-const CACHE_NAME = 'runwae-cache-v14-int'; // v14-int: integrated release (rw.css style system + swarm page/profile/account/gig/email fixes + sec/payments f1dfeef), newer than every deployed name (v11-hf1, v11-hf2, v11-sec1, v12-hf2, v13-*). v11-sec1: payments + private-data security fix. v11-hf2/v12-hf2: profile website/social link + gig history/download XSS fixes. v11-hf1: feed escaping hotfix. v12: rw.css style system (shared header/footer, rw-compat.css, rw-shell.js). v11: HID-004 offline shell; jQuery 3.7.1 + Bootstrap 4.6.2 JS (SURF-007); AdSense/ManyChat removed. v10: 14-day marketer refund window. v9: fee copy. v8: honest-claims copy. v7: policy pages. v6: / is the landing. v5: theme toggle
+const CACHE_NAME = 'runwae-cache-v14-int'; // v14-int: integrated release (rw.css style system + swarm page/profile/account/gig/email fixes + sec/payments f1dfeef), newer than every deployed name (v11-hf1, v11-hf2, v11-sec1, v12-hf2, v13-*). v13: /offline is a plain rw page (no jQuery/Bootstrap/base-init); precache its theme toggle, logo and line art. v11-sec1: payments + private-data security fix. v11-hf2/v12-hf2: profile website/social link + gig history/download XSS fixes. v11-hf1: feed escaping hotfix. v12: rw.css style system (shared header/footer, rw-compat.css, rw-shell.js). v11: HID-004 offline shell; jQuery 3.7.1 + Bootstrap 4.6.2 JS (SURF-007); AdSense/ManyChat removed. v10: 14-day marketer refund window. v9: fee copy. v8: honest-claims copy. v7: policy pages. v6: / is the landing. v5: theme toggle
 const RUNTIME_CACHE = 'runwae-runtime-v3'; // v3: drops pages cached as redirects by v2 (HID-004)
 
 // Core assets to precache on install
@@ -30,11 +30,15 @@ const PRECACHE_ASSETS = [
     'js/main.js',
     'js/base-init.js',
     'js/webfontloader.min.js',
+    'js/mdo-theme-toggle.js',
+    'css/theme-toggle.css',
     // Images
     'img/500.png',
     'img/logo.png',
     'img/logo-colored.png',
     'img/background.png',
+    'img/logo-colored-68.png',
+    'img/illo/connection.png',
     // Manifest
     'manifest.json'
 ];

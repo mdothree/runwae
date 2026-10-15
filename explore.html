@@ -319,10 +319,10 @@
             </main>
             <!-- ... end Main Content -->
             <!-- Left Sidebar -->
-            <aside class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
+            <aside class="rw-side col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-6 col-12">
                 <div class="ui-block">
                     <div class="ui-block-title">
-                        <h6 class="title">Brands To Follow</h6>
+                        <h2 class="title">Brands To Follow</h2>
                         <!--                        <a href="#" class="more"><svg class="three-dots-icon"><use xlink:href="#three-dots-icon"></use></svg></a>-->
                     </div>
                     <ul class="widget w-friend-pages-added notification-list friend-requests whoToFollowDisplay"
@@ -331,7 +331,7 @@
                 </div>
                 <div class="ui-block">
                     <div class="ui-block-title">
-                        <h6 class="title">Influencers To Follow</h6>
+                        <h2 class="title">Influencers To Follow</h2>
                         <!--                        <a href="#" class="more"><svg class="three-dots-icon"><use xlink:href="#three-dots-icon"></use></svg></a>-->
                     </div>
                     <!-- W-Action -->
@@ -343,12 +343,12 @@
             </aside>
             <!-- ... end Left Sidebar -->
             <!-- Right Sidebar -->
-            <aside class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
+            <aside class="rw-side col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-6 col-12">
                 <!-- <div class="ui-block">
                 </div> -->
                 <div class="ui-block">
                     <div class="ui-block-title">
-                        <h6 class="title">Activity Feed</h6>
+                        <h2 class="title">Activity Feed</h2>
                         <!--                        <a href="#" class="more"><svg class="three-dots-icon"><use xlink:href="#three-dots-icon"></use></svg></a>-->
                     </div>
                     <!-- W-Activity-Feed -->
@@ -1074,9 +1074,9 @@
                 <span class="chat-message-item">{{connections}} Connections in Common</span>
             </div>
             <span class="notification-icon">
-							<a href="#" class="accept-request" >
+							<a href="#" class="accept-request" aria-label="Follow {{name}}" title="Follow">
 								<span class="without-text">
-									<ion-icon name="add-circle-outline"></ion-icon>								</span>
+									<ion-icon name="add-circle-outline" aria-hidden="true"></ion-icon>								</span>
             </a>
             </span>
         </li>

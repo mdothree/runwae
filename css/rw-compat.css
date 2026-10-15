@@ -503,3 +503,142 @@ select.form-control { height: 40px; padding: 0 2rem 0 .875rem; line-height: norm
 #open-post .comment-form .form-group { flex: 1 1 200px; margin: 0 !important; padding: 0 !important; }
 #open-post .comment-form textarea { width: 100%; min-height: 44px; }
 #open-post .comment-form #btnWriteComment { flex: none; margin: 0 0 0 auto !important; }
+
+/* ---------- 14. Swarm pages pass: messages, sidebars, public header, page titles ---------- */
+/* Page titles that became <h1> (messages, notifications): the block-title look, one size up */
+.ui-block-title .title.rw-page-h1 { font: 800 1.25rem/1.3 var(--rw-font-display); letter-spacing: 0; text-transform: none; }
+
+/* Avatars in the legacy lists: a fixed round frame, the image fills it (the 42px image sat in a 34px clipped frame,
+   and list images had height:auto, so initials looked clipped or off-centre) */
+:is(.conversationLi, .messageLi, .notificationLi, .rw-side li) > .author-thumb {
+  flex: none; display: block; width: 40px; height: 40px; margin: 0; padding: 0; border-radius: 50%; overflow: hidden; position: static;
+}
+:is(.conversationLi, .messageLi, .notificationLi, .rw-side li) > .author-thumb img {
+  display: block; width: 100% !important; height: 100% !important; max-width: none; margin: 0; border: 0 !important;
+  border-radius: 50%; object-fit: cover;
+}
+.messageLi > .author-thumb { width: 32px; height: 32px; }
+
+/* Notifications: one row per notification (avatar, text, time, remove) */
+#notificationsDisplay > .notificationLi { display: flex; align-items: center; gap: var(--rw-s3); padding: var(--rw-s4) var(--rw-s5); }
+#notificationsDisplay > .notificationLi > .notification-event { flex: 1; min-width: 0; padding: 0; }
+#notificationsDisplay > .notificationLi > .more { flex: none; margin: 0; position: static; }
+#notificationsDisplay .notification-link { color: var(--rw-ink); font-weight: 500; }
+
+/* Conversation list: plain rows */
+#conversationsDisplay { margin: 0; padding: 0; }
+#conversationsDisplay > .conversationLi { display: flex; align-items: flex-start; gap: var(--rw-s3); padding: var(--rw-s4); cursor: pointer; }
+#conversationsDisplay > .conversationLi .notification-event { flex: 1; min-width: 0; padding: 0; }
+#conversationsDisplay > .conversationLi .chat-message-item { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#conversationsDisplay > .conversationLi .notification-icon { color: var(--rw-muted); }
+
+/* Thread: white canvas, hairlines, bubbles without shadows; scrolled to the newest message by messages.js */
+.chat-field { background: var(--rw-bg) !important; border-left: 1px solid var(--rw-line); min-height: 0; }
+.chat-field > .ui-block-title { background: var(--rw-bg) !important; }
+#conversationRecipient { font: 700 1rem/1.3 var(--rw-font-display); color: var(--rw-ink); margin: 0; }
+.chat-field .rw-thread-scroll {
+  height: min(450px, 60vh); overflow-y: auto; overscroll-behavior: contain; padding: var(--rw-s5);
+  background: var(--rw-bg); border-bottom: 1px solid var(--rw-line);
+}
+.chat-field .rw-thread-scroll:focus-visible { outline-offset: -2px; }
+.chat-message-field { margin: 0; padding: 0; background: transparent; }
+.chat-message-field > li.messageLi {
+  display: flex; align-items: flex-end; gap: var(--rw-s2); padding: 0; margin: 0 0 var(--rw-s3);
+  border: 0 !important; background: transparent !important;
+}
+.chat-message-field > li.messageLi:hover { background: transparent !important; }
+.chat-message-field > li.messageLi .notification-event {
+  min-width: 0; max-width: 75%; padding: 10px 14px; margin: 0;
+  background: var(--rw-bg) !important; border: 1px solid var(--rw-line); border-radius: 16px; box-shadow: none !important;
+  display: grid; grid-template-columns: 1fr auto; column-gap: var(--rw-s3); row-gap: 2px; align-items: baseline;
+}
+.chat-message-field > li.messageLi .notification-friend { float: none; font-size: .8125rem; font-weight: 500; }
+.chat-message-field > li.messageLi .notification-date { float: none; margin: 0; font-size: .75rem; }
+.chat-message-field > li.messageLi .chat-message-item {
+  float: none; grid-column: 1 / -1; margin: 0; font-size: .9375rem; line-height: 1.45; color: var(--rw-text);
+  border-radius: 0; white-space: pre-line; overflow-wrap: anywhere;
+}
+.chat-message-field > li.messageLi.rw-me { flex-direction: row-reverse; }
+.chat-message-field > li.messageLi.rw-me .notification-event { background: var(--rw-accent-soft) !important; border-color: transparent; }
+.chat-field form { padding: var(--rw-s4) var(--rw-s5); border-top: 0; background: var(--rw-bg); }
+.chat-field form .form-group { margin: 0 0 var(--rw-s3); padding-top: 0; }
+.chat-field textarea.form-control { background: var(--rw-bg) !important; min-height: 88px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--rw-line) !important; resize: vertical; }
+.chat-field .add-options-message { display: flex; justify-content: flex-end; }
+.chat-field .add-options-message .btn { height: 40px; padding: 0 20px; font-size: .875rem; margin: 0; }
+
+/* Sidebars ("Brands/Influencers to follow", "Activity feed") on explore (signed in), messages and notifications:
+   a section heading plus rw list rows. No card, no purple bar, no tinted header, no card-in-card. */
+.rw-side .ui-block { border: 0 !important; border-radius: 0; background: transparent !important; margin: 0 0 var(--rw-s6); padding: 0; }
+.rw-side .ui-block + .ui-block { border-top: 0; }
+.rw-side .ui-block-title { background: none !important; border: 0 !important; padding: 0 0 var(--rw-s2) !important; }
+.rw-side .ui-block-title::before, .rw-side .ui-block-title::after { content: none !important; display: none !important; }
+.rw-side .ui-block-title .title {
+  font: 800 1rem/1.3 var(--rw-font-display) !important; text-transform: none !important; letter-spacing: 0 !important; color: var(--rw-ink) !important;
+}
+.rw-side .widget, .rw-side ul.notification-list {
+  border: 0 !important; border-top: 1px solid var(--rw-line) !important; border-radius: 0 !important;
+  background: transparent !important; box-shadow: none !important; margin: 0; padding: 0; max-height: none;
+}
+.rw-side .widget > li, .rw-side ul.notification-list > li {
+  display: flex; align-items: center; gap: var(--rw-s3); padding: var(--rw-s3) 0 !important; margin: 0;
+  border: 0 !important; border-bottom: 1px solid var(--rw-line) !important; border-radius: 0;
+  background: transparent !important; box-shadow: none !important;
+}
+.rw-side .widget > li:hover, .rw-side ul.notification-list > li:hover { background: transparent !important; padding-left: 0 !important; }
+.rw-side .widget > li > .notification-event { flex: 1; min-width: 0; max-width: none; padding: 0; line-height: 1.4; font-size: .875rem; color: var(--rw-text); }
+.rw-side .widget > li .notification-friend { font-size: .9375rem; }
+.rw-side .whoToFollowDisplay .notification-event .h6 { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
+.rw-side .whoToFollowDisplay .notification-event small { display: block; color: var(--rw-muted); font-size: .8125rem; }
+.rw-side .whoToFollowDisplay .notification-event br { display: none; }
+.rw-side .whoToFollowDisplay .chat-message-item { display: block; font-size: .8125rem; color: var(--rw-muted); }
+.rw-side .widget .notification-icon { flex: none; color: var(--rw-muted); }
+.rw-side .widget .notification-icon a { color: var(--rw-ink); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; }
+.rw-side .widget .notification-icon a:hover { background: var(--rw-bg-subtle); }
+.rw-side .widget .notification-icon ion-icon { font-size: 22px; }
+.rw-side #activityDisplay .notification-event { display: block; }
+.rw-side #activityDisplay .notification-date { display: block; margin-top: 2px; font-size: .75rem; }
+.rw-side #activityDisplay .notification-link, .rw-side #activityDisplay .recipient-friend { color: var(--rw-ink); font-weight: 500; }
+
+/* Public header at phone width: logo, Menu, Log in, Sign up and theme on one line */
+@media (max-width: 420px) {
+  .rw-header--public .rw-header__inner, [data-rw-auth="out"] .rw-header--app .rw-header__inner { padding: 0 var(--rw-s4); gap: var(--rw-s2); }
+  .rw-header--public .rw-logo { gap: 8px; }
+  .rw-header--public .rw-logo img { width: 28px; height: 28px; }
+  .rw-header--public .rw-logo span { font-size: 1.125rem; }
+  .rw-header--public .rw-header__end, [data-rw-auth="out"] .rw-header--app .rw-header__end { gap: 4px; margin-left: auto; }
+  .rw-header .rw-signed-out { gap: 0; }
+  .rw-header :is(.rw-pubmenu > summary.rw-btn, .rw-signed-out .rw-btn) { height: 34px; padding: 0 10px; font-size: .8125rem; white-space: nowrap; }
+  .rw-header .rw-signed-out .rw-btn--text { padding: 0 8px; }
+  .rw-header .mdo-theme { width: 34px; min-width: 34px; height: 34px; margin-left: 0; }
+}
+
+/* Landing (welcome.html) leftovers from the old style */
+/* Subscribe band: was #6259e8 (the banned second purple) with white text -> the one accent with black text */
+.bg-subscribers, .bg-users { background-color: var(--rw-accent) !important; background-image: none !important; }
+section.bg-subscribers :is(.crumina-heading, .heading-title, .heading-text, .c-white, p, h2, h3) { color: #000 !important; }
+section.bg-subscribers .heading-text { font: 500 1.125rem/1.5 var(--rw-font-body) !important; }
+.bg-subscribers #btnSubscribe { background: #000 !important; border-color: #000 !important; color: #fff !important; }
+.bg-subscribers .form-control { border-color: transparent !important; }
+/* Section headings: museo display everywhere (some fell back to light Roboto); subheads in the body face */
+.crumina-heading .heading-title { font-family: var(--rw-font-display) !important; font-weight: 800 !important; color: var(--rw-ink); letter-spacing: -.01em; }
+.crumina-heading .heading-title .c-primary { color: inherit !important; }
+.crumina-heading .heading-text, .landing-content h4 { font-family: var(--rw-font-body) !important; font-weight: 400 !important; color: var(--rw-text) !important; }
+.runwae-stat-number { font-family: var(--rw-font-display) !important; font-weight: 900 !important; color: var(--rw-ink); }
+.info-box-title { color: var(--rw-ink) !important; font-family: var(--rw-font-display); font-weight: 700; }
+/* How It Works step text: hairline card, no shadow */
+.progress_inner__tabs .tab { box-shadow: none !important; border: 1px solid var(--rw-line); border-radius: var(--rw-radius); background: var(--rw-bg); }
+.crumina-heading h2.heading-title:not(.h1) { font-size: clamp(1.75rem, 3.2vw, 2.5rem); line-height: 1.15; }
+.subscribe-form .btn { border-radius: var(--rw-radius-pill) !important; }
+
+/* Blog index + posts: line art on white (the thumbnails had per-card colour fills), display-face titles, one h1 per
+   post (the "RUNWAE BLOG" banner is a kicker link, p.stunning-header-title.rw-kicker), quote bar in the one accent */
+.blog-post .post-thumb { background: var(--rw-bg) !important; border-bottom: 1px solid var(--rw-line); }
+.blog-post .post-thumb lottie-player { background: transparent !important; }
+.blog-post .post-title, a.h4.post-title { font-family: var(--rw-font-display) !important; font-weight: 800 !important; color: var(--rw-ink) !important; line-height: 1.25; }
+.blog-post .post-content > p { color: var(--rw-muted); }
+.stunning-header .stunning-header-title.rw-kicker { margin: 0; font-size: 40px; line-height: 1.15; }
+.stunning-header .rw-kicker a.rw-kicker__link { color: inherit; text-decoration: none; }
+.stunning-header .rw-kicker a.rw-kicker__link:hover { text-decoration: underline; text-underline-offset: 4px; }
+blockquote p { font-weight: 400 !important; color: var(--rw-text) !important; }
+blockquote p::before { background-color: var(--rw-accent) !important; }
+blockquote h6, blockquote h6 span { color: var(--rw-muted) !important; }
