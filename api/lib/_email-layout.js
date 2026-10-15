@@ -27,14 +27,17 @@ const ASSETS = {
   instagram: `${SITE}/img/email/instagram.png`,
   facebook: `${SITE}/img/email/facebook.png`,
   youtube: `${SITE}/img/email/youtube.png`,
-  x: `${SITE}/img/email/x.png`,
+  twitter: `${SITE}/img/email/twitter.png`,
 };
 
+// Same four links, order, labels and glyphs as the site footer (.rw-social in welcome.html et al.): Facebook,
+// Instagram, YouTube, Twitter (the bird; the site footer uses the bird, so the email does too). Icons are the
+// site's own SVG paths rendered as white discs with a hairline ring and a black glyph, like .rw-social a.
 const SOCIAL = [
-  { key: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/runwae_/' },
-  { key: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/runwaeplatform' },
-  { key: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/channel/UCv3u08c4k4GxdW97HuXYmrw' },
-  { key: 'x', label: 'X (Twitter)', href: 'https://twitter.com/runwae_' },
+  { key: 'facebook', label: 'Runwae on Facebook', href: 'https://www.facebook.com/runwaeplatform' },
+  { key: 'instagram', label: 'Runwae on Instagram', href: 'https://www.instagram.com/runwae_/' },
+  { key: 'youtube', label: 'Runwae on YouTube', href: 'https://www.youtube.com/channel/UCv3u08c4k4GxdW97HuXYmrw' },
+  { key: 'twitter', label: 'Runwae on Twitter', href: 'https://twitter.com/runwae_' },
 ];
 
 const C = {
@@ -51,6 +54,26 @@ const FONT_DISPLAY = "'museo-sans-rounded','Nunito',ui-rounded,'SF Pro Rounded',
 const FONT_BODY = "Roboto,system-ui,-apple-system,'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif";
 
 const MANAGE_URL = `${SITE}/account#notifications`;
+
+/**
+ * Deep links into the app. The pages can't yet open a specific agreement or "my own profile" from the URL
+ * (gig.html reads users/{uid}/current_gig, profile.html reads users/{uid}/current_profile), so until they can,
+ * the buttons go to /notifications, where each item opens the right agreement / your own profile in one tap.
+ * Set RUNWAE_EMAIL_DEEP_LINKS=1 once the pages honour these routes (contract in EMAILS.md):
+ *   /gig?item=<itemKey>&gig=<gigKey>   the agreement items/<itemKey>/influencers/<gigKey>, for a participant
+ *   /profile?me                         the signed-in user's own profile
+ */
+const GIG_PATH = /^items\/([A-Za-z0-9_-]{1,128})\/influencers\/([A-Za-z0-9_-]{1,128})$/;
+function deepLinks() { return String(process.env.RUNWAE_EMAIL_DEEP_LINKS || '').trim() === '1'; }
+const routes = {
+  /** The agreement page for one gig, or /notifications while the route isn't live / the path is unknown. */
+  agreement(gigPath) {
+    const m = GIG_PATH.exec(String(gigPath || ''));
+    return deepLinks() && m ? `/gig?item=${m[1]}&gig=${m[2]}` : '/notifications';
+  },
+  /** The recipient's own profile, or null while the route isn't live (callers pick a fallback). */
+  ownProfile() { return deepLinks() ? '/profile?me' : null; },
+};
 
 /* ------------------------------------------------------------------ */
 /* Escaping                                                            */
@@ -147,7 +170,7 @@ const block = {
   /** Quoted user text (message snippet, dispute note): accent rule + soft tint. */
   quote(text, by) {
     const html = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 24px;">
-<tr><td class="rw-quote" style="border-left:3px solid ${C.accent};background:${C.accentSoft};border-radius:0 10px 10px 0;padding:14px 18px;font-family:${FONT_BODY};font-size:15px;line-height:1.55;color:${C.text};white-space:pre-line;word-break:break-word;">${esc(text)}${by ? `<br><span class="rw-muted" style="font-size:13px;color:${C.muted};">— ${esc(by)}</span>` : ''}</td></tr></table>`;
+<tr><td class="rw-quote" style="border-left:3px solid ${C.accent};background:${C.accentSoft};border-radius:0 10px 10px 0;padding:14px 18px;font-family:${FONT_BODY};font-size:15px;line-height:1.55;color:${C.text};white-space:pre-line;word-break:break-word;">${esc(text)}${by ? `<br><span class="rw-muted" style="font-size:14px;color:${C.muted};">— ${esc(by)}</span>` : ''}</td></tr></table>`;
     const t = plain(text).split('\n').map((l) => '> ' + l).join('\n') + (by ? `\n> — ${plain(by)}` : '');
     return { html, text: t };
   },
@@ -156,8 +179,8 @@ const block = {
     const href = url(path);
     const w = Math.max(160, Math.min(320, 28 + label.length * 9));
     const html = `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 28px;"><tr><td>
-<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${esc(href)}" style="height:46px;v-text-anchor:middle;width:${w}px;" arcsize="50%" stroke="f" fillcolor="#000000"><w:anchorlock/><center style="color:#ffffff;font-family:Arial,sans-serif;font-size:15px;font-weight:bold;">${esc(label)}</center></v:roundrect><![endif]-->
-<!--[if !mso]><!-- --><a class="rw-btn" href="${esc(href)}" style="display:inline-block;background:${C.ink};color:#ffffff;border:1px solid ${C.ink};border-radius:999px;padding:14px 26px;font-family:${FONT_BODY};font-size:15px;font-weight:600;line-height:1;text-decoration:none;mso-hide:all;">${esc(label)}</a><!--<![endif]-->
+<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${esc(href)}" style="height:44px;v-text-anchor:middle;width:${w}px;" arcsize="50%" stroke="f" fillcolor="#000000"><w:anchorlock/><center style="color:#ffffff;font-family:Arial,sans-serif;font-size:15px;">${esc(label)}</center></v:roundrect><![endif]-->
+<!--[if !mso]><!-- --><a class="rw-btn" href="${esc(href)}" style="display:inline-block;background:${C.ink};color:#ffffff;border:1px solid ${C.ink};border-radius:999px;padding:14px 22px;font-family:${FONT_BODY};font-size:15px;font-weight:500;line-height:1;text-decoration:none;mso-hide:all;">${esc(label)}</a><!--<![endif]-->
 </td></tr></table>`;
     return { html, text: `${plain(label)}: ${href}` };
   },
@@ -192,7 +215,6 @@ a{color:${C.ink};}
   .rw-quote{background:#24223d!important;color:#e8e8f0!important;}
   .rw-btn{background:#ffffff!important;color:#000000!important;border-color:#ffffff!important;}
   .rw-danger{color:#ff7a7a!important;}
-  .rw-icon{background:#24223d!important;}
   .rw-logo-l{display:none!important;}
   .rw-logo-d{display:block!important;max-height:none!important;overflow:visible!important;}
 }
@@ -207,6 +229,15 @@ a{color:${C.ink};}
 `;
 
 /**
+ * Eyebrow: like .rw-eyebrow (display face, 800, caps, 13px) in ink, which passes WCAG AA in both themes
+ * (#000 on #fff 21:1; #fff on #121218 in dark), with a small periwinkle dot as the one accent mark (decorative,
+ * so it carries no meaning a reader could miss). The old #9389ff text at 12px was ~2.9:1.
+ */
+function eyebrowHtml(label) {
+  return `<p class="rw-ink" style="margin:0 0 12px;font-family:${FONT_DISPLAY};font-size:13px;line-height:1.3;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:${C.ink};"><span aria-hidden="true" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${C.accent};vertical-align:middle;margin:-2px 8px 0 0;font-size:0;line-height:0;">&nbsp;</span>${esc(label)}</p>`;
+}
+
+/**
  * @param {object} m
  * @param {string} m.subject
  * @param {string} m.preheader   inbox preview line
@@ -219,7 +250,7 @@ a{color:${C.ink};}
 function layout(m) {
   const blocksHtml = m.blocks.map((b) => b.html).join('\n');
   const manage = m.manage !== false;
-  const social = SOCIAL.map((s) => `<td style="padding:0 6px;"><a href="${esc(s.href)}" style="text-decoration:none;"><img class="rw-icon" src="${esc(ASSETS[s.key])}" width="28" height="28" alt="${esc(s.label)}" style="display:block;width:28px;height:28px;border-radius:999px;background:${C.accentSoft};"></a></td>`).join('');
+  const social = SOCIAL.map((s) => `<td style="padding:0 4px;"><a href="${esc(s.href)}" style="text-decoration:none;"><img src="${esc(ASSETS[s.key])}" width="32" height="32" alt="${esc(s.label)}" style="display:block;width:32px;height:32px;border-radius:999px;"></a></td>`).join('');
 
   const html = `<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
@@ -247,15 +278,15 @@ function layout(m) {
     </tr></table></a>
   </td></tr>
   <tr><td class="rw-pad" style="padding:36px 40px 8px;">
-    ${m.eyebrow ? `<p style="margin:0 0 10px;font-family:${FONT_BODY};font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;color:${C.accent};">${esc(m.eyebrow)}</p>` : ''}
+    ${m.eyebrow ? eyebrowHtml(m.eyebrow) : ''}
     <h1 class="rw-ink rw-h1" style="margin:0 0 18px;font-family:${FONT_DISPLAY};font-size:28px;line-height:1.18;font-weight:800;letter-spacing:-.01em;color:${C.ink};">${esc(m.heading)}</h1>
     ${blocksHtml}
   </td></tr>
   <tr><td class="rw-pad rw-line" style="padding:24px 40px 36px;border-top:1px solid ${C.line};">
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px -6px;"><tr>${social}</tr></table>
-    <p class="rw-muted" style="margin:0 0 8px;font-family:${FONT_BODY};font-size:13px;line-height:1.55;color:${C.muted};">${esc(m.reason)}</p>
-    <p class="rw-muted" style="margin:0 0 8px;font-family:${FONT_BODY};font-size:13px;line-height:1.55;color:${C.muted};">Questions? Reply to this email or write to <a href="mailto:${SUPPORT}" style="color:${C.muted};text-decoration:underline;">${SUPPORT}</a>.${manage ? ` <a href="${MANAGE_URL}" style="color:${C.muted};text-decoration:underline;">Manage email notifications</a>.` : ''}</p>
-    <p class="rw-muted" style="margin:0;font-family:${FONT_BODY};font-size:13px;line-height:1.55;color:${C.muted};">Runwae &middot; <a href="${SITE}/" style="color:${C.muted};text-decoration:none;">runwae.com</a></p>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 16px -4px;"><tr>${social}</tr></table>
+    <p class="rw-muted" style="margin:0 0 8px;font-family:${FONT_BODY};font-size:14px;line-height:1.55;color:${C.muted};">${esc(m.reason)}</p>
+    <p class="rw-muted" style="margin:0 0 8px;font-family:${FONT_BODY};font-size:14px;line-height:1.55;color:${C.muted};">Questions? Reply to this email or write to <a href="mailto:${SUPPORT}" style="color:${C.muted};text-decoration:underline;">${SUPPORT}</a>.${manage ? ` <a href="${MANAGE_URL}" style="color:${C.muted};text-decoration:underline;">Manage email notifications</a>.` : ''}</p>
+    <p class="rw-muted" style="margin:0;font-family:${FONT_BODY};font-size:14px;line-height:1.55;color:${C.muted};">Runwae &middot; <a href="${SITE}/" style="color:${C.muted};text-decoration:none;">runwae.com</a></p>
   </td></tr>
 </table>
 <!--[if mso]></td></tr></table><![endif]-->
@@ -280,4 +311,4 @@ function layout(m) {
   return { subject: line(m.subject, 120), html, text };
 }
 
-module.exports = { SITE, SUPPORT, ASSETS, SOCIAL, COLORS: C, MANAGE_URL, esc, plain, line, para, url, money, date, block, layout };
+module.exports = { SITE, SUPPORT, ASSETS, SOCIAL, COLORS: C, MANAGE_URL, GIG_PATH, routes, deepLinks, esc, plain, line, para, url, money, date, block, layout };
