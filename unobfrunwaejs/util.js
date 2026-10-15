@@ -126,8 +126,10 @@ function displayHTML(scriptDiv, displayDiv, before, after) {
     $(displayDiv).append(html);
 }
 
-// HTML escape function to prevent XSS attacks
-function escapeHtml(text) {
+// HTML escape function to prevent XSS attacks (text and quoted attribute values).
+// replaceText() calls rwEscapeHtml directly: js/profile-marketplace.js declares
+// its own global escapeHtml later on profile.html, which would otherwise win.
+function rwEscapeHtml(text) {
     if (text === null || text === undefined) return '';
     var str = String(text);
     var map = {
@@ -140,28 +142,74 @@ function escapeHtml(text) {
     return str.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
 
-// Placeholders that should NOT be escaped (URLs, IDs, numeric values)
-var safePatterns = ['{{uid}}', '{{key}}', '{{src}}', '{{header_src}}', '{{target_key}}',
-                    '{{index}}', '{{followers}}', '{{following}}', '{{gigs}}', '{{connections}}',
-                    '{{rating}}', '{{status}}', '{{icon}}', '{{remove_display}}'];
+function escapeHtml(text) {
+    return rwEscapeHtml(text);
+}
 
+// Template filling. Every placeholder value is HTML-escaped (text and attribute
+// values alike; escaping a URL inside an attribute is harmless because the
+// browser decodes &amp; there). The ONLY values inserted raw are trusted
+// fragments wrapped with rwHtml(): HTML that was itself assembled from our own
+// templates via replaceText() (so its user data is already escaped) or a
+// static template. Data read from Firebase is plain JSON and can never be an
+// RwTrustedHtml, so user data cannot opt out of escaping.
+function RwTrustedHtml(html) {
+    this.html = (html === null || html === undefined) ? '' : String(html);
+}
+RwTrustedHtml.prototype.toString = function () {
+    return this.html;
+};
+
+function rwHtml(html) {
+    return (html instanceof RwTrustedHtml) ? html : new RwTrustedHtml(html);
+}
+
+// Placeholders whose value lands in src/href: only http(s), relative URLs and
+// data:image/* survive; javascript:, data:text/html, vbscript: etc. become ''.
+var rwUrlPlaceholders = ['{{src}}', '{{header_src}}', '{{photo_src}}', '{{video_src}}', '{{url}}',
+                       '{{image}}', '{{reviewerAvatar}}', '{{href}}'];
+
+function rwSafeUrl(value) {
+    if (value === null || value === undefined) return '';
+    var str = String(value).trim();
+    var probe = str.replace(/[\u0000-\u0020\u007f]+/g, '').toLowerCase();
+    var scheme = probe.match(/^([a-z][a-z0-9+.\-]*):/);
+    if (scheme) {
+        if (scheme[1] === 'http' || scheme[1] === 'https') return str;
+        if (scheme[1] === 'data' && /^data:image\//.test(probe)) return str;
+        return '';
+    }
+    return str;
+}
+
+function rwTemplateValue(placeholder, value) {
+    if (value instanceof RwTrustedHtml) return value.html;
+    if (rwUrlPlaceholders.indexOf(placeholder) !== -1) value = rwSafeUrl(value);
+    return rwEscapeHtml(value);
+}
+
+// Single pass: an inserted value is never scanned again, so a caption that
+// contains "{{media}}" stays literal text.
 function replaceText(original, before, after) {
-    if (before.constructor !== Array) {
+    if (!Array.isArray(before)) {
         before = [before];
         after = [after];
     }
-    var result = original;
+    if (!original) return original;
+    var values = Object.create(null);
+    var keys = [];
     for (var i = 0; i < before.length; i++) {
-        if (result) {
-            var value = after[i];
-            // Escape user content to prevent XSS, but not URLs/IDs/numeric values
-            if (!safePatterns.includes(before[i])) {
-                value = escapeHtml(value);
-            }
-            result = result.split(before[i]).join(value);
+        if (!(before[i] in values)) {
+            values[before[i]] = rwTemplateValue(before[i], after[i]);
+            keys.push(String(before[i]));
         }
     }
-    return result;
+    if (!keys.length) return original;
+    keys.sort(function (a, b) { return b.length - a.length; });
+    var pattern = new RegExp(keys.map(function (k) {
+        return k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }).join('|'), 'g');
+    return original.replace(pattern, function (m) { return values[m]; });
 }
 
 function getObjLength(dbpath) {

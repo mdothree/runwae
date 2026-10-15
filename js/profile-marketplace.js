@@ -263,10 +263,22 @@ function renderSkillTags(skills) {
  * @returns {string} - Escaped text
  */
 function escapeHtml(text) {
-  if (!text) return '';
-  var div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+  // Same contract as runwaejs/util.js escapeHtml (this file loads later on
+  // profile.html and replaces the global): quotes are escaped too, so the
+  // result is safe inside quoted attributes, and 0 stays "0".
+  if (text === null || text === undefined) return '';
+  return String(text).replace(/[&<>"']/g, function (m) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+  });
+}
+
+// Only http(s), relative and data:image URLs; anything else (javascript:, ...) -> fallback.
+function marketplaceSafeUrl(url, fallback) {
+  var str = String(url || '').trim();
+  var probe = str.replace(/[\u0000-\u0020\u007f]+/g, '').toLowerCase();
+  var scheme = probe.match(/^([a-z][a-z0-9+.\-]*):/);
+  if (!str || (scheme && scheme[1] !== 'http' && scheme[1] !== 'https' && !/^data:image\//.test(probe))) return fallback;
+  return str;
 }
 
 /**
@@ -328,14 +340,14 @@ function initMarketplaceProfile(userData) {
 function renderServiceCard(gig) {
   if (!gig) return '';
 
-  var image = gig.photo_url || gig.image || 'img/default-gig.png';
+  var image = escapeHtml(marketplaceSafeUrl(gig.photo_url || gig.image, 'img/default-gig.png'));
   var title = escapeHtml(gig.title || gig.caption || 'Service');
   var description = escapeHtml(gig.description || '');
   var price = gig.price || gig.compensation || 0;
   var rating = gig.rating || 0;
   var reviewCount = gig.review_count || 0;
 
-  return '<div class="service-card" data-gig-id="' + (gig.key || gig.id || '') + '">' +
+  return '<div class="service-card" data-gig-id="' + escapeHtml(gig.key || gig.id || '') + '">' +
     '<img src="' + image + '" alt="' + title + '" class="service-card-image">' +
     '<div class="service-card-body">' +
       '<h4 class="service-title">' + title + '</h4>' +
@@ -362,7 +374,7 @@ function renderServiceCard(gig) {
 function renderReviewCard(review) {
   if (!review) return '';
 
-  var avatar = review.reviewer_photo || review.photo_url || 'img/default-avatar.png';
+  var avatar = escapeHtml(marketplaceSafeUrl(review.reviewer_photo || review.photo_url, 'img/default-avatar.png'));
   var name = escapeHtml(review.reviewer_name || review.username || 'Anonymous');
   var date = review.time ? timeDisplay(review.time) : '';
   var rating = review.rating || review.score || 5;

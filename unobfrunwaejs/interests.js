@@ -1,3 +1,8 @@
+// rwHtml() lives in util.js (2026-10-14 escaping hotfix). If a browser still has the
+// previous util.js cached (max-age 4h), fall back to a pass-through so the page renders
+// the old way instead of throwing.
+if (typeof rwHtml !== 'function') { var rwHtml = function (html) { return html; }; }
+
 function displayInterests(snapVisitor, snapHost, el) {
     var key = $(el).closest(".ui-block").attr("id");
     $("#open-post .close").click();
@@ -42,7 +47,8 @@ function displayInterests(snapVisitor, snapHost, el) {
 
                 function displayInterest(interestObj, interestKey, n) {
                     var platform = interestObj["platform"];
-                    iconHTML = $("#" + platform + "IconTemplate").html();
+                    // static icon template (trusted HTML); only the four known platforms
+                    iconHTML = rwHtml(["facebook", "instagram", "twitter", "linkedin"].indexOf(platform) !== -1 ? $("#" + platform + "IconTemplate").html() : "");
                     checkStyle = "";
                     engaged = "";
                     database.ref().child('users/' + interestObj["uid"]).once('value', function (snapSender) {
@@ -78,7 +84,7 @@ function displayInterests(snapVisitor, snapHost, el) {
                                     }
                                 }
                             }
-                            var after = [engaged, snapSender.key, platform, snapSender.val().photo_url, snapSender.val().username, interestKey, iconHTML, checkStyle];
+                            var after = [engaged, snapSender.key, platform, snapSender.val().photo_url, snapSender.val().username, String(interestKey).replace(/[^A-Za-z0-9_-]/g, ""), iconHTML, checkStyle];
                             displayHTML("#interestTemplate", "#interestsDisplay", before, after);
                             if (snapVisitor.key == snapHost.key) {
                                 $('li.interestLi').not('.author-thumb').not('.author-title').click(function (event) {

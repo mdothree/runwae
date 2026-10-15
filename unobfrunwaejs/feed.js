@@ -1,3 +1,8 @@
+// rwHtml() lives in util.js (2026-10-14 escaping hotfix). If a browser still has the
+// previous util.js cached (max-age 4h), fall back to a pass-through so the page renders
+// the old way instead of throwing.
+if (typeof rwHtml !== 'function') { var rwHtml = function (html) { return html; }; }
+
 function displayFeed(snapVisitor, displayDiv) {
     useri = snapVisitor.key;
     photoUrl = snapVisitor.val().photo_url;
@@ -179,7 +184,7 @@ function displayFeed(snapVisitor, displayDiv) {
                         after[4] = 'gift-outline';
                     }
                     after[5] = (itemObj["caption"]);
-                    after[6] = getMedia();
+                    after[6] = rwHtml(getMedia());
                     after[7] = itemObj["interests_count"];
                     after[10] = itemObj["comments_count"];
                     after[11] = itemObj["shares_count"];
@@ -294,7 +299,7 @@ function displayFeed(snapVisitor, displayDiv) {
                                     getUser(uid, i, html, usernames);
                                 });
                             } else {
-                                after[8] = html;
+                                after[8] = rwHtml(html);
                                 checkComments(after);
                             }
                         }
@@ -310,10 +315,10 @@ function displayFeed(snapVisitor, displayDiv) {
                                             usernames.push(snap.val().username);
                                         }
                                     } else if (usernames.length == 4) {
-                                        after[9] = replaceText($("#friendInterestCountTemplate").html(), ["{{user_key1}}", "{{username1}}", "{{user_key2}}", "{{username2}}"], usernames);
+                                        after[9] = rwHtml(replaceText($("#friendInterestCountTemplate").html(), ["{{user_key1}}", "{{username1}}", "{{user_key2}}", "{{username2}}"], usernames));
                                     }
                                     if (i > interests || i > 10) {
-                                        after[8] = html;
+                                        after[8] = rwHtml(html);
                                         checkComments(after);
                                     } else {
                                         if (!html.includes(snap.key)) {
@@ -348,7 +353,7 @@ function displayFeed(snapVisitor, displayDiv) {
                                     }
                                 });
                             } else {
-                                commentsHTML = replaceText($("#commentsWrapperTemplate").html(), ["{{comments_HTML}}"], [html]);
+                                commentsHTML = replaceText($("#commentsWrapperTemplate").html(), ["{{comments_HTML}}"], [rwHtml(html)]);
                                 finalize(articleHTML + commentsHTML, viewAll);
                             }
                         }
@@ -382,7 +387,7 @@ function displayFeed(snapVisitor, displayDiv) {
                         if (Math.floor(Math.random() * 10) == 5) {
                             html += replaceText($("#postCommentTemplate").html(), ["{{src}}"], [photoUrl]);
                         }
-                        uiHTML = replaceText($("#uiblockTemplate").html(), ["{{item_key}}", "{{contents}}"], [key, html]);
+                        uiHTML = replaceText($("#uiblockTemplate").html(), ["{{item_key}}", "{{contents}}"], [key, rwHtml(html)]);
                         $(displayDiv).append(uiHTML);
                         postListeners(snapVisitor, snapHost);
                         getItem(itemCount + 1);
