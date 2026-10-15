@@ -1,0 +1,81 @@
+/* rw-explore.css: /explore only (loaded after rw.css + rw-compat.css).
+   1. the signed-out public feed (js/rw-public-explore.js), rw.css tokens only, no shadows
+   2. mobile width fix for the legacy signed-in layout */
+
+/* ---------- 1. public feed (signed out) ---------- */
+.rw-pubx[hidden], .rw-pubx [hidden] { display: none !important; }
+.rw-pubx-on #rwAppExplore { display: none !important; }
+.rw-pubx { color: var(--rw-text); font-family: var(--rw-font-body); }
+.rw-pubx h1 { margin: 0; }
+.rw-pubx .rw-page__head p { max-width: 52ch; }
+.rw-pubx__search { margin-bottom: var(--rw-s4); }
+.rw-pubx__search .rw-input { height: 46px; font-size: 1rem; }
+.rw-pubx__filters { margin-bottom: var(--rw-s6); }
+.rw-pubx__col { min-width: 0; }
+.rw-pubx__loading { padding: var(--rw-s6) 0; text-align: center; }
+.rw-pubx__aside { position: sticky; top: calc(var(--rw-header-h) + 24px); }
+.rw-pubx__join { padding: 28px; }
+.rw-pubx__join .rw-illo { width: 160px; }
+.rw-pubx__join .rw-pubx__login { margin: var(--rw-s4) 0 0; }
+.rw-pubx__join .rw-pubx__login a { color: var(--rw-ink); }
+
+.rw-pubx-card { cursor: pointer; transition: border-color .15s ease; }
+.rw-pubx-card:hover { border-color: var(--rw-accent); }
+.rw-pubx-card .rw-row__meta { color: var(--rw-muted); }
+.rw-pubx-avatar { overflow: hidden; }
+.rw-pubx-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.rw-pubx-author {
+  background: none; border: 0; padding: 0; margin: 0; cursor: pointer;
+  font: 500 .9375rem/1.3 var(--rw-font-body); color: var(--rw-ink); text-align: left;
+  overflow-wrap: anywhere;
+}
+.rw-pubx-author:hover { text-decoration: underline; text-underline-offset: 3px; }
+.rw-pubx-handle { overflow-wrap: anywhere; }
+.rw-pubx-kind { display: block; margin-top: 2px; font-size: .8125rem; color: var(--rw-muted); }
+.rw-pubx-title { margin: 8px 0 4px; font-size: 1.125rem; font-weight: 800; overflow-wrap: anywhere; }
+.rw-pubx-desc { overflow-wrap: anywhere; }
+.rw-pubx-media { margin-top: var(--rw-s4); border-radius: 10px; overflow: hidden; border: 1px solid var(--rw-line); background: var(--rw-bg-subtle); }
+.rw-pubx-media img { width: 100%; max-height: 280px; object-fit: cover; }
+.rw-pubx-tags { margin-top: 14px; }
+.rw-pubx-tags .rw-tag { overflow-wrap: anywhere; max-width: 100%; }
+.rw-tag--plain { background: none; border: 1px solid var(--rw-line); color: var(--rw-muted); }
+.rw-pubx-actions { margin-top: var(--rw-s4); }
+
+.rw-pubx__more { margin-top: var(--rw-s5); text-align: center; }
+.rw-pubx__more p { margin-top: var(--rw-s3); color: var(--rw-danger); font-size: .875rem; }
+.rw-pubx__state .rw-illo { width: 200px; }
+
+/* sign-up prompt: native <dialog>, rw card look. Legacy sheets restyle <dialog>, so open/closed are explicit. */
+.rw-prompt:not([open]) { display: none !important; }
+.rw-prompt[open] { display: block; position: fixed; inset: 0; margin: auto; height: fit-content; max-height: calc(100vh - 32px); overflow: auto; z-index: 1000; }
+.rw-prompt {
+  width: min(420px, calc(100vw - 32px)); padding: var(--rw-s6) var(--rw-s5) var(--rw-s5);
+  border: 1px solid var(--rw-line); border-radius: var(--rw-radius);
+  background: var(--rw-bg); color: var(--rw-text); text-align: center;
+}
+.rw-prompt::backdrop { background: rgba(18, 18, 24, .45); }
+.rw-prompt .rw-illo { width: 150px; margin: 0 auto var(--rw-s4); }
+.rw-prompt h2 { margin-bottom: 6px; }
+.rw-prompt p { color: var(--rw-muted); margin-bottom: var(--rw-s5); }
+.rw-prompt .rw-actions { justify-content: center; }
+.rw-prompt .rw-actions .rw-btn { flex: 1; min-width: 140px; }
+.rw-prompt__close {
+  position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%;
+  border: 0; background: none; color: var(--rw-muted); font: 400 1.5rem/1 var(--rw-font-body); cursor: pointer;
+}
+.rw-prompt__close:hover { background: var(--rw-bg-subtle); color: var(--rw-ink); }
+.rw-prompt .rw-small { margin: var(--rw-s4) 0 0; }
+
+@media (max-width: 760px) {
+  .rw-pubx__filters { margin-bottom: var(--rw-s5); flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .rw-pubx__filters::-webkit-scrollbar { display: none; }
+  .rw-pubx__filters .rw-chip { flex: none; }
+  .rw-pubx-card .rw-avatar { width: 36px; height: 36px; }
+}
+
+/* ---------- 2. legacy signed-in layout: no sideways scroll on phones ----------
+   explore.html's .container has an inline `padding: 30px 0 0 0`, so the Bootstrap .row's -15px gutters
+   stuck out 15px past the viewport (document 405px wide at 390). Restore the container gutter on phones. */
+@media (max-width: 767.98px) {
+  .rw-app > #rwAppExplore.container { padding-left: 15px !important; padding-right: 15px !important; }
+}

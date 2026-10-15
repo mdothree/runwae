@@ -18,9 +18,12 @@ const SITE = 'https://runwae.com';
 const SUPPORT = 'hello@runwae.com';
 
 // Images must be live at these absolute URLs before the first real send.
-// img/emaillogo.png is already deployed; img/email/*.png ships with this change.
+// img/email/*.png ships with the site. One brand mark everywhere (2026-10-14): the black flower the site header
+// uses, 60px (2x for the 30px slot), plus a white copy that dark-mode clients swap in. img/emaillogo.png (the old
+// purple mark) stays on the site untouched in case Stripe branding still points at it.
 const ASSETS = {
-  logo: `${SITE}/img/emaillogo.png`,
+  logo: `${SITE}/img/email/logo-black.png`,
+  logoDark: `${SITE}/img/email/logo-white.png`,
   instagram: `${SITE}/img/email/instagram.png`,
   facebook: `${SITE}/img/email/facebook.png`,
   youtube: `${SITE}/img/email/youtube.png`,
@@ -190,7 +193,11 @@ a{color:${C.ink};}
   .rw-btn{background:#ffffff!important;color:#000000!important;border-color:#ffffff!important;}
   .rw-danger{color:#ff7a7a!important;}
   .rw-icon{background:#24223d!important;}
+  .rw-logo-l{display:none!important;}
+  .rw-logo-d{display:block!important;max-height:none!important;overflow:visible!important;}
 }
+[data-ogsc] .rw-logo-l{display:none!important;}
+[data-ogsc] .rw-logo-d{display:block!important;max-height:none!important;overflow:visible!important;}
 [data-ogsc] .rw-ink,[data-ogsc] .rw-word{color:#ffffff!important;}
 [data-ogsc] .rw-text{color:#e8e8f0!important;}
 [data-ogsc] .rw-muted{color:#a3a4b3!important;}
@@ -235,7 +242,7 @@ function layout(m) {
 <table role="presentation" class="rw-bg" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:${C.bg};">
   <tr><td class="rw-pad rw-line" style="padding:28px 40px 22px;border-bottom:1px solid ${C.line};">
     <a href="${SITE}/" style="text-decoration:none;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
-      <td style="vertical-align:middle;"><img src="${esc(ASSETS.logo)}" width="30" height="30" alt="Runwae" style="display:block;width:30px;height:30px;"></td>
+      <td style="vertical-align:middle;"><img class="rw-logo-l" src="${esc(ASSETS.logo)}" width="30" height="30" alt="Runwae" style="display:block;width:30px;height:30px;"><!--[if !mso]><!--><img class="rw-logo-d" src="${esc(ASSETS.logoDark)}" width="30" height="30" alt="Runwae" style="display:none;width:30px;height:30px;max-height:0;overflow:hidden;"><!--<![endif]--></td>
       <td class="rw-word" style="vertical-align:middle;padding-left:10px;font-family:${FONT_DISPLAY};font-size:22px;font-weight:900;line-height:1;color:${C.ink};">Runwae</td>
     </tr></table></a>
   </td></tr>

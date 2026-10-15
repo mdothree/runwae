@@ -91,6 +91,7 @@
 <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css">
 <link rel="stylesheet" href="/css/rw.css">
 <link rel="stylesheet" href="/css/rw-compat.css">
+<link rel="stylesheet" href="/css/rw-explore.css">
 </head>
 
 <body class="rw-app">
@@ -129,7 +130,29 @@
 </div></header>
 <!-- rw: legacy render targets kept so navHQ/messages/notifications/search JS keep working (not displayed) -->
 <div class="rw-sinks" hidden aria-hidden="true"><img id="navMobileProfilePicture" alt=""><ul id="navConversationsDisplay"></ul><ul id="mobileNavConversationsDisplay"></ul><ul id="navNotificationsDisplay"></ul><ul id="mobileNavNotificationsDisplay"></ul><div id="navSearchDisplay"></div></div>
-    <div class="container" style="padding: 30px 0 0px 0">
+<!-- rw: public Explore for signed-out visitors (js/rw-public-explore.js; data from GET /api/public/explore).
+     Hidden until auth resolves signed out; the signed-in layout below is untouched. -->
+<main class="rw-page rw-pubx" id="rwPublicExplore" hidden tabindex="-1" aria-labelledby="rwPubxTitle">
+  <div class="rw-page__head"><div><h1 id="rwPubxTitle">Explore</h1><p class="rw-muted">See what brands and influencers are working on: campaigns, services and posts. Sign up to apply, message or follow.</p></div></div>
+  <div class="rw-split rw-pubx__split"><div class="rw-pubx__col">
+  <form class="rw-search rw-pubx__search" id="rwPubxSearch" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="rw-input" type="search" autocomplete="off" placeholder="Search brands, influencers or opportunities" aria-label="Search brands, influencers or opportunities"></form>
+  <div class="rw-chips rw-pubx__filters" id="rwPubxFilters" role="group" aria-label="Show"><button type="button" class="rw-chip" data-type="all" aria-pressed="true">All</button><button type="button" class="rw-chip" data-type="campaigns" aria-pressed="false">Campaigns</button><button type="button" class="rw-chip" data-type="services" aria-pressed="false">Services</button><button type="button" class="rw-chip" data-type="posts" aria-pressed="false">Posts</button></div>
+  <p class="rw-muted rw-pubx__loading" id="rwPubxLoading" hidden>Loading the feed&hellip;</p>
+  <div class="rw-stack rw-pubx__feed" id="rwPubxFeed" aria-live="polite" aria-busy="false"></div>
+  <div class="rw-empty rw-pubx__state" id="rwPubxState" hidden><img class="rw-illo" src="/img/illo/research.png" alt=""><h3></h3><p></p><button type="button" class="rw-btn" data-state-btn="signup"></button></div>
+  <div class="rw-pubx__more"><button type="button" class="rw-btn rw-btn--quiet" id="rwPubxMore" hidden>Load more</button><p id="rwPubxMoreError" role="status" hidden>Couldn&rsquo;t load more. Try again.</p></div>
+  </div>
+  <aside class="rw-hide-sm rw-pubx__aside"><div class="rw-card rw-card--soft rw-empty rw-pubx__join"><img class="rw-illo" src="/img/illo/growth.png" alt=""><h3>New to Runwae?</h3><p>Brands post campaigns and influencers offer their services. Sign up to apply, message and follow.</p><a class="rw-btn" href="/login?signup">Sign up</a><p class="rw-small rw-pubx__login">Have an account? <a href="/login?login">Log in</a></p></div></aside>
+  </div>
+</main>
+<dialog class="rw-prompt" id="rwSignupPrompt" aria-labelledby="rwSignupPromptTitle" aria-describedby="rwSignupPromptText">
+  <button type="button" class="rw-prompt__close" data-close aria-label="Close">&times;</button>
+  <img class="rw-illo" src="/img/illo/teamwork.png" alt="">
+  <h2 id="rwSignupPromptTitle">Join Runwae</h2>
+  <p id="rwSignupPromptText">Sign up to see the full details.</p>
+  <div class="rw-actions"><a class="rw-btn" href="/login?signup">Sign up</a><a class="rw-btn rw-btn--quiet" href="/login?login">Log in</a></div>
+</dialog>
+    <div class="container" id="rwAppExplore" style="padding: 30px 0 0px 0">
         <div class="row">
             <!-- Main Content -->
             <main id="main-content" class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
@@ -815,6 +838,7 @@
         <script src="runwaejs/postHQ.js"></script>
         <script src="runwaejs/exploreHQ.js"></script>
         <script src="runwaejs/tutorial.js"></script>
+        <script src="/js/rw-public-explore.js"></script>
         <!-- Modern UI Scripts -->
         <script src="js/safe-render.js"></script>
         <script src="js/toast.js"></script>

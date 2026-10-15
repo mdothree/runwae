@@ -50,7 +50,7 @@ test('manage link only on mutable categories', () => {
 });
 
 test('assets list is absolute https on runwae.com', () => {
-  for (const u of Object.values(L.ASSETS)) assert.match(u, /^https:\/\/runwae\.com\/img\/(emaillogo\.png|email\/[a-z]+\.png)$/);
+  for (const u of Object.values(L.ASSETS)) assert.match(u, /^https:\/\/runwae\.com\/img\/email\/[a-z-]+\.png$/);
 });
 
 test('url() refuses foreign links', () => {
