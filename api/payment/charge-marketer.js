@@ -4,10 +4,12 @@
  * Body: { stripeToken, gigPath }   (any client "amount" is ignored; price comes from items/{id}/price)
  *
  * On success the server writes (admin SDK):
- *   transactions/{key}                       full record, status "incomplete"
- *   users/{marketerUid}/transactions/{key}   { path, time }
- *   users/{influencerUid}/transactions/{key} { path, time }
- *   {gigPath}/transaction_key                key
+ *   transactions/{key}                               full record, status "incomplete"
+ *   users_private/{marketerUid}/transactions/{key}   { path, time }   (RW-SEC-03: owner-only path)
+ *   users_private/{influencerUid}/transactions/{key} { path, time }
+ *   {gigPath}/transaction_key                        key
+ *   {gigPath}/status                                 4  (RW-SEC-01: "paid" is a server-only transition)
+ * Precondition: gig status 0-3 (before payment).
  */
 const stripe = require('../lib/stripe');
 const { HttpError, requireUser, loadGig, itemPrice, takeLock, sendError } = require('./_shared');
@@ -30,6 +32,8 @@ module.exports = async (req, res) => {
     if (item.uid !== uid) throw new HttpError(403, 'forbidden', 'Only the marketer can pay for this gig');
     if (item.compensation !== 'money') throw new HttpError(400, 'not_money', 'This gig is not paid in money');
     if (!gig.uid) throw new HttpError(400, 'no_influencer', 'Gig has no influencer');
+    const st = Number(gig.status || 0);
+    if (!(st >= 0 && st <= 3)) throw new HttpError(409, 'bad_status', 'This gig is not awaiting payment');
     if (gig.transaction_key) {
       const existing = await db.ref(`transactions/${gig.transaction_key}`).once('value');
       if (existing.exists()) throw new HttpError(409, 'already_paid', 'This gig has already been paid');
@@ -62,9 +66,10 @@ module.exports = async (req, res) => {
         platform: gig.platform || item.platform || '',
         compensation: 'money',
       },
-      [`users/${uid}/transactions/${key}`]: { path: gigPath, time: now },
-      [`users/${gig.uid}/transactions/${key}`]: { path: gigPath, time: now },
+      [`users_private/${uid}/transactions/${key}`]: { path: gigPath, time: now },
+      [`users_private/${gig.uid}/transactions/${key}`]: { path: gigPath, time: now },
       [`${gigPath}/transaction_key`]: key,
+      [`${gigPath}/status`]: 4,
     });
     await lock.done({ transactionKey: key });
 

@@ -176,38 +176,96 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
     moreLink = "Runwae.com/account";
     actionText = "Review Gig";
 
-    getAccountID();
+    initPayout();
 
-    function getAccountID() {
-        if (window.location.href.includes("code")) {
-            var url = window.location.href;
-            var code = url.split("code")[1];
-            code = code.split("=")[1];
-
-            // The server stores the connected account at stripe_accounts/{uid};
-            // no Stripe tokens come back to the browser.
-            paymentApi('connect-oauth', { code: code })
-            .then(function(data) {
-                if (!data.success) {
-                    $('#acceptError').text(data.error_description || data.message || 'Error connecting to Stripe');
-                    alert('Error accepting payment.');
-                } else {
-                    payment();
-                }
-            })
-            .catch(function(error) {
-                $('#acceptError').html('Error connecting to Stripe');
-                alert('Error accepting payment.');
-            });
-
-        } else if (window.location.href.includes("error")) {
-            alert('Error accepting payment');
+    // RW-SEC-02/23: the Stripe Connect round trip carries a server-issued `state`
+    // (api/payment/connect-start). A ?code= in the URL is never sent
+    // automatically: the creator confirms with a click, and the payout itself is
+    // a separate click ("Accept payment"). code/state are removed from the URL.
+    function initPayout() {
+        var params = new URLSearchParams(window.location.search);
+        var code = params.get("code");
+        var state = params.get("state");
+        var oauthError = params.get("error");
+        if (code || state || oauthError) {
+            try { history.replaceState(null, "", window.location.pathname); } catch (e) { /* ignore */ }
         }
+        if (oauthError) {
+            $('#acceptError').text('Stripe connection was cancelled.');
+        }
+        if (code && state) {
+            var replacing = false;
+            try { replacing = sessionStorage.getItem('rw_replace_payout') === '1'; } catch (e) { /* ignore */ }
+            $("#btnConnectStripe").hide();
+            $("#payoutConnectNote").text(replacing ? "Replace your payout account with the Stripe account you just authorized?" : "Connect the Stripe account you just authorized to receive this payout?").show();
+            $("#btnFinishStripeConnect").show().off("click").on("click", function (e) {
+                e.preventDefault();
+                var $btn = $(this);
+                if ($btn.attr("aria-disabled") == "true") return;
+                $btn.addClass("disabled").attr("aria-disabled", "true");
+                paymentApi('connect-oauth', { code: code, state: state, confirmReplace: replacing })
+                .then(function (data) {
+                    try { sessionStorage.removeItem('rw_replace_payout'); } catch (e2) { /* ignore */ }
+                    $btn.hide();
+                    if (!data.success) {
+                        $('#acceptError').text(data.message || data.error_description || 'Error connecting to Stripe');
+                        $("#payoutConnectNote").hide();
+                        showConnectState();
+                    } else {
+                        $("#payoutConnectNote").text("Stripe account connected.").show();
+                        showAcceptPayment();
+                    }
+                })
+                .catch(function () {
+                    $btn.removeClass("disabled").removeAttr("aria-disabled");
+                    $('#acceptError').text('Error connecting to Stripe');
+                });
+            });
+            return;
+        }
+        showConnectState();
     }
 
-    function payment() {
-        // Server checks the gig, uses the recorded charge amount and the
-        // connected account, and finalizes transactions/{key}.
+    function showConnectState() {
+        paymentApi('connect-start', {}).then(function (data) {
+            if (data.success && data.connected) {
+                showAcceptPayment();
+            } else if (data.success && data.url) {
+                $("#btnConnectStripe").attr("href", data.url).show();
+            } else {
+                $('#acceptError').text(data.message || 'Payouts are unavailable right now.');
+            }
+        }).catch(function () {
+            $('#acceptError').text('Payouts are unavailable right now.');
+        });
+    }
+
+    function showAcceptPayment() {
+        $("#btnConnectStripe").hide();
+        $("#btnAcceptMoneyPayment").show().off("click").on("click", function (e) {
+            e.preventDefault();
+            var $btn = $(this);
+            if ($btn.attr("aria-disabled") == "true") return;
+            $btn.addClass("disabled").attr("aria-disabled", "true");
+            payment($btn);
+        });
+        $("#btnReplacePayoutAccount").show().off("click").on("click", function (e) {
+            e.preventDefault();
+            if (!window.confirm("Replace the Stripe account that receives your payouts? You will be asked to sign in to Stripe. If you signed in to Runwae more than 10 minutes ago, sign out and back in first.")) return;
+            paymentApi('connect-start', { replace: true }).then(function (data) {
+                if (data.success && data.url) {
+                    try { sessionStorage.setItem('rw_replace_payout', '1'); } catch (e2) { /* ignore */ }
+                    window.location.href = data.url;
+                } else {
+                    $('#acceptError').text(data.message || 'Could not start the Stripe connection.');
+                }
+            }).catch(function () { $('#acceptError').text('Could not start the Stripe connection.'); });
+        });
+    }
+
+    function payment($btn) {
+        // Server checks the gig (brand verification record), uses the recorded
+        // charge amount and the connected account, and finalizes transactions/{key}.
         paymentApi('pay-influencer', { gigPath: path })
         .then(function(data) {
             if (data.success && data.transferId) {
@@ -219,12 +277,14 @@ function payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path) {
                 writeCloseGig(snapMarketer, snapInfluencer, snapItem, snapGig, path);
                 updateGigStatus(path, 7);
             } else {
+                if ($btn) $btn.removeClass("disabled").removeAttr("aria-disabled");
                 $('#acceptError').text(data.message || 'Error sending payment.');
                 alert('Error sending payment.');
             }
         })
         .catch(function(error) {
-            $('#acceptError').html('Error sending payment.');
+            if ($btn) $btn.removeClass("disabled").removeAttr("aria-disabled");
+            $('#acceptError').text('Error sending payment.');
             alert('Error sending payment.');
         });
     }

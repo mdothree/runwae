@@ -5,11 +5,11 @@
  *
  * Preconditions (server-checked):
  *   - RW-SEC-01: a SERVER-written verification record exists at
- *     gig_verifications/{itemId}/{gigKey} with by == the item owner (the brand).
- *     The gig "status" is client-writable and is NOT trusted on its own.
- *     (Interim guard: nothing writes that record yet, so every payout is
- *     refused with 403 payout_review until api/payment/verify-post ships.)
- *   - item compensation is "money", gig status is 6 ("post verified")
+ *     gig_verifications/{itemId}/{gigKey} with by == the item owner (the brand),
+ *     written by api/payment/verify-post. The gig "status" is not trusted on its
+ *     own; without the record the payout is refused (403 payout_review).
+ *   - item compensation is "money", gig status is 6 ("post verified", which
+ *     only verify-post can set under the current rules)
  *   - {gigPath}/transaction_key points at transactions/{key} written by
  *     charge-marketer, with influencerID == caller and status "incomplete"
  *   - stripe_accounts/{uid}/stripe_user_id exists (set by connect-oauth)
@@ -17,10 +17,11 @@
  *
  * On success the server writes (admin SDK):
  *   transactions/{key}: status "complete", influencer_transactionID, influencer_time
- *   users/{influencerUid}/transactions/{key}: { path, time }
+ *   users_private/{influencerUid}/transactions/{key}: { path, time }
+ *   {gigPath}/status: 7   (server-only transition)
  */
 const stripe = require('../lib/stripe');
-const { HttpError, requireUser, loadGig, sendError } = require('./_shared');
+const { HttpError, requireUser, loadGig, sendError, loadVerification } = require('./_shared');
 
 const PAYOUT_REVIEW_MSG = 'Payouts are being reviewed; contact hello@runwae.com';
 
@@ -38,20 +39,18 @@ module.exports = async (req, res) => {
     const { gigPath } = req.body || {};
     const { db, itemId, gigKey, item, gig } = await loadGig(gigPath);
 
-    // RW-SEC-01: require the server-only verification record written for the brand.
-    const verification = (await db.ref(`gig_verifications/${itemId}/${gigKey}`).once('value')).val();
-    if (!verification || !item.uid || verification.by !== item.uid) {
-      throw new HttpError(403, 'payout_review', PAYOUT_REVIEW_MSG);
-    }
-
     if (gig.uid !== uid) throw new HttpError(403, 'forbidden', 'Only the influencer on this gig can accept payment');
     if (item.compensation !== 'money') throw new HttpError(400, 'not_money', 'This gig is not paid in money');
+
+    // RW-SEC-01: require the server-only verification record written for the brand.
+    const verification = await loadVerification(db, itemId, gigKey, item);
+    if (!verification) throw new HttpError(403, 'payout_review', PAYOUT_REVIEW_MSG);
     if (Number(gig.status) !== 6) throw new HttpError(409, 'not_ready', 'The post has not been verified yet');
 
     const key = gig.transaction_key;
     if (!key) throw new HttpError(409, 'not_paid', 'The marketer has not paid yet');
     const tx = (await db.ref(`transactions/${key}`).once('value')).val();
-    if (!tx || tx.influencerID !== uid || tx.path !== gigPath || !tx.marketer_transactionID) {
+    if (!tx || tx.influencerID !== uid || tx.path !== gigPath || !tx.marketer_transactionID || tx.marketerID !== item.uid) {
       throw new HttpError(409, 'not_paid', 'No payment found for this gig');
     }
     if (tx.status !== 'incomplete') throw new HttpError(409, 'already_paid', 'This payment was already accepted');
@@ -84,7 +83,8 @@ module.exports = async (req, res) => {
       [`transactions/${key}/status`]: 'complete',
       [`transactions/${key}/influencer_transactionID`]: transfer.id,
       [`transactions/${key}/influencer_time`]: now,
-      [`users/${uid}/transactions/${key}`]: { path: gigPath, time: now },
+      [`users_private/${uid}/transactions/${key}`]: { path: gigPath, time: now },
+      [`${gigPath}/status`]: 7,
     });
 
     return res.status(200).json({ success: true, transferId: transfer.id });
@@ -97,6 +97,6 @@ module.exports = async (req, res) => {
     }
     if (!(error instanceof HttpError)) console.error('Transfer error:', error);
     return sendError(res, error instanceof HttpError ? error
-      : new HttpError(400, 'transfer_failed', error.message));
+      : new HttpError(400, 'transfer_failed', 'The payout could not be completed. Please try again or contact hello@runwae.com.'));
   }
 };

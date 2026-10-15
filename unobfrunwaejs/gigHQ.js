@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         useri = user.uid;
         email = user.email;
         //itemkey =>  items/ itemkey/ influencers/ gigkey
-        database.ref().child('users/' + useri).once('value', function (snapUser) {
+        rwOwnUser(useri, function (snapUser) {
             var role = snapUser.val().role;
             var path = snapUser.val().current_gig;
             var itemKey = path.split("/")[1];
@@ -614,12 +614,7 @@ function handleSkipPostVerification(snapMarketer, snapInfluencer, snapItem, snap
         });
             }
         });
-        writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "verified", "your post", path);
-        event = "Marketer verified the post";
-        type = "post verified";
-        writeToLedger(path, type, event);
-        updateGigStatus(path, 6);
-        window.location.href = "gig";
+        serverVerifyPost(snapMarketer, snapInfluencer, path, "skip", "#skipPostVerification");
     });
 }
 
@@ -652,12 +647,30 @@ function marketerVerificationHandler(snapMarketer, snapInfluencer, snapItem, sna
                 "responses": snapMarketer.val().responses + 1
             });
         });
-        writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "verified", "your post", path);
-        event = "Marketer verified the post";
-        type = "post verified";
-        writeToLedger(path, type, event);
-        updateGigStatus(path, 6);
-        window.location.href = "gig";
+        serverVerifyPost(snapMarketer, snapInfluencer, path, "verify", "#marketerPostCompleted");
+    });
+}
+
+// RW-SEC-01: "post verified" (status 6) releases the creator's payout, so it is
+// recorded by the server (api/payment/verify-post, brand only), not written here.
+function serverVerifyPost(snapMarketer, snapInfluencer, path, mode, btnSel) {
+    var $btn = $(btnSel);
+    if ($btn.attr("aria-disabled") == "true") return;
+    $btn.addClass("disabled").attr("aria-disabled", "true");
+    paymentApi('verify-post', { gigPath: path, mode: mode }).then(function (data) {
+        if (data.success) {
+            if (!data.already) {
+                writeNotification(snapMarketer.key, snapInfluencer.key, snapMarketer.val().username, "verified", "your post", path);
+                writeToLedger(path, "post verified", "Marketer verified the post");
+            }
+            setTimeout(function () { window.location.href = "gig"; }, 400);
+        } else {
+            $btn.removeClass("disabled").removeAttr("aria-disabled");
+            alert(data.message || "The post could not be verified. Please try again.");
+        }
+    }).catch(function () {
+        $btn.removeClass("disabled").removeAttr("aria-disabled");
+        alert("The post could not be verified. Please check your connection and try again.");
     });
 }
 
@@ -665,7 +678,32 @@ function influencerAcceptHandler(snapMarketer, snapInfluencer, snapItem, snapGig
     if (snapItem.val().compensation == "money") {
         payInfluencer(snapMarketer, snapInfluencer, snapItem, snapGig, path);
     } else {
-        $("#btnAcceptGiftPayment").click(function () {
+        $("#btnAcceptGiftPayment").click(function (e) {
+            e.preventDefault();
+            var $btn = $(this);
+            if ($btn.attr("aria-disabled") == "true") return;
+            $btn.addClass("disabled").attr("aria-disabled", "true");
+            // RW-SEC-07: the server records the gift and moves the gig to 7 only
+            // after the brand shipped and verified the post (api/payment/record-gift).
+            paymentApi('record-gift', { gigPath: path }).then(function (data) {
+                if (data.success) {
+                    acceptGiftRecorded(snapMarketer, snapInfluencer, snapItem, snapGig, path, !!data.existing);
+                } else {
+                    $btn.removeClass("disabled").removeAttr("aria-disabled");
+                    alert(data.message || "The gift could not be accepted. Please try again.");
+                }
+            }).catch(function () {
+                // Network failure: queue it (transactions.js retries on the next load).
+                recordTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, 0);
+                $btn.removeClass("disabled").removeAttr("aria-disabled");
+                alert("The gift could not be accepted right now. Please check your connection and try again.");
+            });
+        });
+    }
+}
+
+function acceptGiftRecorded(snapMarketer, snapInfluencer, snapItem, snapGig, path, existing) {
+    if (!existing) {
             subject = "Your Payment Summary!";
             title = "Payment Details";
             body = "Hey " + snapInfluencer.val().name.split(" ")[0] + "! Congrats on the gig! The details of your transaction are as follows: " + snapMarketer.val().name + " paid you with tracking No. " + snapGig.val().tracking_number + " for a " + snapGig.val().platform + " agreement";
@@ -676,15 +714,12 @@ function influencerAcceptHandler(snapMarketer, snapInfluencer, snapItem, snapGig
             recordInfluencerPaymentAnalytics(snapMarketer, snapInfluencer, snapItem, snapGig, path, false)
             writeNotification(snapInfluencer.key, snapMarketer.key, snapInfluencer.val().username, "accepted", " your payment", path);
             event = "Influencer accepted the payment";
-            recordTransaction(snapMarketer, snapInfluencer, snapItem, snapGig, path, 0);
             type = "payment accepted";
             writeToLedger(path, type, event);
             writeCloseGig(snapMarketer, snapInfluencer, snapItem, snapGig, path);
             incrementGigs(snapMarketer, snapInfluencer, snapItem, path);
-            updateGigStatus(path, 7);
-            window.location.href = "gig";
-        });
     }
+    setTimeout(function () { window.location.href = "gig"; }, 400);
 }
 
 function displayInfluencerPayment(snapMarketer, snapInfluencer, snapItem, snapGig, path) {

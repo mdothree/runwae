@@ -707,9 +707,15 @@
                                                 <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
                                                     <div class="hide 6 money">
                                                         <!--live-->
-                                                        <a class="btn btn-primary btn-md" href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_ErI4AkdbhU0utLvqC2EBqGowHmBFgQqQ&scope=read_write"
-                                                            class="stripe-connect"><span>Accept Payment With
-                                                                Stripe</span></a>
+                                                        <!-- RW-SEC-02/23: the authorize URL (with a server-issued state) comes from /api/payment/connect-start -->
+                                                        <a class="btn btn-primary btn-md stripe-connect" href="#" id="btnConnectStripe"
+                                                            style="display:none"><span>Connect Stripe to Accept Payment</span></a>
+                                                        <h6 id="payoutConnectNote" style="display:none"></h6>
+                                                        <a class="btn btn-primary btn-md" href="#" id="btnFinishStripeConnect"
+                                                            style="display:none">Connect This Stripe Account</a>
+                                                        <a class="btn btn-primary btn-md" href="#" id="btnAcceptMoneyPayment"
+                                                            style="display:none">Accept Payment</a>
+                                                        <br><a href="#" id="btnReplacePayoutAccount" style="display:none">Replace payout account</a>
                                                                 <br><br>
                                                                 <a target="_blank" href="https://stripe.com/about"><button id="btnAboutStripeMarketer"
                                                                     class="about-stripe-button-el">About Stripe</button></a>

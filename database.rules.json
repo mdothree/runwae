@@ -52,7 +52,7 @@
         },
         "conversations": {
           "$c": {
-            ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && newData.child('uid').val() === auth.uid && (!data.exists() || data.child('uid').val() === auth.uid) && (!newData.exists() || (newData.hasChildren(['uid', 'read_or_unread']) && newData.child('uid').isString() && (newData.child('read_or_unread').val() === 'read' || newData.child('read_or_unread').val() === 'unread')))"
+            ".write": "auth != null && auth.uid !== $uid && (!root.child('users_private').child($uid).child('conversations').child($c).exists() || root.child('users_private').child($uid).child('conversations').child($c).child('uid').val() === auth.uid) && root.child('users').child($uid).exists() && newData.child('uid').val() === auth.uid && (!data.exists() || data.child('uid').val() === auth.uid) && (!newData.exists() || (newData.hasChildren(['uid', 'read_or_unread']) && newData.child('uid').isString() && (newData.child('read_or_unread').val() === 'read' || newData.child('read_or_unread').val() === 'unread')))"
           }
         },
         "gigs": {
@@ -63,6 +63,8 @@
         "transactions": {
           "$k": { ".validate": false }
         },
+        "plan": { ".validate": false },
+        "stripe_customer_id": { ".validate": false },
 
         "unread_notifications_count": {
           ".write": "auth != null && root.child('users').child($uid).exists()",
@@ -91,58 +93,133 @@
       }
     },
 
+    "users_private": {
+      ".read": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "email": { ".validate": "newData.isString() && newData.val().length <= 254" },
+        "customer_id": { ".validate": "newData.isString() && newData.val().length <= 100" },
+        "notifications": {
+          "$k": {
+            ".write": "auth != null && auth.uid !== $uid && root.child('users').child($uid).exists() && !data.exists() && newData.child('uid').val() === auth.uid && (!newData.exists() || (newData.hasChildren(['uid', 'action', 'read_or_unread', 'time']) && newData.child('action').isString() && newData.child('action').val().length <= 100 && (newData.child('read_or_unread').val() === 'read' || newData.child('read_or_unread').val() === 'unread') && newData.child('time').isNumber()))"
+          }
+        },
+        "conversations": {
+          "$c": {
+            ".write": "auth != null && auth.uid !== $uid && (!root.child('users').child($uid).child('conversations').child($c).exists() || root.child('users').child($uid).child('conversations').child($c).child('uid').val() === auth.uid) && root.child('users').child($uid).exists() && newData.child('uid').val() === auth.uid && (!data.exists() || data.child('uid').val() === auth.uid) && (!newData.exists() || (newData.hasChildren(['uid', 'read_or_unread']) && newData.child('uid').isString() && (newData.child('read_or_unread').val() === 'read' || newData.child('read_or_unread').val() === 'unread')))"
+          }
+        },
+        "transactions": {
+          "$k": { ".validate": false }
+        }
+      }
+    },
+
     "items": {
       ".read": "auth != null",
       ".indexOn": ["time", "uid"],
       "$item": {
-        ".write": "auth != null && (data.exists() ? data.child('uid').val() === auth.uid : newData.child('uid').val() === auth.uid)",
         ".validate": "newData.hasChild('uid')",
 
-        "uid": { ".validate": "newData.isString() && (!data.exists() || newData.val() === data.val())" },
-        "caption": { ".validate": "newData.isString() && newData.val().length <= 5000" },
+        "uid": {
+          ".write": "auth != null && !data.exists() && newData.val() === auth.uid",
+          ".validate": "newData.isString()"
+        },
+        "caption": {
+          ".write": "auth != null && (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid)",
+          ".validate": "newData.isString() && newData.val().length <= 5000"
+        },
+        "$field": {
+          ".write": "auth != null && (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid)"
+        },
 
         "interests": {
+          ".write": "auth != null && !data.exists() && newData.val() === '' && (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid)",
           "$k": {
-            ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && data.child('uid').val() === auth.uid))",
+            ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && (data.child('uid').val() === auth.uid || root.child('items').child($item).child('uid').val() === auth.uid)))",
             ".validate": "newData.hasChildren(['uid', 'time']) && newData.child('time').isNumber()"
           }
         },
         "comments": {
+          ".write": "auth != null && !data.exists() && newData.val() === '' && (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid)",
           "$k": {
-            ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && data.child('uid').val() === auth.uid))",
+            ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && (data.child('uid').val() === auth.uid || root.child('items').child($item).child('uid').val() === auth.uid)))",
             ".validate": "newData.hasChildren(['uid', 'time', 'comment']) && newData.child('time').isNumber() && newData.child('comment').isString() && newData.child('comment').val().length <= 2000"
           }
         },
         "shares": {
           ".indexOn": ["uid"],
+          ".write": "auth != null && !data.exists() && newData.val() === '' && (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid)",
           "$k": {
             ".write": "auth != null && ((!data.exists() && newData.child('uid').val() === auth.uid) || (!newData.exists() && data.child('uid').val() === auth.uid))",
             ".validate": "newData.hasChildren(['uid', 'time']) && newData.child('time').isNumber()"
           }
         },
         "influencers": {
+          ".write": "auth != null && !data.exists() && newData.val() === '' && (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid)",
           "$gig": {
-            ".write": "auth != null && data.exists() && data.child('uid').val() === auth.uid",
+            ".write": "auth != null && data.exists() && !newData.exists() && !data.child('transaction_key').exists() && data.child('status').val() < 4 && (root.child('items').child($item).child('uid').val() === auth.uid || data.child('uid').val() === auth.uid)",
             ".validate": "newData.hasChild('uid')",
-            "uid": { ".validate": "newData.isString() && (!data.exists() || newData.val() === data.val())" },
-            "transaction_key": { ".validate": false }
+            "uid": {
+              ".write": "auth != null && !data.exists() && root.child('items').child($item).child('uid').val() === auth.uid && newData.isString() && newData.val() !== auth.uid",
+              ".validate": "newData.isString() && (!data.exists() || newData.val() === data.val())"
+            },
+            "status": {
+              ".write": "auth != null && newData.exists() && ((data.exists() && newData.val() === data.val() && (root.child('items').child($item).child('uid').val() === auth.uid || root.child('items').child($item).child('influencers').child($gig).child('uid').val() === auth.uid)) || (root.child('items').child($item).child('uid').val() === auth.uid && ((!data.exists() && newData.val() === 0) || (data.val() === 0 && (newData.val() === 1 || newData.val() === 2)) || (data.val() === 2 && newData.val() === 3) || (data.val() >= 0 && data.val() <= 3 && newData.val() === 4 && root.child('items').child($item).child('compensation').val() === 'gift' && data.parent().child('tracking_number').isString() && data.parent().child('tracking_number').val().length > 0))) || (root.child('items').child($item).child('influencers').child($gig).child('uid').val() === auth.uid && (((data.val() === 1 || data.val() === 3) && newData.val() === 2) || (data.val() === 4 && newData.val() === 5))))",
+              ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 7"
+            },
+            "time": {
+              ".write": "auth != null && !data.exists() && root.child('items').child($item).child('uid').val() === auth.uid",
+              ".validate": "newData.isNumber()"
+            },
+            "platform": {
+              ".write": "auth != null && !data.exists() && root.child('items').child($item).child('uid').val() === auth.uid",
+              ".validate": "newData.isString() && newData.val().length <= 40"
+            },
+            "proposal": {
+              ".write": "auth != null && ((root.child('items').child($item).child('uid').val() === auth.uid && data.parent().child('status').val() === 0) || (root.child('items').child($item).child('influencers').child($gig).child('uid').val() === auth.uid && (data.parent().child('status').val() === 1 || data.parent().child('status').val() === 3)))",
+              "caption": { ".validate": "newData.isString() && newData.val().length <= 5000" },
+              "photo_url": { ".validate": "(newData.isBoolean() && newData.val() === false) || (newData.isString() && newData.val().length <= 2048 && newData.val().matches(/^https:\\/\\//))" },
+              "watermarked_photo_url": { ".validate": "(newData.isBoolean() && newData.val() === false) || (newData.isString() && newData.val().length <= 2048 && newData.val().matches(/^https:\\/\\//))" },
+              "time": { ".validate": "newData.isNumber()" },
+              "$other": { ".validate": false }
+            },
+            "ledger": {
+              "$k": {
+                ".write": "auth != null && !data.exists() && (root.child('items').child($item).child('uid').val() === auth.uid || root.child('items').child($item).child('influencers').child($gig).child('uid').val() === auth.uid)",
+                ".validate": "newData.hasChildren(['time', 'type', 'event']) && newData.child('time').isNumber() && newData.child('type').isString() && newData.child('type').val().length <= 100 && newData.child('event').isString() && newData.child('event').val().length <= 500"
+              }
+            },
+            "disputes": {
+              "$k": {
+                ".write": "auth != null && !data.exists() && (root.child('items').child($item).child('uid').val() === auth.uid || root.child('items').child($item).child('influencers').child($gig).child('uid').val() === auth.uid)",
+                ".validate": "newData.hasChildren(['time', 'description', 'status']) && newData.child('time').isNumber() && newData.child('description').isString() && newData.child('description').val().length <= 5000 && newData.child('status').val() === 'open'"
+              }
+            },
+            "tracking_number": {
+              ".write": "auth != null && root.child('items').child($item).child('uid').val() === auth.uid && root.child('items').child($item).child('compensation').val() === 'gift' && data.parent().child('status').val() < 4",
+              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+            },
+            "transaction_key": { ".write": false, ".validate": false },
+            "$other": { ".write": false }
           }
         },
 
         "interests_count": {
-          ".write": "auth != null && data.parent().exists()",
+          ".write": "auth != null && (data.parent().exists() || (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid))",
           ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
         },
         "comments_count": {
-          ".write": "auth != null && data.parent().exists()",
+          ".write": "auth != null && (data.parent().exists() || (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid))",
           ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
         },
         "shares_count": {
-          ".write": "auth != null && data.parent().exists()",
+          ".write": "auth != null && (data.parent().exists() || (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid))",
           ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
         },
         "gigs_count": {
-          ".write": "auth != null && data.parent().exists()",
+          ".write": "auth != null && (data.parent().exists() || (data.parent().child('uid').exists() ? data.parent().child('uid').val() === auth.uid : newData.parent().child('uid').val() === auth.uid))",
           ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000"
         }
       }
@@ -151,9 +228,9 @@
     "conversations": {
       ".read": "auth != null && (auth.token.admin === true || root.child('admins').child(auth.uid).val() === true)",
       "$c": {
-        ".read": "auth != null && root.child('users').child(auth.uid).child('conversations').child($c).child('uid').isString() && root.child('users').child(root.child('users').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid",
+        ".read": "auth != null && ((root.child('users_private').child(auth.uid).child('conversations').child($c).child('uid').isString() && (root.child('users_private').child(root.child('users_private').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid || root.child('users').child(root.child('users_private').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid)) || (root.child('users').child(auth.uid).child('conversations').child($c).child('uid').isString() && (root.child('users_private').child(root.child('users').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid || root.child('users').child(root.child('users').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid)))",
         "$m": {
-          ".write": "auth != null && !data.exists() && newData.child('uid').val() === auth.uid && root.child('users').child(auth.uid).child('conversations').child($c).child('uid').isString() && root.child('users').child(root.child('users').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid",
+          ".write": "auth != null && !data.exists() && newData.child('uid').val() === auth.uid && ((root.child('users_private').child(auth.uid).child('conversations').child($c).child('uid').isString() && (root.child('users_private').child(root.child('users_private').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid || root.child('users').child(root.child('users_private').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid)) || (root.child('users').child(auth.uid).child('conversations').child($c).child('uid').isString() && (root.child('users_private').child(root.child('users').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid || root.child('users').child(root.child('users').child(auth.uid).child('conversations').child($c).child('uid').val()).child('conversations').child($c).child('uid').val() === auth.uid)))",
           ".validate": "newData.hasChildren(['uid', 'body', 'time']) && newData.child('body').isString() && newData.child('body').val().length <= 5000 && newData.child('time').isNumber()"
         }
       }
@@ -226,6 +303,28 @@
           "$other": { ".validate": false }
         }
       }
+    },
+
+    "plans": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": false
+      }
+    },
+
+    "billing": {
+      ".read": false,
+      ".write": false
+    },
+
+    "gig_verifications": {
+      ".read": false,
+      ".write": false
+    },
+
+    "oauth_states": {
+      ".read": false,
+      ".write": false
     },
 
     "rate_limits": {

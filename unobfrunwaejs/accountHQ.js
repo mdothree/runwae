@@ -3,7 +3,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         useri = user.uid;
         email = user.email;
-        database.ref().child('users/' + useri).once('value', function (snap) {
+        rwOwnUser(useri, function (snap) {
             handleMessagePreference();
             displayAccountInfo();
             profilePhotos(snap);
@@ -28,7 +28,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                 $("#btnVerifyEmail").remove();
             }
             $("#btnSave").click(function () {
-                database.ref().child('users/' + useri).once('value', function (snap) {
+                rwOwnUser(useri, function (snap) {
                     //pass through the current user snap so we can compare it to the info to be updated
                     updateInfo(snap);
                 });

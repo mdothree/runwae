@@ -3,7 +3,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         useri = user.uid;
         containerAction();
-        database.ref().child('users/' + useri).once('value', function (snap) {
+        rwOwnUser(useri, function (snap) {
             if (snap.val().current_profile == useri) {
                 displayProfile(snap);
                 handleRole(snap, snap);

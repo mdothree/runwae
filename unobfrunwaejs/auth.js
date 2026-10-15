@@ -150,7 +150,6 @@ function createUser(email, password) {
                     database.ref('users/' + user.uid).set({
                         "role": role,
                         "username": $('#usernameInput').val(),
-                        "email": email,
                         "photo_url": 'https://runwae.com/img/newuser.png',
                         //getPhotoUrl(role),
                         "header_url": 'https://runwae.com/img/newheader.png',
@@ -161,9 +160,6 @@ function createUser(email, password) {
                         "verified": false,
                         "exploreTutorialCompleted": false,
                         "description": "",
-                        "notifications": "",
-                        "conversations": "",
-                        "transactions": "",
                         "gigs": "",
                         "interests": "",
                         "posts": "",
@@ -177,7 +173,6 @@ function createUser(email, password) {
                         "current_conversation": "",
                         "current_item": "",
                         "current_gig": "",
-                        "customer_id": "",
                         "unread_messages_count": 0,
                         "unread_notifications_count": 0,
                         "favorited_count": 0,
@@ -203,6 +198,11 @@ function createUser(email, password) {
                             "writer": 0,
                             "photographer": 0
                         }
+                    });
+                    // RW-SEC-03: private fields go to the owner-only users_private/{uid}.
+                    rwPrivateRef(user.uid).set({
+                        "email": email,
+                        "customer_id": ""
                     });
                     // obj = getCookieObj();
                     // obj.auth = true;

@@ -6,7 +6,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         useri = user.uid;
         email = user.email;
-        database.ref().child('users/' + useri).once('value', function (snapUser) {
+        rwOwnUser(useri, function (snapUser) {
             if (window.location.href.includes("messages")) {
                 displayConversations(snapUser, 100);
                 var conversation = snapUser.val().current_conversation;
@@ -39,7 +39,7 @@ function initContact(snapUser, currentContact) {
 
 function writeMessage(snapUser) {
     //reget the info because the current info could have changed
-    database.ref().child('users/' + snapUser.key).once('value', function (snapUser) {
+    rwOwnUser(snapUser.key, function (snapUser) {
         recipient = snapUser.val().current_contact;
         conversation = snapUser.val().current_conversation;
         database.ref().child('users/' + recipient).once('value', function (snapRecipient) {
@@ -52,7 +52,8 @@ function writeMessage(snapUser) {
 }
 
 function write(snapUser, snapRecipient, conversation) {
-    database.ref().child('users/' + snapUser.key + '/conversations/' + conversation).update({
+    // RW-SEC-03: conversation indexes live at users_private/{uid}/conversations (owner-only reads).
+    rwOwnPrivateUpdate(snapUser, 'conversations', conversation, {
         "read_or_unread": "read",
         "uid": snapRecipient.key,
         "time": dNow
@@ -72,7 +73,7 @@ function write(snapUser, snapRecipient, conversation) {
     //        });
     //    }
 
-    database.ref().child('users/' + snapRecipient.key + '/conversations/' + conversation).update({
+    rwPrivateRef(snapRecipient.key, 'conversations/' + conversation).update({
         "read_or_unread": "unread",
         "uid": snapUser.key,
         "time": dNow
@@ -91,13 +92,9 @@ function write(snapUser, snapRecipient, conversation) {
     actionText = "Reply Now";
     sendEmail(snapRecipient.val().email, "You have a message on Runwae!", [title, body, bodyNote, moreLink, actionText]);
 
-    database.ref().child('users/' + snapUser.key).once('value', function (snapUser) {
-        database.ref().child('users/' + snapRecipient.key).once('value', function (snapRecipient) {
-            updateUnreadMessagesCount(snapUser, snapRecipient);
-        });
-    });
-
-    database.ref().child('users/' + snapUser.key).once('value', function (snapUser) {
+    // Unread badges: each user recounts their own index on load (rwOwnUser);
+    // the recipient's private index is not readable here.
+    rwOwnUser(snapUser.key, function (snapUser) {
         displayConversations(snapUser, 5);
         displayConversations(snapUser, 100);
         displayConversation(snapUser, snapUser.val().current_conversation);
