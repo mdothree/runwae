@@ -391,3 +391,115 @@ select.form-control { height: 40px; padding: 0 2rem 0 .875rem; line-height: norm
 #btnSave { margin-top: var(--rw-s2); }
 /* profile sidebar facts: display.js hides a badge (or the row) when the record has no data for it */
 .trust-signals[hidden], .trust-badge[hidden] { display: none !important; }
+
+/* ---------- 13. Profile + feed cards (swarm/profile, 2026-10-14) ---------- */
+/* Sidebar: Followers / Following counts are buttons that open #connectionsSection (profile.html inline script). */
+.profile-stats { align-items: flex-start; }
+.profile-stats .stat-item { padding: 4px 8px; line-height: inherit; }
+.profile-stats .rw-stat-link { background: none; border: 0; margin: 0; border-radius: 10px; font: inherit; color: inherit; cursor: pointer; }
+.profile-stats .rw-stat-link:hover .stat-label, .profile-stats .rw-stat-link[aria-expanded="true"] .stat-label { color: var(--rw-ink); text-decoration: underline; text-underline-offset: 3px; }
+.profile-stats .rw-stat-link:focus-visible { outline: 2px solid var(--rw-accent); outline-offset: 2px; }
+/* Follow: "Follow" / "Following" (accent tint), "Unfollow" on hover or keyboard focus. follow.js rwFollowState(). */
+#btnFollow .followText--hover { display: none; }
+#btnFollow.following { background: var(--rw-accent-soft) !important; border-color: var(--rw-accent) !important; color: var(--rw-ink) !important; }
+#btnFollow.following:is(:hover, :focus-visible) { background: var(--rw-bg) !important; border-color: var(--rw-ink) !important; }
+#btnFollow.following:is(:hover, :focus-visible) .followText { display: none; }
+#btnFollow.following:is(:hover, :focus-visible) .followText--hover { display: inline; }
+#btnFollow:disabled { opacity: .6; cursor: progress; }
+/* Empty sidebar blocks: no label without content. Social links are shown by display.js (.show()). */
+.profile-bio:has(#description:empty), .profile-skills:has(#industry:empty) { display: none; }
+.profile-socials:has(#socialAccounts):not(:has(.social-link:not([style*="none"]))) { display: none; }
+/* "No reviews yet" is said once (the Reviews list); the summaries hide until there are reviews (reviews.js). */
+.rating-summary[hidden], .rating-summary-inline[hidden] { display: none !important; }
+.profile-marketplace .rating-stars ion-icon, .profile-marketplace .rating-summary-inline ion-icon { color: var(--rw-ink) !important; }
+
+/* Followers / Following list rows (#followTemplate) */
+#connectionsSection[hidden], .rw-people-list[hidden] { display: none !important; }
+.rw-people { display: flex; flex-direction: column; }
+.rw-people > .rw-person { margin: 0 !important; padding: 0 !important; background: none !important; border: 0; border-top: 1px solid var(--rw-line); border-radius: 0 !important; box-shadow: none !important; }
+.rw-people > .rw-person:first-child { border-top: 0; }
+.rw-person__link { display: flex; align-items: center; gap: var(--rw-s3); padding: var(--rw-s3) 0; color: var(--rw-text); text-decoration: none; }
+.rw-person__img { width: 40px; height: 40px; flex: none; border-radius: 50%; object-fit: cover; background: var(--rw-accent-soft); }
+.rw-person__img[src=""] { visibility: hidden; }
+.rw-person__body { display: flex; flex-direction: column; min-width: 0; }
+.rw-person__name { color: var(--rw-ink); font-weight: 500; }
+.rw-person__handle { color: var(--rw-muted); font-size: .8125rem; }
+.rw-person__link:hover .rw-person__name { text-decoration: underline; }
+.rw-people__empty { margin: 0; padding: var(--rw-s5) 0; text-align: center; color: var(--rw-muted); }
+
+/* Empty states written by timeline.js / profileHQ.js / transactions.js: plain muted text, centred, not bold. */
+.services-grid > br { display: none; }
+.services-grid > h6 { grid-column: 1 / -1; margin: 0; padding: var(--rw-s5) 0; text-align: center; font: inherit; font-size: 1rem; font-weight: 400; color: var(--rw-muted); }
+.profile-section .table-careers > h3 { margin: 0; padding: var(--rw-s5) 0; text-align: center; font: inherit; font-size: 1rem; font-weight: 400; color: var(--rw-muted); }
+/* Applications / Agreements rows: readable text, the Open button never clipped. */
+.profile-section .table-careers li { grid-template-columns: 1fr 1.5fr 1fr 1fr minmax(72px, auto); font-size: .9375rem; color: var(--rw-text); }
+.profile-section .table-careers li.head { background: none; font-size: .75rem; color: var(--rw-muted); }
+/* main.css made each cell display:table-cell; width:20% (of a ~90px grid track), so text wrapped per letter. */
+.profile-section .table-careers li { margin: 0; padding: var(--rw-s3) 0; border: 0; border-bottom: 1px solid var(--rw-line); border-radius: 0; box-shadow: none; }
+.profile-section .table-careers li:hover { background: none; }
+.profile-section .table-careers li > span { display: block; width: auto; min-width: 0; overflow-wrap: break-word; }
+.profile-section .table-careers .btn.openGig { width: auto !important; min-width: 64px; padding: 6px 16px !important; white-space: nowrap; font-size: .875rem !important; line-height: 1.4; }
+@media (max-width: 768px) {
+  .profile-section .table-careers li { grid-template-columns: auto 1fr auto; }
+}
+
+/* Platform / category tags: ink on the accent tint (not white on periwinkle). */
+.post-category, .post-category.bg-primary, .post-category.platform { background: var(--rw-accent-soft) !important; color: var(--rw-ink) !important; font-size: .75rem; letter-spacing: .02em; padding: 3px 10px; border-radius: var(--rw-radius-pill); }
+
+/* Feed cards (explore + profile timeline): "Interested" = an rw chip, legible at 390. */
+.post .btn-interest { display: inline-flex; align-items: center; height: 32px; padding: 0 14px !important; margin: 0 8px 0 auto; border-radius: var(--rw-radius-pill) !important; border: 1px solid var(--rw-line) !important; background: var(--rw-bg) !important; color: var(--rw-ink) !important; font-size: .8125rem !important; font-weight: 500; line-height: 1 !important; text-transform: none; letter-spacing: 0; box-shadow: none !important; white-space: nowrap; cursor: pointer; }
+.post .btn-interest:hover { border-color: var(--rw-ink) !important; }
+.post .btn-interest.interested { background: var(--rw-accent-soft) !important; border-color: var(--rw-accent) !important; color: var(--rw-ink) !important; }
+.post .btn-interest.hide { display: none !important; }
+/* Card header: avatar, name/time (truncates), chip, compensation icon on one line at 390 too. */
+.post .post__author { display: flex !important; align-items: center; gap: var(--rw-s3); }
+.post .post__author > img { flex: none; }
+.post .post__author .author-date { flex: 1 1 auto; min-width: 0; margin: 0 !important; }
+.post .post__author .post__author-name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.post .post__author .btn-interest { margin: 0 !important; flex: none; }
+.post .post__author .postIcon { flex: none; margin: 0 !important; position: static !important; }
+.post .post-additional-info { display: flex !important; flex-direction: row !important; align-items: center; justify-content: space-between; }
+.post .post-additional-info .comments-shared { margin: 0 !important; }
+/* Platform interest buttons (feed cards + the open-post modal): compact 36px round icon buttons on every
+   viewport. Applied = accent tint; not applied (feed/post.js paint #9a9fbf inline) = white with a hairline. */
+.post .control-block-button.post-control-button { position: static !important; width: auto !important; height: auto !important; transform: none !important; flex-direction: row !important; flex-wrap: wrap; justify-content: flex-start !important; gap: 8px; margin-top: var(--rw-s3); padding-top: var(--rw-s3); border-top: 1px solid var(--rw-line); }
+.post-control-button .btn-control.btnInterest { align-items: center; justify-content: center; width: 36px !important; height: 36px !important; min-width: 0 !important; padding: 0 !important; margin: 0 !important; border-radius: 50% !important; border: 1px solid var(--rw-accent) !important; background: var(--rw-accent-soft) !important; color: var(--rw-ink) !important; box-shadow: none !important; position: static !important; float: none !important; line-height: 1 !important; }
+.post-control-button .btn-control.btnInterest:not([style*="none"]) { display: inline-flex; }
+.post-control-button .btn-control.btnInterest svg { width: 16px !important; height: 16px !important; margin: 0 !important; position: static !important; transform: none !important; color: inherit !important; fill: currentColor !important; }
+.post-control-button .btn-control.btnInterest:is([style*="9a9fbf"], [style*="154, 159, 191"]) { background: var(--rw-bg) !important; border-color: var(--rw-line) !important; color: var(--rw-muted) !important; }
+.post-control-button .btn-control.btnInterest:hover { border-color: var(--rw-ink) !important; color: var(--rw-ink) !important; }
+.post-control-button .btn-control.btnInterest.disabled { opacity: .55; pointer-events: none; }
+
+/* Open-post modal (profile?post, explore): photo on top, close X in its own corner, never over the content. */
+#open-post .modal-dialog { width: calc(100% - 32px) !important; max-width: 560px !important; margin: 32px auto !important; }
+#open-post .modal-content { display: block !important; position: relative; border: 1px solid var(--rw-line); border-radius: 14px; overflow: hidden; background: var(--rw-bg); }
+#open-post .modal-body { display: block !important; padding: 0 !important; margin: 0 !important; border: 0 !important; }
+#open-post .open-photo-thumb { float: none !important; display: block !important; width: 100% !important; max-width: none !important; height: auto !important; min-height: 0 !important; padding: 0 !important; background: var(--rw-accent-soft); }
+#open-post .open-photo-thumb[style*="none"] { display: none !important; }
+#open-post .open-photo-thumb div, #open-post .open-photo-thumb .photo-item { display: block !important; width: 100% !important; height: auto !important; }
+#open-post .open-photo-thumb .overlay { display: none !important; }
+#open-post #postPhotoUrl { display: block; width: 100% !important; height: auto !important; aspect-ratio: 4 / 3; max-height: 60vh; object-fit: cover; }
+#open-post #postPhotoUrl:not([src]), #open-post #postPhotoUrl[src=""] { display: none; }
+#open-post .open-photo-content { float: none !important; width: 100% !important; max-width: none !important; padding: var(--rw-s4) var(--rw-s5) var(--rw-s5) !important; }
+#open-post .icon-close { position: absolute !important; top: 12px !important; right: 12px !important; z-index: 50 !important; opacity: 1 !important; display: flex !important; align-items: center; justify-content: center; width: 36px !important; height: 36px !important; margin: 0 !important; padding: 0 !important; border-radius: 50%; background: var(--rw-bg) !important; border: 1px solid var(--rw-line); color: var(--rw-ink) !important; }
+#open-post .icon-close svg { width: 14px; height: 14px; fill: var(--rw-ink) !important; color: var(--rw-ink); }
+#open-post .modal-body, #open-post .open-photo-thumb, #open-post .open-photo-content { z-index: auto !important; }
+#open-post .open-photo-thumb * { padding: 0 !important; margin: 0 !important; }
+#open-post .hentry.post { padding: 0 !important; margin: 0 !important; border: 0 !important; }
+#open-post .post__author { display: flex !important; align-items: center; gap: var(--rw-s3); }
+#open-post .post__author .author-date { flex: 1 1 auto; min-width: 0; margin: 0 !important; }
+#open-post .post-additional-info { display: flex !important; flex-direction: row !important; align-items: center; justify-content: space-between; }
+#open-post .post-additional-info .comments-shared { margin: 0 !important; }
+#open-post .comments-list > li { background: none !important; padding: var(--rw-s3) 0 !important; margin: 0 !important; }
+#open-post .post__author { padding-right: 48px; }
+#open-post .post__author .postIcon { margin-left: auto; }
+#open-post .mCustomScrollbar { max-height: none; overflow: visible; }
+#open-post .ps__scrollbar-x-rail, #open-post .ps__scrollbar-y-rail { display: none !important; }
+#open-post .comments-list { margin: 0; padding: 0; }
+#open-post .comments-list > li { padding: var(--rw-s3) 0 !important; }
+#open-post .comment-form { display: flex !important; flex-wrap: wrap; align-items: flex-start; gap: var(--rw-s3); margin: var(--rw-s3) 0 0 !important; padding: var(--rw-s3) 0 0 !important; background: none !important; border-top: 1px solid var(--rw-line); }
+#open-post .comment-form .post__author { padding: 0; flex: none; }
+#open-post .comment-form .post__author img { width: 32px; height: 32px; border-radius: 50%; }
+#open-post .comment-form .form-group { flex: 1 1 200px; margin: 0 !important; padding: 0 !important; }
+#open-post .comment-form textarea { width: 100%; min-height: 44px; }
+#open-post .comment-form #btnWriteComment { flex: none; margin: 0 0 0 auto !important; }

@@ -32,7 +32,8 @@ function displayPost(snapVisitor, snapHost, el) {
         $("#postTime").text(timeDisplay(itemObj["time"]));
         $("#postPhotoUrl").attr("src", itemObj["photo_url"]);
         $("#open-post .ui-block").attr("id", key);
-        $("#open-post article").attr("id", snapHost.key);
+        // The interest/notification target is the item's author (not the profile being viewed).
+        $("#open-post article").attr("id", itemObj["uid"] || snapHost.key);
         if (role != "influencer") {
             $("#open-post .btnInterest").addClass("disabled");
             $("#open-post .btnInterest").hide();
@@ -40,7 +41,7 @@ function displayPost(snapVisitor, snapHost, el) {
         } else {
             interestShown();
         }
-        if (useri == snapHost) {
+        if (itemObj["uid"] && useri == itemObj["uid"]) {
             $("#open-post .more").show();
         } else {
             $("#open-post .more").hide();
@@ -64,18 +65,20 @@ function displayPost(snapVisitor, snapHost, el) {
         shared();
         allCommentsHTML();
 
+        // .css("display", null) is a no-op in jQuery, so the platform buttons never appeared; "" clears the
+        // inline display:none. Each button carries data-platform (interests.js reads it, not the element id).
         function buttonsShown(after) {
             if (itemObj["facebook"]) {
-                $("#postFacebook").css("display", null);
+                $("#postFacebook").css("display", "");
             }
             if (itemObj["instagram"]) {
-                $("#postInstagram").css("display", null);
+                $("#postInstagram").css("display", "");
             }
             if (itemObj["twitter"]) {
-                $("#postTwitter").css("display", null);
+                $("#postTwitter").css("display", "");
             }
             if (itemObj["linkedin"]) {
-                $("#postLinkedin").css("display", null);
+                $("#postLinkedin").css("display", "");
             }
         }
 
@@ -182,7 +185,7 @@ function displayPost(snapVisitor, snapHost, el) {
                 var uid = $(this).closest(".comment-item").attr("id");
                 profileRelocate(snapVisitor, uid);
             });
-            if (snapHost.key = snapVisitor.key) {
+            if (itemObj["uid"] && itemObj["uid"] == snapVisitor.key) {
                 $("#open-post .deactivatePost").on('click', function (event) {
                     event.preventDefault();
                     event.stopPropagation();

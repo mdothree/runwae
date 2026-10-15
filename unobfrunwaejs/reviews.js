@@ -5,7 +5,7 @@ function handleWriteReview(visitorSnap, hostSnap) {
     hostObj = hostSnap.val();
     reviewable = false;
     // console.log(Object.keys(hostObj["gigs"]));
-    for (var gigkey of Object.keys(hostObj["gigs"])) {
+    for (var gigkey of Object.keys(hostObj["gigs"] || {})) {
         if (hostObj["gigs"][gigkey]) {
             if (hostObj["gigs"][gigkey]["uid"] == visitorSnap.key) {
                 reviewable = true;
@@ -121,6 +121,8 @@ function rwRatingSummary(count, ratings) {
     for (var i = 0; i < ratings.length; i++) sum += ratings[i];
     $(".rating-value").text(ratings.length ? (sum / ratings.length).toFixed(1) + " / 10" : "");
     $(".rating-count").text(count ? "(" + count + (count === 1 ? " review)" : " reviews)") : "No reviews yet");
+    // "No reviews yet" is said once, by the Reviews list; the sidebar and header summaries hide until there are reviews.
+    $(".rating-summary, .rating-summary-inline").prop("hidden", !count);
 }
 
 // One row per review: reviewer, time, text, score. Each row gets its own review object (the old loop

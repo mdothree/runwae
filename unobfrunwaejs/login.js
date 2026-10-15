@@ -1,6 +1,7 @@
 (function () {
     auth();
-    if (window.location.href.split("?")[1] == "login") {
+    // "?login" opens the log-in panel; it may be followed by "&next=<path>" (auth.js rwNextPath).
+    if (window.location.search.replace(/^\?/, "").split("&")[0] == "login") {
         $('#loginPanel').addClass("active show");
     } else {
         $('#signUpPanel').addClass("active show");
