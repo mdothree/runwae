@@ -27,8 +27,8 @@
  *            409 not_ready (records not written yet: the client retries) | 429
  */
 const crypto = require('crypto');
-const admin = require('./lib/firebase');
-const email = require('./lib/email');
+const admin = require('./_lib/firebase');
+const email = require('./_lib/email');
 
 const KEY = /^[A-Za-z0-9_-]{1,128}$/;
 const GIG_PATH = /^items\/([A-Za-z0-9_-]{1,128})\/influencers\/([A-Za-z0-9_-]{1,128})$/;

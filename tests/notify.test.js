@@ -1,5 +1,5 @@
 /**
- * Unit tests for api/notify.js + api/lib/email.js with a MOCKED firebase-admin
+ * Unit tests for api/notify.js + api/_lib/email.js with a MOCKED firebase-admin
  * and a MOCKED global fetch (no network, no credentials, nothing is sent).
  * Run: node --test tests/notify.test.js
  */
@@ -127,7 +127,7 @@ global.fetch = async (url, init) => {
 };
 
 const notify = require(path.join(__dirname, '..', 'api', 'notify.js'));
-const email = require(path.join(__dirname, '..', 'api', 'lib', 'email.js'));
+const email = require(path.join(__dirname, '..', 'api', '_lib', 'email.js'));
 
 function call(body, opts) {
   const o = opts || {};
@@ -265,19 +265,19 @@ test('every link and image in a sent email is https on runwae.com or a known hos
   assert.ok(receipt.html.includes('$10.55') && receipt.html.includes('$250'));
 });
 
-test('gig emails deep-link to the agreement when RUNWAE_EMAIL_DEEP_LINKS=1 (else /notifications)', async () => {
+test('gig emails deep-link to the agreement by default (RUNWAE_EMAIL_DEEP_LINKS=0 -> /notifications)', async () => {
   reset();
   await call({ event: 'payment.sent', ids: { gigPath: 'items/item1/influencers/gigPaid' } }, { uid: 'uBrand' });
-  for (const c of fetchCalls) assert.ok(c.body.html.includes('href="https://runwae.com/notifications"') && !c.body.html.includes('/gig?'));
-  process.env.RUNWAE_EMAIL_DEEP_LINKS = '1';
+  assert.strictEqual(fetchCalls.length, 2);
+  for (const c of fetchCalls) {
+    assert.ok(c.body.html.includes('href="https://runwae.com/gig?item=item1&amp;gig=gigPaid"'), c.body.subject);
+    assert.ok(c.body.text.includes('https://runwae.com/gig?item=item1&gig=gigPaid'));
+  }
+  process.env.RUNWAE_EMAIL_DEEP_LINKS = '0';
   try {
     reset();
     await call({ event: 'payment.sent', ids: { gigPath: 'items/item1/influencers/gigPaid' } }, { uid: 'uBrand' });
-    assert.strictEqual(fetchCalls.length, 2);
-    for (const c of fetchCalls) {
-      assert.ok(c.body.html.includes('href="https://runwae.com/gig?item=item1&amp;gig=gigPaid"'), c.body.subject);
-      assert.ok(c.body.text.includes('https://runwae.com/gig?item=item1&gig=gigPaid'));
-    }
+    for (const c of fetchCalls) assert.ok(c.body.html.includes('href="https://runwae.com/notifications"') && !c.body.html.includes('/gig?'));
   } finally { delete process.env.RUNWAE_EMAIL_DEEP_LINKS; }
 });
 

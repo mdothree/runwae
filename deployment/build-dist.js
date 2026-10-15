@@ -56,7 +56,7 @@ for (const d of DIRS) {
   if (fs.existsSync(path.join(root, d))) { copyDir(path.join(root, d), path.join(dist, d)); n++; }
 }
 // Billing copy (subscription + 0% fee model, Principal 2026-10-14): see deployment/billing-copy.js.
-// One switch (RUNWAE_BILLING_ENABLED), one price source (api/lib/billing-config.js).
+// One switch (RUNWAE_BILLING_ENABLED), one price source (api/_lib/billing-config.js).
 const { applyBillingCopy, billingOn } = require('./billing-copy');
 let billingPages = 0;
 for (const f of fs.readdirSync(dist)) {

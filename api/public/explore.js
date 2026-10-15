@@ -250,7 +250,7 @@ async function handler(req, res) {
     return res.status(429).json(Object.assign({ error: 'rate_limited' }, empty));
   }
   try {
-    const admin = require('../lib/firebase');
+    const admin = require('../_lib/firebase');
     const result = await readFeed(admin.database(), parseQuery(req.query));
     res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
     return res.status(200).json(result);

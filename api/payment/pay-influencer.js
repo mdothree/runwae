@@ -20,7 +20,7 @@
  *   users_private/{influencerUid}/transactions/{key}: { path, time }
  *   {gigPath}/status: 7   (server-only transition)
  */
-const stripe = require('../lib/stripe');
+const stripe = require('../_lib/stripe');
 const { HttpError, requireUser, loadGig, sendError, loadVerification } = require('./_shared');
 
 const PAYOUT_REVIEW_MSG = 'Payouts are being reviewed; contact hello@runwae.com';

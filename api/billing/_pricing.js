@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const { billingEnabled } = require('../lib/billing-config');
+const { billingEnabled } = require('../_lib/billing-config');
 
 module.exports = (req, res) => {
   res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300');

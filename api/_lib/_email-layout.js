@@ -56,22 +56,21 @@ const FONT_BODY = "Roboto,system-ui,-apple-system,'Segoe UI','Helvetica Neue',He
 const MANAGE_URL = `${SITE}/account#notifications`;
 
 /**
- * Deep links into the app. The pages can't yet open a specific agreement or "my own profile" from the URL
- * (gig.html reads users/{uid}/current_gig, profile.html reads users/{uid}/current_profile), so until they can,
- * the buttons go to /notifications, where each item opens the right agreement / your own profile in one tap.
- * Set RUNWAE_EMAIL_DEEP_LINKS=1 once the pages honour these routes (contract in EMAILS.md):
+ * Deep links into the app (contract in EMAILS.md). The pages honour both routes (swarm/gig a972c60, swarm/profile
+ * d353daa), so they are ON by default; RUNWAE_EMAIL_DEEP_LINKS=0 is the kill switch that sends every button to
+ * /notifications (where each item opens the right agreement / your own profile in one tap):
  *   /gig?item=<itemKey>&gig=<gigKey>   the agreement items/<itemKey>/influencers/<gigKey>, for a participant
  *   /profile?me                         the signed-in user's own profile
  */
 const GIG_PATH = /^items\/([A-Za-z0-9_-]{1,128})\/influencers\/([A-Za-z0-9_-]{1,128})$/;
-function deepLinks() { return String(process.env.RUNWAE_EMAIL_DEEP_LINKS || '').trim() === '1'; }
+function deepLinks() { return String(process.env.RUNWAE_EMAIL_DEEP_LINKS || '').trim() !== '0'; }
 const routes = {
-  /** The agreement page for one gig, or /notifications while the route isn't live / the path is unknown. */
+  /** The agreement page for one gig, or /notifications when switched off / the path is unknown. */
   agreement(gigPath) {
     const m = GIG_PATH.exec(String(gigPath || ''));
     return deepLinks() && m ? `/gig?item=${m[1]}&gig=${m[2]}` : '/notifications';
   },
-  /** The recipient's own profile, or null while the route isn't live (callers pick a fallback). */
+  /** The recipient's own profile, or null when switched off (callers pick a fallback). */
   ownProfile() { return deepLinks() ? '/profile?me' : null; },
 };
 

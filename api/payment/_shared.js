@@ -6,7 +6,7 @@
  * stripe_accounts/*, payment_locks/*) are written here with the admin SDK.
  * The browser can no longer write them (see database.rules.json).
  */
-const admin = require('../lib/firebase');
+const admin = require('../_lib/firebase');
 
 const GIG_PATH_RE = /^items\/([A-Za-z0-9_-]{1,128})\/influencers\/([A-Za-z0-9_-]{1,128})$/;
 

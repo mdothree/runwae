@@ -8,7 +8,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const T = require(path.join(__dirname, '..', 'api', 'lib', '_email-templates.js'));
+const T = require(path.join(__dirname, '..', 'api', '_lib', '_email-templates.js'));
 
 const out = process.argv[2];
 if (!out) { console.error('usage: render-emails.js <outDir> [--local-assets <root>]'); process.exit(2); }

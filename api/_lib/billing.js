@@ -116,9 +116,9 @@ function publicBillingInfo(env) {
 }
 
 /**
- * Email hook -> api/lib/email.js (sendEmail({ to, template, data, idempotencyKey })), templates
+ * Email hook -> api/_lib/email.js (sendEmail({ to, template, data, idempotencyKey })), templates
  * subscription_welcome | subscription_receipt | subscription_payment_failed | subscription_cancelled
- * (data contract in api/lib/_email-templates.js). If email.js is missing this is a no-op.
+ * (data contract in api/_lib/_email-templates.js). If email.js is missing this is a no-op.
  * Never throws: a failed email must not fail the webhook (Stripe would retry the plan write).
  */
 async function sendBillingEmail(template, to, data, idempotencyKey) {

@@ -18,9 +18,9 @@
  */
 'use strict';
 
-const stripe = require('../lib/stripe');
-const admin = require('../lib/firebase');
-const billing = require('../lib/billing');
+const stripe = require('../_lib/stripe');
+const admin = require('../_lib/firebase');
+const billing = require('../_lib/billing');
 
 const MAX_BODY = 512 * 1024;
 const UID_RE = /^[A-Za-z0-9_-]{1,128}$/;
@@ -67,7 +67,7 @@ async function writePlan(db, uid, sub, eventCreated) {
 }
 
 /**
- * Recipient + the data contract of api/lib/_email-templates.js (subscription_*).
+ * Recipient + the data contract of api/_lib/_email-templates.js (subscription_*).
  * The address comes from Firebase Auth (admin.auth().getUser), NOT users/{uid}/email,
  * which the user can edit. Stripe's customer email is the fallback.
  */
@@ -80,6 +80,7 @@ async function emailContext(db, uid, tier, fallbackEmail) {
     to: to || fallbackEmail || '',
     data: {
       recipientName: typeof u === 'string' ? u : '',
+      planTier: plan ? plan.tier : undefined, // the templates name the plan from its tier (plans.html names)
       planName: plan ? plan.email_name : 'Runwae',
       amountCents: plan ? plan.amount_usd * 100 : undefined,
       currency: 'usd',

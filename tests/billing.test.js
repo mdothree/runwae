@@ -112,11 +112,11 @@ const stripeMock = {
   webhooks: realStripe.webhooks,
 };
 
-const STRIPE_LIB = path.join(ROOT, 'api', 'lib', 'stripe.js');
-const FIREBASE_LIB = path.join(ROOT, 'api', 'lib', 'firebase.js');
+const STRIPE_LIB = path.join(ROOT, 'api', '_lib', 'stripe.js');
+const FIREBASE_LIB = path.join(ROOT, 'api', '_lib', 'firebase.js');
 const sentEmails = [];
 const emailMock = { sendEmail: async (o) => { sentEmails.push(o); return { ok: true }; } };
-const BILLING_LIB = path.join(ROOT, 'api', 'lib', 'billing.js');
+const BILLING_LIB = path.join(ROOT, 'api', '_lib', 'billing.js');
 const origLoad = Module._load;
 Module._load = function (request, parent, isMain) {
   if (request === './email' && parent && parent.filename === BILLING_LIB) return emailMock;
@@ -129,12 +129,12 @@ Module._load = function (request, parent, isMain) {
 };
 
 const load = (rel) => require(path.join(ROOT, rel));
-const billing = load('api/lib/billing.js');
-const config = load('api/lib/billing-config.js');
-const checkout = load('api/billing/checkout.js');
-const portal = load('api/billing/portal.js');
-const webhook = load('api/billing/webhook.js');
-const plansRoute = load('api/billing/plans.js');
+const billing = load('api/_lib/billing.js');
+const config = load('api/_lib/billing-config.js');
+const checkout = load('api/billing/_checkout.js');
+const portal = load('api/billing/_portal.js');
+const webhook = load('api/billing/_webhook.js');
+const plansRoute = load('api/billing/_plans.js');
 const quote = load('api/payment/quote.js');
 const chargeMarketer = load('api/payment/charge-marketer.js');
 const payInfluencer = load('api/payment/pay-influencer.js');
@@ -200,10 +200,10 @@ test('config: one price place, whole dollars, final amounts (brand 49, creator 1
   assert.strictEqual(config.PLANS.brand.amount_usd, 49);
   assert.strictEqual(config.PLANS.creator.amount_usd, 12);
   for (const p of Object.values(config.PLANS)) assert.ok(Number.isInteger(p.amount_usd), 'whole dollars');
-  const src = fs.readFileSync(path.join(ROOT, 'api/lib/billing-config.js'), 'utf8');
+  const src = fs.readFileSync(path.join(ROOT, 'api/_lib/billing-config.js'), 'utf8');
   assert.ok(!/\.99\b/.test(src.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '')), 'no .99 prices');
   // no other file hard-codes a plan price number for checkout
-  for (const f of ['api/billing/checkout.js', 'api/billing/webhook.js', 'api/lib/billing.js']) {
+  for (const f of ['api/billing/_checkout.js', 'api/billing/_webhook.js', 'api/_lib/billing.js']) {
     assert.ok(!/\b(4900|1200|49|12)\b/.test(fs.readFileSync(path.join(ROOT, f), 'utf8').replace(/\/\/.*|\/\*[\s\S]*?\*\//g, '')), f + ' has no hard-coded price');
   }
 });
@@ -498,6 +498,8 @@ test('gig checkout: 0% platform fee, processing pass-through line, creator gets 
 
     // payout: influencer receives the full gig price
     db.ref('items/it1/influencers/g1/status').set(6);
+    // RW-SEC-01 (sec/payments): the payout needs the server-only verification record verify-post writes for the brand.
+    db.ref('gig_verifications/it1/g1').set({ by: db.get('items/it1/uid'), time: Date.now(), mode: 'verify', from_status: 5 });
     db.ref('stripe_accounts/uCreator/stripe_user_id').set('acct_test');
     const rp = res(); await payInfluencer(req('POST', { token: 'tok_uCreator', body: { gigPath: 'items/it1/influencers/g1' } }), rp);
     assert.strictEqual(rp.statusCode, 200, JSON.stringify(rp.body));
@@ -579,6 +581,7 @@ test('emails: webhook calls the email hook with the template data contract', asy
     assert.strictEqual(m.idempotencyKey, 'subscription_welcome_evt_mail', 'Stripe event id is the idempotency key');
     assert.strictEqual(m.data.recipientName, 'Brand Co');
     assert.strictEqual(m.data.planName, 'Brand');
+    assert.strictEqual(m.data.planTier, 'brand', 'the templates name the plan from its tier');
     assert.strictEqual(m.data.amountCents, 4900);
     const paid = { id: 'evt_paid0', type: 'invoice.paid', created: 11, data: { object: { customer: 'cus_test1', amount_paid: 0, lines: { data: [] } } } };
     const r2 = res(); await webhook(signed(paid), r2);
@@ -613,7 +616,7 @@ test('close account guard: a renewing plan must be cancelled first; fails open w
 });
 
 test('/pricing: 307 to /plans with billing on, /faqs#cost with billing off', async () => {
-  const pricing = load('api/billing/pricing.js');
+  const pricing = load('api/billing/_pricing.js');
   const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
   assert.ok(vercel.rewrites.some((r) => r.source === '/pricing' && r.destination === '/api/billing/pricing'));
   assert.ok(!vercel.redirects.some((r) => r.source === '/pricing'), 'no static /pricing redirect left');
@@ -630,4 +633,27 @@ test('terms: price changes are announced at least 30 days ahead', () => {
   const { applyBillingCopy } = load('deployment/billing-copy.js');
   const on = applyBillingCopy(fs.readFileSync(path.join(ROOT, 'terms.html'), 'utf8'), { RUNWAE_BILLING_ENABLED: '1' }).replace(/\s+/g, ' ');
   assert.ok(on.includes('we will email you at least 30 days before the new price applies to your plan'));
+});
+
+test('Hobby function cap: api/ has <= 12 functions; /api/billing/* is one router over the underscore handlers', async () => {
+  const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => {
+    if (e.name.startsWith('_') || e.name.startsWith('.')) return [];
+    const p = path.join(d, e.name);
+    return e.isDirectory() ? walk(p) : (/\.(js|mjs|cjs|ts)$/.test(e.name) ? [p] : []);
+  });
+  const fns = walk(path.join(ROOT, 'api'));
+  assert.ok(fns.length <= 12, `Vercel Hobby allows 12 functions per deployment; api/ has ${fns.length}: ${fns.map((f) => path.relative(ROOT, f)).join(', ')}`);
+  const router = load('api/billing/[action].js');
+  assert.strictEqual(router.actionOf({ query: { action: 'plans' }, url: '/api/billing/plans' }), 'plans');
+  assert.strictEqual(router.actionOf({ query: {}, url: '/api/billing/webhook?x=1' }), 'webhook');
+  const r404 = res(); r404.end = () => r404; router(req('GET'), r404); // no action
+  assert.strictEqual(r404.statusCode, 404);
+  const rProto = res(); rProto.end = () => rProto; router(Object.assign(req('GET'), { query: { action: '__proto__' } }), rProto);
+  assert.strictEqual(rProto.statusCode, 404);
+  await withEnv({ RUNWAE_BILLING_ENABLED: null }, () => {
+    const viaRouter = res(); viaRouter.end = () => viaRouter;
+    router(Object.assign(req('GET'), { query: { action: 'pricing' } }), viaRouter);
+    assert.strictEqual(viaRouter.statusCode, 307);
+    assert.strictEqual(viaRouter.headers.Location, '/faqs#cost');
+  });
 });

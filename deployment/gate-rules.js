@@ -19,14 +19,14 @@
  *
  * A plan unlocks when plans/{auth.uid}/status is active|trialing and
  * current_period_end + 3 days grace is in the future (same rule as
- * api/lib/billing.isPlanActive). Editing/removing existing items, comments,
+ * api/_lib/billing.isPlanActive). Editing/removing existing items, comments,
  * shares, gigs in progress, payments and payouts are NOT gated.
  */
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
-const { ACTIVE_STATUSES, GRACE_MS } = require('../api/lib/billing-config');
+const { ACTIVE_STATUSES, GRACE_MS } = require('../api/_lib/billing-config');
 
 const PLAN = "root.child('plans').child(auth.uid)";
 const PLAN_OK = '(' + '(' + ACTIVE_STATUSES.map((s) => `${PLAN}.child('status').val() === '${s}'`).join(' || ') + ')'

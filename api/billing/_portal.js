@@ -9,7 +9,7 @@
  */
 'use strict';
 
-const stripe = require('../lib/stripe');
+const stripe = require('../_lib/stripe');
 const { admin, billing, BillingError, requireUser, preflight, getCustomerId, sendError } = require('./_common');
 
 module.exports = async (req, res) => {

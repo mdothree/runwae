@@ -19,12 +19,12 @@
  *     REAUTH_WINDOW_S, else 401 reauth_required).
  *   - a replacement is logged at stripe_account_changes/{uid}/{push}.
  *     TODO(email): notify the owner by email when the payout account changes.
- *     This base has no api/lib/email.js; when the email module (branch
+ *     This base has no api/_lib/email.js; when the email module (branch
  *     ui/rw-style) lands, send "payout account changed" here from the address
  *     in Firebase Auth (never from RTDB).
  * Stripe/internal error text is not returned to the browser (RW-SEC-10).
  */
-const stripe = require('../lib/stripe');
+const stripe = require('../_lib/stripe');
 const { admin, HttpError, requireToken, sendError } = require('./_shared');
 const { consumeState } = require('./_oauth-state');
 

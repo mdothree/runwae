@@ -16,7 +16,7 @@
  * the gig page then shows the plain card form with no summary, exactly as
  * before the subscription work (the charge is the plain gig price).
  */
-const billing = require('../lib/billing');
+const billing = require('../_lib/billing');
 const { HttpError, requireUser, loadGig, itemPrice, sendError } = require('./_shared');
 
 module.exports = async (req, res) => {

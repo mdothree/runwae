@@ -17,7 +17,7 @@
  */
 'use strict';
 
-const stripe = require('../lib/stripe');
+const stripe = require('../_lib/stripe');
 const { admin, billing, BillingError, requireUser, preflight, ensureCustomer, sendError } = require('./_common');
 
 /** Resolve the live Stripe Price for a plan and check it matches billing-config.js. */

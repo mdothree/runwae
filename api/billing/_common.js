@@ -3,8 +3,8 @@
  */
 'use strict';
 
-const admin = require('../lib/firebase');
-const billing = require('../lib/billing');
+const admin = require('../_lib/firebase');
+const billing = require('../_lib/billing');
 
 const { BillingError } = billing;
 

@@ -17,8 +17,8 @@
  *   {gigPath}/status                                 4  (RW-SEC-01: "paid" is a server-only transition)
  * Precondition: gig status 0-3 (before payment).
  */
-const stripe = require('../lib/stripe');
-const billing = require('../lib/billing');
+const stripe = require('../_lib/stripe');
+const billing = require('../_lib/billing');
 const { HttpError, requireUser, loadGig, itemPrice, takeLock, sendError } = require('./_shared');
 
 module.exports = async (req, res) => {

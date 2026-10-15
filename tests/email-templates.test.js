@@ -7,8 +7,8 @@ const test = require('node:test');
 const assert = require('node:assert');
 const path = require('path');
 
-const T = require(path.join(__dirname, '..', 'api', 'lib', '_email-templates.js'));
-const L = require(path.join(__dirname, '..', 'api', 'lib', '_email-layout.js'));
+const T = require(path.join(__dirname, '..', 'api', '_lib', '_email-templates.js'));
+const L = require(path.join(__dirname, '..', 'api', '_lib', '_email-layout.js'));
 
 const EVIL = '<script>alert(1)</script>"\'><img src=x onerror=alert(2)>\r\nBcc: x@evil.test';
 function hostile(sample) {
@@ -66,9 +66,10 @@ test('url() refuses foreign links', () => {
 const GIG_TEMPLATES = ['gig_proposal_requested', 'gig_proposal_received', 'gig_proposal_declined', 'gig_proposal_accepted',
   'gig_payment_receipt', 'gig_post_submitted', 'gig_post_verified', 'gig_payout_sent', 'gig_complete', 'gig_dispute'];
 const hrefOfButton = (html) => (/<a class="rw-btn" href="([^"]+)"/.exec(html) || [])[1];
+// Deep links are ON by default (the env unset); RUNWAE_EMAIL_DEEP_LINKS=0 is the kill switch.
 function withDeepLinks(on, fn) {
   const prev = process.env.RUNWAE_EMAIL_DEEP_LINKS;
-  if (on) process.env.RUNWAE_EMAIL_DEEP_LINKS = '1'; else delete process.env.RUNWAE_EMAIL_DEEP_LINKS;
+  if (on) delete process.env.RUNWAE_EMAIL_DEEP_LINKS; else process.env.RUNWAE_EMAIL_DEEP_LINKS = '0';
   try { return fn(); } finally { if (prev === undefined) delete process.env.RUNWAE_EMAIL_DEEP_LINKS; else process.env.RUNWAE_EMAIL_DEEP_LINKS = prev; }
 }
 

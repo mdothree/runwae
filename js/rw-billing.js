@@ -2,7 +2,7 @@
  * rw-billing.js — plans UI (subscription + 0% transaction fee, Principal 2026-10-14).
  * Loaded on demand by runwaejs/util.js (rwRequirePlan / rwMountPlanSection) and by /plans.
  * Plain, readable JS (not part of the obfuscated runwaejs build). All text goes in
- * with textContent; prices come from GET /api/billing/plans (api/lib/billing-config.js).
+ * with textContent; prices come from GET /api/billing/plans (api/_lib/billing-config.js).
  *
  *   RwBilling.paywall({ action: 'post'|'apply', role, info, plan })
  *   RwBilling.mountPlanSection(uid, {role, plan}, info)   account page, section#billing (plan from plans/{uid})

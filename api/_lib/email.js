@@ -4,7 +4,7 @@
  * Used by api/notify.js (in-app events) and by the billing functions
  * (subscription welcome / receipt / payment failed / cancelled).
  *
- *   const email = require('../lib/email');            // from api/<dir>/x.js
+ *   const email = require('../_lib/email');            // from api/<dir>/x.js
  *   await email.sendEmail({
  *     to: 'user@example.com',                          // ONE address, resolved server-side
  *     template: 'subscription_receipt',                // see email.TEMPLATES
@@ -110,7 +110,7 @@ function notFound(req, res) { res.status(404).json({ error: 'not_found' }); }
 
 module.exports = notFound;
 module.exports.render = render;
-// Aliases used by api/lib/billing.js sendBillingEmail():
+// Aliases used by api/_lib/billing.js sendBillingEmail():
 module.exports.send = sendEmail;                                         // send({ to, template, data, idempotencyKey })
 module.exports.sendTemplate = (template, to, data, idempotencyKey) => sendEmail({ to, template, data, idempotencyKey });
 module.exports.sendEmail = sendEmail;

@@ -5,14 +5,14 @@
  *  <!--rw-billing:on-->...<!--/rw-billing:on-->        kept only when RUNWAE_BILLING_ENABLED=1
  *  <!--rw-billing:off-->...<!--/rw-billing:off-->      kept only when billing is off (the pre-subscription copy)
  *  <!--rw-processing:on|off-->...                      same, keyed on the gig processing pass-through flag
- *  <span data-rw-price="brand|creator">...</span>      text becomes "$<amount_usd>" from api/lib/billing-config.js
+ *  <span data-rw-price="brand|creator">...</span>      text becomes "$<amount_usd>" from api/_lib/billing-config.js
  *
  * So a deploy before the billing GO keeps today's (true) copy, and the copy flips with the same
  * env var that turns billing on. Prices live in one place.
  */
 'use strict';
 
-const cfg = require('../api/lib/billing-config');
+const cfg = require('../api/_lib/billing-config');
 
 function billingOn(env) { return cfg.billingEnabled(env || process.env); }
 
