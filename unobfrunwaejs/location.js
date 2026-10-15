@@ -97,7 +97,7 @@ $(document).ready(function() {
     });
 
     $("#countryDisplay .dropdown-li").click(function() {
-        $("#country").val($(this).find('span.text').html());
+        $("#country").val($(this).find('span.text').text());
         $("#country").attr('title', $(this).find('span.text').attr("title"));
         $("#country").change();
     });
@@ -113,7 +113,7 @@ $(document).ready(function() {
     });
 
     $("#industryDisplay .dropdown-li").click(function() {
-        $("#industry").val($(this).find('span.text').html());
+        $("#industry").val($(this).find('span.text').text());
         $("#industry").attr('title', $(this).find('span.text').attr("title"));
         $("#industry").change();
     });
@@ -157,7 +157,7 @@ $("#country").on("change", function() {
         }
 
         $("#regionDisplay .dropdown-li").click(function() {
-            $("#region").val($(this).find('span.text').html());
+            $("#region").val($(this).find('span.text').text());
             $("#region").attr('title', $(this).find('span.text').attr("title"));
             $("#region").change();
         });
@@ -203,11 +203,11 @@ $("#region").on("change", function() {
         });
 
         $("#cityDisplay .dropdown-li").click(function() {
-            $("#city").val($(this).find('span.text').html());
+            $("#city").val($(this).find('span.text').text());
             $("#city").attr('title', $(this).find('span.text').attr("title"));
 
             // Find the city index and set location
-            var selectedCity = $(this).find('span.text').html();
+            var selectedCity = $(this).find('span.text').text();
             for (var j = 0; j < currentCities.length; j++) {
                 if (currentCities[j].city === selectedCity) {
                     $("#location").val(currentCities[j].latitude + "," + currentCities[j].longitude);
