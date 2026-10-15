@@ -138,13 +138,12 @@
         <!-- LEFT SIDEBAR: Seller Identity -->
         <aside class="profile-sidebar">
             <div class="profile-card">
-                <!-- Profile picture with online status -->
+                <!-- Profile picture -->
                 <div class="profile-avatar-container">
                     <img id="profilePicture" src="" alt="" class="profile-avatar-lg">
                     <div class="profilePictureOverlay ownerDisplay">
                         <ion-icon name="add-outline"></ion-icon>
                     </div>
-                    <span class="online-status" id="onlineStatus">Online</span>
                 </div>
 
                 <!-- Name and username -->
@@ -170,19 +169,16 @@
                     </div>
                 </div>
 
-                <!-- Trust signals -->
-                <div class="trust-signals">
-                    <div class="trust-badge">
+                <!-- Facts from the profile record only (display.js): location = city/region,
+                     member since = year of users/{uid}/time (written at signup). Hidden when absent. -->
+                <div class="trust-signals" id="trustSignals" hidden>
+                    <div class="trust-badge" hidden>
                         <ion-icon name="location-outline"></ion-icon>
-                        <span id="locationBadge">Location</span>
+                        <span id="locationBadge"></span>
                     </div>
-                    <div class="trust-badge">
-                        <ion-icon name="time-outline"></ion-icon>
-                        <span class="response-time">Responds quickly</span>
-                    </div>
-                    <div class="trust-badge">
+                    <div class="trust-badge" hidden>
                         <ion-icon name="calendar-outline"></ion-icon>
-                        <span class="member-since">Member since 2024</span>
+                        <span class="member-since"></span>
                     </div>
                 </div>
 
@@ -1541,26 +1537,6 @@
                         }
                     });
                 });
-
-                // Update location badge from city/region
-                var cityEl = document.getElementById('city');
-                var regionEl = document.getElementById('region');
-                var locationBadge = document.getElementById('locationBadge');
-
-                // Create a mutation observer to watch for city/region updates
-                if (locationBadge) {
-                    var observer = new MutationObserver(function() {
-                        var city = cityEl ? cityEl.textContent : '';
-                        var region = regionEl ? regionEl.textContent : '';
-                        if (city || region) {
-                            locationBadge.textContent = (city + (region || '')).trim() || 'Location';
-                        }
-                    });
-
-                    if (cityEl) {
-                        observer.observe(cityEl, { childList: true, characterData: true, subtree: true });
-                    }
-                }
 
                 // Update website section visibility
                 var websiteEl = document.getElementById('website');

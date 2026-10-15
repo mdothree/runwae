@@ -4,62 +4,6 @@
    ========================================================================== */
 
 /**
- * Calculate and format response time based on message history
- * @param {Object} messages - User's message history object
- * @returns {string} - Formatted response time string
- */
-function calculateResponseTime(messages) {
-  if (!messages || Object.keys(messages).length === 0) {
-    return 'New to messaging';
-  }
-
-  // Calculate average response time from conversation history
-  var totalResponseTime = 0;
-  var responseCount = 0;
-
-  // This would need actual conversation analysis
-  // For now, return a reasonable default
-  var avgHours = 2; // Default average
-
-  if (avgHours < 1) {
-    return 'Usually responds within an hour';
-  } else if (avgHours < 24) {
-    return 'Responds in ~' + Math.round(avgHours) + ' hours';
-  } else {
-    var days = Math.round(avgHours / 24);
-    return 'Responds in ~' + days + ' day' + (days > 1 ? 's' : '');
-  }
-}
-
-/**
- * Format member since date
- * @param {number|string} joinDate - Timestamp or date string of when user joined
- * @returns {string} - Formatted member since string
- */
-function formatMemberSince(joinDate) {
-  if (!joinDate) {
-    return 'Member';
-  }
-
-  var date;
-  if (typeof joinDate === 'number') {
-    date = new Date(joinDate);
-  } else {
-    date = new Date(joinDate);
-  }
-
-  if (isNaN(date.getTime())) {
-    return 'Member';
-  }
-
-  var year = date.getFullYear();
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var month = months[date.getMonth()];
-
-  return 'Member since ' + month + ' ' + year;
-}
-
-/**
  * Calculate average rating from reviews array
  * @param {Array|Object} reviews - Reviews array or object
  * @returns {Object} - Object with rating and count
@@ -90,61 +34,6 @@ function calculateAverageRating(reviews) {
   return {
     rating: avgRating.toFixed(1),
     count: reviewsArray.length
-  };
-}
-
-/**
- * Check if user is online based on last activity timestamp
- * @param {number} lastActivity - Timestamp of last activity
- * @returns {boolean} - True if user is considered online
- */
-function isUserOnline(lastActivity) {
-  if (!lastActivity) {
-    return false;
-  }
-
-  var fiveMinutes = 5 * 60 * 1000; // 5 minutes in milliseconds
-  return Date.now() - lastActivity < fiveMinutes;
-}
-
-/**
- * Format the online status display
- * @param {number} lastActivity - Timestamp of last activity
- * @returns {Object} - Object with text and class for status display
- */
-function getOnlineStatus(lastActivity) {
-  if (isUserOnline(lastActivity)) {
-    return {
-      text: 'Online',
-      class: 'online'
-    };
-  }
-
-  if (!lastActivity) {
-    return {
-      text: 'Offline',
-      class: 'offline'
-    };
-  }
-
-  // Calculate how long ago they were active
-  var diff = Date.now() - lastActivity;
-  var minutes = Math.floor(diff / 60000);
-  var hours = Math.floor(minutes / 60);
-  var days = Math.floor(hours / 24);
-
-  var text;
-  if (minutes < 60) {
-    text = 'Active ' + minutes + 'm ago';
-  } else if (hours < 24) {
-    text = 'Active ' + hours + 'h ago';
-  } else {
-    text = 'Active ' + days + 'd ago';
-  }
-
-  return {
-    text: text,
-    class: 'offline'
   };
 }
 
@@ -293,37 +182,8 @@ function initMarketplaceProfile(userData) {
 
   var user = userData.val();
 
-  // Update online status
-  var status = getOnlineStatus(user.last_activity);
-  var statusEl = document.querySelector('.online-status');
-  if (statusEl) {
-    statusEl.textContent = status.text;
-    statusEl.className = 'online-status ' + status.class;
-  }
-
-  // Update response time
-  var responseEl = document.querySelector('.response-time');
-  if (responseEl) {
-    responseEl.textContent = calculateResponseTime(user.conversations);
-  }
-
-  // Update member since
-  var memberEl = document.querySelector('.member-since');
-  if (memberEl) {
-    memberEl.textContent = formatMemberSince(user.created_at || user.join_date);
-  }
-
-  // Update rating
-  var ratingData = calculateAverageRating(user.reviews);
-  var ratingValueEl = document.querySelector('.rating-value');
-  var ratingCountEl = document.querySelector('.rating-count');
-
-  if (ratingValueEl) {
-    ratingValueEl.textContent = ratingData.rating;
-  }
-  if (ratingCountEl) {
-    ratingCountEl.textContent = '(' + ratingData.count + ' reviews)';
-  }
+  // Online / response-time / member-since badges were removed (no data behind them); member since and the
+  // rating summary are set from the real record by display.js rwTrustSignals and reviews.js rwRatingSummary.
 
   // Render skill tags
   var skillsEl = document.querySelector('.skill-tags');
@@ -400,11 +260,7 @@ function renderReviewCard(review) {
 
 // Export functions for global use
 window.ProfileMarketplace = {
-  calculateResponseTime: calculateResponseTime,
-  formatMemberSince: formatMemberSince,
   calculateAverageRating: calculateAverageRating,
-  isUserOnline: isUserOnline,
-  getOnlineStatus: getOnlineStatus,
   generateStarRating: generateStarRating,
   formatCurrency: formatCurrency,
   formatNumber: formatNumber,

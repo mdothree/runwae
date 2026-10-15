@@ -367,3 +367,5 @@ select.form-control { height: 40px; padding: 0 2rem 0 .875rem; line-height: norm
 #deactivateAccountModal .modal-header .title { color: var(--rw-ink) !important; }
 #deactivateAccountModal .icon-close, #deactivateAccountModal .close-icon { color: var(--rw-ink) !important; background: transparent !important; }
 #deactivateAccountModal .rw-confirm { padding: var(--rw-s5); }
+/* profile sidebar facts: display.js hides a badge (or the row) when the record has no data for it */
+.trust-signals[hidden], .trust-badge[hidden] { display: none !important; }
