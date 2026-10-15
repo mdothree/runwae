@@ -182,6 +182,81 @@ function rwSafeUrl(value) {
     return str;
 }
 
+// Profile website (user-entered, shown as a clickable link). Only absolute
+// http(s) URLs with a real host name; a bare "example.com" gets https://.
+// javascript:, data:, vbscript:, quotes, spaces etc. return '' (hide the link).
+function rwExternalUrl(value) {
+    if (value === null || value === undefined) return '';
+    var str = String(value).trim();
+    if (!str || /[\u0000- \u007f"'<>`\\]/.test(str)) return '';
+    var probe = str.toLowerCase();
+    var scheme = probe.match(/^([a-z][a-z0-9+.\-]*):/);
+    if (scheme && scheme[1] !== 'http' && scheme[1] !== 'https') {
+        // "example.com:8080/x" looks like a scheme; accept it only as host:port.
+        if (scheme[1].indexOf('.') === -1 || !/^[a-z0-9.\-]+:\d+(\/|$)/.test(probe)) return '';
+        scheme = null;
+    }
+    if (!scheme) str = 'https://' + str.replace(/^\/+/, '');
+    var u;
+    try {
+        u = new URL(str);
+    } catch (e) {
+        return '';
+    }
+    if (u.protocol !== 'http:' && u.protocol !== 'https:') return '';
+    if (u.username || u.password) return '';
+    if (!/^[a-z0-9\-]+(\.[a-z0-9\-]+)*\.[a-z0-9\-]{2,}$/i.test(u.hostname)) return '';
+    return u.href;
+}
+
+// Links to stored files (e.g. a proposal's photo_url for "Download Content"):
+// absolute http(s) only, as-is; anything else (javascript:, data:, relative) is ''.
+function rwHttpUrl(value) {
+    if (value === null || value === undefined) return '';
+    var str = String(value).trim();
+    if (!/^https?:\/\//i.test(str) || /[\u0000-\u0020\u007f"'<>`\\]/.test(str)) return '';
+    try {
+        var u = new URL(str);
+        return (u.protocol === 'http:' || u.protocol === 'https:') ? str : '';
+    } catch (e) {
+        return '';
+    }
+}
+
+// Social links: never use a user-supplied URL. The link is a fixed per-platform
+// base plus the encoded handle. Stored values are either our own saved profile
+// URL (base + handle) or a bare handle.
+var rwSocialBases = {
+    instagram: 'https://www.instagram.com/',
+    twitter: 'https://www.twitter.com/',
+    facebook: 'https://www.facebook.com/',
+    linkedin: 'https://www.linkedin.com/in/'
+};
+var rwSocialHandleRe = /^[A-Za-z0-9._\-]{1,100}$/;
+
+function rwStripSocialPrefix(str) {
+    return str.replace(/^(?:(?:https?:)?\/\/)?(?:www\.|m\.|mobile\.)?(?:instagram|twitter|x|facebook|fb|linkedin)\.com\/(?:in\/)?/i, '');
+}
+
+// Handle from a stored/typed value, or '' when it is not a plain handle.
+// strict (account form): only a leading @ and a trailing / are tolerated.
+function rwSocialHandle(value, strict) {
+    if (value === null || value === undefined) return '';
+    var str = rwStripSocialPrefix(String(value).trim());
+    if (strict) {
+        str = str.replace(/^@/, '').replace(/\/$/, '');
+    } else {
+        str = str.split(/[?#]/)[0].replace(/[@\/\s]+/g, '');
+    }
+    return rwSocialHandleRe.test(str) ? str : '';
+}
+
+function rwSocialUrl(platform, value, strict) {
+    if (!Object.prototype.hasOwnProperty.call(rwSocialBases, platform)) return '';
+    var handle = rwSocialHandle(value, strict);
+    return handle ? rwSocialBases[platform] + encodeURIComponent(handle) : '';
+}
+
 function rwTemplateValue(placeholder, value) {
     if (value instanceof RwTrustedHtml) return value.html;
     if (rwUrlPlaceholders.indexOf(placeholder) !== -1) value = rwSafeUrl(value);

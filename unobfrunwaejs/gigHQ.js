@@ -245,7 +245,7 @@ function writeProposalAssist(snapMarketer, snapInfluencer, snapItem, snapGig, pa
                 $("#writeProposalAlert")
                     .removeClass('text-info text-danger')
                     .addClass('text-success')
-                    .html("AI generated!" + remainingText);
+                    .text("AI generated!" + remainingText);
 
                 // Show submit button now that we have content
                 $("#btnWriteProposal").show();
@@ -259,7 +259,7 @@ function writeProposalAssist(snapMarketer, snapInfluencer, snapItem, snapGig, pa
                 $("#writeProposalAlert")
                     .removeClass('text-info text-success')
                     .addClass('text-danger')
-                    .html("Error: " + result.error);
+                    .text("Error: " + result.error);
             }
         } catch (error) {
             console.error('AI generation error:', error);
@@ -465,7 +465,7 @@ function displayProposal(snapMarketer, snapInfluencer, snapItem, snapGig, path, 
                 $("#proposalSubmissionContainer").remove();
             }
                     $("#btnInfluencerDownloadProposal").attr("download", snapInfluencer.val().name + "'s content");
-        $("#btnMarketerDownloadProposal").attr("href", snapProposal.val().photo_url);
+        $("#btnMarketerDownloadProposal").attr("href", (typeof rwHttpUrl === 'function') ? rwHttpUrl(snapProposal.val().photo_url) : '');
         } else {
             $("#proposalSubmissionContainer").remove();
             $("#btnInfluencerDownloadProposal").remove();
@@ -539,7 +539,7 @@ function displayMarketerPayment(snapMarketer, snapInfluencer, snapItem, snapGig,
     database.ref().child(path + '/proposal').once('value', function (snapProposal) {
         if (snapProposal.val()) {
             $("#btnMarketerDownloadProposal").attr("download", snapInfluencer.val().name + "'s content");
-            $("#btnMarketerDownloadProposal").attr("href", snapProposal.val().photo_url);
+            $("#btnMarketerDownloadProposal").attr("href", (typeof rwHttpUrl === 'function') ? rwHttpUrl(snapProposal.val().photo_url) : '');
         }
     });
 }
@@ -703,8 +703,13 @@ function displayHistory(path) {
         ledgerKeys = sortProperties(obj, "time");
         for (i = 0; i < events; i++) {
             eventObj = obj[ledgerKeys[i]];
-            eventHTML = "<h6 align='right'>" + timeDisplay(eventObj["time"]) + "</h6>" + "<h6>" + eventObj["event"] + "</h6><br>";
-            $("#historyDisplay").append(eventHTML);
+            // Ledger events contain user data (e.g. "Influencer posted on " + gig
+            // platform): text nodes only, never HTML.
+            $("#historyDisplay").append(
+                $("<h6 align='right'></h6>").text(timeDisplay(eventObj["time"])),
+                $("<h6></h6>").text(eventObj["event"] == null ? "" : String(eventObj["event"])),
+                $("<br>")
+            );
             //            after = [timeDisplay(eventObj["time"]), eventObj["event"]];
             //            displayHTML("#historyScript", "#historyDisplay", before, after, 0, 0);
         }
