@@ -366,5 +366,23 @@ select.form-control { height: 40px; padding: 0 2rem 0 .875rem; line-height: norm
 #deactivateAccountModal .modal-header .title { color: var(--rw-ink) !important; }
 #deactivateAccountModal .icon-close, #deactivateAccountModal .close-icon { color: var(--rw-ink) !important; background: transparent !important; }
 #deactivateAccountModal .rw-confirm { padding: var(--rw-s5); }
+#deactivateAccountModal .rw-field { margin: 0 0 var(--rw-s4); }
+/* Account page cohesion (style guide): styled file inputs, one primary button, quiet secondaries, mono icons */
+.rw-file { flex-wrap: wrap; gap: var(--rw-s3); }
+#personalInformation .inline-items { display: flex; align-items: center; gap: var(--rw-s4); margin: 0 0 var(--rw-s4); padding: 0 var(--rw-s4); }
+#personalInformation .inline-items + br { display: none; }
+#personalInformation .notification-event.rw-file { display: flex; padding: 0; margin: 0; }
+#personalInformation .author-thumb { margin: 0; flex: none; }
+#personalInformation #infoHeaderPicture { width: 112px !important; height: 64px !important; border-radius: 10px !important; overflow: hidden; background: var(--rw-accent-soft); }
+#personalInformation #infoHeaderPicture img { width: 100% !important; height: 100% !important; object-fit: cover; border-radius: 0 !important; display: block; }
+#infoHeaderPicture img[src=""], #infoHeaderPicture img:not([src]) { visibility: hidden; }
+.rw-file label.rw-btn { position: relative; margin: 0; color: var(--rw-ink); }
+.rw-file label.rw-btn:focus-within { outline: 2px solid var(--rw-accent); outline-offset: 2px; }
+.rw-file__name { overflow-wrap: anywhere; }
+.form-group.with-icon > svg.rw-social-mono { color: var(--rw-muted) !important; fill: currentColor; }
+.rw-account-actions p { margin: 0; }
+.rw-account-actions { gap: var(--rw-s4); padding: var(--rw-s2) var(--rw-s4) var(--rw-s4); }
+.rw-account-actions .rw-actions { display: flex; flex-wrap: wrap; gap: var(--rw-s3); }
+#btnSave { margin-top: var(--rw-s2); }
 /* profile sidebar facts: display.js hides a badge (or the row) when the record has no data for it */
 .trust-signals[hidden], .trust-badge[hidden] { display: none !important; }

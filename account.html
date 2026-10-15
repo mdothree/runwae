@@ -137,10 +137,9 @@
                                         <div class="author-thumb" style="display:none" id="infoProfilePicture">
                                             <img src="" alt="author">
                                         </div>
-                                        <div class="notification-event">
-                                            <a href="#" class="h6 notification-friend">Profile Picture</a>
-                                            <br>
-                                            <input type="file" id="btnProfilePhoto">
+                                        <div class="notification-event rw-file">
+                                            <label class="rw-btn rw-btn--quiet rw-btn--sm" for="btnProfilePhoto">Upload profile photo<input type="file" id="btnProfilePhoto" accept="image/*"></label>
+                                            <span class="rw-file__name" data-rw-file-for="btnProfilePhoto" aria-live="polite">JPG or PNG, under 2 MB</span>
                                         </div>
                                     </div>
                                     <br>
@@ -150,46 +149,46 @@
                                             id="infoHeaderPicture">
                                             <img src="" alt="author">
                                         </div>
-                                        <div class="notification-event">
-                                            <a href="#" class="h6 notification-friend">Header Picture</a><br>
-                                            <input type="file" id="btnHeaderPhoto">
+                                        <div class="notification-event rw-file">
+                                            <label class="rw-btn rw-btn--quiet rw-btn--sm" for="btnHeaderPhoto">Upload header<input type="file" id="btnHeaderPhoto" accept="image/*"></label>
+                                            <span class="rw-file__name" data-rw-file-for="btnHeaderPhoto" aria-live="polite">Wide image, under 2 MB</span>
                                         </div>
                                     </div>
                                     <br>
-                                    <label class="control-label">Name</label>
+                                    <label class="control-label" for="name">Name</label>
                                     <div class="form-group"><input class="form-control" placeholder="" type="text"
                                             value="" id="name"></div>
                                     
                                 </div>
                                 <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
-                                    <label class="control-label">Role</label>
+                                    <label class="control-label" for="role">Role</label>
                                     <div class="form-group"><input class="form-control" placeholder="" type="text"
                                             value="" id="role" disabled></div>
                                     
                                 </div>
                                 <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
                                     <div class="form-group label-floating">
-                                        <label class="control-label">Your Email</label>
+                                        <label class="control-label" for="email">Your Email</label>
                                         <input class="form-control" placeholder="" type="email" value="" id="email"
                                             disabled>
                                         </div>
                                 </div>
                                 <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
                                     <div class="form-group label-floating">
-                                        <label class="control-label">Your Username</label>
+                                        <label class="control-label" for="username">Your Username</label>
                                         <input class="form-control" placeholder="" type="email" value="" id="username"
                                             disabled>
                                         </div>
                                 </div>
                                 <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
                                     <div class="form-group label-floating">
-                                        <label class="control-label">Write a little description about you</label>
+                                        <label class="control-label" for="description">Write a little description about you</label>
                                         <textarea class="form-control" placeholder="" id="description"></textarea>
                                         </div>
                                 </div>
                                 <div class="col col-lg-6 col-md-6 col-sm-12 col-12"></div>
                                 <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
-                                    <label class="control-label">Country</label>
+                                    <label class="control-label" for="country">Country</label>
                                     <fieldset class="form-group">
                                         <div class="btn-group bootstrap-select form-control"><button type="button"
                                                 class="btn dropdown-toggle btn-secondary" data-toggle="dropdown"
@@ -211,7 +210,7 @@
                                                                             </fieldset>
                                 </div>
                                 <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
-                                    <label class="control-label">Region</label>
+                                    <label class="control-label" for="region">Region</label>
                                     <fieldset class="form-group">
                                         <div class="btn-group bootstrap-select form-control"><button type="button"
                                                 class="btn dropdown-toggle btn-secondary" data-toggle="dropdown"
@@ -233,7 +232,7 @@
                                                                             </fieldset>
                                 </div>
                                 <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
-                                    <label class="control-label">City</label>
+                                    <label class="control-label" for="city">City</label>
                                     <fieldset class="form-group">
                                         <div class="btn-group bootstrap-select form-control"><button type="button"
                                                 class="btn dropdown-toggle btn-secondary" data-toggle="dropdown"
@@ -255,7 +254,7 @@
                                                                             </fieldset>
                                 </div>
                                 <div class="col col-lg-4 col-md-4 col-sm-12 col-12">
-                                    <label class="control-label">Industry</label>
+                                    <label class="control-label" for="industry">Industry</label>
                                     <fieldset class="form-group">
                                         <div class="btn-group bootstrap-select form-control"><button type="button"
                                                 class="btn dropdown-toggle btn-secondary" data-toggle="dropdown"
@@ -282,7 +281,7 @@
                         <!-- ... end Personal Information Form  -->
                     </div>
                 </div>
-                <div class="ui-block" id="portfolio">
+                <div class="ui-block" id="preferences">
                     <div class="ui-block-title">
                         <h6 class="title">Preferences</h6>
                     </div>
@@ -361,14 +360,14 @@
                             <div class="row">
                                 <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="form-group label-floating">
-                                        <label class="control-label">Your Website</label>
+                                        <label class="control-label" for="website">Your Website</label>
                                         <input class="form-control" placeholder="" type="url" id="website">
                                         </div>
                                     <div class="form-group with-icon label-floating">
-                                        <label class="control-label">Your Facebook Username</label>
+                                        <label class="control-label" for="facebook">Your Facebook Username</label>
                                         <!-- <input class="form-control" type="url" id="facebook"> -->
                                         <input class="form-control" id="facebook">
-                                        <svg class="svg-inline--fa fa-facebook-f fa-w-9 c-facebook" aria-hidden="true"
+                                        <svg class="svg-inline--fa fa-facebook-f fa-w-9 rw-social-mono" aria-hidden="true"
                                             data-prefix="fab" data-icon="facebook-f" role="img"
                                             xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
                                             <path fill="currentColor"
@@ -378,9 +377,9 @@
                                         <!-- <i class="fab fa-facebook-f c-facebook" aria-hidden="true"></i> -->
                                         </div>
                                     <div class="form-group with-icon label-floating">
-                                        <label class="control-label">Your Twitter Username</label>
+                                        <label class="control-label" for="twitter">Your Twitter Username</label>
                                         <input class="form-control" id="twitter">
-                                        <svg class="svg-inline--fa fa-twitter fa-w-16 c-twitter" aria-hidden="true"
+                                        <svg class="svg-inline--fa fa-twitter fa-w-16 rw-social-mono" aria-hidden="true"
                                             data-prefix="fab" data-icon="twitter" role="img"
                                             xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                             <path fill="currentColor"
@@ -390,9 +389,9 @@
                                         <!-- <i class="fab fa-twitter c-twitter" aria-hidden="true"></i> -->
                                         </div>
                                     <div class="form-group with-icon label-floating ">
-                                        <label class="control-label">Your Linkedin Username</label>
+                                        <label class="control-label" for="linkedin">Your Linkedin Username</label>
                                         <input class="form-control" id="linkedin">
-                                        <svg class="svg-inline--fa fa-linkedin fa-w-14 c-linkedin" aria-hidden="true"
+                                        <svg class="svg-inline--fa fa-linkedin fa-w-14 rw-social-mono" aria-hidden="true"
                                             data-prefix="fa" data-icon="rss" role="img"
                                             xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
                                             <path fill="currentColor"
@@ -401,9 +400,9 @@
                                         </svg>
                                         </div>
                                     <div class="form-group with-icon label-floating">
-                                        <label class="control-label">Your Instagram Username</label>
+                                        <label class="control-label" for="instagram">Your Instagram Username</label>
                                         <input class="form-control" id="instagram">
-                                        <svg class="svg-inline--fa fa-instagram fa-w-16 c-instagram" aria-hidden="true"
+                                        <svg class="svg-inline--fa fa-instagram fa-w-16 rw-social-mono" aria-hidden="true"
                                             data-prefix="fab" data-icon="dribbble" role="img"
                                             xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                             <path fill="currentColor"
@@ -413,8 +412,7 @@
                                         </div>
                                 </div>
                                 <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
-                                    <button class="btn btn-primary btn-lg full-width" id="btnSave">Save all
-                                        Changes</button>
+                                    <button class="rw-btn" type="button" id="btnSave">Save changes</button>
                                 </div>
                             </div>
                         </form>
@@ -428,20 +426,13 @@
                     <div class="ui-block-content">
                         <!-- Personal Information Form  -->
                         <form onsubmit="return false;">
-                            <div class="row">
-                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <a href="#" class="btn btn-primary btn-md" id="acctLogout">Logout</a>
+                            <div class="rw-stack rw-account-actions">
+                                <div class="rw-actions">
+                                    <button type="button" class="rw-btn rw-btn--quiet rw-btn--sm" id="btnResetPassword">Reset password</button>
+                                    <button type="button" class="rw-btn rw-btn--quiet rw-btn--sm" id="btnVerifyEmail" style="display:none">Verify email</button>
+                                    <button type="button" class="rw-btn rw-btn--quiet rw-btn--sm" id="acctLogout">Log out</button>
                                 </div>
-                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <a href="#" class="btn btn-primary btn-md" id="btnVerifyEmail"
-                                        style="display:none">Verify Email</a>
-                                </div>
-                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <a href="#" class="btn btn-primary btn-md" id="btnResetPassword">Reset Password</a>
-                                </div>
-                                <div class="col col-lg-12 col-md-6 col-sm-12 col-12">
-                                    <button type="button" class="btn btn-danger btn-md" id="btnDeactivateAccount">Remove account</button>
-                                </div>
+                                <p><button type="button" class="rw-link-danger" id="btnDeactivateAccount">Remove account</button></p>
                             </div>
                         </form>
                         <!-- ... end Personal Information Form  -->
@@ -756,6 +747,18 @@
   </div>
   <div class="rw-footer__base"><span>Copyright Runwae All Rights Reserved 2026</span><button type="button" class="rw-footer__cookies" data-cookie-settings>Cookie settings</button></div>
 </footer>
+<script>
+    // styled file inputs (.rw-file): show the chosen file's name next to the button
+    document.querySelectorAll('[data-rw-file-for]').forEach(function (out) {
+        var input = document.getElementById(out.getAttribute('data-rw-file-for'));
+        if (!input) return;
+        input.addEventListener('change', function () {
+            var f = input.files && input.files[0];
+            if (!f) return;
+            out.textContent = f.size < 2000000 ? f.name : f.name + ' is over 2 MB. Choose a smaller image.';
+        });
+    });
+</script>
 <script src="/js/rw-shell.js" defer></script>
 </body>
 
