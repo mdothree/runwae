@@ -21,12 +21,14 @@ function writeNotification(useri, uid, username, action, target, targetKey) {
         "time": dNow,
     }
 
-    notificationKey = database.ref().child('users/' + uid + '/notifications').push().key;
-    database.ref().child('users/' + uid + '/notifications/' + notificationKey).update(notification);
+    // RW-SEC-03: notifications live at users_private/{uid}/notifications (the
+    // recipient alone can read them; others may only append, see the rules).
+    notificationKey = rwPrivateRef(uid, 'notifications').push().key;
+    rwPrivateRef(uid, 'notifications/' + notificationKey).update(notification);
 
 
     database.ref().child('users/' + uid).once('value', function (snap) {
-        updateUnreadNotificationsCount(snap);
+        // The recipient's unread badge is recounted on their next page load.
         title = "Notification from " + username;
         body = "Hey " + snap.val().name.split(" ")[0] + "! Have you logged into Runwae lately? It looks like " + username + " just " + action + " " + target + ".";
         bodyNote = "Don't miss the action! Please don't hesitate to email us if there's anything you think we can do better!";
@@ -122,9 +124,8 @@ function displayNotifications(snapUser, limit) {
 function removeNotification(snapUser, el) {
     key = $(el).closest(".notificationLi").find(".more").attr("id");
     useri = snapUser.key;
-    database.ref().child('users/' + useri + '/notifications/' + key).remove();
-    database.ref().child('users/' + useri).once('value', function (snapUser) {
-        updateUnreadNotificationsCount(snapUser);
+    rwOwnPrivateRemove(useri, 'notifications', key);
+    rwOwnUser(useri, function (snapUser) {
         displayNotifications(snapUser, 6);
     });
 }
@@ -151,7 +152,7 @@ function handleRelocate(snapUser, el) {
     var targetKey = $(el).closest(".notificationLi").attr("id");
     var action = $(el).closest(".notificationLi").find(".notification-event").attr("id");
     var id = $(el).closest(".notificationLi").find(".author-thumb").attr("id");
-    database.ref().child('users/' + snapUser.key + '/notifications/' + key).update({
+    rwOwnPrivateUpdate(snapUser, 'notifications', key, {
         "read_or_unread": "read"
     });
     updateUnreadNotificationsCount(snapUser);
@@ -211,11 +212,7 @@ function handleRelocate(snapUser, el) {
     }
 }
 
+// RW-SEC-03: recounts the signed-in user's own badge (public + private index).
 function updateUnreadNotificationsCount(snapUser) {
-    firebase.database().ref().child('users/' + snapUser.key + '/notifications').once('value', function (snap) {
-        var obj = snap.val();
-        database.ref().child('users/' + snapUser.key).update({
-            "unread_notifications_count": getUnreadCount(obj)
-        });
-    });
+    rwOwnUser(snapUser.key, function () {});
 }

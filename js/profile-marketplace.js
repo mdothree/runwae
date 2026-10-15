@@ -8,18 +8,16 @@
  * @param {Object} messages - User's message history object
  * @returns {string} - Formatted response time string
  */
-function calculateResponseTime(messages) {
-  if (!messages || Object.keys(messages).length === 0) {
+function calculateResponseTime(user) {
+  // RW-SEC-03: other users' conversation indexes are private now, and the old
+  // code showed a made-up "~2 hours" for anyone with a conversation. Use the
+  // recorded gig response times (public counters, milliseconds) instead.
+  var total = Number(user && user.total_response_time);
+  var count = Number(user && user.responses);
+  if (!(total > 0) || !(count > 0)) {
     return 'New to messaging';
   }
-
-  // Calculate average response time from conversation history
-  var totalResponseTime = 0;
-  var responseCount = 0;
-
-  // This would need actual conversation analysis
-  // For now, return a reasonable default
-  var avgHours = 2; // Default average
+  var avgHours = total / count / 3600000;
 
   if (avgHours < 1) {
     return 'Usually responds within an hour';
@@ -304,7 +302,7 @@ function initMarketplaceProfile(userData) {
   // Update response time
   var responseEl = document.querySelector('.response-time');
   if (responseEl) {
-    responseEl.textContent = calculateResponseTime(user.conversations);
+    responseEl.textContent = calculateResponseTime(user);
   }
 
   // Update member since

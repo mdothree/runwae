@@ -44,7 +44,7 @@ function makeDb(initial) {
       set: async (v) => setAt(base, v),
       remove: async () => setAt(base, null),
       update: async (obj) => { for (const [k, v] of Object.entries(obj)) setAt(join(k), v); },
-      push: () => ref(join('k' + (++pushN))),
+      push: (v) => { const r = ref(join('k' + (++pushN))); if (v !== undefined) setAt(join(r.key), v); return r; },
       transaction: async (fn) => {
         const cur = get(base);
         const next = fn(cur === undefined ? null : JSON.parse(JSON.stringify(cur)));

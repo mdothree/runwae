@@ -18,18 +18,22 @@ class HttpError extends Error {
   }
 }
 
-/** Verify the Firebase ID token in "Authorization: Bearer <token>". Returns uid. */
-async function requireUser(req) {
+/** Verify the Firebase ID token in "Authorization: Bearer <token>". Returns the decoded token. */
+async function requireToken(req) {
   const header = req.headers.authorization || '';
   if (!header.startsWith('Bearer ')) {
     throw new HttpError(401, 'unauthenticated', 'Sign in required');
   }
   try {
-    const decoded = await admin.auth().verifyIdToken(header.slice(7));
-    return decoded.uid;
+    return await admin.auth().verifyIdToken(header.slice(7));
   } catch (e) {
     throw new HttpError(401, 'unauthenticated', 'Invalid or expired token');
   }
+}
+
+/** Verify the Firebase ID token in "Authorization: Bearer <token>". Returns uid. */
+async function requireUser(req) {
+  return (await requireToken(req)).uid;
 }
 
 /** Load item + gig for a gig path "items/{itemId}/influencers/{gigKey}". */
@@ -73,12 +77,29 @@ async function takeLock(db, itemId, gigKey, kind, uid) {
   };
 }
 
+/**
+ * RW-SEC-10: never echo Stripe / firebase-admin error text (it can reveal account
+ * state or paths). Card declines keep Stripe's customer-facing message.
+ */
 function sendError(res, err) {
   if (err instanceof HttpError) {
     return res.status(err.status).json({ error: err.code, message: err.message });
   }
   console.error(err);
-  return res.status(400).json({ error: err.type || 'payment_failed', message: err.message || 'Payment failed' });
+  if (err && err.type === 'StripeCardError') {
+    return res.status(400).json({ error: 'card_declined', message: err.message || 'Your card was declined', decline_code: err.decline_code });
+  }
+  return res.status(400).json({ error: 'payment_failed', message: 'Payment could not be completed' });
 }
 
-module.exports = { admin, HttpError, requireUser, loadGig, itemPrice, takeLock, sendError };
+/**
+ * RW-SEC-01: the server-only record that the BRAND verified (or chose to skip
+ * verifying) the creator's post. Written only by api/payment/verify-post.
+ * Path: gig_verifications/{itemId}/{gigKey} (rules: no client read/write).
+ */
+async function loadVerification(db, itemId, gigKey, item) {
+  const v = (await db.ref(`gig_verifications/${itemId}/${gigKey}`).once('value')).val();
+  return v && item && item.uid && v.by === item.uid ? v : null;
+}
+
+module.exports = { admin, HttpError, requireUser, requireToken, loadGig, itemPrice, takeLock, sendError, loadVerification };

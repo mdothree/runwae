@@ -9,7 +9,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         //welcome control block conditionally show wel
         //hide prof content for both
         useri = user.uid;
-        database.ref().child('users/' + useri).once('value', function (snap) {
+        rwOwnUser(useri, function (snap) {
             handleVerify(user, snap);
             hyperlinkIcons(snap, useri);
             $("#navProfilePicture, #navMobileProfilePicture").attr("src", snap.val().photo_url);

@@ -1,28 +1,22 @@
+// RW-SEC-03: only the signed-in user's own count is recomputed (from their
+// private index); other users recount theirs when they load a page.
 function updateUnreadMessagesCount(snapUser, snapRecipient) {
-    firebase.database().ref().child('users/' + snapUser.key + '/conversations').once('value', function (snap) {
-        var obj = snap.val();
-        database.ref().child('users/' + snapUser.key).update({
-            "unread_messages_count": getUnreadCount(obj)
-        });
-    });
-    firebase.database().ref().child('users/' + snapRecipient.key + '/conversations').once('value', function (snap) {
-        var obj = snap.val();
-        database.ref().child('users/' + snapRecipient.key).update({
-            "unread_messages_count": getUnreadCount(obj)
-        });
-    });
+    rwOwnUser(snapUser.key, function () {});
 }
 
 
 function openConversation(snapUser, snapSender, key) {
     useri = snapUser.key;
-    database.ref().child('users/' + useri + '/conversations/' + key).update({
-        "read_or_unread": "read"
-    });
-    database.ref().child('users/' + useri + '/conversations/' + key).once('value', function (snap) {
+    rwOwnUser(useri, function (snapOwn) {
+        var convs = snapOwn.val() && snapOwn.val().conversations;
+        var entry = convs && convs[key];
+        if (!entry) return;
+        rwOwnPrivateUpdate(snapOwn, 'conversations', key, {
+            "read_or_unread": "read"
+        });
         database.ref().child('users/' + useri).update({
             "current_conversation": key,
-            "current_contact": snap.val().uid
+            "current_contact": entry.uid
         });
 
         updateUnreadMessagesCount(snapUser, snapSender);
@@ -37,7 +31,8 @@ function openConversation(snapUser, snapSender, key) {
 
 function openUserConversation(snapUser, uid) {
     useri = snapUser.key;
-    database.ref().child('users/' + useri + '/conversations').once('value', function (snap) {
+    rwOwnUser(useri, function (snapOwn) {
+        var snap = { val: function () { return snapOwn.val() && snapOwn.val().conversations ? snapOwn.val().conversations : null; } };
         if(!snap.val()){
             database.ref().child('users/' + useri).update({
                 "current_contact": uid,
