@@ -123,7 +123,7 @@
 }
 
 .rating-stars ion-icon {
-  color: var(--color-warning);
+  color: var(--rw-ink, #000); /* ink, not a second accent (style guide) */
   font-size: 16px;
 }
 
@@ -145,7 +145,7 @@
 }
 
 .rating-summary-inline ion-icon {
-  color: var(--color-warning);
+  color: var(--rw-ink, #000);
 }
 
 .rating-summary-inline strong {
@@ -869,23 +869,8 @@
   background: var(--color-bg-hover);
 }
 
-/* Skill tags rendering from industry field */
-.skill-tags:empty::before {
-  content: 'No expertise listed';
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-}
-
-/* Follow button states */
-#btnFollow .followIcon[name="checkmark-outline"] + .followText::before {
-  content: 'Following';
-}
-
-#btnFollow.following {
-  background: var(--color-primary-light);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
+/* Empty sidebar blocks (About, Expertise, Social Media) are hidden in rw-compat.css section 13; the Follow
+   button states live there too. */
 
 /* Mobile responsive improvements */
 @media (max-width: 768px) {

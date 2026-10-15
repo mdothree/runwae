@@ -84,6 +84,16 @@ function passwordStrength(password) {
     return bool;
 }
 
+// Return path after login: ?next=<same-origin path>, e.g. /login?login&next=%2Fprofile%3Fme. Only a path that
+// starts with one "/" (no "//", no backslash, no whitespace) is used, so it can't send the user off-site.
+function rwNextPath() {
+    var m = /[?&]next=([^&#]*)/.exec(window.location.search);
+    if (!m) return null;
+    var p;
+    try { p = decodeURIComponent(m[1]); } catch (e) { return null; }
+    return /^\/(?![\/\\])[^\s\\]*$/.test(p) ? p : null;
+}
+
 function signIn(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password).then(function () {
         firebase.auth().onAuthStateChanged(function (user) {
@@ -97,7 +107,7 @@ function signIn(email, password) {
                     category: 'authentication',
                     user_id: useri
                 });
-                window.location.href = 'explore';
+                window.location.href = rwNextPath() || 'explore';
             } else {
                 var myVar = setTimeout(myTimer, 2000);
 

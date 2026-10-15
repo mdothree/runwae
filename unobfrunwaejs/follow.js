@@ -1,8 +1,26 @@
+// Profile counts come from the followers/following lists already in the host snapshot (no extra reads). The
+// denormalised followers_count/following_count fields drift (e.g. 0 following with one entry in the list).
+function rwFollowCounts(hostSnap) {
+    var u = hostSnap.val() || {};
+    var n = function (o) { return o && typeof o === "object" ? Object.keys(o).length : 0; };
+    $("#followersCountStat").text(n(u.followers));
+    $("#followingCountStat").text(n(u.following));
+}
+
+// Follow button: "Follow" (person-add) or, when the visitor already follows the host, "Following" with an
+// "Unfollow" label on hover/focus (profile-marketplace.css). Disabled while a write is in flight.
+function rwFollowState(following) {
+    var $b = $("#btnFollow");
+    $b.prop("disabled", false).toggleClass("following", following).attr("aria-pressed", following ? "true" : "false");
+    $b.find("ion-icon").attr("name", following ? "checkmark-outline" : "person-add-outline");
+    $b.find(".followText").text(following ? "Following" : "Follow");
+    $b.attr("aria-label", following ? "Following. Click to unfollow" : "Follow");
+}
+
 function initFollow(visitorSnap, hostSnap) {
     $("#btnFollow").off("click");
     if (window.location.href.includes("profile")) {
-        $("#followersCount").text(hostSnap.val().followers_count);
-        $("#followingCount").text(hostSnap.val().following_count);
+        rwFollowCounts(hostSnap);
         followersReturn = displayFollowers(visitorSnap, hostSnap, 100);
         followingReturn = displayFollowing(visitorSnap, hostSnap, 100);
         if (followersReturn && followingReturn) {
@@ -12,13 +30,15 @@ function initFollow(visitorSnap, hostSnap) {
 
     database.ref().child('users/' + visitorSnap.key + '/following').orderByChild('uid').equalTo(hostSnap.key).once('value', function (snap) {
         if (!snap.val()) {
-            $("#btnFollow ion-icon").attr("name", "person-add");
+            rwFollowState(false);
             $("#btnFollow").click(function () {
+                $(this).off("click").prop("disabled", true);
                 writeFollow(visitorSnap, hostSnap);
             });
         } else {
-            $("#btnFollow ion-icon").attr("name", "person-remove");
+            rwFollowState(true);
             $("#btnFollow").click(function () {
+                $(this).off("click").prop("disabled", true);
                 writeUnfollow(visitorSnap, hostSnap);
             });
         }
@@ -103,6 +123,8 @@ function writeUnfollow(visitorSnap, hostSnap) {
                     initFollow(visitorSnap, hostSnap);
                 });
             });
+        } else {
+            initFollow(visitorSnap, hostSnap);
         }
     });
 
@@ -143,7 +165,6 @@ function displayFollowers(visitorSnap, hostSnap, limit) {
     var before = ["{{uid}}", "{{header_src}}", "{{username}}", "{{src}}", "{{name}}", "{{description}}", "{{followers}}", "{{following}}", "{{gigs}}", "{{index}}"];
     var userObj = hostSnap.val();
     var obj = hostSnap.val().followers;
-    $("#followingCount").text(hostSnap.val().followers_count);
     render();
     $("#followersSearch button").click(function () {
         render();
@@ -171,7 +192,7 @@ function displayFollowers(visitorSnap, hostSnap, limit) {
                 } else {
                     if ($("#followersDisplay").html() == "") {
 
-                        $("#followersDisplay").html("<h3 align='center' style='width:100%'>No followers to Display</h3>");
+                        $("#followersDisplay").html("<p class='rw-people__empty'>No followers yet</p>");
                     }
                     return true;
                 }
@@ -217,7 +238,7 @@ function displayFollowers(visitorSnap, hostSnap, limit) {
             }
         } else {
             if ($("#followersDisplay").html() == "") {
-                $("#followersDisplay").html("<h3 align='center' style='width:100%'>No followers to Display</h3>");
+                $("#followersDisplay").html("<p class='rw-people__empty'>No followers yet</p>");
             }
             return true;
         }
@@ -232,7 +253,6 @@ function displayFollowing(visitorSnap, hostSnap, limit) {
     var before = ["{{uid}}", "{{header_src}}", "{{username}}", "{{src}}", "{{name}}", "{{description}}", "{{followers}}", "{{following}}", "{{gigs}}", "{{index}}"];
     var userObj = hostSnap.val();
     var obj = hostSnap.val().following;
-    $("#followingCount").text(hostSnap.val().following_count);
     render();
     $("#followingSearch button").click(function () {
         render();
@@ -259,7 +279,7 @@ function displayFollowing(visitorSnap, hostSnap, limit) {
                     }
                 } else {
                     if ($("#followingDisplay").html() == "") {
-                        $("#followingDisplay").html("<h3 align='center' style='width:100%'>No follows to Display</h3>");
+                        $("#followingDisplay").html("<p class='rw-people__empty'>Not following anyone yet</p>");
                     }
                     return true;
                 }
@@ -306,7 +326,7 @@ function displayFollowing(visitorSnap, hostSnap, limit) {
             }
         } else {
             if ($("#followingDisplay").html() == "") {
-                $("#followingDisplay").html("<h3 align='center' style='width:100%'>No follows to Display</h3>");
+                $("#followingDisplay").html("<p class='rw-people__empty'>Not following anyone yet</p>");
             }
             return true;
         }

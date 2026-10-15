@@ -155,14 +155,16 @@
 
                 <!-- Stats Row -->
                 <div class="profile-stats">
-                    <div class="stat-item">
+                    <!-- Followers / Following open the list below (#connectionsSection). Counts come from the
+                         lists themselves (follow.js rwFollowCounts), not the denormalised *_count fields. -->
+                    <button type="button" class="stat-item rw-stat-link" id="statFollowers" data-list="followers" aria-expanded="false" aria-controls="connectionsSection">
                         <span class="stat-value" id="followersCountStat">0</span>
                         <span class="stat-label">Followers</span>
-                    </div>
-                    <div class="stat-item">
+                    </button>
+                    <button type="button" class="stat-item rw-stat-link" id="statFollowing" data-list="following" aria-expanded="false" aria-controls="connectionsSection">
                         <span class="stat-value" id="followingCountStat">0</span>
                         <span class="stat-label">Following</span>
-                    </div>
+                    </button>
                     <div class="stat-item">
                         <span class="stat-value" id="gigsCountStat">0</span>
                         <span class="stat-label">Gigs</span>
@@ -193,13 +195,15 @@
 
                 <!-- Action buttons -->
                 <div class="profile-actions">
-                    <button class="btn btn-primary btn-block" id="btnMessage">
+                    <!-- Hidden until profileHQ.js handleMessagePreference() says this visitor may message (owner: removed). -->
+                    <button class="btn btn-primary btn-block" id="btnMessage" style="display:none">
                         <ion-icon name="chatbubble-outline"></ion-icon>
                         Contact Me
                     </button>
                     <button class="btn btn-outline btn-block" id="btnFollow" style="display:none">
                         <ion-icon name="person-add-outline" class="followIcon"></ion-icon>
                         <span class="followText">Follow</span>
+                        <span class="followText--hover" aria-hidden="true">Unfollow</span>
                     </button>
                 </div>
 
@@ -264,17 +268,25 @@
         <!-- RIGHT: Main Content -->
         <main class="profile-main">
 
-            <!-- Navigation Tabs -->
-            <div class="profile-section" style="padding: var(--spacing-md);">
-                <div class="profile-tabs">
-                    <button class="profile-tab active marketer" id="campaigns">Campaigns</button>
-                    <button class="profile-tab active influencer" id="gigs">Services</button>
-                    <button class="profile-tab" id="following">Following</button>
-                    <button class="profile-tab" id="followers">Followers</button>
-                    <button class="profile-tab ownerDisplay" id="current">Applications</button>
-                    <button class="profile-tab ownerDisplay" id="transactions">Agreements</button>
+            <!-- Followers / Following (opened from the sidebar counts). follow.js fills #followersDisplay /
+                 #followingDisplay from #followTemplate and reads the (hidden, empty) search inputs. -->
+            <section class="profile-section" id="connectionsSection" hidden aria-labelledby="connectionsTitle">
+                <div class="section-header">
+                    <h2 id="connectionsTitle">Followers</h2>
+                    <button type="button" class="rw-btn rw-btn--text rw-btn--sm" id="btnCloseConnections">Close</button>
                 </div>
-            </div>
+                <div class="rw-people-list" id="followersSearch" data-list="followers">
+                    <input type="hidden" id="searchFollowersInput" value="">
+                    <div class="rw-people" id="followersDisplay"></div>
+                </div>
+                <div class="rw-people-list" id="followingSearch" data-list="following" hidden>
+                    <input type="hidden" id="searchFollowingInput" value="">
+                    <div class="rw-people" id="followingDisplay"></div>
+                </div>
+            </section>
+
+            <!-- Stacked sections (approved simple-ui preview): no tab row. Followers/Following open from the
+                 sidebar counts; Applications and Agreements are always listed for the owner. -->
 
             <!-- Services/Gigs Section -->
             <section class="profile-section" id="gigsBlock">
@@ -300,7 +312,7 @@
             </section>
 
             <!-- Applications Section (Owner Only) -->
-            <section class="profile-section ownerDisplay" id="currentBlock" style="display:none">
+            <section class="profile-section ownerDisplay" id="currentBlock">
                 <div class="section-header">
                     <h2>Applications</h2>
                 </div>
@@ -316,7 +328,7 @@
             </section>
 
             <!-- Agreements Section (Owner Only) -->
-            <section class="profile-section ownerDisplay" id="transactionsBlock" style="display:none">
+            <section class="profile-section ownerDisplay" id="transactionsBlock">
                 <div class="section-header">
                     <h2>Agreements</h2>
                 </div>
@@ -551,89 +563,13 @@
                 id="gigsBlock">
                 <div id="newsfeed-items-grid"></div>
             </div>
-            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12 timeline"
-                id="currentBlock" style="display:none">
-                <ul class="table-careers" id="currentDisplay">
-                    <li class="head">
-                        <span>DATE</span>
-                        <span>PARTNER</span>
-                        <span>STATUS</span>
-                        <span>PLATFORM</span>
-                        <span></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12 timeline"
-                id="transactionsBlock" style="display:none">
-                <ul class="table-careers" id="transactionsDisplay">
-                    <li class="head">
-                        <span>DATE</span>
-                        <span>PARTNER</span>
-                        <span>PAYMENT</span>
-                        <span>PLATFORM</span>
-                        <span></span>
-                    </li>
-                </ul>
-            </div>
+            <!-- Legacy #currentBlock / #transactionsBlock duplicates removed: their second #currentDisplay /
+                 #transactionsDisplay made "#currentDisplay li" count 2 rows, so the empty states never showed. -->
             <!-- Old sidebars removed - content moved to new marketplace layout -->
         </div>
     </div>
-    <!-- Followers Container -->
-    <div class="container profPanel" id="followersSearch" style="display:none">
-        <div class="row">
-            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="ui-block responsive-flex">
-                    <div class="ui-block-title">
-                        <div class="h6 title"><a class="firstName"></a>'s Followers (<a id="followersCount"></a>)
-                        </div>
-                        <form class="w-search">
-                            <div class="form-group with-button is-empty">
-                                <input class="form-control" type="text" placeholder="Search Followers..."
-                                    id="searchFollowersInput">
-                                <button onSubmit="return false;">
-                                    <ion-icon name="search-outline" class="ionicon"></ion-icon>
-                                </button>
-                                </div>
-                        </form>
-                        <a href="#" class="more">
-                            <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container profPanel" id="followersContainer" style="display:none">
-        <div class="row" id="followersDisplay"></div>
-    </div>
-    <!-- Following Container -->
-    <div class="container profPanel" id="followingSearch" style="display:none">
-        <div class="row">
-            <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="ui-block responsive-flex">
-                    <div class="ui-block-title">
-                        <div class="h6 title">Followed By <a class="firstName"></a> (<a id="followingCount"></a>)
-                        </div>
-                        <form class="w-search">
-                            <div class="form-group with-button is-empty">
-                                <input class="form-control" type="text" placeholder="Search Follows..."
-                                    id="searchFollowingInput">
-                                <button onSubmit="return false;">
-                                    <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
-                                </button>
-                                </div>
-                        </form>
-                        <a href="#" class="more">
-                            <ion-icon name="ellipsis-horizontal-outline" class="ionicon"></ion-icon>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Followers / Following lists live in #connectionsSection inside .profile-main. -->
     </main>
-    <div class="container profPanel" id="followingContainer" style="display:none">
-        <div class="row" id="followingDisplay"></div>
-    </div>
     <!-- Window-popup Update Photo -->
     <div class="modal fade" id="update-photo" tabindex="-1" role="dialog" aria-labelledby="update-photo"
         aria-hidden="true">
@@ -772,27 +708,27 @@
                                 </a>
                                 <a href="#" class="btn btn-control has-i bg-instagram btnInterest" style="display:none"
                                     id="previewInstagram">
-                                    <svg class="svg-inline--fa fa-instagram-f fa-w-9 share-icon" aria-hidden="true"
+                                    <svg class="svg-inline--fa fa-instagram-f fa-w-14 share-icon" aria-hidden="true"
                                         data-prefix="fab" data-icon="instagram" role="img"
-                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
                                         <path fill="currentColor"
                                             d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
                                         </path>
                                     </svg></a>
                                 <a href="#" class="btn btn-control has-i bg-twitter btnInterest" style="display:none"
                                     id="previewTwitter">
-                                    <svg class="svg-inline--fa fa-twitter-f fa-w-9 share-icon" aria-hidden="true"
+                                    <svg class="svg-inline--fa fa-twitter-f fa-w-16 share-icon" aria-hidden="true"
                                         data-prefix="fab" data-icon="twitter" role="img"
-                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                         <path fill="currentColor"
                                             d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
                                         </path>
                                     </svg></a>
                                 <a href="#" class="btn btn-control has-i bg-linkedin btnInterest" style="display:none"
                                     id="previewLinkedin">
-                                    <svg class="svg-inline--fa fa-linkedin-f fa-w-9 share-icon" aria-hidden="true"
+                                    <svg class="svg-inline--fa fa-linkedin-f fa-w-14 share-icon" aria-hidden="true"
                                         data-prefix="fab" data-icon="linkedin" role="img"
-                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
                                         <path fill="currentColor"
                                             d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z">
                                         </path>
@@ -873,7 +809,7 @@
                             </div>
                             <div class="control-block-button post-control-button">
                                 <a href="#" class="btn btn-control has-i bg-facebook btnInterest" style="display:none"
-                                    id="postFacebook">
+                                    id="postFacebook" data-platform="facebook">
                                     <svg class="svg-inline--fa fa-facebook-f fa-w-9 share-icon" aria-hidden="true"
                                         data-prefix="fab" data-icon="facebook-f" role="img"
                                         xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
@@ -883,28 +819,28 @@
                                     </svg>
                                 </a>
                                 <a href="#" class="btn btn-control has-i bg-instagram btnInterest" style="display:none"
-                                    id="postInstagram">
-                                    <svg class="svg-inline--fa fa-instagram-f fa-w-9 share-icon" aria-hidden="true"
+                                    id="postInstagram" data-platform="instagram">
+                                    <svg class="svg-inline--fa fa-instagram-f fa-w-14 share-icon" aria-hidden="true"
                                         data-prefix="fab" data-icon="instagram" role="img"
-                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
                                         <path fill="currentColor"
                                             d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z">
                                         </path>
                                     </svg></a>
                                 <a href="#" class="btn btn-control has-i bg-twitter btnInterest" style="display:none"
-                                    id="postTwitter">
-                                    <svg class="svg-inline--fa fa-twitter-f fa-w-9 share-icon" aria-hidden="true"
+                                    id="postTwitter" data-platform="twitter">
+                                    <svg class="svg-inline--fa fa-twitter-f fa-w-16 share-icon" aria-hidden="true"
                                         data-prefix="fab" data-icon="twitter" role="img"
-                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
                                         <path fill="currentColor"
                                             d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z">
                                         </path>
                                     </svg></a>
                                 <a href="#" class="btn btn-control has-i bg-linkedin btnInterest" style="display:none"
-                                    id="postLinkedin">
-                                    <svg class="svg-inline--fa fa-linkedin-f fa-w-9 share-icon" aria-hidden="true"
+                                    id="postLinkedin" data-platform="linkedin">
+                                    <svg class="svg-inline--fa fa-linkedin-f fa-w-14 share-icon" aria-hidden="true"
                                         data-prefix="fab" data-icon="linkedin" role="img"
-                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg="">
+                                        xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
                                         <path fill="currentColor"
                                             d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z">
                                         </path>
@@ -1170,11 +1106,11 @@
                 <a href="#" class="btn btn-control has-i bg-facebook btnInterest {{disabled}}" style="display:{{facebook_display}}; background-color:{{facebook_color}}" id="facebook">
 						<svg class="svg-inline--fa fa-facebook-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"></path></svg></a>
                  <a href="#" class="btn btn-control has-i bg-instagram btnInterest {{disabled}}" style="display:{{instagram_display}}; background-color:{{instagram_color}}" id="instagram">
-						<svg class="svg-inline--fa fa-instagram-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="instagram" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></a>
+						<svg class="svg-inline--fa fa-instagram-f fa-w-14 share-icon" aria-hidden="true" data-prefix="fab" data-icon="instagram" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg></a>
                  <a href="#" class="btn btn-control has-i bg-twitter btnInterest {{disabled}}" style="display:{{twitter_display}}; background-color:{{twitter_color}}" id="twitter">
-						<svg class="svg-inline--fa fa-twitter-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a>
+						<svg class="svg-inline--fa fa-twitter-f fa-w-16 share-icon" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a>
                  <a href="#" class="btn btn-control has-i bg-linkedin btnInterest {{disabled}}" style="display:{{linkedin_display}}; background-color:{{linkedin_color}}" id="linkedin">
-						<svg class="svg-inline--fa fa-linkedin-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="linkedin" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a>
+						<svg class="svg-inline--fa fa-linkedin-f fa-w-14 share-icon" aria-hidden="true" data-prefix="fab" data-icon="linkedin" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a>
             </div>
          </article>
     </script>
@@ -1302,84 +1238,19 @@
 <ion-icon name="close-circle-outline" class="little-delete"></ion-icon>            </div> -->
         </li>
     </script>
+        <!-- Followers / Following row (follow.js displayFollowers/displayFollowing). The click handler finds the
+             uid on the closest div.ui-block and listens on .author-content. -->
         <script type="template" id="followTemplate">
-            <div class="col col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-            <div class="ui-block relation-ui-block" id="{{uid}}">
-                 <!-- Friend Item -->
-                 <div class="friend-item">
-                    <div class="friend-header-thumb">
-                        <img src="{{header_src}}" alt="friend">
-                    </div>
-                     <div class="friend-item-content relation-item-content">
-                         <div class="more">
-                            <svg class="three-dots-icon"><use xlink:href="#three-dots-icon"></use></svg>
-                            <ul class="more-dropdown">
-                                <li>
-                                    <a href="#">Report Profile</a>
-                                </li>
-                                <li>
-                                    <a href="#">Block Profile</a>
-                                </li>
-                                <li>
-                                    <a href="#">Turn Off Notifications</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="friend-avatar">
-                            <div class="author-thumb">
-                                <img class="followImg" src="{{src}}" alt="author">
-                            </div>
-                            <div class="author-content">
-                                <a href="#" class="h5 author-name">{{name}}</a>
-                                <div class="country">{{username}}</div>
-                            </div>
-                        </div>
-                         <div class="swiper-container">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="friend-count" data-swiper-parallax="-500">
-                                        <a href="#" class="friend-count-item">
-                                            <div class="h6">{{followers}}</div>
-                                            <div class="title">Followers</div>
-                                        </a>
-                                        <a href="#" class="friend-count-item">
-                                            <div class="h6">{{following}}</div>
-                                            <div class="title">Following</div>
-                                        </a>
-                                        <a href="#" class="friend-count-item">
-                                            <div class="h6">{{gigs}}</div>
-                                            <div class="title">Gigs</div>
-                                        </a><br>
-                                        <p class="friend-about" data-swiper-parallax="-500"><br><br> {{description}}
-                                        </p>
-                                    </div>
-                                    <!-- <div class="control-block-button" data-swiper-parallax="-100">
-										<a href="#" class="btn btn-control bg-blue">
-											<ion-icon name="add-circle-outline"></ion-icon>										</a>
-										<a href="#" class="btn btn-control bg-purple">
-											<svg class="chat---messages-icon"><use xlink:href="#chat---messages-icon"></use></svg>
-										</a>
-									</div> -->
-                                </div>
-                                 <!-- <div class="swiper-slide">
-									<p class="friend-about" data-swiper-parallax="-500">
-										{{description}}
-									</p>
-									<!-- <div class="friend-since" data-swiper-parallax="-100">
-										<span>Friends Since:</span>
-										<div class="h6">December 2014</div>
-									</div>
-								</div>  -->
-                            </div>
-                             <!-- If we need pagination -->
-                            <!-- <div class="swiper-pagination"></div> -->
-                        </div>
-                    </div>
-                </div>
-                 <!-- ... end Friend Item -->
+            <div class="ui-block rw-person" id="{{uid}}">
+                <a href="#" class="author-content rw-person__link">
+                    <img class="followImg rw-person__img" src="{{src}}" alt="">
+                    <span class="rw-person__body">
+                        <span class="rw-person__name author-name">{{name}}</span>
+                        <span class="rw-person__handle">@{{username}}</span>
+                    </span>
+                </a>
             </div>
-        </div>
-    </script>
+        </script>
         <script type="template" id="favoritePagesTemplate">
             <li class="inline-items" id="{{uid}}">
             <div class="author-thumb">
@@ -1424,13 +1295,13 @@
             <svg class="svg-inline--fa fa-facebook-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M76.7 512V283H0v-91h76.7v-71.7C76.7 42.4 124.3 0 193.8 0c33.3 0 61.9 2.5 70.2 3.6V85h-48.2c-37.8 0-45.1 18-45.1 44.3V192H256l-11.7 91h-73.6v229"></path></svg>
     </script>
         <script type="template" id="instagramIconTemplate">
-            <svg class="svg-inline--fa fa-instagram-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="instagram" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>
+            <svg class="svg-inline--fa fa-instagram-f fa-w-14 share-icon" aria-hidden="true" data-prefix="fab" data-icon="instagram" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path></svg>
     </script>
         <script type="template" id="twitterIconTemplate">
-            <svg class="svg-inline--fa fa-twitter-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
+            <svg class="svg-inline--fa fa-twitter-f fa-w-16 share-icon" aria-hidden="true" data-prefix="fab" data-icon="twitter" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>
     </script>
         <script type="template" id="linkedinIconTemplate">
-            <svg class="svg-inline--fa fa-linkedin-f fa-w-9 share-icon" aria-hidden="true" data-prefix="fab" data-icon="linkedin" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 264 512" data-fa-i2svg=""><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
+            <svg class="svg-inline--fa fa-linkedin-f fa-w-14 share-icon" aria-hidden="true" data-prefix="fab" data-icon="linkedin" role="img" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg>
     </script>
         <script type="template" id="proposalTemplate">
             <div class="ui-block" id="{{key}}">
@@ -1503,40 +1374,32 @@
         <script>
             // Initialize marketplace profile enhancements after DOM is ready
             document.addEventListener('DOMContentLoaded', function() {
-                // Tab navigation for marketplace layout
-                var tabs = document.querySelectorAll('.profile-tab');
-                tabs.forEach(function(tab) {
-                    tab.addEventListener('click', function() {
-                        // Remove active class from all tabs
-                        tabs.forEach(function(t) { t.classList.remove('active'); });
-                        // Add active to clicked tab
-                        this.classList.add('active');
-
-                        // Get tab id
-                        var tabId = this.id;
-
-                        // Hide all sections
-                        document.querySelectorAll('.profile-section').forEach(function(section) {
-                            if (section.id !== 'reviewsSection') {
-                                section.style.display = 'none';
-                            }
-                        });
-
-                        // Show appropriate section based on tab
-                        if (tabId === 'campaigns' || tabId === 'gigs') {
-                            var gigsBlock = document.getElementById('gigsBlock');
-                            if (gigsBlock) gigsBlock.style.display = 'block';
-                        } else if (tabId === 'current') {
-                            var currentBlock = document.getElementById('currentBlock');
-                            if (currentBlock) currentBlock.style.display = 'block';
-                        } else if (tabId === 'transactions') {
-                            var transactionsBlock = document.getElementById('transactionsBlock');
-                            if (transactionsBlock) transactionsBlock.style.display = 'block';
-                        } else if (tabId === 'following' || tabId === 'followers') {
-                            // These are handled by existing profile JS
-                        }
+                // Followers / Following: the sidebar counts open the list in #connectionsSection (one at a
+                // time); the same count again, or Close, hides it. No tab row (stacked sections).
+                var conn = document.getElementById('connectionsSection');
+                var connTitle = document.getElementById('connectionsTitle');
+                var statBtns = document.querySelectorAll('.rw-stat-link');
+                function showConnections(which) {
+                    if (!conn) return;
+                    var open = which && (conn.hidden || conn.getAttribute('data-open') !== which);
+                    conn.hidden = !open;
+                    conn.setAttribute('data-open', open ? which : '');
+                    conn.querySelectorAll('.rw-people-list').forEach(function (l) {
+                        l.hidden = l.getAttribute('data-list') !== which;
                     });
+                    statBtns.forEach(function (b) {
+                        b.setAttribute('aria-expanded', String(open && b.getAttribute('data-list') === which));
+                    });
+                    if (open) {
+                        connTitle.textContent = which === 'following' ? 'Following' : 'Followers';
+                        conn.scrollIntoView({ block: 'start', behavior: 'smooth' });
+                    }
+                }
+                statBtns.forEach(function (b) {
+                    b.addEventListener('click', function () { showConnections(b.getAttribute('data-list')); });
                 });
+                var closeConn = document.getElementById('btnCloseConnections');
+                if (closeConn) closeConn.addEventListener('click', function () { showConnections(null); });
 
                 // Update website section visibility
                 var websiteEl = document.getElementById('website');
@@ -1550,27 +1413,6 @@
                     websiteObserver.observe(websiteEl, { attributes: true });
                 }
 
-                // Initialize stat counters from existing elements
-                function updateStatCounters() {
-                    // Get counts from existing elements or containers
-                    var followersCount = document.getElementById('followersCount');
-                    var followingCount = document.getElementById('followingCount');
-                    var gigsCount = document.getElementById('gigsCount');
-
-                    if (followersCount && document.getElementById('followersCountStat')) {
-                        document.getElementById('followersCountStat').textContent = followersCount.textContent || '0';
-                    }
-                    if (followingCount && document.getElementById('followingCountStat')) {
-                        document.getElementById('followingCountStat').textContent = followingCount.textContent || '0';
-                    }
-                    if (gigsCount && document.getElementById('gigsCountStat')) {
-                        document.getElementById('gigsCountStat').textContent = gigsCount.textContent || '0';
-                    }
-                }
-
-                // Run stat update after a short delay to allow existing JS to populate values
-                setTimeout(updateStatCounters, 1000);
-                setTimeout(updateStatCounters, 3000);
             });
         </script>
 <!-- rw: shared footer -->

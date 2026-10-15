@@ -3,6 +3,23 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         useri = user.uid;
         containerAction();
+        // /profile?me (email deep link): always the signed-in user's own profile. current_profile is set first,
+        // because the page (and later navigation) reads it.
+        if (rwProfileIsMe()) {
+            database.ref().child('users/' + useri).update({ current_profile: useri }).then(rwLoadProfile, rwLoadProfile);
+        } else {
+            rwLoadProfile();
+        }
+    } else {
+        rwSignedOut();
+    }
+});
+
+function rwProfileIsMe() {
+    return /^\?(?:.*&)?me(?:[&=]|$)/.test(window.location.search);
+}
+
+function rwLoadProfile() {
         database.ref().child('users/' + useri).once('value', function (snap) {
             if (snap.val().current_profile == useri) {
                 displayProfile(snap);
@@ -37,31 +54,14 @@ firebase.auth().onAuthStateChanged(function (user) {
                 });
             }
         });
-    } else {
-        window.location.href = "https://runwae.com/login";
-        $(document).click(function (e) {
-            e.preventDefault();
-            openModal('#open-RegisterOrLogin');
-        });
-        containerAction();
-        var encrypted = window.location.search
-        if (encrypted) {
-            encrypted = encrypted.replace('?', '');;
-        } else {
-            window.location.href = "welcome";
-        }
-        var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
-        key = decrypted.toString(CryptoJS.enc.Utf8);
-        $("#userOptions").remove();
-        database.ref().child('users/' + key).once('value', function (hostSnap) {
-            displayProfile(hostSnap);
-            handleRole(hostSnap, hostSnap);
-            handlePost(hostSnap, hostSnap);
-            visitingRemove();
-            visitor(hostSnap, hostSnap);
-        });
-    }
-});
+}
+
+// Signed out: log in, then come back to this URL. The old AES "?<uid>" public view never rendered (this page
+// always redirected first: to /login with a query, to /welcome without), so it is gone.
+function rwSignedOut() {
+    $(".ownerDisplay, #userOptions").remove();
+    window.location.href = "/login?login&next=" + encodeURIComponent(window.location.pathname + window.location.search);
+}
 
 function handlePost(visitorSnap, hostSnap) {
     if (window.location.href.includes("?post")) {
@@ -103,40 +103,28 @@ function rwSyncSectionCount() {
     new MutationObserver(update).observe(grid, { childList: true });
 }
 
+// Contact is hidden in profile.html and shown only when the host's messaging_preference lets this visitor write:
+// "everyone" (or unset) = anyone; "following" = people the host follows, plus collaborators; "collaborators" =
+// people the host has a gig with. Missing following/gigs lists used to throw (Object.keys(undefined)).
 function handleMessagePreference(visitorSnap, hostSnap) {
-    hostObj = hostSnap.val();
-    messagable = false;
-    if (!hostSnap.val().messaging_preference) {
-        messagable = true;
-    } else if (hostSnap.val().messaging_preference == "everyone") {
-        messagable = true;
-        $('#btnMessage').show();
-    } else if (hostSnap.val().messaging_preference == "following") {
-        for (followKey of Object.keys(hostObj["following"])) {
-            if (hostObj["following"][followKey]["uid"] == visitorSnap.key) {
-                messagable = true;
-                $('#btnMessage').show();
-                break;
-            }
+    var host = hostSnap.val() || {};
+    var pref = host.messaging_preference || "everyone";
+    function listed(list) {
+        if (!list) return false;
+        for (var k in list) {
+            if (list[k] && list[k]["uid"] == visitorSnap.key) return true;
         }
-        if (messagable == false) {
-            for (gigKey of Object.keys(hostObj["gigs"])) {
-                if (hostObj["gigs"][gigKey]["uid"] == visitorSnap.key) {
-                    messagable = true;
-                    $('#btnMessage').show();
-                    break;
-                }
-            }
-        }
-    } else {
-        for (gigKey of Object.keys(hostObj["gigs"])) {
-            if (hostObj["gigs"][gigKey]["uid"] == visitorSnap.key) {
-                messagable = true;
-                $('#btnMessage').show();
-                break;
-            }
-        }
+        return false;
     }
+    var collaborator = listed(host["gigs"]);
+    if (pref == "everyone") {
+        messagable = true;
+    } else if (pref == "following") {
+        messagable = listed(host["following"]) || collaborator;
+    } else {
+        messagable = collaborator;
+    }
+    $('#btnMessage').toggle(messagable);
 }
 
 
@@ -325,7 +313,7 @@ function displayCurrent(userSnap, limit) {
         getGig(0);
     } else {
         if ($("#currentDisplay li").length == 1) {
-            $("#currentDisplay").html("<h3 align='center' style='width:100%'>No current gigs to display</h3>");
+            $("#currentDisplay").html("<h3 align='center' style='width:100%'>No applications yet</h3>");
         }
     }
 
@@ -344,7 +332,7 @@ function displayCurrent(userSnap, limit) {
             }
         } else {
             if ($("#currentDisplay li").length == 1) {
-                $("#currentDisplay").html("<h3 align='center' style='width:100%'>No current gigs to display</h3>");
+                $("#currentDisplay").html("<h3 align='center' style='width:100%'>No applications yet</h3>");
             }
             return true;
         }

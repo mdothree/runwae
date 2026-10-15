@@ -139,7 +139,8 @@ function handleInterest(snapUser, el) {
 }
 
 function handleInterestWithPlan(snapUser, el) {
-    var platform = $(el).attr("id");
+    // Modal buttons are id="postInstagram" etc. and carry data-platform; feed buttons use the platform as id.
+    var platform = $(el).attr("data-platform") || $(el).attr("id");
     var key = $(el).closest(".ui-block").attr("id");
     var uid = $(el).closest("article").attr("id");
     useri = snapUser.key;
