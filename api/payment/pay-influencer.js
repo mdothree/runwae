@@ -4,6 +4,11 @@
  * Body: { gigPath }   (any client stripeAccountId/amount is ignored)
  *
  * Preconditions (server-checked):
+ *   - RW-SEC-01: a SERVER-written verification record exists at
+ *     gig_verifications/{itemId}/{gigKey} with by == the item owner (the brand).
+ *     The gig "status" is client-writable and is NOT trusted on its own.
+ *     (Interim guard: nothing writes that record yet, so every payout is
+ *     refused with 403 payout_review until api/payment/verify-post ships.)
  *   - item compensation is "money", gig status is 6 ("post verified")
  *   - {gigPath}/transaction_key points at transactions/{key} written by
  *     charge-marketer, with influencerID == caller and status "incomplete"
@@ -17,7 +22,11 @@
 const stripe = require('../lib/stripe');
 const { HttpError, requireUser, loadGig, sendError } = require('./_shared');
 
+const PAYOUT_REVIEW_MSG = 'Payouts are being reviewed; contact hello@runwae.com';
+
 module.exports = async (req, res) => {
+  // Marker so a deploy can prove this guard is live without a signed-in session.
+  res.setHeader('X-Runwae-Payout-Guard', '1');
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -27,7 +36,13 @@ module.exports = async (req, res) => {
   try {
     const uid = await requireUser(req);
     const { gigPath } = req.body || {};
-    const { db, item, gig } = await loadGig(gigPath);
+    const { db, itemId, gigKey, item, gig } = await loadGig(gigPath);
+
+    // RW-SEC-01: require the server-only verification record written for the brand.
+    const verification = (await db.ref(`gig_verifications/${itemId}/${gigKey}`).once('value')).val();
+    if (!verification || !item.uid || verification.by !== item.uid) {
+      throw new HttpError(403, 'payout_review', PAYOUT_REVIEW_MSG);
+    }
 
     if (gig.uid !== uid) throw new HttpError(403, 'forbidden', 'Only the influencer on this gig can accept payment');
     if (item.compensation !== 'money') throw new HttpError(400, 'not_money', 'This gig is not paid in money');
