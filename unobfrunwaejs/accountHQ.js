@@ -16,9 +16,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                 sendResetPassword(email);
             });
             $("#btnDeactivateAccount").click(function () {
-                analytics.logEvent('account_deactivated', {
-                    category: 'authentication'
-                });
+                // account_deactivated is logged by deactivateAccountConfirmed() (database.js) on success only
                 deactivateAccount(snap);
             });
             if (user.emailVerified == false) {
