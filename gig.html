@@ -97,6 +97,19 @@
 <link rel="stylesheet" href="https://use.typekit.net/zne4ogh.css">
 <link rel="stylesheet" href="/css/rw.css">
 <link rel="stylesheet" href="/css/rw-compat.css">
+<style>
+/* gig page: partner name first, platform as the secondary line (style guide: item title museo 700, small/muted Roboto 400) */
+.gig-header #partnerName { font-family: var(--rw-font-display, museo-sans-rounded, Nunito, system-ui, sans-serif); font-size: 22px; font-weight: 700; line-height: 1.25; color: var(--rw-ink, #000); margin: 0 0 2px; }
+.gig-header h4.platform { font-family: var(--rw-font-body, Roboto, system-ui, sans-serif); font-size: 15px; font-weight: 400; line-height: 1.4; color: var(--rw-muted, #6b6d7a); margin: 0; }
+@media (max-width: 767px) {
+  .gig-header #partnerName { font-size: 18px; }
+  .gig-header h4.platform { font-size: 14px; }
+  /* payment step + details panel: keep the summary, card field and inputs off the card edges */
+  #marketerPaymentContainer, #detailsContainer .ui-block-content { padding: 0 16px 16px; }
+  #payment-form .form-row { margin-left: 0; margin-right: 0; }
+  #payment-form label[for=card-element] { text-align: left; }
+}
+</style>
 </head>
 
 <body class="rw-app">
@@ -201,12 +214,14 @@
                                             <!--- Proposal Status for Marketer -->
                                             <div class="row marketer">
                                                 <div class="col col-lg-12 col-md-12 col-sm-12 col-12">
-                                                    <h2>Proposal Requested </h2>
-                                                    <h3>Awaiting submission by influencer</h3>
+                                                    <h2 class="hide 1">Proposal Requested </h2>
+                                                    <h3 class="hide 1">Awaiting submission by influencer</h3>
+                                                    <h2 class="hide 3">Proposal Declined</h2>
+                                                    <h3 class="hide 3">Waiting for the influencer to submit another proposal</h3>
                                                     <br>
                                                     <h4>The influencer will create a sample post so that you have<br>an
-                                                        idea of what to expect from their social media post later.</h5>
-                                                        <h5>The influencer still hasn't submitted a proposal.
+                                                        idea of what to expect from their social media post later.</h4>
+                                                        <h5>The influencer still hasn't submitted a<span class="hide 3"> new</span> proposal.
                                                             <br>Message them to send a reminder.</h5><br>
                                                         <a href="#" class="btn btn-primary btn-md"
                                                             id="skipProposalSubmission">Skip Proposal Submission</a>
@@ -216,7 +231,10 @@
                                             <div class="row influencer" id="proposalWrite">
                                                 <!--- Influencer Write Proposal-->
                                                 <div class="col col-lg-8 m-auto col-md-12 col-sm-12 col-12"><br>
-                                                    <h3>Marketer requested a proposal</h3>
+                                                    <h3 class="hide 1">Marketer requested a proposal</h3>
+                                                    <h3 class="hide 3">Marketer declined the proposal</h3>
+                                                    <h5 class="hide 3">Submit another proposal to be considered for the
+                                                        opportunity.</h5>
                                                     <h5>Create a sample post that is representative of<br>what your
                                                         social media post will be.</h5>
                                                     <br><br>
@@ -326,7 +344,7 @@
                                                 <div class="col col-xl-4 col-lg-3 col-md-2 col-sm-1 col-12"></div>
                                             </div>
                                         </div>
-                                        <div class="ui-block-content subContainer hide 2 3 4 5 6 7"
+                                        <div class="ui-block-content subContainer hide 2 4 5 6 7"
                                             id="proposalResponseContainer">
                                             <!-- Personal Information Form  -->
                                             <div class="row marketer">
@@ -339,10 +357,7 @@
                                                     <a href="#" class="btn btn-primary btn-lg"
                                                         id="btnDeclineProposal">Decline Proposal</a>
                                                 </div>
-                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12 hide 3 4 5 6 7">
-                                                    <h3 class="hide 3">Proposal Declined</h3>
-                                                    <h5 class="hide 3"><br>Waiting for the influencer to submit another
-                                                        proposal.</h5>
+                                                <div class="col col-lg-12 col-md-12 col-sm-12 col-12 hide 4 5 6 7">
                                                     <h3 class="hide 4 5 6 7">Proposal Accepted</h3><br><br>
                                                     <a href="#"
                                                         class="hide 4 5 6 7 btn btn-primary btn-md download-content"
@@ -357,15 +372,11 @@
                                                         <h5>The marketer hasn't accepted or declined your proposal
                                                             yet.<br>Message them to send a reminder.</h5>
                                                     </div>
-                                                    <h3 class="hide 3">Marketer declined the proposal<br>
-                                                        <h5>Submit another proposal to be considered for the
-                                                            opportunity.</h5>
-                                                    </h3>
                                                     <h3 class="hide 4 5 6 7">Marketer accepted the proposal</h3>
                                                     <br><br>
                                                     <a href="#"
                                                         class="hide 4 5 6 7 btn btn-primary btn-md download-content"
-                                                        id="btnInfluncerDownloadProposal" download>Download
+                                                        id="btnInfluencerDownloadProposal" download>Download
                                                         Content</a>
                                                 </div>
                                             </div>

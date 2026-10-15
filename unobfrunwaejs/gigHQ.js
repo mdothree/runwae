@@ -12,13 +12,19 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         useri = user.uid;
         email = user.email;
+        // Email deep link /gig?item=<itemKey>&gig=<gigKey>: open that gig (participants only).
+        rwGigOpenFromLink(useri, function () {
         //itemkey =>  items/ itemkey/ influencers/ gigkey
         database.ref().child('users/' + useri).once('value', function (snapUser) {
             var role = snapUser.val().role;
             var path = snapUser.val().current_gig;
+            // No gig chosen (or a malformed one): the gig list lives on /notifications.
+            if (!rwGigStoredPathOk(path)) return rwGigLeave();
             var itemKey = path.split("/")[1];
             database.ref().child('items/' + itemKey).once('value', function (snapItem) {
                 database.ref().child(path).once('value', function (snapGig) {
+                    // The gig was declined/removed since it was opened.
+                    if (!snapItem.val() || !snapGig.val()) return rwGigLeave();
                     database.ref().child('users/' + snapItem.val().uid).once('value', function (snapMarketer) {
                         database.ref().child('users/' + snapGig.val().uid).once('value', function (snapInfluencer) {
                             displayDetails(snapMarketer, snapInfluencer, snapItem, snapGig, role);
@@ -36,6 +42,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                                 }
                             } else if (snapGig.val().status > 1) {
                                 displayProposal(snapMarketer, snapInfluencer, snapItem, snapGig, path);
+                                if (role == "influencer") rwInfluencerDownloadLink(snapInfluencer, path);
                             }
                             if (snapGig.val().status == 2) {
                                 if (role == "marketer") {
@@ -83,6 +90,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                 });
             });
         });
+        });
     }
 });
 /////////////////////////////////UTIL/////////////////////////////////////
@@ -104,7 +112,10 @@ function writeDispute(marketerID, influencerID, path, dispute) {
 }
 
 function progressDisplay(status) {
-    if (status > 2) {
+    if (status == 3) {
+        // Declined: back to the Proposal step (declined note + resubmit / skip), later steps locked.
+        status = 1;
+    } else if (status > 2) {
         status = status - 1;
     }
     for (i = status + 1; i <= 6; i++) {
@@ -247,8 +258,12 @@ function writeProposalAssist(snapMarketer, snapInfluencer, snapItem, snapGig, pa
                     .addClass('text-success')
                     .html("AI generated!" + remainingText);
 
-                // Show submit button now that we have content
-                $("#btnWriteProposal").show();
+                // Submit appears only once the photo is attached too (the proposal needs both).
+                if (rwProposalHasPhoto()) {
+                    $("#btnWriteProposal").show();
+                } else {
+                    $("#writeProposalAlert").html("AI generated!" + remainingText + " Upload a photo to submit the proposal.");
+                }
 
                 // Log warnings for debugging (only in console)
                 if (result.warnings && result.warnings.length > 0) {
@@ -279,7 +294,9 @@ function writeProposalAssist(snapMarketer, snapInfluencer, snapItem, snapGig, pa
         event.stopImmediatePropagation();
         if (checkFields()) {
             var file = document.getElementById('btnPhoto').files[0];
-            if (fileOk(file)) {
+            if (!file) {
+                $("#writeProposalAlert").removeClass('text-info text-success').html("*Photo required: upload a photo for the proposal");
+            } else if (fileOk(file)) {
                 $("#btnWriteProposal").hide();
                 $("#writeProposalAlert").html("Submitting Proposal...");
                 writeProposal(snapMarketer, snapInfluencer, snapItem, snapGig, path, file);
@@ -363,6 +380,10 @@ document.getElementById('btnPhoto').addEventListener('change', e => {
 function fileOk(file) {
     sizeok = false;
     typeok = false;
+    if (!file) {
+        $("#writeProposalAlert").html("*Photo required: upload a photo for the proposal");
+        return false;
+    }
     if (file.size < 100 * Math.pow(10, 6)) {
         sizeok = true;
     } else {
@@ -761,4 +782,68 @@ function convertToWatermarkedImage(url) {
     ctx.fillStyle = "white";
     ctx.fillText("RUNWAE PROPOSAL", 10, 20);
     return canvas.toDataURL();
+}
+
+/////////////////////////////////DEEP LINK, GUARDS & DOWNLOAD/////////////////////////////////////
+// Agreement emails link to /gig?item=<itemKey>&gig=<gigKey>. Both keys must be plain RTDB keys and the
+// signed-in user must be the gig's brand (items/<item>/uid) or creator (.../influencers/<gig>/uid);
+// then users/<uid>/current_gig is set and the page renders as usual. Anything else goes to /notifications.
+var RW_GIG_KEY_RE = /^[A-Za-z0-9_-]{1,128}$/;
+
+function rwGigLeave() {
+    window.location.href = "notifications";
+}
+
+function rwGigStoredPathOk(path) {
+    return typeof path === "string" && /^items\/[^\/.#$\[\]]+\/influencers\/[^\/.#$\[\]]+$/.test(path);
+}
+
+function rwGigOpenFromLink(uid, done) {
+    var params = new URLSearchParams(window.location.search);
+    if (!params.has("item") && !params.has("gig")) return done();
+    var itemKey = params.get("item") || "";
+    var gigKey = params.get("gig") || "";
+    if (!RW_GIG_KEY_RE.test(itemKey) || !RW_GIG_KEY_RE.test(gigKey)) return rwGigLeave();
+    var gigPath = "items/" + itemKey + "/influencers/" + gigKey;
+    database.ref().child("items/" + itemKey + "/uid").once("value", function (snapOwner) {
+        database.ref().child(gigPath + "/uid").once("value", function (snapCreator) {
+            var owner = snapOwner.val();
+            var creator = snapCreator.val();
+            if (!owner || !creator || (uid !== owner && uid !== creator)) return rwGigLeave();
+            var write = database.ref().child("users/" + uid).update({
+                "current_gig": gigPath
+            });
+            if (write && typeof write.then === "function") write.then(function () { done(); }, rwGigLeave);
+            else done();
+        }, rwGigLeave);
+    }, rwGigLeave);
+}
+
+// http(s) only: relative URLs resolve against this page; javascript:, data:, etc. give "".
+function rwGigHttpUrl(value) {
+    if (typeof value !== "string" || !value.trim()) return "";
+    try {
+        var u = new URL(value.trim(), window.location.href);
+        return (u.protocol === "https:" || u.protocol === "http:") ? u.href : "";
+    } catch (e) {
+        return "";
+    }
+}
+
+function rwProposalHasPhoto() {
+    var input = document.getElementById("btnPhoto");
+    return !!(input && input.files && input.files[0]);
+}
+
+// The creator's own "Download Content" button (status 4+): the submitted proposal photo.
+function rwInfluencerDownloadLink(snapInfluencer, path) {
+    database.ref().child(path + "/proposal/photo_url").once("value", function (snapUrl) {
+        var $btn = $("#btnInfluencerDownloadProposal");
+        var href = rwGigHttpUrl(snapUrl.val());
+        if (!href) {
+            $btn.remove();
+            return;
+        }
+        $btn.attr("href", href).attr("download", snapInfluencer.val().name + "'s content");
+    });
 }

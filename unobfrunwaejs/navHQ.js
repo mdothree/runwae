@@ -56,9 +56,12 @@ firebase.auth().onAuthStateChanged(function (user) {
     } else {
         $('.nav-prof').remove();
         // /explore stays open signed out: it shows the public feed (js/rw-public-explore.js).
-        if (window.location.href.includes("account") || window.location.href.includes("gig") || window.location.href.includes("messages") || window.location.href.includes("notifications")) {
+        // Match on the path only: /login?login&next=%2Fgig... must not bounce back to /login.
+        var rwSignedOutPath = window.location.pathname;
+        if (rwSignedOutPath.includes("account") || rwSignedOutPath.includes("gig") || rwSignedOutPath.includes("messages") || rwSignedOutPath.includes("notifications")) {
             //window.location.href = "runwae.com/welcome";
-            window.location.href = "https://runwae.com/login";
+            // Sign in, then come back to this page (e.g. an agreement email's /gig?item=..&gig=.. link).
+            window.location.href = "https://runwae.com/login?login&next=" + encodeURIComponent(window.location.pathname + window.location.search);
         }
         $(".logo").click(function () {
             window.location.href = "https://runwae.com/welcome";

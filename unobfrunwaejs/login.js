@@ -1,6 +1,6 @@
 (function () {
     auth();
-    if (window.location.href.split("?")[1] == "login") {
+    if (/^login(&|$)/.test(window.location.search.slice(1))) {
         $('#loginPanel').addClass("active show");
     } else {
         $('#signUpPanel').addClass("active show");

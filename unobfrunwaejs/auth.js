@@ -97,7 +97,7 @@ function signIn(email, password) {
                     category: 'authentication',
                     user_id: useri
                 });
-                window.location.href = 'explore';
+                window.location.href = rwLoginNext() || 'explore';
             } else {
                 var myVar = setTimeout(myTimer, 2000);
 
@@ -221,5 +221,19 @@ function createUser(email, password) {
                 }
             });
         }
+    }
+}
+
+// Return path after sign-in: /login?login&next=<path>. Same-origin paths only ("/gig?item=..");
+// absolute, protocol-relative ("//host", "/\\host") and javascript: values are ignored.
+function rwLoginNext() {
+    try {
+        var next = new URLSearchParams(window.location.search).get('next');
+        if (!next || next.charAt(0) !== '/' || /^\/[\/\\]/.test(next) || /[\u0000-\u001f\u007f]/.test(next)) return '';
+        var u = new URL(next, window.location.origin);
+        if (u.origin !== window.location.origin) return '';
+        return u.pathname + u.search + u.hash;
+    } catch (e) {
+        return '';
     }
 }
