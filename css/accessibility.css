@@ -251,3 +251,10 @@ a:hover {
     border: none;
   }
 }
+
+/* RUNWAE-NEW-UNLABELLED-NAV (2026-10-18): the shop control is a real link now; keep the icon look. */
+a.control-icon.rw-nav-link,
+a.nav-link.rw-nav-link {
+  color: inherit;
+  text-decoration: none;
+}

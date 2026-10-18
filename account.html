@@ -113,11 +113,11 @@
                 </div>
             </form>
             <div class="control-block">
-                <div class="control-icon more has-items">
-                    <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
-                </div>
-                <div class="control-icon more has-items">
-                    <ion-icon class="ionicon mail-icon" name="mail-outline"></ion-icon>
+                <a href="explore" class="control-icon more has-items rw-nav-link" aria-label="Shop: browse brands and gigs" title="Shop: browse brands and gigs">
+                    <ion-icon class="ionicon storefront-icon" name="storefront-outline" aria-hidden="true"></ion-icon>
+                </a>
+                <div class="control-icon more has-items" role="button" tabindex="0" aria-haspopup="true" aria-label="Messages" title="Messages">
+                    <ion-icon class="ionicon mail-icon" name="mail-outline" aria-hidden="true"></ion-icon>
                     <div class="label-avatar bg-purple unreadMessagesCount"></div>
                     <div class="more-dropdown more-with-triangle triangle-top-center">
                         <div class="ui-block-title ui-block-title-small">
@@ -132,8 +132,8 @@
                         <a href="messages" class="view-all bg-purple">View All Messages</a>
                     </div>
                 </div>
-                <div class="control-icon more has-items">
-                    <ion-icon class="ionicon notifications-icon" name="notifications-outline"></ion-icon>
+                <div class="control-icon more has-items" role="button" tabindex="0" aria-haspopup="true" aria-label="Notifications" title="Notifications">
+                    <ion-icon class="ionicon notifications-icon" name="notifications-outline" aria-hidden="true"></ion-icon>
                     <div class="label-avatar bg-primary unreadNotificationsCount"></div>
                     <div class="more-dropdown more-with-triangle triangle-top-center">
                         <div class="ui-block-title ui-block-title-small">
@@ -150,11 +150,11 @@
                 </div>
                 <!-- Theme Toggle -->
                 <div class="control-icon theme-toggle" title="Toggle dark mode" tabindex="0" role="button" aria-label="Toggle dark mode">
-                    <ion-icon name="moon-outline"></ion-icon>
+                    <ion-icon name="moon-outline" aria-hidden="true"></ion-icon>
                 </div>
                 <!-- LLM Chat Toggle -->
                 <div class="control-icon llm-chat-toggle" title="Open AI Assistant" tabindex="0" role="button" aria-label="Open AI Assistant">
-                    <ion-icon name="chatbubbles-outline"></ion-icon>
+                    <ion-icon name="chatbubbles-outline" aria-hidden="true"></ion-icon>
                 </div>
                 <div class="author-page author vcard inline-items more nav-prof">
                     <div class="author-thumb">
@@ -217,14 +217,14 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#" role="tab">
+                    <a class="nav-link rw-nav-link" href="explore" aria-label="Shop: browse brands and gigs" title="Shop: browse brands and gigs">
                         <div class="control-icon has-items">
                             <ion-icon class="ionicon storefront-icon" name="storefront-outline"></ion-icon>
                         </div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#chat" role="tab">
+                    <a class="nav-link" data-toggle="tab" href="#chat" role="tab" aria-label="Messages" title="Messages">
                         <div class="control-icon has-items">
                             <div class="control-icon has-items">
                                 <ion-icon class="ionicon" name="mail-outline"></ion-icon>
@@ -234,7 +234,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#notification" role="tab">
+                    <a class="nav-link" data-toggle="tab" href="#notification" role="tab" aria-label="Notifications" title="Notifications">
                         <div class="control-icon has-items">
                             <div class="control-icon has-items">
                                 <ion-icon class="ionicon" name="notifications-outline"></ion-icon>
@@ -244,7 +244,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#search" role="tab">
+                    <a class="nav-link" data-toggle="tab" href="#search" role="tab" aria-label="Search" title="Search">
                         <ion-icon class="ionicon search-icon" name="search-outline"></ion-icon>
                     </a>
                 </li>
