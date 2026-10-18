@@ -210,13 +210,14 @@
                                                                                             </div>
                                             <div class="remember">
                                                 <div class="checkbox clicked">
-                                                    <label>
+                                                    <label for="termsCheckbox">
                                                         <input name="optionsCheckboxes" type="checkbox"
-                                                            id="termsCheckbox"><span class="checkbox-material"><span
+                                                            id="termsCheckbox" aria-describedby="termsLinkNote"><span class="checkbox-material"><span
                                                                 class="check"></span></span>
-                                                        I accept the <a href="terms">Terms and Conditions</a> of the
-                                                        website
+                                                        I accept the Terms and Conditions of the website
                                                     </label>
+                                                    <!-- RUNWAE-NEW-TERMS-CLICK-SUBMITS: the link is outside the label (a click on the label only ticks the box) -->
+                                                    <p class="terms-link-note" id="termsLinkNote"><a href="terms" target="_blank" rel="noopener">Read the Terms and Conditions</a> (opens in a new tab)</p>
                                                 </div>
                                             </div>
                                             <p style="color: #c0392b" id="error" role="alert"></p>
