@@ -1,5 +1,5 @@
 {
-  "buildCommand": "node deployment/inject-config.js && node deployment/build-dist.js",
+  "buildCommand": "node scripts/copy-lint.mjs && node deployment/inject-config.js && node deployment/build-dist.js",
   "outputDirectory": "dist",
   "cleanUrls": true,
   "redirects": [
