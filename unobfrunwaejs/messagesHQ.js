@@ -52,6 +52,26 @@ function writeMessage(snapUser) {
 }
 
 function write(snapUser, snapRecipient, conversation) {
+    // Capture the draft first; it is only cleared once the database acknowledges the message write.
+    var draft = $("textarea#messageInput").val();
+    database.ref().child('conversations/' + conversation).push().set({
+        "uid": snapUser.key,
+        "body": draft,
+        "time": dNow
+    }, function (err) {
+        if (err) {
+            // Write failed: keep the draft so the user can retry, and do not email or touch conversation state.
+            var failMsg = "Your message was not sent. Please try again.";
+            if (typeof toast !== "undefined" && toast && typeof toast.error === "function") { toast.error(failMsg); }
+            else if (typeof alert === "function") { alert(failMsg); }
+            return;
+        }
+        $("textarea#messageInput").val("");
+        afterMessageWritten(snapUser, snapRecipient, conversation, draft);
+    });
+}
+
+function afterMessageWritten(snapUser, snapRecipient, conversation, draft) {
     database.ref().child('users/' + snapUser.key + '/conversations/' + conversation).update({
         "read_or_unread": "read",
         "uid": snapRecipient.key,
@@ -62,30 +82,14 @@ function write(snapUser, snapRecipient, conversation) {
         "current_conversation": conversation
     });
 
-    //    if (groupMessage) {
-    //        database.ref().child('groups/' + recieverId + '/members').orderByChild('member').on('child_added', function (snap) {
-    //            database.ref().child('users/' + snap.val().member + '/conversations/' + conversationId).update({
-    //                "read_or_unread": "unread",
-    //                "partnerId": receiverId,
-    //                "neg_time": dNow * -1
-    //            });
-    //        });
-    //    }
-
     database.ref().child('users/' + snapRecipient.key + '/conversations/' + conversation).update({
         "read_or_unread": "unread",
         "uid": snapUser.key,
         "time": dNow
     });
 
-    database.ref().child('conversations/' + conversation).push().set({
-        "uid": snapUser.key,
-        "body": $("textarea#messageInput").val(),
-        "time": dNow
-    });
-    $("textarea#messageInput").val("");
     title = "Message from " + snapUser.val().name;
-    body = "Hey " + snapRecipient.val().name.split(" ")[0] + "! " + snapUser.val().name + " sent you a message on Runwae. It reads: " + $("textarea#messageInput").val();
+    body = "Hey " + snapRecipient.val().name.split(" ")[0] + "! " + snapUser.val().name + " sent you a message on Runwae. It reads: " + draft;
     bodyNote = "Please don't hesitate to email us if there's anything you think we can do better!";
     moreLink = "Runwae.com/messages";
     actionText = "Reply Now";
@@ -102,6 +106,4 @@ function write(snapUser, snapRecipient, conversation) {
         displayConversations(snapUser, 100);
         displayConversation(snapUser, snapUser.val().current_conversation);
     });
-
-
 }
