@@ -15,6 +15,11 @@
       "statusCode": 301
     },
     {
+      "source": "/help",
+      "destination": "/faqs",
+      "statusCode": 302
+    },
+    {
       "source": "/blog/HowToMarketSkincareProdcutsUsingInfluencers",
       "destination": "/blog/HowToMarketSkincareProductsUsingInfluencers",
       "permanent": true
